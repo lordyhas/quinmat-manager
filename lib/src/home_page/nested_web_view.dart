@@ -129,7 +129,7 @@ class NestedWebView extends StatelessWidget {
                               margin: const EdgeInsets.symmetric(
                                   vertical: 16.0),
                               child: const Text(
-                                "Find a product for rent, "
+                                "Trouver un produit specifique, "
                                     "${AppConstant.shortname}",
                                 style: TextStyle(
                                     fontSize: 18, color: Colors.white70),
