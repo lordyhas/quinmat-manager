@@ -33,7 +33,7 @@ class AddProductPage extends StatelessWidget {
           icon: const Icon(Icons.close),
           onPressed: Navigator.of(context).pop,
         ),
-        title: const Text("Faire louer"),
+        title: const Text("Enregistrer"),
       ),
       body: const RentScreen(),
     );
@@ -52,13 +52,13 @@ class _RentScreenState extends State<RentScreen> {
   CroppedFile? croppedFile;
   final GlobalKey<FormState> validator = GlobalKey<FormState>();
   late final List<TextEditingController> controllers;
-  late final Map<String, TextEditingController> spaceCtrl;
+  //late final Map<String, TextEditingController> spaceCtrl;
   late final Map<String, TextEditingController> vehicleCtrl;
 
   @override
   void initState() {
-    RentalSpace space = RentalSpace.empty;
-    RentalVehicle vehicle = RentalVehicle.empty;
+    //RentalSpace space = RentalSpace.empty;
+    Product vehicle = Product.empty;
     super.initState();
     _index = StepperStep.zero;
     controllers = List<TextEditingController>.generate(
@@ -78,9 +78,7 @@ class _RentScreenState extends State<RentScreen> {
       'images': TextEditingController(),
       'isTaken': TextEditingController(),
     };*/
-    spaceCtrl = space
-        .toMap()
-        .map((key, value) => MapEntry(key, TextEditingController()));
+
     vehicleCtrl = vehicle
         .toMap()
         .map((key, value) => MapEntry(key, TextEditingController()));
@@ -123,17 +121,7 @@ class _RentScreenState extends State<RentScreen> {
             case StepperStep.one:
               if (croppedFile.isNull) break;
 
-              if (context.read<RentalControllerBloc>().isImmovable) {
-                RentalSpace space = context
-                    .read<RentalControllerBloc>()
-                    .state
-                    .space
-                    .copyWith(images: [croppedFile!.path]);
-                context
-                    .read<RentalControllerBloc>()
-                    .addSpaceRentalImaged(space);
-              } else {
-                RentalVehicle vehicle = context
+                Product vehicle = context
                     .read<RentalControllerBloc>()
                     .state
                     .vehicle
@@ -141,7 +129,7 @@ class _RentScreenState extends State<RentScreen> {
                 context
                     .read<RentalControllerBloc>()
                     .addVehicleRentalImaged(vehicle);
-              }
+
 
               setState(() {
                 _index = StepperStep.two;
@@ -185,8 +173,8 @@ class _RentScreenState extends State<RentScreen> {
               child: SizedBox(
                 child: RentForm(
                   controllers: controllers,
-                  spaceController: spaceCtrl,
-                  vehicleController: vehicleCtrl,
+                  //spaceController: spaceCtrl,
+                  productController: vehicleCtrl,
                   validator: validator,
                   onComplete: (_) {},
                   onValidForm: (_) {},
@@ -221,7 +209,7 @@ class _RentScreenState extends State<RentScreen> {
                       context.read<RentalControllerBloc>().isImmovable,
                   ifTrue: Column(
                     children: [
-                      if (context
+                      /*if (context
                           .read<RentalControllerBloc>()
                           .space
                           .images
@@ -251,7 +239,7 @@ class _RentScreenState extends State<RentScreen> {
                               ),
                             ),
                           ),
-                        ),
+                        ),*/
                       const SizedBox(
                         width: 16.0,
                       ),
@@ -261,7 +249,7 @@ class _RentScreenState extends State<RentScreen> {
                             final val = context
                                 .read<RentalControllerBloc>()
                                 .state
-                                .space;
+                                .vehicle;
                             return Text.rich(TextSpan(
                               children: [
                                 const TextSpan(
@@ -270,7 +258,7 @@ class _RentScreenState extends State<RentScreen> {
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
-                                TextSpan(text: "${val.label} \n"),
+                                TextSpan(text: "${val.name} \n"),
                                 const TextSpan(
                                   text: "Description : ",
                                   style: TextStyle(
@@ -284,7 +272,7 @@ class _RentScreenState extends State<RentScreen> {
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
-                                TextSpan(text: "${val.room} \n"),
+                                TextSpan(text: "${val.stockNumber} \n"),
                                 const TextSpan(
                                   text: "Prix : ",
                                   style: TextStyle(
@@ -299,8 +287,7 @@ class _RentScreenState extends State<RentScreen> {
                                   ),
                                 ),
                                 TextSpan(
-                                    text: "${RentalSpace
-                                        .spaceTypeString[val.spaceType]} \n"),
+                                    text: "${Product.departments[val.productType]} \n"),
                               ],
                             ));
                           }),
@@ -357,7 +344,7 @@ class _RentScreenState extends State<RentScreen> {
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
-                                TextSpan(text: "${val.mark} \n"),
+                                TextSpan(text: "${val.name} \n"),
                                 const TextSpan(
                                   text: "Description : ",
                                   style: TextStyle(
@@ -371,7 +358,7 @@ class _RentScreenState extends State<RentScreen> {
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
-                                TextSpan(text: "${val.door} \n"),
+                                TextSpan(text: "${val.promotionPrice} \n"),
                                 const TextSpan(
                                   text: "Prix : ",
                                   style: TextStyle(
@@ -386,8 +373,8 @@ class _RentScreenState extends State<RentScreen> {
                                   ),
                                 ),
                                 TextSpan(
-                                    text: "${RentalVehicle
-                                        .vehicleTypeString[val.vehicleType]} \n"),
+                                    text: "${Product
+                                        .departments[val.productType]} \n"),
                               ],
                             ));
                           }),
