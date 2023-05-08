@@ -139,10 +139,7 @@ class QuinmatApp extends StatelessWidget {
                   ),
                 ),
                 //supportedLocales: const <Locale>[Locale('fr')],
-                routerConfig: AppRouter(
-                  shellNavigatorKey: _shellNavigatorKey,
-                  rootNavigatorKey: _rootNavigatorKey,
-                ),
+                routerConfig: AppRouter(key: _rootNavigatorKey,),
               );
             },
           );
