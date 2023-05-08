@@ -14,21 +14,22 @@ part 'rental_controller_state.dart';
 class RentalControllerBloc
     extends Bloc<RentalControllerEvent, RentalControllerState> {
   RentalControllerBloc() : super(const RentalControllerState.initial()) {
-    on<SpaceRentalPassed>(_onSpaceRentalPassed);
-    on<SpaceRentalImaged>(_onSpaceRentalImaged);
-    on<SpaceRentalCompleted>(_onSpaceRentalCompleted);
+    //on<SpaceRentalPassed>(_onSpaceRentalPassed);
+    //on<SpaceRentalImaged>(_onSpaceRentalImaged);
+    //on<SpaceRentalCompleted>(_onSpaceRentalCompleted);
     on<VehicleRentalPassed>(_onVehicleRentalPassed);
     on<VehicleRentalImaged>(_onVehicleRentalImaged);
     on<VehicleRentalCompleted>(_onVehicleRentalCompleted);
   }
 
-  RentalType get rentalType => state.rentalType;
+  //RentalType get rentalType => state.rentalType;
   bool get isMovable => state.isMovable;
   bool get isImmovable => !state.isMovable;
 
-  RentalVehicle get vehicle =>  state._vehicle;
-  RentalSpace get space =>  state._space;
+  Product get vehicle =>  state._vehicle;
+  //RentalSpace get space =>  state._space;
 
+  /*
   void _onSpaceRentalPassed(SpaceRentalPassed event, 
       Emitter<RentalControllerState> emit){
     emit(RentalControllerState.space(event.rental));
@@ -50,7 +51,7 @@ class RentalControllerBloc
 
   }
   void addSpaceRentalCompleted(RentalSpace r) => add(SpaceRentalCompleted(r));
-
+  */
 
   // --- --- ---
 
@@ -59,7 +60,7 @@ class RentalControllerBloc
       Emitter<RentalControllerState> emit){
     emit(RentalControllerState.vehicle(event.rental));
   }
-  void addVehicleRentalPassed(RentalVehicle r) => add(VehicleRentalPassed(r));
+  void addVehicleRentalPassed(Product r) => add(VehicleRentalPassed(r));
 
   void _onVehicleRentalImaged(VehicleRentalImaged event,
       Emitter<RentalControllerState> emit){
@@ -68,14 +69,14 @@ class RentalControllerBloc
         status: RentalControllerStatus.addingImages
     ));
   }
-  void addVehicleRentalImaged(RentalVehicle r) => add(VehicleRentalImaged(r));
+  void addVehicleRentalImaged(Product r) => add(VehicleRentalImaged(r));
 
   void _onVehicleRentalCompleted(VehicleRentalCompleted event,
       Emitter<RentalControllerState> emit){
     emit(RentalControllerState.complete(event.rental));
   }
 
-  void addVehicleRentalCompleted(RentalVehicle r) =>
+  void addVehicleRentalCompleted(Product r) =>
       add(VehicleRentalCompleted(r));
   
 

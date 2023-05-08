@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 class FirebaseManager {
   final User user;
 
+
   FirebaseManager._({this.user = User.empty});
 
   FirebaseManager.user(User user) : this._(user: user);
@@ -93,7 +94,7 @@ class FirebaseManager {
     return;
   }
 
-
+/*
   Future<void> addRentalSpace({required RentalSpace productData}) {
     return collectProduct
         .add(productData.toMap())
@@ -130,15 +131,15 @@ class FirebaseManager {
     return list;
   }
 
-
-  Future<void> addRentalVehicle({required RentalVehicle productData}) {
+*/
+  Future<void> addRentalVehicle({required Product productData}) {
     return collectProduct
         .add(productData.toMap())
         .then((value) => debugPrint("Product Added : $productData"))
         .catchError((error) => debugPrint("Failed to add data: $error"));
   }
 
-  Future<void> setRentalVehicle({required RentalVehicle productData}) {
+  Future<void> setRentalVehicle({required Product productData}) {
     return collectProduct
         .doc(productData.id)
         .set(productData.toMap())
@@ -147,22 +148,22 @@ class FirebaseManager {
   }
 
 
-  Future<List<RentalVehicle>> getAllRentalVehicle() async {
+  Future<List<Product>> getAllRentalVehicle() async {
     var productQuery = await collectProduct.get();
-    List<RentalVehicle> list = productQuery.docs
-        .map((e) => RentalVehicle.fromMap(e.data()))
+    List<Product> list = productQuery.docs
+        .map((e) => Product.fromMap(e.data()))
         .toList();
     return list;
   }
 
-  Future<List<RentalVehicle>> getRentalVehicleListFromUser({
+  Future<List<Product>> getRentalVehicleListFromUser({
     required User user
   }) async {
     var productQuery = await collectProduct
         .where('owner', isEqualTo: user.id)
         .get();
-    List<RentalVehicle> list =
-    productQuery.docs.map((e) => RentalVehicle.fromMap(e.data())).toList();
+    List<Product> list =
+    productQuery.docs.map((e) => Product.fromMap(e.data())).toList();
 
     return list;
   }

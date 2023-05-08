@@ -7,6 +7,7 @@ abstract class RentalControllerEvent extends Equatable {
   List<Object> get props => [];
 }
 
+/*
 
 
 class SpaceRentalPassed extends RentalControllerEvent {
@@ -34,10 +35,11 @@ class SpaceRentalCompleted extends RentalControllerEvent {
   List<Object> get props => [rental];
 }
 
+*/
 
 
 class VehicleRentalPassed extends RentalControllerEvent {
-  final RentalVehicle rental;
+  final Product rental;
 
   const VehicleRentalPassed(this.rental);
 
@@ -46,7 +48,7 @@ class VehicleRentalPassed extends RentalControllerEvent {
 }
 
 class VehicleRentalImaged extends RentalControllerEvent {
-  final RentalVehicle rental;
+  final Product rental;
 
   const VehicleRentalImaged(this.rental);
 
@@ -55,7 +57,7 @@ class VehicleRentalImaged extends RentalControllerEvent {
 }
 
 class VehicleRentalCompleted extends RentalControllerEvent {
-  final RentalVehicle rental;
+  final Product rental;
 
   const VehicleRentalCompleted(this.rental);
 

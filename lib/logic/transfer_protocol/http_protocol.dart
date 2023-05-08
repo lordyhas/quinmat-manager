@@ -13,32 +13,36 @@ abstract class HttpProtocol<T> {
 
 class TransferProtocol {
   final String? url;
+  final CRUD mode;
+  final MethodProtocol method;
 
-  const TransferProtocol({this.url});
+  const TransferProtocol({
+    required this.mode,
+    this.url,
+    this.method = MethodProtocol.GET,
+  });
 
   //final _url = "https://jsonplaceholder.typicode.com/albums/1";
-  Uri get _uri => Uri.https('jsonplaceholder.typicode.com', '/albums/1');
+  //Uri get _uri => Uri.https('jsonplaceholder.typicode.com', '/albums/1');
+  Uri get _uri => Uri.http('http://127.0.0.1:8000', '/doctor_create');
 
-  Uri? get _uriFromUrl => (url != null) ? Uri.parse(url!) : null;
+  //Uri? get _uriFromUrl => (url != null) ? Uri.parse(url!) : null;
 
   Future<void> send(Map data) async {
-    final response = await http.post(_uriFromUrl ?? _uri, body: data);
+    final response = await http.post(_uri, body: data);
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
 
     //return response.statusCode;
   }
 
-  Future<Map?> get({required GetProtocol getp}) async {
+  Future<Map?> get() async {
     // Url of the website where we get the data from.
     //getp.toString();
-    var uri = Uri.https(
-      'jsonplaceholder.typicode.com',
-      '/albums/1',
-      {'where': getp.query, 'table': getp.table, },
-    );
-    //_uriFromUrl ?? _uri; //Uri.parse(_url);
-    var request = http.Request('GET', uri); // Set to GET
+    //var uri = Uri.https('jsonplaceholder.typicode.com','/albums/1',{'where':null,'table':null,},);
+
+    var uri = _uri;
+    var request = http.Request(method.name, uri); // Set to GET
     http.StreamedResponse response = await request.send(); // Send request.
     // Check if response is okay
     if (response.statusCode == 200) {
@@ -56,18 +60,32 @@ class GetProtocol {
   final String where;
   final String table;
   final String? url;
-  MethodProtocol method;
+  final Map<String, dynamic> tag;
+
 
   GetProtocol({
     required this.query,
     required this.where,
     required this.table,
     this.url,
-    this.method = MethodProtocol.POST,
+    this.tag = const <String,dynamic>{},
   });
 }
 
-class SendProtocol {}
+class SendProtocol {
+  final String query;
+  final String where;
+  final String table;
+  final Map<String, dynamic> tag;
+
+
+  SendProtocol({
+    required this.query,
+    required this.where,
+    required this.table,
+    this.tag = const <String,dynamic>{},
+  });
+}
 
 enum MethodProtocol {
   /// Most commonly "GET" or "POST", less commonly "HEAD", "PUT", or "DELETE".
@@ -93,4 +111,16 @@ extension MethodHelper on MethodProtocol {
         return 'DELETE';
     }
   }
+}
+
+/*class TransferMode {
+  final CRUD mode;
+  final MethodProtocol method;
+}*/
+
+enum CRUD {
+  create,
+  read,
+  update,
+  delete,
 }
