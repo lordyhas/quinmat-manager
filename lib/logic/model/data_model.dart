@@ -1,3 +1,5 @@
+
+
 library data.model;
 
 import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
@@ -5,12 +7,12 @@ import 'package:latlong2/latlong.dart' as geo;
 
 part 'shop_data.dart';
 part 'space_rental.dart';
-part 'vehicle_rental.dart';
+part 'product.dart';
 
 
 enum RentalType{space, vehicle}
 enum RentalSpaceType{apartment, house, bureau, reception, hall, unknown}
-enum RentalVehicleType{A,B,C,D,E, unknown}
+enum ProductType{QCL,MOB,MED,PAP, unknown}
 /*abstract class RentalSpaceType{
   static const apartment = 0;
   static const house = 1;
@@ -20,22 +22,19 @@ enum RentalVehicleType{A,B,C,D,E, unknown}
   static const unknown = 1;
 }*/
 
+// ignore: constant_identifier_names
+enum PriceCurrency{USD, CDF}
 
-enum PricePer{hour, day, month}
+extension PriceCurrencyHelper on PriceCurrency {
+  String get name {
+    switch(this){
+      case PriceCurrency.USD: return "USD";
+      case PriceCurrency.CDF: return "CDF";
 
-abstract class RentalProduct {
-
-  const RentalProduct();
-  RentalType get rentalType;
-
-  RentalProduct copyWith();
+    }
+  }
 }
-/*
-abstract class AbstractModel extends Object{
-  const AbstractModel();
-  Map<String,dynamic> toMap();
-  //void toString();
-}*/
+
 
 class AddressData {
   final String avenue;
