@@ -135,7 +135,7 @@ class UserSpaceScreen extends StatelessWidget {
                                       children: const [
                                         Spacer(),
                                         Text(
-                                          "À faire loué",
+                                          "À verifier",
                                           style: TextStyle(
                                               fontSize: 20,
                                               color: Colors.white70),
@@ -173,7 +173,7 @@ class UserSpaceScreen extends StatelessWidget {
                                       children: const [
                                         Spacer(),
                                         Text(
-                                          "Déjà loué",
+                                          "Déjà ajouté",
                                           style: TextStyle(
                                               fontSize: 20,
                                               color: Colors.white70),
@@ -241,7 +241,9 @@ class UserSpaceScreen extends StatelessWidget {
                                           ),
                                           Text.rich(TextSpan(children: [
                                             TextSpan(
-                                                text: "4", style: numStyle),
+                                              text: "4",
+                                              style: numStyle,
+                                            ),
                                             const TextSpan(
                                               text: "",
                                             )
@@ -263,15 +265,14 @@ class UserSpaceScreen extends StatelessWidget {
                                       child: Column(
                                         children: [
                                           Text(
-                                            "Like",
+                                            "Check",
                                             style: textStyle,
                                           ),
                                           Text.rich(TextSpan(children: [
                                             TextSpan(
-                                                text: "496", style: numStyle),
-                                            const TextSpan(
-                                              text: "\$",
-                                            )
+                                              text: "496",
+                                              style: numStyle,
+                                            ),
                                           ])),
                                         ],
                                       ),
@@ -291,15 +292,13 @@ class UserSpaceScreen extends StatelessWidget {
                                       child: Column(
                                         children: [
                                           Text(
-                                            "Déjà loué",
+                                            "Deprtmnt",
                                             style: textStyle,
                                           ),
                                           Text.rich(TextSpan(children: [
                                             TextSpan(
-                                                text: "4", style: numStyle),
-                                            const TextSpan(
-                                              text: "\$",
-                                            )
+                                                text: "Quin", style: numStyle),
+
                                           ])),
                                         ],
                                       ),
@@ -326,14 +325,14 @@ class UserSpaceScreen extends StatelessWidget {
                                       child: Column(
                                         children: [
                                           Text(
-                                            "Espace",
+                                            "Niveau",
                                             style: textStyle,
                                           ),
                                           Text.rich(TextSpan(children: [
                                             TextSpan(
-                                                text: "240", style: numStyle),
+                                                text: "3", style: numStyle),
                                             const TextSpan(
-                                              text: "Mb",
+                                              text: "LVL",
                                             )
                                           ])),
                                         ],
