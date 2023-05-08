@@ -2,11 +2,9 @@ library home_page;
 
 import 'dart:math';
 
-
 import 'package:qmt_manager/logic/values.dart';
 import 'package:qmt_manager/src/login_page.dart';
 import 'package:qmt_manager/src/preference_page/edit_profile_page.dart';
-import 'package:qmt_manager/src/add_rent_page/add_rent_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +26,9 @@ import 'package:qmt_manager/src/home_page/place_info_screen.dart';
 import 'package:qmt_manager/src/myspace_page.dart';
 
 import '../logic/maps_controller/maps.dart';
-import 'home_page/products/filters_screen.dart';
+import 'add_doctor/data_tab.dart';
+import 'add_product/add_product_page.dart';
+
 
 part 'home_page/rental_screen.dart';
 
@@ -65,53 +65,50 @@ class _HomePageState extends State<HomePage> {
   void closeDrawer() => _scaffoldKey.currentState?.closeDrawer();
 
   List<DrawerItem> get items => <DrawerItem>[
-        DrawerItem(
-            navigationScreen: NavigationScreen.home,
-            icon: const Icon(Icons.home_outlined),
-            selectedIcon: const Icon(Icons.home),
-            label: const Text('Acceuil'),
-            onPressed: () {
-              BlocProvider.of<NavigationController>(context)
-                  .setState(NavigationScreen.home);
-              GoRouter.of(context).goNamed(HomePage.routeName);
-              closeDrawer();
-              //setState(() {});
-            }),
-        DrawerItem(
-            navigationScreen: NavigationScreen.explorer,
-            icon: const Icon(Icons.view_carousel_outlined),
-            selectedIcon: const Icon(Icons.view_carousel),
-            label: const Text('Explorer'),
-            onPressed: () {
-              GoRouter.of(context).goNamed(ProductScreen.routeName);
-              closeDrawer();
-              //_scaffoldKey.currentState?.closeDrawer();
-              //setState(() {});
-            }),
-        DrawerItem(
-            navigationScreen: NavigationScreen.setting,
-            icon: const Icon(Icons.settings),
-            selectedIcon: const Icon(Icons.settings),
-            label: const Text('Préférences'),
-            onPressed: () {
-              //_scaffoldKey.currentState?.closeDrawer();
-              GoRouter.of(context).goNamed(SettingScreen.routeName);
-
-              closeDrawer();
-
-              //setState(() {});
-            }),
-      ];
+    DrawerItem(
+      navigationScreen: NavigationScreen.home,
+      icon: const Icon(Icons.home_outlined),
+      selectedIcon: const Icon(Icons.home),
+      label: const Text('Acceuil'),
+      onPressed: () {
+        BlocProvider.of<NavigationController>(context)
+            .setState(NavigationScreen.home);
+        GoRouter.of(context).goNamed(HomePage.routeName);
+        closeDrawer();
+        //setState(() {});
+      },),
+    DrawerItem(
+      navigationScreen: NavigationScreen.explorer,
+      icon: const Icon(Icons.view_carousel_outlined),
+      selectedIcon: const Icon(Icons.view_carousel),
+      label: const Text('Explorer'),
+      onPressed: () {
+        GoRouter.of(context).goNamed(ProductScreen.routeName);
+        closeDrawer();
+      },
+    ),
+    DrawerItem(
+      navigationScreen: NavigationScreen.setting,
+      icon: const Icon(Icons.settings),
+      selectedIcon: const Icon(Icons.settings),
+      label: const Text('Préférences'),
+      onPressed: () {
+        //_scaffoldKey.currentState?.closeDrawer();
+        GoRouter.of(context).goNamed(SettingScreen.routeName);
+        closeDrawer();
+        },
+    ),
+  ];
 
   FloatingActionButton get floatingActionButton => FloatingActionButton(
-        elevation: 0,
-        onPressed: () {
-          if (kIsWeb) {
-            launchMapOnWeb();
-          } else {
-            Navigator.push(context, MapSample.route());
-          }
-        },
+    elevation: 0,
+    onPressed: () {
+      if (kIsWeb) {
+        launchMapOnWeb();
+      } else {
+        Navigator.push(context, MapSample.route());
+      }
+    },
         child: const Icon(CupertinoIcons.map),
       );
 
@@ -259,7 +256,7 @@ class _HomePageState extends State<HomePage> {
                         child: ListTile(
                           title: Text('Heritier M.'),
                           subtitle: Text(
-                              "Bonjour, Je cherche une maison 3 pièce ?"),
+                              "Il une erreur sur PP0022 ?"),
                         ),
                       ),
                       const PopupMenuItem<int>(
@@ -267,14 +264,14 @@ class _HomePageState extends State<HomePage> {
                         child: ListTile(
                           title: Text('Mark'),
                           subtitle:
-                          Text("Salut, je peux avoir votre adresse ?"),
+                          Text("Corrige l'adresse QC17889 ?"),
                         ),
                       ),
                       const PopupMenuItem<int>(
                         value: 3,
                         child: ListTile(
                           title: Text('Sami Konda'),
-                          subtitle: Text("J'ai besoin d'aide, svp"),
+                          subtitle: Text("Corriger l'erreur, svp, MD4589"),
                         ),
                       ),
                       const PopupMenuItem<int>(
@@ -324,12 +321,8 @@ class _HomePageState extends State<HomePage> {
                                     label: Text("${state.user.name}"),
                                   );
                               }
-                              
                             },
                           ),
-                          
-                          
-                          
                           const Spacer(),
                         ],
                       ),

@@ -67,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           style: TextStyle(fontSize: h1Size()),
                         ),
                         subtitle: const SelectableText(
-                            "Voulez-vous faire louer votre bien mobilier et immoblier ?"),
+                            "Faire la gestion de produit"),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0).copyWith(top: 32.0),
@@ -83,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: const Padding(
                                 padding: EdgeInsets.all(8.0),
                                 child: Text(
-                                  "Faire louer",
+                                  "Ajouer un produit",
                                   style: TextStyle(
                                     fontSize: 18.0,
                                   ),
@@ -128,7 +128,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                   underline = value;
                                 });
                               },
-                              onPressed: (){},
+                              onPressed: (){
+                                Go.of(context).to(routeName: DataTableDemo.routeName);
+                                //Go.to(context, routeName: DataTableDemo.routeName);
+                              },
                               onLongPress: (){},
                             )
                           ],
@@ -156,7 +159,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           size: 42,
                         ),
                         title: const SelectableText(
-                          "Hall Rental",
+                          "Mobiler",
                           style: TextStyle(
                             fontSize: 24.0,
                           ),
@@ -183,7 +186,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           size: 42,
                         ),
                         title: const SelectableText(
-                          "Apartment Rental",
+                          "Papeterie",
                           style: TextStyle(fontSize: 24.0),
                         ),
                         subtitle: null,
@@ -208,20 +211,30 @@ class _HomeScreenState extends State<HomeScreen> {
                           size: 42,
                         ),
                         title: const SelectableText(
-                          "Car Rental",
+                          "Quaincaillerie",
                           style: TextStyle(fontSize: 24.0),
                         ),
                         subtitle: null,
                         trailing: const Icon(CupertinoIcons.chevron_right_2),
                         onTap: () {},
                       ),
-                      /*const Markdown(data: """ "Dans cette catégorie, veuillez trouver des : "
-                        "- un vehicule à 2 roues (categorie A) à louer"
-                        "- une vehicule categorie B à louer"
-                        "- un bus pour tranporter de travailleur"
-                        "- un bus scolaire et autres "
-                        "- un trackteur à louer"
-                        "- etc..." """),*/
+
+                      ListTile(
+                        visualDensity: const VisualDensity(vertical: VisualDensity.maximumDensity),
+                        horizontalTitleGap: 32.0,
+                        leading: const Icon(
+                          FontAwesomeIcons.kitMedical,
+                          size: 42,
+                        ),
+                        title: const SelectableText(
+                          "Medical Equipment",
+                          style: TextStyle(fontSize: 24.0),
+                        ),
+                        subtitle: null,
+                        trailing: const Icon(CupertinoIcons.chevron_right_2),
+                        onTap: () {},
+                      ),
+
                     ],
                   ),
                 ),
