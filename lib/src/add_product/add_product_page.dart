@@ -124,7 +124,7 @@ class _RentScreenState extends State<RentScreen> {
                 Product vehicle = context
                     .read<RentalControllerBloc>()
                     .state
-                    .vehicle
+                    .product
                     .copyWith(images: [croppedFile!.path]);
                 context
                     .read<RentalControllerBloc>()
@@ -249,7 +249,7 @@ class _RentScreenState extends State<RentScreen> {
                             final val = context
                                 .read<RentalControllerBloc>()
                                 .state
-                                .vehicle;
+                                .product;
                             return Text.rich(TextSpan(
                               children: [
                                 const TextSpan(

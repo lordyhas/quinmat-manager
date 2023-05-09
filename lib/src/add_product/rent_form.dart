@@ -23,7 +23,7 @@ class RentForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //RentalSpace space = context.read<RentalControllerBloc>().state.space;
-    Product vehicle = context.read<RentalControllerBloc>().state.vehicle;
+    Product vehicle = context.read<RentalControllerBloc>().state.product;
 
 
     return Container(
@@ -149,7 +149,7 @@ class RentForm extends StatelessWidget {
                           filled: true,
                           //icon: const Icon(Icons.bookmark_border),
                           hintText: 'prix en dollar américain ?',
-                          labelText: 'Prix (en ${state.vehicle.pricePer.name}) *',
+                          labelText: 'Prix (en ${state..product.pricePer.name}) *',
                         ),
                         onEditingComplete: (){},
                         onSaved: (value) {
