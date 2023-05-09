@@ -6,11 +6,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
 import 'package:latlong2/latlong.dart' as geo;
 
 part 'shop_data.dart';
-part 'space_rental.dart';
 part 'product.dart';
 
 
-enum RentalType{space, vehicle}
 enum RentalSpaceType{apartment, house, bureau, reception, hall, unknown}
 enum ProductType{QCL,MOB,MED,PAP, unknown}
 /*abstract class RentalSpaceType{

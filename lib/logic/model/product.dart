@@ -65,9 +65,6 @@ class Product {
 
   bool get isComplete => isNotEmpty && images.isNotEmpty;
 
-  @override
-  RentalType get rentalType => RentalType.vehicle;
-
 
 
 
@@ -134,7 +131,7 @@ class Product {
     String? model,
     String? description,
     ProductType? productType,
-    dynamic owner,
+    dynamic employee,
     int? promotionPrice,
     int? stockNumber,
     List<String>? images,
@@ -150,7 +147,7 @@ class Product {
       model: model ?? this.model,
       description: description ?? this.description,
       productType: productType ?? this.productType,
-      employee: owner ?? this.employee,
+      employee: employee ?? this.employee,
       promotionPrice: promotionPrice ?? this.promotionPrice,
       stockNumber: stockNumber ?? this.stockNumber,
       images: images ?? this.images,
@@ -170,7 +167,7 @@ class Product {
       'model': model,
       'description': description,
       'productType': productType,
-      'owner': employee,
+      'employee': employee,
       'promotionPrice': promotionPrice,
       'stockNumber': stockNumber,
       'images': images,
@@ -189,7 +186,7 @@ class Product {
       model: map['model'] as String,
       description: map['description'] as String,
       productType: map['productType'] as ProductType,
-      employee: map['owner'] as dynamic,
+      employee: map['employee'] as dynamic,
       promotionPrice: map['promotionPrice'] as int,
       stockNumber: map['stockNumber'] as int,
       images: map['images'] as List<String>,
