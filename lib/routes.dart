@@ -25,7 +25,7 @@ class AppRouter extends GoRouter {
   }) : super(
           navigatorKey: key,
           errorBuilder: (context, state) => OnErrorPage(error: state.error),
-          initialLocation: HomePage.routeName, //'/home/data-table', //LoginPage.routeName,
+          initialLocation: LoginPage.routeName, //LoginPage.routeName,
           routes: [
             ShellRoute(
              // navigatorKey: shellNavigatorKey,

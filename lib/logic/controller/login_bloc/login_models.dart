@@ -1,6 +1,35 @@
 
 import 'package:formz/formz.dart';
 
+enum EmployeeIDValidationError {
+  /// Generic invalid error.
+  invalid
+}
+
+/// {@template email}
+/// Form input for an id input.
+/// {@endtemplate}
+class EmployeeID extends FormzInput<String, EmployeeIDValidationError> {
+  const EmployeeID.pure() : super.pure('');
+  const EmployeeID.dirty([String value = '']) : super.dirty(value);
+
+  static final RegExp _employeeIDRegExp = RegExp(
+    r'^[a-zA-Z0-9-]*$',
+  );
+
+  /*@override
+  EmailValidationError? validator(String? value) {
+    return _emailRegExp.hasMatch(value!) ? null : EmailValidationError.invalid;
+  }*/
+
+  @override
+  EmployeeIDValidationError? validator(String? value) {
+    return _employeeIDRegExp.hasMatch(value ?? '')
+        ? null
+        : EmployeeIDValidationError.invalid;
+  }
+}
+
 /// Validation errors for the [Email] [FormzInput].
 enum EmailValidationError {
   /// Generic invalid error.

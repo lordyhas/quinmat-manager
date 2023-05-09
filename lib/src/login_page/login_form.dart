@@ -1,7 +1,7 @@
 part of login_page;
 
-class _NameInput extends StatelessWidget {
-  const _NameInput({Key? key}) : super(key: key);
+class _EmployeeInput extends StatelessWidget {
+  const _EmployeeInput({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -9,10 +9,11 @@ class _NameInput extends StatelessWidget {
       builder: (context, state) {
         return _InputField(key: key,
           icon: Icons.account_circle_outlined,
-          hintText: 'User name...',
-          onChanged: (email){
-            ///TODO : get name enter here, for mail without name
-          },
+          hintText: 'Matricule...',
+          onChanged: (id) => BlocProvider
+            .of<LoginCubit>(context)
+            .employeeIDChanged(id),
+        errorText: state.employeeID.invalid ? 'matricule invalide' : null,
           //errorText: state.email.invalid ? 'invalid email' : null,
         );
       },
@@ -36,7 +37,7 @@ class _EmailInput extends StatelessWidget {
           onChanged: (email) => BlocProvider
               .of<LoginCubit>(context)
               .emailChanged(email),
-          errorText: state.email.invalid ? 'invalid email' : null,
+          errorText: state.email.invalid ? 'email invalide' : null,
         );
       },
     );
@@ -60,18 +61,17 @@ class _PasswordInputState extends State<_PasswordInput> {
         return _InputField(
           key: widget.key,
           icon: Icons.lock_outline,
-          hintText:  'Password...',
+          hintText:  'Mot de passe...',
           isPassword: showPassword,
           onChanged: (password) =>
               BlocProvider.of<LoginCubit>(context).passwordChanged(password),
-          errorText: state.password.invalid ? 'invalid password' : null,
+          errorText: state.password.invalid ? 'mot de passe invalid' : null,
           suffixIcon: IconButton(
             icon: Icon(showPassword? CupertinoIcons.eye_slash : CupertinoIcons.eye),
             onPressed: (){
               setState(() {
                 showPassword = !showPassword;
               });
-
             },
           ),
         );

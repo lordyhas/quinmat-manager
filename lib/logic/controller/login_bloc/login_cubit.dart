@@ -19,12 +19,21 @@ class LoginCubit extends Cubit<LoginState> {
   /// [AuthenticationRepository]
   final AuthenticationRepository _authenticationRepository;
 
+  /// [employeeIDChanged]
+  void employeeIDChanged(String value) {
+    final employeeID = EmployeeID.dirty(value);
+    emit(state.copyWith(
+      employeeID: employeeID,
+      status: Formz.validate([employeeID, state.email, state.password]),
+    ));
+  }
+
   /// [emailChanged]
   void emailChanged(String value) {
     final email = Email.dirty(value);
     emit(state.copyWith(
       email: email,
-      status: Formz.validate([email, state.password]),
+      status: Formz.validate([email, state.employeeID, state.password]),
     ));
   }
   /// [passwordChanged]
@@ -32,7 +41,7 @@ class LoginCubit extends Cubit<LoginState> {
     final password = Password.dirty(value);
     emit(state.copyWith(
       password: password,
-      status: Formz.validate([state.email, password]),
+      status: Formz.validate([state.email, state.employeeID, password]),
     ));
   }
 
@@ -43,6 +52,7 @@ class LoginCubit extends Cubit<LoginState> {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     try {
       await _authenticationRepository.logInWithEmailAndPassword(
+        employeeID: state.employeeID.value,
         email: state.email.value,
         password: state.password.value,
       );
