@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qmt_manager/src/add_doctor/data_tab.dart';
 import 'package:qmt_manager/src/add_product/add_product_page.dart';
 import 'package:qmt_manager/src/login_page.dart';
@@ -25,8 +26,19 @@ class AppRouter extends GoRouter {
   }) : super(
           navigatorKey: key,
           errorBuilder: (context, state) => OnErrorPage(error: state.error),
-          initialLocation: LoginPage.routeName, //LoginPage.routeName,
+          initialLocation: LoginPage.routeUrl, //LoginPage.routeName,
           routes: [
+            GoRoute(
+              parentNavigatorKey: key,
+              path: "/",
+              redirect: (_,state) {
+                if(BlocProvider.of<AuthenticationBloc>(_).state.
+                status == AuthenticationStatus.authenticated){
+                    return HomePage.routeUrl;
+                }
+                return LoginPage.routeUrl;
+              },
+            ),
             ShellRoute(
              // navigatorKey: shellNavigatorKey,
               builder: (context, state, child) => HomePage(child: child),
@@ -47,7 +59,7 @@ class AppRouter extends GoRouter {
       GoRoute(
         name: HomePage.routeName,
         path: HomePage.routeName,
-        redirect: (context, state) => null,
+        redirect: null,
         builder: (context, state) {
           return const NestedWebView(child: HomeScreen());
         },

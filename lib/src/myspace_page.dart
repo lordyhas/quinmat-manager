@@ -7,6 +7,9 @@ import 'package:qmt_manager/logic/values.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'add_doctor/data_tab.dart';
+import 'add_product/add_product_page.dart';
+
 class MySpacePage extends StatelessWidget {
   const MySpacePage({Key? key}) : super(key: key);
 
@@ -25,16 +28,24 @@ class MySpacePage extends StatelessWidget {
   }
 }
 
-class UserSpaceScreen extends StatelessWidget {
+class UserSpaceScreen extends StatefulWidget {
   static const routeName = "/home/user/my_space";
 
   const UserSpaceScreen({Key? key}) : super(key: key);
 
+  @override
+  State<UserSpaceScreen> createState() => _UserSpaceScreenState();
+}
+
+class _UserSpaceScreenState extends State<UserSpaceScreen> {
   TextStyle get numStyle =>
       const TextStyle(fontSize: 24, fontWeight: FontWeight.bold);
 
   TextStyle get textStyle =>
       const TextStyle(fontSize: 20, color: Colors.white70);
+
+  bool underline = false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -195,6 +206,100 @@ class UserSpaceScreen extends StatelessWidget {
                         ),
                       ),
                       //const SizedBox(height: 16.0,),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          //padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 32.0),
+                          decoration: BoxDecoration(
+                            image: const DecorationImage(
+                              image: AssetImage("assets/img/bg_image_web.jpeg"),
+                              fit: BoxFit.cover,
+                            ),
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          child: Column(
+                            children: [
+                              const SizedBox( height: 8.0,),
+                              const ListTile(
+                                title: SelectableText(
+                                  AppConstant.name,
+                                  //style: TextStyle(fontSize: h1Size()),
+                                ),
+                                subtitle: SelectableText(
+                                    "Faire la gestion de produit"),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0).copyWith(top: 32.0),
+                                child: ButtonBar(
+                                  alignment: MainAxisAlignment.start,
+                                  children: [
+                                    ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        textStyle: const TextStyle(color: Colors.white),
+                                        backgroundColor:
+                                        Theme.of(context).scaffoldBackgroundColor,
+                                      ),
+                                      child: const Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text(
+                                          "Ajouer un produit",
+                                          style: TextStyle(
+                                            fontSize: 18.0,
+                                          ),
+                                        ),
+                                      ),
+                                      onPressed: () => Go.to(
+                                          context,
+                                          routeName: AddProductPage.routeName
+                                      ),
+                                    ),
+                                    TextButton(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text.rich(TextSpan(
+                                            children: [
+                                              TextSpan(
+                                                text: "Besoin d'aide",
+                                                style: TextStyle(
+                                                    fontSize: 18.0,
+                                                    //letterSpacing: underline ? .0 : null,
+                                                    fontWeight: underline
+                                                        ? FontWeight.bold
+                                                        : FontWeight.normal,
+                                                    decoration: underline
+                                                        ? TextDecoration.underline
+                                                        : TextDecoration.none
+                                                ),
+                                              ),
+                                              const TextSpan(
+                                                text: " ?",
+                                                style: TextStyle(
+                                                  fontSize: 18.0,
+
+                                                ),
+                                              ),
+                                            ]
+                                        )
+                                        ),
+                                      ),
+                                      onHover: (value) {
+                                        setState((){
+                                          underline = value;
+                                        });
+                                      },
+                                      onPressed: (){
+                                        Go.of(context).to(routeName: DataTableDemo.routeName);
+                                        //Go.to(context, routeName: DataTableDemo.routeName);
+                                      },
+                                      onLongPress: (){},
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                       Container(
                         //constraints: const BoxConstraints(maxHeight: 200),
                         margin: const EdgeInsets.symmetric(vertical: 8.0),
@@ -209,14 +314,11 @@ class UserSpaceScreen extends StatelessWidget {
                           //boxShadow: [BoxShadow(color: Theme.of(context).primaryColorLight)],
                         ),
 
-                        child: Container(
+                        child: SizedBox(
                           child: Column(
                             children: [
                               Row(),
                               const Spacer(),
-
-                              //const Spacer(),
-                              //const ListTile(),
                               Wrap(
                                 spacing: 8.0,
                                 runSpacing: 8.0,
@@ -418,7 +520,7 @@ class UserSpaceScreen extends StatelessWidget {
                           //boxShadow: [BoxShadow(color: Theme.of(context).primaryColorLight)],
                         ),
 
-                        child: Container(
+                        child: SizedBox(
                           child: Column(
                             children: [
                               //const SizedBox(height: 1,child: Expanded(child: SizedBox(width: 10,),),),

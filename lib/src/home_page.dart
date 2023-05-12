@@ -42,6 +42,7 @@ part 'home_page/app_bar_view.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/home';
+  static const routeUrl = '/home';
   final Widget child;
 
   const HomePage({

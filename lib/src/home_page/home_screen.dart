@@ -12,7 +12,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   bool underline = false;
 
-  double h1Size() {
+  /*double h1Size() {
     if (Responsive.of(context).isPhone) {
       return 28;
     } else if (Responsive.of(context).size.width < 720) {
@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
       return 54;
     }
     return 18;
-  }
+  }*/
 
   @override
   void initState(){
@@ -53,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       horizontal: 16.0, vertical: 32.0),
                   decoration: BoxDecoration(
                     image: const DecorationImage(
-                      image: AssetImage("assets/img/bg_image_web.jpeg"),
+                      image: AssetImage("assets/img/bg_image3.jpeg"),
                       fit: BoxFit.cover,
                     ),
                     borderRadius: BorderRadius.circular(20.0),
@@ -61,12 +61,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     children: [
                       const SizedBox( height: 8.0,),
-                      ListTile(
+                      const ListTile(
                         title: SelectableText(
                           AppConstant.name,
-                          style: TextStyle(fontSize: h1Size()),
+                          //style: TextStyle(fontSize: h1Size()),
                         ),
-                        subtitle: const SelectableText(
+                        subtitle: SelectableText(
                             "Faire la gestion de produit"),
                       ),
                       Padding(
@@ -83,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: const Padding(
                                 padding: EdgeInsets.all(8.0),
                                 child: Text(
-                                  "Ajouer un produit",
+                                  "Créér un compte",
                                   style: TextStyle(
                                     fontSize: 18.0,
                                   ),
@@ -129,8 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 });
                               },
                               onPressed: (){
-                                Go.of(context).to(routeName: DataTableDemo.routeName);
-                                //Go.to(context, routeName: DataTableDemo.routeName);
+                                //Go.of(context).to(routeName: DataTableDemo.routeName);
                               },
                               onLongPress: (){},
                             )

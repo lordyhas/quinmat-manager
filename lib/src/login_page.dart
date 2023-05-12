@@ -21,6 +21,7 @@ part 'login_page/button_and_input.dart';
 
 class LoginPage extends StatefulWidget {
   static const routeName = "/login";
+  static const routeUrl = '/login';
 
   const   LoginPage({Key? key}) : super(key: key);
 
