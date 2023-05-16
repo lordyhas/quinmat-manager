@@ -30,6 +30,7 @@ class MySpacePage extends StatelessWidget {
 
 class UserSpaceScreen extends StatefulWidget {
   static const routeName = "/home/user/my_space";
+  static const routeUrl = "/home/user/myspace";
 
   const UserSpaceScreen({Key? key}) : super(key: key);
 
@@ -46,12 +47,12 @@ class _UserSpaceScreenState extends State<UserSpaceScreen> {
 
   bool underline = false;
 
-
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<NavigationController>(context)
         .setState(NavigationScreen.myspace);
     double boxWidth = 100.0;
+    double boxHeight = 60.0;
     final ScrollController scrollController = ScrollController();
 
     return Material(
@@ -87,7 +88,9 @@ class _UserSpaceScreenState extends State<UserSpaceScreen> {
                         child: Column(
                           children: [
                             BooleanBuilder(
-                              condition: () => state.status == AuthenticationStatus.authenticated,
+                              condition: () =>
+                                  state.status ==
+                                  AuthenticationStatus.authenticated,
                               ifTrue: ListTile(
                                 leading: ClipRRect(
                                   borderRadius: BorderRadius.circular(100),
@@ -96,9 +99,8 @@ class _UserSpaceScreenState extends State<UserSpaceScreen> {
                                     fit: BoxFit.cover,
                                   ),
                                 ),
-                                title:  Text("${state.user.name}"),
-                                subtitle:
-                                 Text("${state.user.email}"),
+                                title: Text("${state.user.name}"),
+                                subtitle: Text("${state.user.email}"),
                               ),
                               ifFalse: ListTile(
                                 leading: ClipRRect(
@@ -110,10 +112,9 @@ class _UserSpaceScreenState extends State<UserSpaceScreen> {
                                 ),
                                 title: const Text("Unknown Name"),
                                 subtitle:
-                                const Text("guest-user@exploress.space"),
+                                    const Text("guest-user@exploress.space"),
                               ),
                             ),
-
                             const SizedBox(
                               height: 32.0,
                             ),
@@ -202,104 +203,88 @@ class _UserSpaceScreenState extends State<UserSpaceScreen> {
                                 ),
                               ],
                             ),
+                            const SizedBox(height: 16.0,),
+                            Wrap(
+                              spacing: 8.0,
+                              runSpacing: 8.0,
+                              //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.cyan,
+                                  ),
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text(
+                                      "Ajouer un produit",
+                                      style: TextStyle(
+                                        fontSize: 18.0,
+                                      ),
+                                    ),
+                                  ),
+                                  onPressed: () => Go.to(
+                                    context,
+                                    routeName: AddProductPage.routeName,
+                                  ),
+                                ),
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.teal,
+                                  ),
+                                  onPressed: Go.params(context,
+                                    routeName: DataTableDemo.routeName,
+                                  ).push,
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text(
+                                      "Database Docteur",
+                                      style: TextStyle(
+                                        fontSize: 18.0,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                /*TextButton(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text.rich(TextSpan(children: [
+                                      TextSpan(
+                                        text: "Besoin d'aide",
+                                        style: TextStyle(
+                                          fontSize: 18.0,
+                                          //letterSpacing: underline ? .0 : null,
+                                          fontWeight: underline
+                                              ? FontWeight.bold
+                                              : FontWeight.normal,
+                                          decoration: underline
+                                              ? TextDecoration.underline
+                                              : TextDecoration.none,
+                                        ),
+                                      ),
+                                      const TextSpan(
+                                        text: " ?",
+                                        style: TextStyle(
+                                          fontSize: 18.0,
+                                        ),
+                                      ),
+                                    ])),
+                                  ),
+                                  onHover: (value) {
+                                    setState(() {
+                                      underline = value;
+                                    });
+                                  },
+                                  onPressed: () {
+                                    //Go.to(context, routeName: DataTableDemo.routeName);
+                                  },
+                                  onLongPress: () {},
+                                ),*/
+                              ],
+                            ),
                           ],
                         ),
                       ),
                       //const SizedBox(height: 16.0,),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          //padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 32.0),
-                          decoration: BoxDecoration(
-                            image: const DecorationImage(
-                              image: AssetImage("assets/img/bg_image_web.jpeg"),
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.circular(20.0),
-                          ),
-                          child: Column(
-                            children: [
-                              const SizedBox( height: 8.0,),
-                              const ListTile(
-                                title: SelectableText(
-                                  AppConstant.name,
-                                  //style: TextStyle(fontSize: h1Size()),
-                                ),
-                                subtitle: SelectableText(
-                                    "Faire la gestion de produit"),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0).copyWith(top: 32.0),
-                                child: ButtonBar(
-                                  alignment: MainAxisAlignment.start,
-                                  children: [
-                                    ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        textStyle: const TextStyle(color: Colors.white),
-                                        backgroundColor:
-                                        Theme.of(context).scaffoldBackgroundColor,
-                                      ),
-                                      child: const Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: Text(
-                                          "Ajouer un produit",
-                                          style: TextStyle(
-                                            fontSize: 18.0,
-                                          ),
-                                        ),
-                                      ),
-                                      onPressed: () => Go.to(
-                                          context,
-                                          routeName: AddProductPage.routeName
-                                      ),
-                                    ),
-                                    TextButton(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text.rich(TextSpan(
-                                            children: [
-                                              TextSpan(
-                                                text: "Besoin d'aide",
-                                                style: TextStyle(
-                                                    fontSize: 18.0,
-                                                    //letterSpacing: underline ? .0 : null,
-                                                    fontWeight: underline
-                                                        ? FontWeight.bold
-                                                        : FontWeight.normal,
-                                                    decoration: underline
-                                                        ? TextDecoration.underline
-                                                        : TextDecoration.none
-                                                ),
-                                              ),
-                                              const TextSpan(
-                                                text: " ?",
-                                                style: TextStyle(
-                                                  fontSize: 18.0,
-
-                                                ),
-                                              ),
-                                            ]
-                                        )
-                                        ),
-                                      ),
-                                      onHover: (value) {
-                                        setState((){
-                                          underline = value;
-                                        });
-                                      },
-                                      onPressed: (){
-                                        Go.of(context).to(routeName: DataTableDemo.routeName);
-                                        //Go.to(context, routeName: DataTableDemo.routeName);
-                                      },
-                                      onLongPress: (){},
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
                       Container(
                         //constraints: const BoxConstraints(maxHeight: 200),
                         margin: const EdgeInsets.symmetric(vertical: 8.0),
@@ -335,47 +320,24 @@ class _UserSpaceScreenState extends State<UserSpaceScreen> {
                                     ),
                                     child: SizedBox(
                                       width: boxWidth,
+                                      height: boxHeight,
                                       child: Column(
                                         children: [
                                           Text(
                                             "Vue",
                                             style: textStyle,
                                           ),
-                                          Text.rich(TextSpan(children: [
-                                            TextSpan(
-                                              text: "4",
-                                              style: numStyle,
-                                            ),
-                                            const TextSpan(
-                                              text: "",
-                                            )
-                                          ])),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.all(16.0),
-                                    constraints:
-                                        const BoxConstraints(maxWidth: 150),
-                                    decoration: BoxDecoration(
-                                      color: Colors.black12,
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                    child: SizedBox(
-                                      width: boxWidth,
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            "Check",
-                                            style: textStyle,
-                                          ),
-                                          Text.rich(TextSpan(children: [
-                                            TextSpan(
-                                              text: "496",
-                                              style: numStyle,
-                                            ),
-                                          ])),
+                                          Text.rich(TextSpan(
+                                            children: [
+                                              TextSpan(
+                                                text: "4",
+                                                style: numStyle,
+                                              ),
+                                              const TextSpan(
+                                                text: "",
+                                              )
+                                            ],
+                                          )),
                                         ],
                                       ),
                                     ),
@@ -391,52 +353,80 @@ class _UserSpaceScreenState extends State<UserSpaceScreen> {
                                     ),
                                     child: SizedBox(
                                       width: boxWidth,
+                                      height: boxHeight,
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            "Check",
+                                            style: textStyle,
+                                          ),
+                                          Text.rich(TextSpan(
+                                            children: [
+                                              TextSpan(
+                                                text: "496",
+                                                style: numStyle,
+                                              ),
+                                            ],
+                                          )),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: const EdgeInsets.all(16.0),
+                                    constraints: const BoxConstraints(
+                                      maxWidth: 150,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Colors.black12,
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: SizedBox(
+                                      width: boxWidth,
+                                      height: boxHeight,
                                       child: Column(
                                         children: [
                                           Text(
                                             "Deprtmnt",
                                             style: textStyle,
                                           ),
-                                          Text.rich(TextSpan(children: [
-                                            TextSpan(
-                                                text: "Quin", style: numStyle),
-
-                                          ])),
+                                          Text.rich(TextSpan(
+                                            children: [
+                                              TextSpan(
+                                                  text: "Quin",
+                                                  style: numStyle),
+                                            ],
+                                          )),
                                         ],
                                       ),
                                     ),
                                   ),
-                                ],
-                              ),
-                              const Spacer(),
-                              Wrap(
-                                spacing: 8.0,
-                                runSpacing: 8.0,
-                                //mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
                                   Container(
                                     padding: const EdgeInsets.all(16.0),
                                     constraints:
-                                        const BoxConstraints(maxWidth: 150),
+                                    const BoxConstraints(maxWidth: 150),
                                     decoration: BoxDecoration(
                                       color: Colors.black12,
                                       borderRadius: BorderRadius.circular(20),
                                     ),
                                     child: SizedBox(
                                       width: boxWidth,
+                                      height: boxHeight,
                                       child: Column(
                                         children: [
                                           Text(
                                             "Niveau",
                                             style: textStyle,
                                           ),
-                                          Text.rich(TextSpan(children: [
-                                            TextSpan(
-                                                text: "3", style: numStyle),
-                                            const TextSpan(
-                                              text: "LVL",
-                                            )
-                                          ])),
+                                          Text.rich(TextSpan(
+                                            children: [
+                                              TextSpan(
+                                                  text: "3", style: numStyle),
+                                              const TextSpan(
+                                                text: "LVL",
+                                              )
+                                            ],
+                                          )),
                                         ],
                                       ),
                                     ),
@@ -444,26 +434,29 @@ class _UserSpaceScreenState extends State<UserSpaceScreen> {
                                   Container(
                                     padding: const EdgeInsets.all(16.0),
                                     constraints:
-                                        const BoxConstraints(maxWidth: 150),
+                                    const BoxConstraints(maxWidth: 150),
                                     decoration: BoxDecoration(
                                       color: Colors.black12,
                                       borderRadius: BorderRadius.circular(20),
                                     ),
                                     child: SizedBox(
                                       width: boxWidth,
+                                      height: boxHeight,
                                       child: Column(
                                         children: [
                                           Text(
                                             "Frais",
                                             style: textStyle,
                                           ),
-                                          Text.rich(TextSpan(children: [
-                                            TextSpan(
-                                                text: "4", style: numStyle),
-                                            const TextSpan(
-                                              text: "\$",
-                                            )
-                                          ])),
+                                          Text.rich(TextSpan(
+                                            children: [
+                                              TextSpan(
+                                                  text: "4", style: numStyle),
+                                              const TextSpan(
+                                                text: "\$",
+                                              )
+                                            ],
+                                          )),
                                         ],
                                       ),
                                     ),
@@ -471,27 +464,33 @@ class _UserSpaceScreenState extends State<UserSpaceScreen> {
                                   Container(
                                     padding: const EdgeInsets.all(16.0),
                                     constraints:
-                                        const BoxConstraints(maxWidth: 150),
+                                    const BoxConstraints(maxWidth: 150),
                                     decoration: BoxDecoration(
                                       color: Colors.black12,
                                       borderRadius: BorderRadius.circular(20),
                                     ),
                                     child: SizedBox(
                                       width: boxWidth,
+                                      height: boxHeight,
                                       child: Column(
                                         children: [
                                           const Text(
                                             "Gain",
                                             style: TextStyle(
-                                                color: Colors.white70),
+                                              color: Colors.white70,
+                                            ),
                                           ),
-                                          Text.rich(TextSpan(children: [
-                                            TextSpan(
-                                                text: "1250", style: numStyle),
-                                            const TextSpan(
-                                              text: "\$",
-                                            )
-                                          ])),
+                                          Text.rich(TextSpan(
+                                            children: [
+                                              TextSpan(
+                                                text: "1250",
+                                                style: numStyle,
+                                              ),
+                                              const TextSpan(
+                                                text: "\$",
+                                              )
+                                            ],
+                                          )),
                                         ],
                                       ),
                                     ),
@@ -505,6 +504,8 @@ class _UserSpaceScreenState extends State<UserSpaceScreen> {
                           ),
                         ),
                       ),
+
+
                       Container(
                         //constraints: const BoxConstraints(maxHeight: 200),
                         margin: const EdgeInsets.symmetric(vertical: 8.0),
@@ -523,7 +524,7 @@ class _UserSpaceScreenState extends State<UserSpaceScreen> {
                         child: SizedBox(
                           child: Column(
                             children: [
-                              //const SizedBox(height: 1,child: Expanded(child: SizedBox(width: 10,),),),
+                              //const SizedBox(height: 1, child: Expanded(child: SizedBox(width: 10,),),),
                               const ListTile(
                                 title: Text(
                                   "Mes Produits",
@@ -535,26 +536,7 @@ class _UserSpaceScreenState extends State<UserSpaceScreen> {
                               Wrap(
                                 runAlignment: WrapAlignment.start,
                                 alignment: WrapAlignment.start,
-                                children: DataTest.shops
-                                    .map((e) => SizedBox(
-                                          width: 400,
-                                          child: ListTile(
-                                            leading: Image.asset(
-                                              e.imagePath!,
-                                              width: 100,
-                                              height: 100,
-                                              fit: BoxFit.cover,
-                                            ),
-                                            title: Text(
-                                              e.shopName,
-                                              style: const TextStyle(),
-                                            ),
-                                            subtitle: Text(
-                                                "Prix: ${(Random().nextInt(40) + 20 * (e.rater * e.rating)).toInt()}\$"),
-                                            onTap: () {},
-                                          ),
-                                        ))
-                                    .toList(),
+                                children: dataTestList,
                               ),
                             ],
                           ),
@@ -570,4 +552,26 @@ class _UserSpaceScreenState extends State<UserSpaceScreen> {
       ),
     );
   }
+
+  List<Widget> get dataTestList => DataTest.shops
+      .map((e) => SizedBox(
+            width: 400,
+            child: ListTile(
+              leading: Image.asset(
+                e.imagePath!,
+                width: 100,
+                height: 100,
+                fit: BoxFit.cover,
+              ),
+              title: Text(
+                e.shopName,
+                style: const TextStyle(),
+              ),
+              subtitle: Text(
+                "Prix: ${(Random().nextInt(40) + 20 * (e.rater * e.rating)).toInt()}\$",
+              ),
+              onTap: () {},
+            ),
+          ))
+      .toList();
 }

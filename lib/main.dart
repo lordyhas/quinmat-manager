@@ -1,22 +1,15 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:qmt_manager/logic/values.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:hive_flutter/adapters.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 
-import 'package:qmt_manager/on_error_page.dart';
 import 'package:qmt_manager/routes.dart';
-import 'package:qmt_manager/src/login_page.dart';
 
 import 'package:url_strategy/url_strategy.dart';
 
@@ -126,22 +119,23 @@ class QuinmatApp extends StatelessWidget {
       ],
       child: BlocBuilder<StyleAppTheme, ThemeData>(
         builder: (context, theme) {
-          return BlocBuilder<AuthenticationBloc, AuthenticationState>(
-            builder: (context, authState) {
-              return MaterialApp.router(
-                debugShowCheckedModeBanner: false,
-                title: AppConstant.markName,
-                theme: ThemeData.dark().copyWith(
-                  visualDensity: VisualDensity.adaptivePlatformDensity,
-                  primaryColorLight: Colors.tealAccent.shade400,
-                  floatingActionButtonTheme: FloatingActionButtonThemeData(
-                    backgroundColor: Colors.cyan.withOpacity(1),
-                  ),
-                ),
-                //supportedLocales: const <Locale>[Locale('fr')],
-                routerConfig: AppRouter(key: _rootNavigatorKey,),
-              );
-            },
+          return MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            title: AppConstant.markName,
+
+            theme: ThemeData(
+              brightness: Brightness.dark,
+              fontFamily: "Nunito",
+            ).copyWith(
+
+              visualDensity: VisualDensity.adaptivePlatformDensity,
+              primaryColorLight: Colors.tealAccent.shade400,
+              floatingActionButtonTheme: FloatingActionButtonThemeData(
+                backgroundColor: Colors.cyan.withOpacity(1),
+              ),
+            ),
+            //supportedLocales: const <Locale>[Locale('fr')],
+            routerConfig: AppRouter(key: _rootNavigatorKey,),
           );
         },
       ),

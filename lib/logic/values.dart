@@ -28,7 +28,8 @@ part 'category.dart';
 part 'distance.dart';
 
 class Go {
-  static void to(BuildContext context, {
+  static void to(
+    BuildContext context, {
     required String routeName,
     @Deprecated("not use no more") Widget? page,
     String? path,
@@ -36,28 +37,61 @@ class Go {
     Map<String, dynamic> queryParams = const <String, dynamic>{},
     dynamic args,
   }) {
-    return GoRouter.of(context).goNamed(
-        routeName,
-        params: params,
-        queryParams: queryParams,
-        extra: args
-    );
+    return GoRouter.of(context).goNamed(routeName,
+        params: params, queryParams: queryParams, extra: args);
   }
 
-  static GoRouter of(BuildContext context) => GoRouter.of(context);
+  static _GoNavigator params(BuildContext context,{
+    required String routeName,
+    String? path,
+    Map<String, dynamic> queryParams = const <String, dynamic>{},
+    dynamic args,
+  }) =>
+      _GoNavigator(
+        context: context,
+        routeName: routeName,
+        path: path,
+        queryParams: queryParams,
+      );
 
+  static GoRouter of(BuildContext context) => GoRouter.of(context);
 }
 
-extension XGO on GoRouter{
+class _GoNavigator {
+  final BuildContext context;
+  final String routeName;
+  final String? path;
+  final Map<String, dynamic> queryParams;
+  final dynamic args;
+
+  _GoNavigator({
+    required this.context,
+    required this.routeName,
+    this.path,
+    this.queryParams = const <String, dynamic>{},
+    this.args,
+  });
+
+  void show() {
+    GoRouter.of(context)
+        .goNamed(routeName, queryParams: queryParams, extra: args);
+  }
+
+  void push() {
+    GoRouter.of(context)
+        .goNamed(routeName, queryParams: queryParams, extra: args);
+  }
+}
+
+extension XGO on GoRouter {
   void to({
     required String routeName,
     Map<String, String> params = const <String, String>{},
     Map<String, dynamic> queryParams = const <String, dynamic>{},
-    Object? extra,}) => goNamed(
-      routeName,
-      params: params,
-      queryParams: queryParams,
-      extra: extra);
+    Object? extra,
+  }) =>
+      goNamed(routeName,
+          params: params, queryParams: queryParams, extra: extra);
 }
 
 class Responsive {
@@ -67,10 +101,7 @@ class Responsive {
 
   static Responsive of(BuildContext context) => Responsive._(context);
 
-  Size get size =>
-      MediaQuery
-          .of(context)
-          .size;
+  Size get size => MediaQuery.of(context).size;
 
   bool get isPhone =>
       size.width <= kPhoneDimens || !kIsWeb; // || Platform.isAndroid;
@@ -95,9 +126,11 @@ Future<void> launchMapOnWeb({maps.LatLng? latLng}) async {
 
 class MyBehavior extends ScrollBehavior {
   @override
-  Widget buildViewportChrome(BuildContext context,
-      Widget child,
-      AxisDirection axisDirection,) {
+  Widget buildViewportChrome(
+    BuildContext context,
+    Widget child,
+    AxisDirection axisDirection,
+  ) {
     return child;
   }
 }

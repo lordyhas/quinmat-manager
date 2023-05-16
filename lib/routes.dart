@@ -1,6 +1,5 @@
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qmt_manager/src/add_doctor/data_tab.dart';
 import 'package:qmt_manager/src/add_product/add_product_page.dart';
 import 'package:qmt_manager/src/login_page.dart';
@@ -17,31 +16,32 @@ import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
 import 'on_error_page.dart';
 
 class AppRouter extends GoRouter {
-  final GlobalKey<NavigatorState>? shellNavigatorKey;
+  //final GlobalKey<NavigatorState>? shellNavigatorKey;
   final GlobalKey<NavigatorState> key;
 
   AppRouter({
-    this.shellNavigatorKey,
+    //this.shellNavigatorKey,
     required this.key,
   }) : super(
           navigatorKey: key,
           errorBuilder: (context, state) => OnErrorPage(error: state.error),
-          initialLocation: LoginPage.routeUrl, //LoginPage.routeName,
+          initialLocation: HomePage.routeUrl, //LoginPage.routeName,
           routes: [
-            GoRoute(
+            /*GoRoute(
               parentNavigatorKey: key,
               path: "/",
               redirect: (_,state) {
-                if(BlocProvider.of<AuthenticationBloc>(_).state.
+                /*if(BlocProvider.of<AuthenticationBloc>(_).state.
                 status == AuthenticationStatus.authenticated){
                     return HomePage.routeUrl;
-                }
-                return LoginPage.routeUrl;
+                }*/
+                //return LoginPage.routeUrl;
+                return HomePage.routeUrl;
               },
-            ),
+            ),*/
             ShellRoute(
              // navigatorKey: shellNavigatorKey,
-              builder: (context, state, child) => HomePage(child: child),
+              builder: (context, state, screen) => HomePage(child: screen),
               routes: [
                 _homeGoRoute(parentKey: key),
               ],
@@ -92,7 +92,7 @@ class AppRouter extends GoRouter {
               GoRoute(
                 parentNavigatorKey: parentKey,
                 name: PlaceInfoScreen.routeName,
-                path: "places/single-place",
+                path: "places/single",
                 builder: (context, state) => PlaceInfoScreen(
                   placeData: state.extra as PlaceInfoData,
                 ),
