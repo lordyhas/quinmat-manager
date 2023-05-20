@@ -20,21 +20,20 @@ class StarRating extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        children:List<Icon>.generate(starCount, (index) {
-          double value = rating - index.toDouble();
-          //print('StarRating(index => $index : $value) ####');
-          if(value > 1)
-            return Icon(Icons.star, color: color, size: size,);
-          else if(value > 0 && value < 1){
-            return Icon(Icons.star_half_outlined, color: color, size: size,);
-          }
-          else
-            return Icon(Icons.star_border, color: color, size: size,);
+    return Row(
+      children:List<Icon>.generate(starCount, (index) {
+        double value = rating - index.toDouble();
+        //print('StarRating(index => $index : $value) ####');
+        if(value > 1) {
+          return Icon(Icons.star, color: color, size: size,);
+        } else if(value > 0 && value < 1){
+          return Icon(Icons.star_half_outlined, color: color, size: size,);
+        }
+        else {
+          return Icon(Icons.star_border, color: color, size: size,);
+        }
 
-        }) ,
-      ),
+      }) ,
     );
   }
 }

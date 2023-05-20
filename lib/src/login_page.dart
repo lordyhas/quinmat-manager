@@ -342,6 +342,11 @@ class _LoginPageState extends State<LoginPage>
     ],
   );
 
+  void testxx (){
+    const _GoogleLoginButton(text:"__");
+    const _FacebookLoginButton(text:"__");
+  }
+
 
 }
 

@@ -30,15 +30,13 @@ class BackgroundUI extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Stack(
-        children: [
-          BackgroundCover(key: key,),
-          Container(
-              child: child
-          )
-        ],
-      ),
+    return Stack(
+      children: [
+        BackgroundCover(key: key,),
+        Container(
+            child: child
+        )
+      ],
     );
   }
 }

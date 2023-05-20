@@ -36,41 +36,37 @@ class _MapScreenCoverState extends State<MapScreenCover> {
             /// Body ==============
 
             Expanded(
-              child: Container(
-                child: Center(
-                  child: Container(
-                    height: 250,
-                    child: Column(
-                      children: [
-                        Container(
-                            child: Icon(
-                              Icons.map,
-                              size: 150,
+              child: Center(
+                child: SizedBox(
+                  height: 250,
+                  child: Column(
+                    children: [
+                      Icon(
+                        Icons.map,
+                        size: 150,
+                        color: Theme.of(context).primaryColorLight,
+                      ),
+
+                      const Text("Local Maps", style: TextStyle(
+                          color: Colors.black54)
+                        ,),
+                      OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                            foregroundColor: Theme.of(context).primaryColorLight,
+                            side: BorderSide(
                               color: Theme.of(context).primaryColorLight,
                             )
                         ),
+                        child: Container(
+                            width: 100,
+                            alignment: Alignment.center,
+                            child: const Text("Explorer Maps")
+                        ),
+                        onPressed: () => Navigator.push(
+                            context, MapSample.route()) ,
 
-                        const Text("Local Maps", style: TextStyle(
-                            color: Colors.black54)
-                          ,),
-                        OutlinedButton(
-                          style: OutlinedButton.styleFrom(
-                              foregroundColor: Theme.of(context).primaryColorLight,
-                              side: BorderSide(
-                                color: Theme.of(context).primaryColorLight,
-                              )
-                          ),
-                          child: Container(
-                              width: 100,
-                              alignment: Alignment.center,
-                              child: const Text("Explorer Maps")
-                          ),
-                          onPressed: () => Navigator.push(
-                              context, MapSample.route()) ,
-
-                        )
-                      ],
-                    ),
+                      )
+                    ],
                   ),
                 ),
               ),

@@ -199,159 +199,157 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
           Expanded(
             child: AspectRatio(
               aspectRatio: 1.0,
-              child: Container(
-                child: Stack(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(top: 3, bottom: 3),
-                      child: Material(
-                        color: Colors.transparent,
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                              top: 2,
-                              bottom: 2,
-                              left: isStartDateRadius(date) ? 4 : 0,
-                              right: isEndDateRadius(date) ? 4 : 0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: startDate != null && endDate != null
-                                  ? getIsItStartAndEndDate(date) ||
-                                          getIsInRange(date)
-                                      ? BlocProvider.of<StyleAppTheme>(context)
-                                          .buildLightShopTheme                                          .primaryColor
-                                          .withOpacity(0.4)
-                                      : Colors.transparent
-                                  : Colors.transparent,
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: isStartDateRadius(date)
-                                    ? const Radius.circular(24.0)
-                                    : const Radius.circular(0.0),
-                                topLeft: isStartDateRadius(date)
-                                    ? const Radius.circular(24.0)
-                                    : const Radius.circular(0.0),
-                                topRight: isEndDateRadius(date)
-                                    ? const Radius.circular(24.0)
-                                    : const Radius.circular(0.0),
-                                bottomRight: isEndDateRadius(date)
-                                    ? const Radius.circular(24.0)
-                                    : const Radius.circular(0.0),
-                              ),
+              child: Stack(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(top: 3, bottom: 3),
+                    child: Material(
+                      color: Colors.transparent,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            top: 2,
+                            bottom: 2,
+                            left: isStartDateRadius(date) ? 4 : 0,
+                            right: isEndDateRadius(date) ? 4 : 0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: startDate != null && endDate != null
+                                ? getIsItStartAndEndDate(date) ||
+                                        getIsInRange(date)
+                                    ? BlocProvider.of<StyleAppTheme>(context)
+                                        .buildLightShopTheme                                          .primaryColor
+                                        .withOpacity(0.4)
+                                    : Colors.transparent
+                                : Colors.transparent,
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: isStartDateRadius(date)
+                                  ? const Radius.circular(24.0)
+                                  : const Radius.circular(0.0),
+                              topLeft: isStartDateRadius(date)
+                                  ? const Radius.circular(24.0)
+                                  : const Radius.circular(0.0),
+                              topRight: isEndDateRadius(date)
+                                  ? const Radius.circular(24.0)
+                                  : const Radius.circular(0.0),
+                              bottomRight: isEndDateRadius(date)
+                                  ? const Radius.circular(24.0)
+                                  : const Radius.circular(0.0),
                             ),
                           ),
                         ),
                       ),
                     ),
-                    Material(
-                      color: Colors.transparent,
-                      child: InkWell(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(32.0)),
-                        onTap: () {
-                          if (currentMonthDate.month == date.month) {
-                            if (widget.minimumDate != null &&
-                                widget.maximumDate != null) {
-                              final DateTime newminimumDate = DateTime(
-                                  widget.minimumDate!.year,
-                                  widget.minimumDate!.month,
-                                  widget.minimumDate!.day - 1);
-                              final DateTime newmaximumDate = DateTime(
-                                  widget.maximumDate!.year,
-                                  widget.maximumDate!.month,
-                                  widget.maximumDate!.day + 1);
-                              if (date.isAfter(newminimumDate) &&
-                                  date.isBefore(newmaximumDate)) {
-                                onDateClick(date);
-                              }
-                            } else if (widget.minimumDate != null) {
-                              final DateTime newminimumDate = DateTime(
-                                  widget.minimumDate!.year,
-                                  widget.minimumDate!.month,
-                                  widget.minimumDate!.day - 1);
-                              if (date.isAfter(newminimumDate)) {
-                                onDateClick(date);
-                              }
-                            } else if (widget.maximumDate != null) {
-                              final DateTime newmaximumDate = DateTime(
-                                  widget.maximumDate!.year,
-                                  widget.maximumDate!.month,
-                                  widget.maximumDate!.day + 1);
-                              if (date.isBefore(newmaximumDate)) {
-                                onDateClick(date);
-                              }
-                            } else {
+                  ),
+                  Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(32.0)),
+                      onTap: () {
+                        if (currentMonthDate.month == date.month) {
+                          if (widget.minimumDate != null &&
+                              widget.maximumDate != null) {
+                            final DateTime newminimumDate = DateTime(
+                                widget.minimumDate!.year,
+                                widget.minimumDate!.month,
+                                widget.minimumDate!.day - 1);
+                            final DateTime newmaximumDate = DateTime(
+                                widget.maximumDate!.year,
+                                widget.maximumDate!.month,
+                                widget.maximumDate!.day + 1);
+                            if (date.isAfter(newminimumDate) &&
+                                date.isBefore(newmaximumDate)) {
                               onDateClick(date);
                             }
+                          } else if (widget.minimumDate != null) {
+                            final DateTime newminimumDate = DateTime(
+                                widget.minimumDate!.year,
+                                widget.minimumDate!.month,
+                                widget.minimumDate!.day - 1);
+                            if (date.isAfter(newminimumDate)) {
+                              onDateClick(date);
+                            }
+                          } else if (widget.maximumDate != null) {
+                            final DateTime newmaximumDate = DateTime(
+                                widget.maximumDate!.year,
+                                widget.maximumDate!.month,
+                                widget.maximumDate!.day + 1);
+                            if (date.isBefore(newmaximumDate)) {
+                              onDateClick(date);
+                            }
+                          } else {
+                            onDateClick(date);
                           }
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(2),
-                          child: Container(
-                            decoration: BoxDecoration(
+                        }
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(2),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: getIsItStartAndEndDate(date)
+                                ? BlocProvider.of<StyleAppTheme>(context)
+                                  .buildLightShopTheme.primaryColor
+                                : Colors.transparent,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(32.0)),
+                            border: Border.all(
                               color: getIsItStartAndEndDate(date)
-                                  ? BlocProvider.of<StyleAppTheme>(context)
-                                    .buildLightShopTheme.primaryColor
+                                  ? Colors.white
                                   : Colors.transparent,
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(32.0)),
-                              border: Border.all(
-                                color: getIsItStartAndEndDate(date)
-                                    ? Colors.white
-                                    : Colors.transparent,
-                                width: 2,
-                              ),
-                              boxShadow: getIsItStartAndEndDate(date)
-                                  ? <BoxShadow>[
-                                      BoxShadow(
-                                          color: Colors.grey.withOpacity(0.6),
-                                          blurRadius: 4,
-                                          offset: const Offset(0, 0)),
-                                    ]
-                                  : null,
+                              width: 2,
                             ),
-                            child: Center(
-                              child: Text(
-                                '${date.day}',
-                                style: TextStyle(
-                                    color: getIsItStartAndEndDate(date)
-                                        ? Colors.white
-                                        : currentMonthDate.month == date.month
-                                            ? Colors.black
-                                            : Colors.grey.withOpacity(0.6),
-                                    fontSize:
-                                        MediaQuery.of(context).size.width > 360
-                                            ? 18
-                                            : 16,
-                                    fontWeight: getIsItStartAndEndDate(date)
-                                        ? FontWeight.bold
-                                        : FontWeight.normal),
-                              ),
+                            boxShadow: getIsItStartAndEndDate(date)
+                                ? <BoxShadow>[
+                                    BoxShadow(
+                                        color: Colors.grey.withOpacity(0.6),
+                                        blurRadius: 4,
+                                        offset: const Offset(0, 0)),
+                                  ]
+                                : null,
+                          ),
+                          child: Center(
+                            child: Text(
+                              '${date.day}',
+                              style: TextStyle(
+                                  color: getIsItStartAndEndDate(date)
+                                      ? Colors.white
+                                      : currentMonthDate.month == date.month
+                                          ? Colors.black
+                                          : Colors.grey.withOpacity(0.6),
+                                  fontSize:
+                                      MediaQuery.of(context).size.width > 360
+                                          ? 18
+                                          : 16,
+                                  fontWeight: getIsItStartAndEndDate(date)
+                                      ? FontWeight.bold
+                                      : FontWeight.normal),
                             ),
                           ),
                         ),
                       ),
                     ),
-                    Positioned(
-                      bottom: 9,
-                      right: 0,
-                      left: 0,
-                      child: Container(
-                        height: 6,
-                        width: 6,
-                        decoration: BoxDecoration(
-                            color: DateTime.now().day == date.day &&
-                                    DateTime.now().month == date.month &&
-                                    DateTime.now().year == date.year
-                                ? getIsInRange(date)
-                                    ? Colors.white
-                                    : BlocProvider.of<StyleAppTheme>(context)
-                                        .buildLightShopTheme
-                                        .primaryColor
-                                : Colors.transparent,
-                            shape: BoxShape.circle),
-                      ),
+                  ),
+                  Positioned(
+                    bottom: 9,
+                    right: 0,
+                    left: 0,
+                    child: Container(
+                      height: 6,
+                      width: 6,
+                      decoration: BoxDecoration(
+                          color: DateTime.now().day == date.day &&
+                                  DateTime.now().month == date.month &&
+                                  DateTime.now().year == date.year
+                              ? getIsInRange(date)
+                                  ? Colors.white
+                                  : BlocProvider.of<StyleAppTheme>(context)
+                                      .buildLightShopTheme
+                                      .primaryColor
+                              : Colors.transparent,
+                          shape: BoxShape.circle),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

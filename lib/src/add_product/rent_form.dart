@@ -244,7 +244,7 @@ class RentForm extends StatelessWidget {
           /// Entry's information product
 
           const Column(
-            children: const [],
+            children: [],
           ),
         ],
       ),

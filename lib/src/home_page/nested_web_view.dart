@@ -74,20 +74,17 @@ class NestedWebView extends StatelessWidget {
                                         ),
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(horizontal: 16),//only(left: 16, right: 16, top: 4, bottom: 4),
-                                          child: Container(
-                                            //constraints: const BoxConstraints(maxWidth: 400),
-                                            child: TextField(
-                                              onChanged: (String txt) {},
-                                              style: const TextStyle(
-                                                fontSize: 18,
-                                                color: Colors.black,
-                                              ),
-                                              cursorColor: Theme.of(context).colorScheme.secondary,
-                                              decoration: const InputDecoration(
-                                                border: InputBorder.none,
-                                                hintText: 'Lubumbashi...',
-                                                hintStyle: TextStyle(color: Colors.black),
-                                              ),
+                                          child: TextField(
+                                            onChanged: (String txt) {},
+                                            style: const TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.black,
+                                            ),
+                                            cursorColor: Theme.of(context).colorScheme.secondary,
+                                            decoration: const InputDecoration(
+                                              border: InputBorder.none,
+                                              hintText: 'Lubumbashi...',
+                                              hintStyle: TextStyle(color: Colors.black),
                                             ),
                                           ),
                                         ),

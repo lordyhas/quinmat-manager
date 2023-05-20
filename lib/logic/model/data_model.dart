@@ -3,7 +3,7 @@
 library data.model;
 
 import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
-import 'package:latlong2/latlong.dart' as geo;
+//import 'package:latlong2/latlong.dart' as geo;
 
 part 'shop_data.dart';
 part 'product.dart';
@@ -138,7 +138,7 @@ class ImageLinkStorage {
 
 
 
-extension on DateTime {
+extension DateTimeHelper on DateTime {
   static DateTime datePlan(
       {required int day, required int hour, required int minute}) {
     var d = DateTime.now();
@@ -153,6 +153,3 @@ extension on DateTime {
 }
 
 
-extension on geo.LatLng{
-  maps.LatLng get toMapGPS => maps.LatLng(latitude,longitude);
-}

@@ -48,6 +48,7 @@ class Go {
         routeName: routeName,
         path: path,
         queryParams: queryParams,
+        args: args
       );
 
   static GoRouter of(BuildContext context) => GoRouter.of(context);
@@ -79,7 +80,7 @@ class _GoNavigator {
   }
 }
 
-extension XGO on GoRouter {
+extension GoRouterHelper on GoRouter {
   void to({
     required String routeName,
     Map<String, String> params = const <String, String>{},
