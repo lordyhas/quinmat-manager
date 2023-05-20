@@ -72,7 +72,7 @@ class QuinmatApp extends StatelessWidget {
   QuinmatApp({super.key});
 
   final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: "rootKey");
-  final _shellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: "shellKey");
+  //final _shellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: "shellKey");
 
   //NavigatorState get _navigator => _navigatorKey.currentState!;
 
@@ -108,12 +108,12 @@ class QuinmatApp extends StatelessWidget {
         ),
         BlocProvider<FilterCubit>(
           create: (context) => FilterCubit(
-            Filter.values(
+            const Filter.values(
                 maxPrice: 600.0,
                 minPrice: 50,
                 maxDistance: 5.0,
                 minDistance: 0.0,
-                categoryList: const []),
+                categoryList: []),
           ),
         ),
       ],

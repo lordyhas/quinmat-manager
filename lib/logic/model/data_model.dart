@@ -10,6 +10,8 @@ part 'product.dart';
 
 
 enum RentalSpaceType{apartment, house, bureau, reception, hall, unknown}
+
+// ignore: constant_identifier_names
 enum ProductType{QCL,MOB,MED,PAP, unknown}
 /*abstract class RentalSpaceType{
   static const apartment = 0;

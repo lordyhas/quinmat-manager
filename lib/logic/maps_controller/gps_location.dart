@@ -77,24 +77,28 @@ class GPSPosition extends Position implements Equatable{
   /// A pair of latitude and longitude coordinates, stored as degrees.
   final LatLng latLng;
   /// The time at which this position was determined.
+  @override
   final DateTime? timestamp;
 
   /// The altitude of the device in meters.
   ///
   /// The altitude is not available on all devices. In these cases the returned
   /// value is 0.0.
+  @override
   final double altitude;
 
   /// The estimated horizontal accuracy of the position in meters.
   ///
   /// The accuracy is not available on all devices. In these cases the value is
   /// 0.0.
+  @override
   final double accuracy;
 
   /// The heading in which the device is traveling in degrees.
   ///
   /// The heading is not available on all devices. In these cases the value is
   /// 0.0.
+  @override
   final double heading;
 
   /// The floor specifies the floor of the building on which the device is
@@ -102,6 +106,7 @@ class GPSPosition extends Position implements Equatable{
   ///
   /// The floor property is only available on iOS and only when the information
   /// is available. In all other cases this value will be null.
+  @override
   final int? floor;
 
   /// The speed at which the devices is traveling in meters per second over
@@ -109,7 +114,8 @@ class GPSPosition extends Position implements Equatable{
   ///
   /// The speed is not available on all devices. In these cases the value is
   /// 0.0.
-   final double speed;
+   @override
+  final double speed;
 
 
 
@@ -117,13 +123,15 @@ class GPSPosition extends Position implements Equatable{
    ///
    /// The speedAccuracy is not available on all devices. In these cases the
    /// value is 0.0.
-   final double speedAccuracy;
+   @override
+  final double speedAccuracy;
 
    /// Will be true on Android (starting from API lvl 18) when the location came
    /// from the mocked provider.
    ///
    /// On iOS this value will always be false.
-   final bool isMocked;
+   @override
+  final bool isMocked;
 
 
 
@@ -162,7 +170,7 @@ class GPSPosition extends Position implements Equatable{
   }
 
   static GPSPosition empty = GPSPosition(
-    latLng: LatLng(0.0,0.0),
+    latLng: const LatLng(0.0,0.0),
     //latitude: positionMap['latitude'],
     //longitude: positionMap['longitude'],
     timestamp: null,
@@ -189,15 +197,15 @@ class GPSPosition extends Position implements Equatable{
 extension on Position{
   GPSPosition toGPSPosition(){
     return GPSPosition(
-      latLng: LatLng(this.latitude, this.longitude),
-      timestamp: this.timestamp,
-      accuracy: this.accuracy,
-      altitude: this.altitude,
-      heading: this.heading,
-      speed: this.speed,
-      speedAccuracy: this.speedAccuracy,
-      floor: this.floor,
-      isMocked: this.isMocked,
+      latLng: LatLng(latitude, longitude),
+      timestamp: timestamp,
+      accuracy: accuracy,
+      altitude: altitude,
+      heading: heading,
+      speed: speed,
+      speedAccuracy: speedAccuracy,
+      floor: floor,
+      isMocked: isMocked,
     );
   }
 }

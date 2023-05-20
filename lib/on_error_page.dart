@@ -56,7 +56,7 @@ class _OnErrorPageState extends State<OnErrorPage>
                     rect: _relativeRectTween.animate(_controller),
                     child: Image.asset('assets/img/brain.png'),
                   ),
-                  Positioned(
+                  const Positioned(
                     top: 170,
                     bottom: 0,
                     left: 24,
@@ -64,7 +64,7 @@ class _OnErrorPageState extends State<OnErrorPage>
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      children: const [
+                      children: [
                         Text(
                           '404',
                           textAlign: TextAlign.center,

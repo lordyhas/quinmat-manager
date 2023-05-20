@@ -26,8 +26,7 @@ import 'package:qmt_manager/src/home_page/place_info_screen.dart';
 import 'package:qmt_manager/src/myspace_page.dart';
 
 import '../logic/maps_controller/maps.dart';
-import 'add_doctor/data_tab.dart';
-import 'add_product/add_product_page.dart';
+
 
 
 part 'home_page/rental_screen.dart';

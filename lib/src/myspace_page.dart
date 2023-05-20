@@ -143,8 +143,8 @@ class _UserSpaceScreenState extends State<UserSpaceScreen> {
                                     constraints: const BoxConstraints(
                                       maxWidth: 200,
                                     ),
-                                    child: Column(
-                                      children: const [
+                                    child: const Column(
+                                      children: [
                                         Spacer(),
                                         Text(
                                           "À verifier",
@@ -181,8 +181,8 @@ class _UserSpaceScreenState extends State<UserSpaceScreen> {
                                     constraints: const BoxConstraints(
                                       maxWidth: 200,
                                     ),
-                                    child: Column(
-                                      children: const [
+                                    child: const Column(
+                                      children: [
                                         Spacer(),
                                         Text(
                                           "Déjà ajouté",
@@ -347,7 +347,7 @@ class _UserSpaceScreenState extends State<UserSpaceScreen> {
                         child: SizedBox(
                           child: Column(
                             children: [
-                              Row(),
+                              const Row(),
                               const Spacer(),
                               Wrap(
                                 spacing: 8.0,

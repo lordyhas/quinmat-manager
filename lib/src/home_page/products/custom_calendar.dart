@@ -18,7 +18,7 @@ class CustomCalendarView extends StatefulWidget {
   final Function(DateTime, DateTime)? startEndDateChange;
 
   @override
-  _CustomCalendarViewState createState() => _CustomCalendarViewState();
+  State<CustomCalendarView> createState() => _CustomCalendarViewState();
 }
 
 class _CustomCalendarViewState extends State<CustomCalendarView> {

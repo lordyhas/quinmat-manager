@@ -36,11 +36,11 @@ class _ProfilePageState extends State<ProfilePage>
                     //color: Colors.white,
                     child:  Column(
                       children: <Widget>[
-                        Padding(
-                            padding: const EdgeInsets.only(left: 20.0, top: 20.0),
+                        const Padding(
+                            padding: EdgeInsets.only(left: 20.0, top: 20.0),
                             child:  Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const <Widget>[
+                              children: <Widget>[
 
                               ],
                             )),
@@ -65,11 +65,11 @@ class _ProfilePageState extends State<ProfilePage>
                                 ),
                               ],
                             ),
-                            Padding(
-                                padding: const EdgeInsets.only(top: 90.0, right: 100.0),
+                            const Padding(
+                                padding:  EdgeInsets.only(top: 90.0, right: 100.0),
                                 child:  Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const <Widget>[
+                                  children:  <Widget>[
                                     CircleAvatar(
                                       backgroundColor: Colors.red,
                                       radius: 25.0,
@@ -100,10 +100,10 @@ class _ProfilePageState extends State<ProfilePage>
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 mainAxisSize: MainAxisSize.max,
                                 children: <Widget>[
-                                  Column(
+                                  const Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     mainAxisSize: MainAxisSize.min,
-                                    children: const <Widget>[
+                                    children: <Widget>[
                                       Text(
                                         'Information Personelle',
                                         style: TextStyle(
@@ -125,15 +125,15 @@ class _ProfilePageState extends State<ProfilePage>
                                 ],
                               )
                           ),
-                          Padding(
-                              padding: const EdgeInsets.only(left: 25.0, right: 25.0, top: 25.0),
+                          const Padding(
+                              padding: EdgeInsets.only(left: 25.0, right: 25.0, top: 25.0),
                               child:  Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: <Widget>[
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     mainAxisSize: MainAxisSize.min,
-                                    children: const <Widget>[
+                                    children: <Widget>[
                                       Text(
                                         'Name',
                                         style: TextStyle(
@@ -162,8 +162,8 @@ class _ProfilePageState extends State<ProfilePage>
                                   ),
                                 ],
                               )),
-                          Padding(
-                              padding: const EdgeInsets.only(
+                          const Padding(
+                              padding:  EdgeInsets.only(
                                   left: 25.0, right: 25.0, top: 25.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
@@ -171,7 +171,7 @@ class _ProfilePageState extends State<ProfilePage>
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     mainAxisSize: MainAxisSize.min,
-                                    children: const <Widget>[
+                                    children:  <Widget>[
                                       Text(
                                         'Email ID',
                                         style: TextStyle(
@@ -197,8 +197,8 @@ class _ProfilePageState extends State<ProfilePage>
                                   ),
                                 ],
                               )),
-                          Padding(
-                              padding: const EdgeInsets.only(
+                          const Padding(
+                              padding:  EdgeInsets.only(
                                   left: 25.0, right: 25.0, top: 25.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
@@ -206,7 +206,7 @@ class _ProfilePageState extends State<ProfilePage>
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     mainAxisSize: MainAxisSize.min,
-                                    children: const <Widget>[
+                                    children:  <Widget>[
                                       Text(
                                         'Mobile',
                                         style: TextStyle(
@@ -232,13 +232,13 @@ class _ProfilePageState extends State<ProfilePage>
                                   ),
                                 ],
                               )),
-                          Padding(
-                              padding: const EdgeInsets.only(
+                          const Padding(
+                              padding:  EdgeInsets.only(
                                   left: 25.0, right: 25.0, top: 25.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.start,
-                                children: const <Widget>[
+                                children: <Widget>[
                                   Expanded(
                                     flex: 2,
                                     child: Text(

@@ -3,6 +3,7 @@
 import 'dart:convert';
 import 'dart:core';
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 abstract class HttpProtocol<T> {
@@ -30,8 +31,10 @@ class TransferProtocol {
 
   Future<void> send(Map data) async {
     final response = await http.post(_uri, body: data);
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
+    debugPrint('Response status: ${response.statusCode}');
+
+    debugPrint('Response body: ${response.body}');
+
 
     //return response.statusCode;
   }

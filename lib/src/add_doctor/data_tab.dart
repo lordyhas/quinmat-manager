@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qmt_manager/src/add_doctor/data.csv.dart';
 
+/*
 class _Dessert {
   _Dessert(this.name, this.calories, this.fat, this.carbs, this.protein,
       this.sodium, this.calcium, this.iron);
@@ -16,7 +17,7 @@ class _Dessert {
 
   bool? selected = false;
 }
-
+*/
 class Doctor {
   final String? title;
   final String name;

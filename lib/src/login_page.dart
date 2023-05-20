@@ -100,7 +100,7 @@ class _LoginPageState extends State<LoginPage>
             resizeToAvoidBottomInset: false,
             extendBodyBehindAppBar: true,
             body: ScrollConfiguration(
-              behavior: MyBehavior(),
+              behavior: MyScrollBehaviorBehavior(),
               child: SizedBox(
                 child: Container(
                   height: size.height,
@@ -184,8 +184,8 @@ class _LoginPageState extends State<LoginPage>
               height: 95,
             ),
           ),
-          Row(
-            children: const [
+          const Row(
+            children: [
               SizedBox(),
               Spacer(),
               SelectableText(
@@ -301,9 +301,9 @@ class _LoginPageState extends State<LoginPage>
             margin: const EdgeInsets.symmetric(
                 horizontal: 32.0
             ),
-            child: Column(
+            child: const Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children: [
                 _GoogleLoginButton(),
                 SizedBox(height: 8.0,),
                 _FacebookLoginButton(),

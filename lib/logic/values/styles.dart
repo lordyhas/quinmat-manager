@@ -107,15 +107,6 @@ class StyleAppTheme extends Cubit<ThemeData> {
         color: Colors.white
     ),
 
-    textTheme: TextTheme(
-      headline5: const TextStyle(color: primaryWhite, fontSize: 24),
-      headline6: const TextStyle(color: primaryWhite,),
-      bodyText1: const TextStyle(color: primaryWhite,),
-      bodyText2: const TextStyle(color: primaryBlack,),
-      subtitle1: TextStyle(color: primaryBlack.withOpacity(0.3),),
-      subtitle2: const TextStyle(color: primaryPurple,),
-    ),
-
     //primarySwatch: Colors.,
     //visualDensity: VisualDensity.adaptivePlatformDensity,
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
@@ -139,10 +130,10 @@ class StyleAppTheme extends Cubit<ThemeData> {
     textTheme: TextTheme(
       headlineSmall: const TextStyle(color: primaryWhite, fontSize: 24),
       titleLarge: const TextStyle(color: primaryWhite,),
-      bodyLarge: TextStyle(color: primaryBlack,),
-      bodyMedium: TextStyle(color: primaryWhite,),
+      bodyLarge: const TextStyle(color: primaryBlack,),
+      bodyMedium: const TextStyle(color: primaryWhite,),
       titleMedium: TextStyle(color: primaryWhite.withOpacity(0.3),),
-      titleSmall: TextStyle(color: primaryPurple,),
+      titleSmall: const TextStyle(color: primaryPurple,),
     ),
 
     floatingActionButtonTheme: const FloatingActionButtonThemeData(

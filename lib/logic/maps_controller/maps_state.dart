@@ -6,7 +6,7 @@ class MapsState extends Equatable {
   MapsState._({
     this.status = LocationStatus.unknown,
     MapsData? mapsData,
-  }): this.maps = mapsData ?? MapsData.empty;
+  }): maps = mapsData ?? MapsData.empty;
 
   final LocationStatus status;
   final MapsData maps;

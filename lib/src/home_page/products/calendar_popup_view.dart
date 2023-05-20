@@ -96,7 +96,7 @@ class _CalendarPopupViewState extends State<CalendarPopupView>
                           ],
                         ),
                         child: InkWell(
-                          borderRadius: BorderRadius.all(Radius.circular(24.0)),
+                          borderRadius: const BorderRadius.all(Radius.circular(24.0)),
                           onTap: () {},
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,

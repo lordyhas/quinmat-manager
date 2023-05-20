@@ -2,7 +2,6 @@ library values;
 
 import 'package:achievement_view/achievement_view.dart';
 import 'package:qmt_manager/logic/values.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +9,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
 import 'package:url_launcher/url_launcher.dart';
 import 'package:latlong2/latlong.dart';
 
-//import 'dart:io' show Platform;
 
 export 'controller/my_bloc_controller.dart';
 export 'values/styles.dart';
@@ -20,8 +18,6 @@ export 'extension.dart';
 export 'package:utils_component/utils_component.dart' hide Responsive, Go;
 export 'package:go_router/go_router.dart';
 
-//export "package:exploress_repository/exploress_bloc.dart" hide AppBlocObserver;
-//export 'values/colors.dart';
 
 part 'category.dart';
 
@@ -124,15 +120,15 @@ Future<void> launchMapOnWeb({maps.LatLng? latLng}) async {
   }
 }
 
-class MyBehavior extends ScrollBehavior {
-  @override
+class MyScrollBehaviorBehavior extends ScrollBehavior {
+  /*@override
   Widget buildViewportChrome(
     BuildContext context,
     Widget child,
     AxisDirection axisDirection,
   ) {
     return child;
-  }
+  }*/
 }
 
 void showToastFavorite({required BuildContext context, String? message}) =>

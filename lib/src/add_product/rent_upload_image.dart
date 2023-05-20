@@ -11,10 +11,20 @@ class UploadImage extends StatefulWidget {
 class _UploadImageState extends State<UploadImage> {
   CroppedFile? _croppedFile;
 
+  WebUiSettings get _webUISet => WebUiSettings(
+    context: context,
+    presentStyle: CropperPresentStyle.dialog,
+    boundary: const CroppieBoundary(width: 520, height: 520,),
+    viewPort: const CroppieViewPort(width: 480, height: 480,),
+    enableExif: true,
+    enableZoom: true,
+    showZoomer: true,
+  );
   Future<void> _uploadImage() async {
     final pickedFile = await ImagePicker().pickImage(
         source: ImageSource.gallery
     );
+
     if (pickedFile != null) {
       final croppedFile = await ImageCropper().cropImage(
         maxHeight: 800,
@@ -35,15 +45,8 @@ class _UploadImageState extends State<UploadImage> {
           IOSUiSettings(
             title: 'Recadrage Image',
           ),
-          WebUiSettings(
-            context: context,
-            presentStyle: CropperPresentStyle.dialog,
-            boundary: const CroppieBoundary(width: 520, height: 520,),
-            viewPort: const CroppieViewPort(width: 480, height: 480,),
-            enableExif: true,
-            enableZoom: true,
-            showZoomer: true,
-          ),
+          _webUISet,
+
         ],
       );
 
@@ -122,13 +125,13 @@ class _UploadImageState extends State<UploadImage> {
                               style: Responsive.of(context).isOnlyWeb
                                   ? Theme.of(context)
                                       .textTheme
-                                      .headline5!
+                                      .headlineSmall!
                                       .copyWith(
                                           color:
                                               Theme.of(context).highlightColor)
                                   : Theme.of(context)
                                       .textTheme
-                                      .bodyText2!
+                                      .bodyMedium!
                                       .copyWith(
                                           color:
                                               Theme.of(context).highlightColor),

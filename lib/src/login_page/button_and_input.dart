@@ -162,7 +162,7 @@ class _InputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    //Size size = MediaQuery.of(context).size;
     return Container(
       height: 70,
       margin: const EdgeInsets.symmetric(horizontal: 16.0),

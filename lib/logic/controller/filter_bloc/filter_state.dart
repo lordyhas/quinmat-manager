@@ -15,8 +15,8 @@ class Filter extends Equatable {
       this.category = const[],
   });
 
-  Filter.unknown() : this._();
-  Filter.values({
+  const Filter.unknown() : this._();
+  const Filter.values({
     required double maxPrice,
     required double minPrice,
     required double maxDistance,

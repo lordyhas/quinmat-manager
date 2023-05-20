@@ -6,7 +6,7 @@ class ShopInformation{
 }
 
 class ShopData{
-  final id;
+  final dynamic id;
   final String shopName;
   final String shopCode;
   final String? email;
@@ -16,7 +16,7 @@ class ShopData{
   final String? phoneNumber;
   final String? phoneNumber2;
   final String? imagePath;
-  final image;
+  final dynamic image;
 
 
 
@@ -36,7 +36,7 @@ class ShopData{
   final bool certify;
 
   /// will be true if delivery is possible
-  final canDeliver;
+  final dynamic canDeliver;
 
 
   ShopData({

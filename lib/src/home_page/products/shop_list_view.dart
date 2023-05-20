@@ -42,7 +42,7 @@ class SpaceListView extends StatelessWidget {
       return 700;
     }
 
-    final _textStyle = TextStyle(
+    final textStyle = TextStyle(
         fontSize: 14,
         color: (Theme.of(context).brightness != Brightness.dark)
             ? Colors.grey.shade600
@@ -125,7 +125,7 @@ class SpaceListView extends StatelessWidget {
                                             children: <Widget>[
                                               Text(
                                                 spaces[index].subTxt,
-                                                style: _textStyle,
+                                                style: textStyle,
                                               ),
                                               const SizedBox(
                                                 width: 4,
@@ -142,7 +142,7 @@ class SpaceListView extends StatelessWidget {
                                                   ' à ${spaces[index].distance.toStringAsFixed(1)} km du centre ville',
                                                   overflow:
                                                       TextOverflow.ellipsis,
-                                                  style: _textStyle,
+                                                  style: textStyle,
                                                 ),
                                               ),
                                             ],
@@ -168,7 +168,7 @@ class SpaceListView extends StatelessWidget {
                                                   ),*/
                                               Text(
                                                 ' ${spaces[index].reviews} Reviews',
-                                                style: _textStyle,
+                                                style: textStyle,
                                               ),
                                             ],
                                           ),
@@ -206,7 +206,7 @@ class SpaceListView extends StatelessWidget {
                                       ),*/
                                         Text(
                                           'explore',
-                                          style: _textStyle,
+                                          style: textStyle,
                                         ),
                                       ],
                                     ),

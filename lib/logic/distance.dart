@@ -21,14 +21,14 @@ class DistanceBetween {
 
   double get distanceKiloMeter {
     final double meter = _distance
-        .as(LengthUnit.Meter, this.fromLatLng, this.toLatLng);
+        .as(LengthUnit.Meter, fromLatLng, toLatLng);
     return meter/1000;
   }
   double get distanceKM => distanceKiloMeter;
 
   double get distanceMeter {
     final double meter = _distance
-        .as(LengthUnit.Meter, this.fromLatLng, this.toLatLng);
+        .as(LengthUnit.Meter, fromLatLng, toLatLng);
     return meter;
   }
 

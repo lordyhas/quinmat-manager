@@ -14,10 +14,5 @@ class MapsBloc extends Bloc<MapsEvent, MapsState> {
       add(MapsDataLoad(MapsData(currentPosition: position,)));
 
 
-  @override
-  Future<void> close() {
-    return super.close();
-  }
-
 
 }
