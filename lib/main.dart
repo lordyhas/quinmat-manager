@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'package:qmt_manager/logic/values.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -23,12 +25,12 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  /*
+
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: kIsWeb
         ? HydratedStorage.webStorageDirectory
         : await getTemporaryDirectory(),
-  );*/
+  );
 
   Bloc.observer = AppBlocObserver();
   //Hive.initFlutter();
@@ -120,7 +122,7 @@ class QuinmatApp extends StatelessWidget {
       child: BlocBuilder<StyleAppTheme, ThemeData>(
         builder: (context, theme) {
           return MaterialApp.router(
-
+            //key: _shellNavigatorKey,
             debugShowCheckedModeBanner: false,
             title: AppConstant.markName,
 
@@ -128,7 +130,6 @@ class QuinmatApp extends StatelessWidget {
               brightness: Brightness.dark,
               fontFamily: "Nunito",
             ).copyWith(
-
               visualDensity: VisualDensity.adaptivePlatformDensity,
               primaryColorLight: Colors.teal.shade400,
               floatingActionButtonTheme: FloatingActionButtonThemeData(
