@@ -103,15 +103,9 @@ class _HomePageState extends State<HomePage> {
 
   FloatingActionButton get floatingActionButton => FloatingActionButton(
     elevation: 0,
-    onPressed: () {
-      if (kIsWeb) {
-        launchMapOnWeb();
-      } else {
-        Navigator.push(context, MapSample.route());
-      }
-    },
-        child: const Icon(CupertinoIcons.map),
-      );
+    onPressed: () {},
+    child: const Icon(CupertinoIcons.map),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -179,12 +173,12 @@ class _HomePageState extends State<HomePage> {
                     ),
                     const Spacer(),
                     BooleanBuilder(
-                      condition: () =>
-                      screenWidth > (kPhoneDimens - 40) && kIsWeb,
+                      condition:
+                          () => screenWidth > (kPhoneDimens - 40) && kIsWeb,
                       ifTrue: Row(
                         children: [
                           TextButton(
-                            child: const Text("My Space"),
+                            child: const Text("Mon Compte"),
                             onPressed: () => Go.of(context)
                                 .goNamed(UserSpaceScreen.routeName),
                           ),
@@ -222,18 +216,16 @@ class _HomePageState extends State<HomePage> {
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: Colors.green,
                                     ),
-                                    onPressed: () => GoRouter.of(context).goNamed(LoginPage.routeName),
+                                    onPressed: () => Go.of(context)
+                                        .goNamed(LoginPage.routeName),
                                     child: const Text("Login"),
                                   );
                                 case AuthenticationStatus.unauthenticated:
                                   return const SizedBox.shrink();
                               }
-                              
                             },
                           ),
-                          const SizedBox(
-                            width: 8.0,
-                          ),
+                          const SizedBox(width: 8.0,),
                         ],
                       ),
                       ifFalse: const SizedBox.shrink(),
@@ -242,10 +234,6 @@ class _HomePageState extends State<HomePage> {
                 ),
 
                 actions: [
-                  /*IconButton(
-                      onPressed: (){},
-                      icon: const Icon(Icons.notifications))*/
-
                   PopupMenuButton(
                     //enabled: false,
                     tooltip: "",
@@ -286,48 +274,126 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-              drawer: Drawer(
-                child: Column(
-                  children: [
-                    DrawerHeader(
-                      child: Column(
-                        children: [
-                          const Spacer(),
-                          Image.asset(
-                            "assets/icon_app.png",
-                            width: 75,
-                          ),
-                          const SizedBox(height: 4.0,),
-                          const Text(
-                            AppConstant.name,
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          const SizedBox(height: 4.0,),
-                          
-                          BlocBuilder<AuthenticationBloc, AuthenticationState>(
-                            builder: (context, state) {
-                              switch(state.status){
-                                case AuthenticationStatus.unauthenticated:
-                                  return const Chip(
-                                    /*avatar: CircleAvatar(
+              drawer:
+              BlocBuilder<NavigationController, NavigationScreen>(
+                builder: (context, state) {
+                  int index = state.index <= 2 ? state.index : 2;
+                  return NavigationDrawer(
+                    selectedIndex: index,
+                    indicatorColor: Colors.teal.shade400,
+                    onDestinationSelected: (int index) {
+                      items[index].onPressed!();
+                    },
+                    children: [
+                      SizedBox(
+                        height: 200,
+                        child: Column(
+                          children: [
+                            const Spacer(),
+                            Image.asset(
+                              "assets/icon_app.png",
+                              width: 75,
+                            ),
+                            const SizedBox(height: 8.0,),
+                            const Text(
+                              AppConstant.name,
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(height: 8.0,),
+
+                            BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                              builder: (context, state) {
+                                switch(state.status){
+                                  case AuthenticationStatus.unauthenticated:
+                                    return const Chip(
+                                      /*avatar: CircleAvatar(
                                       child: Text("X"),
                                     ),*/
-                                    label: Text("Not Connected"),
-                                  );
-                                case AuthenticationStatus.authenticated:
-                                  return Chip(
-                                    avatar: CircleAvatar(
-                                      child: Text("${state.user.name?.substring(0,1)}"),
-                                    ),
-                                    label: Text("${state.user.name}"),
-                                  );
-                              }
-                            },
-                          ),
-                          const Spacer(),
-                        ],
+                                      label: Text("Not Connected"),
+                                    );
+                                  case AuthenticationStatus.authenticated:
+                                    return Chip(
+                                      avatar: CircleAvatar(
+                                        child: Text("${state.user.name?.substring(0,1)}"),
+                                      ),
+                                      label: Text("${state.user.name}"),
+                                    );
+                                }
+                              },
+                            ),
+                            const Spacer(),
+                          ],
+                        ),
                       ),
-                    ),
+                      //const Spacer(),
+                      const Divider(),
+                      const SizedBox(height: 16.0,),
+                      ...items.map((item) => NavigationDrawerDestination(
+
+                        //backgroundColor: Colors.teal.shade700,
+                        icon: item.icon,
+                        selectedIcon: item.selectedIcon,
+                        label: item.label,
+                      )).toList(),
+                      const SizedBox(height: 16.0,),
+                      //const Spacer(),
+                      const Divider(),
+                      ListTile(
+                        onTap: () {
+                          BlocProvider.of<NavigationController>(context)
+                              .setState(NavigationScreen.myspace);
+                          closeDrawer();
+                        },
+                        horizontalTitleGap: 32.0,
+                        style: ListTileStyle.drawer,
+                        leading: Ink(
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Theme.of(context).primaryColorLight),
+                          child: const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Icon(
+                              Icons.space_dashboard,
+                            ),
+                          ),
+                        ),
+                        title: const Text(
+                          "Mon Compte",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      ListTile(
+                        onTap: () {},
+                        horizontalTitleGap: 32.0,
+                        style: ListTileStyle.drawer,
+                        leading: Ink(
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Theme.of(context).scaffoldBackgroundColor),
+                          child: const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Icon(Icons.more_horiz),
+                          ),
+                        ),
+                        title: const Text(
+                          "Plus",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+
+                },
+              ),
+              /*Drawer(
+                child: Column(
+                  children: [
+
+
                     BlocBuilder<NavigationController, NavigationScreen>(
                       builder: (context, state) {
                         return Column(
@@ -347,57 +413,10 @@ class _HomePageState extends State<HomePage> {
                         );
                       },
                     ),
-                    const Spacer(),
-                    const Divider(),
-                    ListTile(
-                      onTap: () {
-                        BlocProvider.of<NavigationController>(context)
-                            .setState(NavigationScreen.myspace);
-                        closeDrawer();
-                      },
-                      horizontalTitleGap: 32.0,
-                      style: ListTileStyle.drawer,
-                      leading: Ink(
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Theme.of(context).primaryColorLight),
-                        child: const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Icon(
-                            Icons.space_dashboard,
-                          ),
-                        ),
-                      ),
-                      title: const Text(
-                        "MySpace",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    ListTile(
-                      onTap: () {},
-                      horizontalTitleGap: 32.0,
-                      style: ListTileStyle.drawer,
-                      leading: Ink(
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Theme.of(context).scaffoldBackgroundColor),
-                        child: const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Icon(Icons.more_horiz),
-                        ),
-                      ),
-                      title: const Text(
-                        "Plus",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
+
                   ],
                 ),
-              ),
+              ),*/
               body: widget.child,
             ),
           ),

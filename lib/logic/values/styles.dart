@@ -91,12 +91,12 @@ class StyleAppTheme extends Cubit<ThemeData> {
 
   /// light theme
   static final _lightTheme = ThemeData(
-    fontFamily: 'ubuntu',
+    fontFamily: 'Nunito',
     scaffoldBackgroundColor: scaffoldBackgroundColor,
     primaryColor: primaryOrange,
     primaryColorLight: primaryPurple,
     primaryColorDark: primaryBlack,
-    accentColor: accentColorLight,
+    ///accentColor: accentColorLight,
     //accentColorBrightness: Brightness.light,
     appBarTheme: AppBarTheme(
         backgroundColor: primaryOrange
@@ -130,19 +130,19 @@ class StyleAppTheme extends Cubit<ThemeData> {
     primaryColor: secondaryOrange,
     primaryColorLight: Colors.deepPurple, // Colors.deepPurple.shade700,
     primaryColorDark: primaryWhite,
-    accentColor: accentColorDark,
+    ///accentColor: accentColorDark,
     //accentColorBrightness: Brightness.dark,
     appBarTheme: AppBarTheme(
         backgroundColor: secondaryOrange
     ),
 
     textTheme: TextTheme(
-      headline5: const TextStyle(color: primaryWhite, fontSize: 24),
-      headline6: const TextStyle(color: primaryWhite,),
-      bodyText1: TextStyle(color: primaryBlack,),
-      bodyText2: TextStyle(color: primaryWhite,),
-      subtitle1: TextStyle(color: primaryWhite.withOpacity(0.3),),
-      subtitle2: TextStyle(color: primaryPurple,),
+      headlineSmall: const TextStyle(color: primaryWhite, fontSize: 24),
+      titleLarge: const TextStyle(color: primaryWhite,),
+      bodyLarge: TextStyle(color: primaryBlack,),
+      bodyMedium: TextStyle(color: primaryWhite,),
+      titleMedium: TextStyle(color: primaryWhite.withOpacity(0.3),),
+      titleSmall: TextStyle(color: primaryPurple,),
     ),
 
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
@@ -179,19 +179,19 @@ class StyleAppTheme extends Cubit<ThemeData> {
   static TextTheme _buildTextShopTheme(TextTheme base) {
     const String fontName = 'ubuntu';
     return base.copyWith(
-      headline1: base.headline1!.copyWith(fontFamily: fontName),
-      headline2: base.headline2!.copyWith(fontFamily: fontName),
-      headline3: base.headline3!.copyWith(fontFamily: fontName),
-      headline4: base.headline4!.copyWith(fontFamily: fontName),
-      headline5: base.headline5!.copyWith(fontFamily: fontName),
-      headline6: base.headline6!.copyWith(fontFamily: fontName),
-      button: base.button!.copyWith(fontFamily: fontName),
-      caption: base.caption!.copyWith(fontFamily: fontName),
-      bodyText1: base.bodyText1!.copyWith(fontFamily: fontName),
-      bodyText2: base.bodyText2!.copyWith(fontFamily: fontName),
-      subtitle1: base.subtitle1!.copyWith(fontFamily: fontName),
-      subtitle2: base.subtitle2!.copyWith(fontFamily: fontName),
-      overline: base.overline!.copyWith(fontFamily: fontName),
+      displayLarge: base.displayLarge!.copyWith(fontFamily: fontName),
+      displayMedium: base.displayMedium!.copyWith(fontFamily: fontName),
+      displaySmall: base.displaySmall!.copyWith(fontFamily: fontName),
+      headlineMedium: base.headlineMedium!.copyWith(fontFamily: fontName),
+      headlineSmall: base.headlineSmall!.copyWith(fontFamily: fontName),
+      titleLarge: base.titleLarge!.copyWith(fontFamily: fontName),
+      labelLarge: base.labelLarge!.copyWith(fontFamily: fontName),
+      bodySmall: base.bodySmall!.copyWith(fontFamily: fontName),
+      bodyLarge: base.bodyLarge!.copyWith(fontFamily: fontName),
+      bodyMedium: base.bodyMedium!.copyWith(fontFamily: fontName),
+      titleMedium: base.titleMedium!.copyWith(fontFamily: fontName),
+      titleSmall: base.titleSmall!.copyWith(fontFamily: fontName),
+      labelSmall: base.labelSmall!.copyWith(fontFamily: fontName),
     );
   }
 
@@ -207,25 +207,26 @@ class StyleAppTheme extends Cubit<ThemeData> {
     );
     final ThemeData base = ThemeData.light();
     return base.copyWith(
-      colorScheme: colorScheme,
       primaryColor: Colors.cyan,
-      buttonColor: primaryColor,
+      ///buttonColor: primaryColor,
       indicatorColor: Colors.white,
       splashColor: Colors.white24,
       splashFactory: InkRipple.splashFactory,
-      accentColor: secondaryColor,
+      ///accentColor: secondaryColor,
       canvasColor: Colors.white,
-      backgroundColor: const Color(0xFFFFFFFF),
       scaffoldBackgroundColor: const Color(0xFFF6F6F6),
-      errorColor: const Color(0xFFB00023),
+      ///errorColor: const Color(0xFFB00023),
       buttonTheme: ButtonThemeData(
         colorScheme: colorScheme,
         textTheme: ButtonTextTheme.primary,
       ),
       textTheme: _buildTextShopTheme(base.textTheme),
       primaryTextTheme: _buildTextShopTheme(base.primaryTextTheme),
-      accentTextTheme: _buildTextShopTheme(base.accentTextTheme),
+      ///accentTextTheme: _buildTextShopTheme(base.accentTextTheme),
       platform: TargetPlatform.iOS,
+      colorScheme: colorScheme.copyWith(
+          background: const Color(0xFFFFFFFF),
+      ),
     );
   }
 }
@@ -236,7 +237,7 @@ class HexColor extends Color {
   static int _getColorFromHex(String hexColor) {
     hexColor = hexColor.toUpperCase().replaceAll('#', '');
     if (hexColor.length == 6) {
-      hexColor = 'FF' + hexColor;
+      hexColor = 'FF$hexColor';
     }
     return int.parse(hexColor, radix: 16);
   }

@@ -120,6 +120,7 @@ class QuinmatApp extends StatelessWidget {
       child: BlocBuilder<StyleAppTheme, ThemeData>(
         builder: (context, theme) {
           return MaterialApp.router(
+
             debugShowCheckedModeBanner: false,
             title: AppConstant.markName,
 
@@ -129,7 +130,7 @@ class QuinmatApp extends StatelessWidget {
             ).copyWith(
 
               visualDensity: VisualDensity.adaptivePlatformDensity,
-              primaryColorLight: Colors.tealAccent.shade400,
+              primaryColorLight: Colors.teal.shade400,
               floatingActionButtonTheme: FloatingActionButtonThemeData(
                 backgroundColor: Colors.cyan.withOpacity(1),
               ),

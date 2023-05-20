@@ -85,7 +85,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                 padding: EdgeInsets.all(8.0),
                                 child: Text(
                                   "Créér un compte",
-
                                 ),
                               ),
                               onPressed: () {},
@@ -100,9 +99,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                         style: TextStyle(
                                             fontSize: 18.0,
                                             //letterSpacing: underline ? .0 : null,
-                                            fontWeight: underline
-                                                ? FontWeight.bold
-                                                : FontWeight.normal,
                                             decoration: underline
                                                 ? TextDecoration.underline
                                                 : TextDecoration.none
@@ -140,11 +136,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   borderRadius: BorderRadius.circular(20.0),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 32.0),
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: Column(
                     children: [
                       ListTile(
-                        visualDensity: const VisualDensity(vertical: VisualDensity.minimumDensity),
+                        //visualDensity: const VisualDensity(vertical: VisualDensity.minimumDensity),
+                        //  titleAlignment: ListTileTitleAlignment.center,
                         //horizontalTitleGap: 32.0,
                         leading: const Icon(
                           CupertinoIcons.home,
@@ -153,7 +150,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           "Mobiler",
                           style: TextStyle(fontSize: 18.0,),
                         ),
-                        subtitle: const Text(""),
                         trailing: const Icon(CupertinoIcons.chevron_right_2),
                         onTap: () {},
                       ),
@@ -161,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 8.0,
                       ),
                       ListTile(
-                        visualDensity: const VisualDensity(vertical: VisualDensity.minimumDensity),
+                        //visualDensity: const VisualDensity(vertical: VisualDensity.minimumDensity),
                         //horizontalTitleGap: 32.0,
                         leading: const Icon(
                           CupertinoIcons.rectangle_stack_fill,
@@ -170,7 +166,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           "Papeterie",
                           style: TextStyle(fontSize: 18.0,),
                         ),
-                        subtitle: const Text(""),
                         trailing: const Icon(CupertinoIcons.chevron_right_2),
                         onTap: () {},
                       ),
@@ -178,7 +173,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 8.0,
                       ),
                       ListTile(
-                        visualDensity: const VisualDensity(vertical: VisualDensity.minimumDensity),
+                        //visualDensity: const VisualDensity(vertical: VisualDensity.minimumDensity),
                         //horizontalTitleGap: 32.0,
                         leading: const Icon(
                           CupertinoIcons.car_detailed,
@@ -188,13 +183,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           "Quaincaillerie",
                           style: TextStyle(fontSize: 18.0,),
                         ),
-                        subtitle: const Text(""),
                         trailing: const Icon(CupertinoIcons.chevron_right_2),
                         onTap: () {},
                       ),
 
                       ListTile(
-                        visualDensity: const VisualDensity(vertical: VisualDensity.minimumDensity),
+                        //visualDensity: const VisualDensity(vertical: VisualDensity.minimumDensity),
                         //horizontalTitleGap: 32.0,
                         leading: const Icon(
                           FontAwesomeIcons.kitMedical,
@@ -204,7 +198,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           "Medical Equipment",
                           style: TextStyle(fontSize: 18.0,),
                         ),
-                        subtitle: const Text(""),
+
                         trailing: const Icon(CupertinoIcons.chevron_right_2),
                         onTap: () {},
                       ),

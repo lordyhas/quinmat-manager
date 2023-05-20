@@ -209,41 +209,86 @@ class _UserSpaceScreenState extends State<UserSpaceScreen> {
                               runSpacing: 8.0,
                               //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.cyan,
-                                  ),
-                                  child: const Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Text(
-                                      "Ajouer un produit",
-                                      style: TextStyle(
-                                        fontSize: 18.0,
-                                      ),
-                                    ),
-                                  ),
-                                  onPressed: () => Go.to(
+
+                                InkWell(
+                                  hoverColor:  Colors.cyan,
+                                  borderRadius: BorderRadius.circular(20),
+                                  onTap: () => Go.to(
                                     context,
                                     routeName: AddProductPage.routeName,
                                   ),
-                                ),
-                                ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.teal,
-                                  ),
-                                  onPressed: Go.params(context,
-                                    routeName: DataTableDemo.routeName,
-                                  ).push,
-                                  child: const Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Text(
-                                      "Database Docteur",
-                                      style: TextStyle(
-                                        fontSize: 18.0,
-                                      ),
+                                  child: Container(
+                                    margin: const EdgeInsets.all(4.0),
+                                    height: 75,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      color: Colors.black12,
+                                      borderRadius: BorderRadius.circular(20),
+                                      image: const DecorationImage(
+                                          image: AssetImage(
+                                              "assets/img/bg_image_web.jpeg"),
+                                          fit: BoxFit.cover,
+                                          colorFilter: ColorFilter.mode(
+                                              Colors.grey, BlendMode.color)),
+                                    ),
+                                    constraints: const BoxConstraints(
+                                      maxWidth: 200,
+                                    ),
+                                    child: const Column(
+                                      children: [
+                                        Spacer(),
+                                        Text(
+                                          "Ajouter un produit",
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              color: Colors.white,
+                                          ),
+                                        ),
+                                        Spacer(),
+                                      ],
                                     ),
                                   ),
                                 ),
+
+                                InkWell(
+                                  hoverColor:  Colors.teal,
+                                  borderRadius: BorderRadius.circular(20),
+                                  onTap: Go.params(context,
+                                    routeName: DataTableDemo.routeName,
+                                  ).push,
+                                  child: Container(
+                                    margin: const EdgeInsets.all(4.0),
+                                    height: 75,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      color: Colors.black12,
+                                      borderRadius: BorderRadius.circular(20),
+                                      image: const DecorationImage(
+                                          image: AssetImage(
+                                              "assets/img/bg_image_web.jpeg"),
+                                          fit: BoxFit.cover,
+                                          colorFilter: ColorFilter.mode(
+                                              Colors.grey, BlendMode.color)),
+                                    ),
+                                    constraints: const BoxConstraints(
+                                      maxWidth: 200,
+                                    ),
+                                    child: const Column(
+                                      children: [
+                                        Spacer(),
+                                        Text(
+                                          "Database docteur",
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        Spacer(),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+
                                 /*TextButton(
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
