@@ -29,7 +29,7 @@ import '../logic/maps_controller/maps.dart';
 
 
 
-part 'home_page/rental_screen.dart';
+part 'home_page/product_screen.dart';
 
 part 'setting_profile_screen.dart';
 

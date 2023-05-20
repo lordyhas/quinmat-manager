@@ -63,8 +63,8 @@ class SpaceListView extends StatelessWidget {
                 onTap: () => onShopClick(index),
                 onLongPress: () {},
                 child: Container(
-                  constraints: BoxConstraints(
-                    maxWidth: responsiveSize(),
+                  constraints: const BoxConstraints(
+                    maxWidth: 350, //responsiveSize(),
                   ),
                   /*decoration: BoxDecoration(
                   //borderRadius: const BorderRadius.all(Radius.circular(16.0)),
@@ -140,8 +140,7 @@ class SpaceListView extends StatelessWidget {
                                               Expanded(
                                                 child: Text(
                                                   ' à ${spaces[index].distance.toStringAsFixed(1)} km du centre ville',
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
+                                                  overflow: TextOverflow.ellipsis,
                                                   style: textStyle,
                                                 ),
                                               ),

@@ -16,7 +16,6 @@ class _MapScreenCoverState extends State<MapScreenCover> {
       children: [
         Container(
           decoration: BoxDecoration(
-
             image: DecorationImage(
               colorFilter: ColorFilter.mode(
                   Theme.of(context).primaryColorLight,
@@ -60,11 +59,11 @@ class _MapScreenCoverState extends State<MapScreenCover> {
                         child: Container(
                             width: 100,
                             alignment: Alignment.center,
-                            child: const Text("Explorer Maps")
+                            child: const Text("Explorer Maps"),
                         ),
                         onPressed: () => Navigator.push(
-                            context, MapSample.route()) ,
-
+                            context, MapSample.route(),
+                        ),
                       )
                     ],
                   ),
