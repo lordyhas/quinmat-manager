@@ -66,10 +66,6 @@ class _GoogleLoginButton extends StatelessWidget {
             color: theme.colorScheme.primary,
           ),
       ),
-      //highlightedBorderColor: theme.colorScheme.primaryVariant,
-      //highlightColor: theme.colorScheme.primaryVariant.withOpacity(0.1),
-
-      //borderSide:
       child:  Container(
         margin: const EdgeInsets.symmetric(vertical: 8.0),
         child: Row(
@@ -106,14 +102,6 @@ class _FacebookLoginButton extends StatelessWidget {
             color: theme.colorScheme.primary,
           ),
         ),
-
-        //style: ButtonStyle(),
-        //color: theme.colorScheme.primary,
-        //textColor: theme.colorScheme.primary,
-        //highlightedBorderColor: theme.colorScheme.primaryVariant,
-        //highlightColor: theme.colorScheme.primaryVariant.withOpacity(0.1),
-        //icon: Icon(FontAwesomeIcons.facebookF),
-        //label: Text("Sign in with Facebook"),
 
         child: Container(
           margin: const EdgeInsets.symmetric(vertical: 8.0),
