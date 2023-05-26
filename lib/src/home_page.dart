@@ -1,6 +1,7 @@
 library home_page;
 
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:qmt_manager/logic/values.dart';
 import 'package:qmt_manager/src/login_page.dart';

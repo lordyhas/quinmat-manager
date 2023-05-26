@@ -46,12 +46,12 @@ class _ProductScreenState extends State<ProductScreen>
   List<RentItemData> get _spaceList =>  DataTest.shops
       .map((s) => RentItemData(
       imagePath: s.imagePath!,
-      titleTxt: s.shopName,
-      subTxt: 'Lubumbashi, CD',
-      distance: DistanceBetween(
+      titleTxt: s.name,
+      subTxt: s.dept ?? 'Quinmat L\'shi',
+      /*distance: null, DistanceBetween(
           fromLatLng: context.read<MapsBloc>().state.maps.currentLatLng2,
           toLatLng: dist.LatLng(s.location!.latitude, s.location!.longitude)
-      ).distanceKiloMeter,
+      ).distanceKiloMeter,*/
       reviews: 80,
       rating: s.rating / s.rater,
       perNight: 180,
@@ -84,6 +84,8 @@ class _ProductScreenState extends State<ProductScreen>
                 delegate: SliverChildBuilderDelegate(
                         (BuildContext context, int index) {
                       return Stack(
+                        alignment: AlignmentDirectional.topEnd,
+
                         children: [
                           SizedBox(
                             height: 200,
@@ -104,11 +106,94 @@ class _ProductScreenState extends State<ProductScreen>
                             color: Colors.black.withOpacity(0.6),
                           ),
                           Column(
-                            children: <Widget>[
-                              getSearchBarUI(context),
-                              getTimeDateUI(context),
+                            children: [
+                              Container(
+                                //width: 500,
+                                constraints: const BoxConstraints(maxWidth: 600),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+                                  child: Row(
+                                    children: <Widget>[
+                                      /// Search Entry Widget
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(right: 16, top: 8, bottom: 8),
+                                          child: Container(
+
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey.shade300.withOpacity(0.70),
+                                              borderRadius: const BorderRadius.all(
+                                                Radius.circular(38.0),
+                                              ),
+                                              /*boxShadow: <BoxShadow>[
+                                          BoxShadow(
+                                              color: Colors.grey.withOpacity(0.5),
+                                              offset: const Offset(0, 2),
+                                              blurRadius: 8.0),
+                                        ],*/
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsets.symmetric(horizontal: 16),//only(left: 16, right: 16, top: 4, bottom: 4),
+                                              child: TextField(
+                                                onChanged: (String txt) {},
+                                                style: const TextStyle(
+                                                  fontSize: 18,
+                                                  color: Colors.black,
+                                                ),
+                                                cursorColor: Theme.of(context).colorScheme.secondary,
+                                                decoration: const InputDecoration(
+                                                  border: InputBorder.none,
+                                                  hintText: 'Lubumbashi...',
+                                                  hintStyle: TextStyle(color: Colors.black),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+
+                                      /// Search button
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          color: Theme.of(context).floatingActionButtonTheme.backgroundColor,
+                                          borderRadius: const BorderRadius.all(
+                                            Radius.circular(38.0),
+                                          ),
+                                        ),
+                                        child: Material(
+                                          color: Colors.transparent,
+                                          child: InkWell(
+                                            borderRadius: const BorderRadius.all(
+                                              Radius.circular(32.0),
+                                            ),
+                                            onTap: () {
+                                              //FocusScope.of(context).requestFocus(FocusNode());
+                                            },
+                                            child: const Padding(
+                                              padding: EdgeInsets.all(16.0),
+                                              child: Icon(
+                                                FontAwesomeIcons.magnifyingGlass,
+                                                size: 20,),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                  margin: const EdgeInsets.symmetric(
+                                      vertical: 16.0),
+                                  child: const Text(
+                                    "Trouver un produit specifique, "
+                                        "${AppConstant.shortname}",
+                                    style: TextStyle(
+                                        fontSize: 18, color: Colors.white70),
+                                  )),
                             ],
                           ),
+
                         ],
                       );
                     }, childCount: 1),
@@ -117,7 +202,7 @@ class _ProductScreenState extends State<ProductScreen>
                 pinned: true,
                 floating: true,
                 delegate: RContestTabHeader(context, secondary: true,
-                    title: const Text("32 bureau a louer disponible")
+                    title: const Text("4532 produits disponible")
                 ),
               ),
             ];
@@ -456,7 +541,7 @@ class RContestTabHeader extends SliverPersistentHeaderDelegate {
                           MaterialPageRoute<dynamic>(
                               builder: (BuildContext context) =>
                               const FiltersScreen(),
-                              fullscreenDialog: true),
+                              fullscreenDialog: true,),
                         );
                       },
                       child: Padding(

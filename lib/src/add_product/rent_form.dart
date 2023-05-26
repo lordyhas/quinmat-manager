@@ -192,8 +192,32 @@ class RentForm extends StatelessWidget {
                           vehicle = vehicle.copyWith(stockNumber: v);
                         },
                         validator: (v) {
+                          if (v!.isEmpty) return 'Nombre des produits en stock est requis.';
+                          return null;
+                        },
+                      ),
+                    ),
+
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0, vertical: 8.0),
+                      child: TextFormField(
+                        controller: productController['cat'],
+                        textCapitalization: TextCapitalization.none,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          focusColor: Theme.of(context).primaryColor,
+                          border: const UnderlineInputBorder(),
+                          filled: true,
+                          //icon: const Icon(Icons.bookmark_border),
+                          hintText: 'Catégorie du produit ?',
+                          labelText: 'Catégorie',
+                        ),
+                        onSaved: (String? value) {},
+                        validator: (v) {
                           // if (v!.isEmpty) return
                           // 'Nombre de siege est requis.';
+                          if (v!.isEmpty) return 'Catégorie est requis.';
                           return null;
                         },
                       ),
@@ -209,9 +233,7 @@ class RentForm extends StatelessWidget {
                               child: Row(
                                 children: <Widget>[
                                   const Icon(Icons.tag, size: 20),
-                                  const SizedBox(
-                                    width: 8.0,
-                                  ),
+                                  const SizedBox(width: 8.0,),
                                   Text("DEP $k"),
                                 ],
                               )),0);

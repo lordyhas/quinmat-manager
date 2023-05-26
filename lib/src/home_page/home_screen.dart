@@ -8,8 +8,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
-
   bool underline = false;
 
   /*double h1Size() {
@@ -32,104 +30,133 @@ class _HomeScreenState extends State<HomeScreen> {
   }*/
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    BlocProvider.of<NavigationController>(context).setState(NavigationScreen.home);
+    BlocProvider.of<NavigationController>(context)
+        .setState(NavigationScreen.home);
   }
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<NavigationController>(context).setState(NavigationScreen.home);
+    BlocProvider.of<NavigationController>(context)
+        .setState(NavigationScreen.home);
     return Material(
       child: Center(
         child: Container(
           constraints: const BoxConstraints(maxWidth: 1280),
+          //height: 300,
           child: Column(
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0, vertical: 16.0),
-                  decoration: BoxDecoration(
-                    image: const DecorationImage(
-                      image: AssetImage("assets/img/bg_image2.jpg"),
-                      fit: BoxFit.cover,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20.0),
+                  child: Container(
+                    //height: 200,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        //image: AssetImage("assets/img/bg_image2.jpg"),
+                        image: AssetImage("assets/img/qmt-batiment.jpg"),
+                        fit: BoxFit.cover,
+                        opacity: 5.0,
+                      ),
+
                     ),
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                  child: Column(
-                    children: [
-                      const SizedBox( height: 8.0,),
-                      const ListTile(
-                        title: SelectableText(
-                          "Bienvenue dans ${AppConstant.name}",
-                          style: TextStyle(fontSize: 24),
-                        ),
-                        subtitle: SelectableText(
-                            "Faire la gestion des produits",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0).copyWith(top: 16.0),
-                        child: ButtonBar(
-                          alignment: MainAxisAlignment.start,
-                          children: [
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                textStyle: const TextStyle(fontSize: 18),
-                                //  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                              ),
-                              child: const Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  "Créér un compte",
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 0.5, sigmaY: 0.5),
+                      child: Stack(
+                        children: [
+                          Container(
+                            //width: MediaQuery.of(context).size.width,
+                            height: 200,
+                            //MediaQuery.of(context).size.width,
+                            color: Colors.black.withOpacity(0.6),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+                            child: Column(
+                              children: [
+                                const SizedBox(
+                                  height: 8.0,
                                 ),
-                              ),
-                              onPressed: () {},
-                            ),
-                            TextButton(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text.rich(TextSpan(
+                                const ListTile(
+                                  title: SelectableText(
+                                    "Bienvenue dans ${AppConstant.name}",
+                                    style:
+                                    TextStyle(fontSize: 24,),
+                                  ),
+                                  subtitle: SelectableText(
+                                    "Faire la gestion des produits",
+                                    style:
+                                    TextStyle(fontSize: 18,),
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                  const EdgeInsets.all(8.0).copyWith(top: 16.0),
+                                  child: ButtonBar(
+                                    alignment: MainAxisAlignment.start,
                                     children: [
-                                      TextSpan(
-                                        text: "Besoin d'aide",
-                                        style: TextStyle(
-                                            fontSize: 18.0,
-                                            //letterSpacing: underline ? .0 : null,
-                                            decoration: underline
-                                                ? TextDecoration.underline
-                                                : TextDecoration.none
+                                      ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          textStyle: const TextStyle(
+                                              fontSize: 18),
+                                          //  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                                         ),
+                                        child: const Padding(
+                                          padding: EdgeInsets.all(8.0),
+                                          child: Text(
+                                            "Créér un compte",
+                                          ),
+                                        ),
+                                        onPressed: () {},
                                       ),
-                                      const TextSpan(
-                                        text: " ?",
-                                        style: TextStyle(fontSize: 18.0,),
-                                      ),
-                                    ]
-                                )
+                                      TextButton(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text.rich(TextSpan(children: [
+                                            TextSpan(
+                                              text: "Besoin d'aide",
+                                              style: TextStyle(
+                                                  fontSize: 18.0,
+                                                  //letterSpacing: underline ? .0 : null,
+                                                  decoration: underline
+                                                      ? TextDecoration.underline
+                                                      : TextDecoration.none),
+                                            ),
+                                            const TextSpan(
+                                              text: " ?",
+                                              style: TextStyle(
+                                                fontSize: 18.0,
+                                              ),
+                                            ),
+                                          ])),
+                                        ),
+                                        onHover: (value) {
+                                          setState(() {
+                                            underline = value;
+                                          });
+                                        },
+                                        onPressed: () {
+                                          //Go.of(context).to(routeName: DataTableDemo.routeName);
+                                        },
+                                        onLongPress: () {},
+                                      )
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              onHover: (value) {
-                                setState((){
-                                  underline = value;
-                                });
-                              },
-                              onPressed: (){
-                                //Go.of(context).to(routeName: DataTableDemo.routeName);
-                              },
-                              onLongPress: (){},
-                            )
-                          ],
-                        ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ),
-              const SizedBox(height: 16.0,),
+              const SizedBox(
+                height: 16.0,
+              ),
               Card(
                 margin: const EdgeInsets.all(8.0),
                 shape: RoundedRectangleBorder(
@@ -148,7 +175,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         title: const SelectableText(
                           "Mobiler",
-                          style: TextStyle(fontSize: 18.0,),
+                          style: TextStyle(
+                            fontSize: 18.0,
+                          ),
                         ),
                         trailing: const Icon(CupertinoIcons.chevron_right_2),
                         onTap: () {},
@@ -164,7 +193,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         title: const SelectableText(
                           "Papeterie",
-                          style: TextStyle(fontSize: 18.0,),
+                          style: TextStyle(
+                            fontSize: 18.0,
+                          ),
                         ),
                         trailing: const Icon(CupertinoIcons.chevron_right_2),
                         onTap: () {},
@@ -181,12 +212,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         title: const SelectableText(
                           "Quaincaillerie",
-                          style: TextStyle(fontSize: 18.0,),
+                          style: TextStyle(
+                            fontSize: 18.0,
+                          ),
                         ),
                         trailing: const Icon(CupertinoIcons.chevron_right_2),
                         onTap: () {},
                       ),
-
                       ListTile(
                         //visualDensity: const VisualDensity(vertical: VisualDensity.minimumDensity),
                         //horizontalTitleGap: 32.0,
@@ -196,7 +228,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         title: const SelectableText(
                           "Medical Equipment",
-                          style: TextStyle(fontSize: 18.0,),
+                          style: TextStyle(
+                            fontSize: 18.0,
+                          ),
                         ),
 
                         trailing: const Icon(CupertinoIcons.chevron_right_2),
