@@ -520,23 +520,24 @@ class _FiltersScreenState extends  State<FiltersScreen> {
         isSelected: false,
       ),
       PopularFilterListData(
-        titleTxt: 'Dans le centre commercial',
+        titleTxt: 'Alimantaire',
         isSelected: false,
       ),
       PopularFilterListData(
-        titleTxt: 'Avec caraux',
+        titleTxt: 'Electronique',
         isSelected: true,
       ),
-      /*PopularFilterListData(
-      titleTxt: 'Promotion',
-      isSelected: false,
-    ),*/
+
       PopularFilterListData(
-        titleTxt: 'Avec plafond',
+      titleTxt: 'Plastique',
+      isSelected: false,
+      ),
+      PopularFilterListData(
+        titleTxt: 'Meublier',
         isSelected: false,
       ),
       PopularFilterListData(
-        titleTxt: 'SNEL & Regis, prise ne charge',
+        titleTxt: 'Papier',
         isSelected: false,
       ),
     ];
