@@ -8,12 +8,12 @@ class SpaceListView extends StatefulWidget {
     //required this.animation,
     required this.onShopClick,
     required this.onLikeClick,
-    required this.onHueClick,
+    this.onHueClick,
     super.key,
   });
 
   final Function(int index) onShopClick;
-  final Function(int index) onHueClick;
+  final Function(int index)? onHueClick;
   final Function(int index) onLikeClick;
   final List<RentItemData> spaces;
 
@@ -189,26 +189,17 @@ class _SpaceListViewState extends State<SpaceListView> {
                                           CrossAxisAlignment.end,
                                       children: <Widget>[
                                         IconButton(
-                                          onPressed: () => widget.onHueClick(index),
+                                          onPressed: () => widget.onHueClick!(index),
                                           icon: Icon(
-                                            FontAwesomeIcons.locationDot,
+                                            CupertinoIcons.arrow_2_circlepath,
                                             size: 32,
                                             color: Theme.of(context)
                                                 .colorScheme
                                                 .secondary,
                                           ),
                                         ),
-
-                                        /*Text(
-                                        '\$${shopItem!.perNight}',
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 22,
-                                        ),
-                                      ),*/
                                         Text(
-                                          'explore',
+                                          '',
                                           style: textStyle,
                                         ),
                                       ],
@@ -230,7 +221,9 @@ class _SpaceListViewState extends State<SpaceListView> {
                             ),
                             onTap: () {
                               widget.onLikeClick(index);
-                              isLiked = !isLiked;
+                              setState(() {
+                                isLiked = !isLiked;
+                              });
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),

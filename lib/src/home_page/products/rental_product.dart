@@ -1,5 +1,6 @@
 library products;
 
+import 'package:flutter/cupertino.dart';
 import 'package:qmt_manager/logic/values.dart';
 import 'package:qmt_manager/widgets/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -214,7 +214,7 @@ class _ProductScreenState extends State<ProductScreen>
                 padding: const EdgeInsets.only(bottom: 32.0),
                 child: SpaceListView(
                   //heroTag: shopData.shopCode+"$index",
-                  onHueClick: (index) => onMapClickOpenPage(index),
+                  //onHueClick: (index) => onMapClickOpenPage(index),
                   onLikeClick: (index) => showToastFavorite(context: context),
                   spaces: spaceList,
                   onShopClick: (index) {
