@@ -140,12 +140,12 @@ class _RentScreenState extends State<RentScreen> {
               break;
           }
         },
-        onStepTapped: null,
-        /*(int index) {
+        onStepTapped:
+        (int index) {
               setState(() {
                 _index = StepperStep.values[index];
               });
-            },*/
+            },
         controlsBuilder: (BuildContext context, ControlsDetails controls) {
           return Container(
             constraints: const BoxConstraints(

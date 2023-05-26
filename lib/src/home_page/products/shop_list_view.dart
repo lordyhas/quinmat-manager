@@ -1,6 +1,6 @@
 part of products;
 
-class SpaceListView extends StatelessWidget {
+class SpaceListView extends StatefulWidget {
   //final heroTag;
   const SpaceListView({
     required this.spaces, //this.heroTag,
@@ -17,11 +17,14 @@ class SpaceListView extends StatelessWidget {
   final Function(int index) onLikeClick;
   final List<RentItemData> spaces;
 
+  @override
+  State<SpaceListView> createState() => _SpaceListViewState();
+}
+
+class _SpaceListViewState extends State<SpaceListView> {
   //final AnimationController animationController;
-  //final Animation<double> animation;
 
-  //bool favorite = false;
-
+  bool isLiked = false;
   @override
   Widget build(BuildContext context) {
     double responsiveSize() {
@@ -54,17 +57,17 @@ class SpaceListView extends StatelessWidget {
           spacing: 8.0,
           alignment: WrapAlignment.center,
           children: List.generate(
-            spaces.length,
+            widget.spaces.length,
             (index) => Padding(
               padding: const EdgeInsets.only(
                   left: 24, right: 24, top: 8, bottom: 16),
               child: InkWell(
                 splashColor: Colors.transparent,
-                onTap: () => onShopClick(index),
+                onTap: () => widget.onShopClick(index),
                 onLongPress: () {},
                 child: Container(
                   constraints: const BoxConstraints(
-                    maxWidth: 350, //responsiveSize(),
+                    maxWidth: 330, //responsiveSize(),
                   ),
                   /*decoration: BoxDecoration(
                   //borderRadius: const BorderRadius.all(Radius.circular(16.0)),
@@ -86,7 +89,7 @@ class SpaceListView extends StatelessWidget {
                             AspectRatio(
                               aspectRatio: 2,
                               child: Image.asset(
-                                spaces[index].imagePath,
+                                widget.spaces[index].imagePath,
                                 fit: BoxFit.cover,
                                 gaplessPlayback: true,
                               ),
@@ -110,8 +113,9 @@ class SpaceListView extends StatelessWidget {
                                             CrossAxisAlignment.start,
                                         children: <Widget>[
                                           Text(
-                                            spaces[index].titleTxt,
+                                            widget.spaces[index].titleTxt,
                                             textAlign: TextAlign.left,
+                                            overflow: TextOverflow.ellipsis,
                                             style: const TextStyle(
                                               fontWeight: FontWeight.w600,
                                               fontSize: 22,
@@ -124,7 +128,7 @@ class SpaceListView extends StatelessWidget {
                                                 MainAxisAlignment.start,
                                             children: <Widget>[
                                               Text(
-                                                spaces[index].subTxt,
+                                                widget.spaces[index].subTxt,
                                                 style: textStyle,
                                               ),
                                               const SizedBox(
@@ -139,7 +143,7 @@ class SpaceListView extends StatelessWidget {
                                               ),
                                               Expanded(
                                                 child: Text(
-                                                  ' à ${spaces[index].distance.toStringAsFixed(1)} km du centre ville',
+                                                  '',
                                                   overflow: TextOverflow.ellipsis,
                                                   style: textStyle,
                                                 ),
@@ -151,7 +155,7 @@ class SpaceListView extends StatelessWidget {
                                               StarRating(
                                                 allowHalfRating: true,
                                                 starCount: 5,
-                                                rating: spaces[index].rating,
+                                                rating: widget.spaces[index].rating,
                                                 size: 20,
                                               ),
                                               //for (var i = 0; i < 3; ++i)
@@ -166,7 +170,7 @@ class SpaceListView extends StatelessWidget {
                                                     child: Icon(Icons.star, size: 15,),
                                                   ),*/
                                               Text(
-                                                ' ${spaces[index].reviews} Reviews',
+                                                ' ${widget.spaces[index].reviews} Reviews',
                                                 style: textStyle,
                                               ),
                                             ],
@@ -185,7 +189,7 @@ class SpaceListView extends StatelessWidget {
                                           CrossAxisAlignment.end,
                                       children: <Widget>[
                                         IconButton(
-                                          onPressed: () => onHueClick(index),
+                                          onPressed: () => widget.onHueClick(index),
                                           icon: Icon(
                                             FontAwesomeIcons.locationDot,
                                             size: 32,
@@ -225,14 +229,14 @@ class SpaceListView extends StatelessWidget {
                               Radius.circular(32.0),
                             ),
                             onTap: () {
-                              onLikeClick(index);
-                              //this.favorite = !this.favorite;
+                              widget.onLikeClick(index);
+                              isLiked = !isLiked;
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Icon(
-                                Icons.favorite_border,
-                                color: Theme.of(context).colorScheme.secondary,
+                                (isLiked)? Icons.favorite :Icons.favorite_border,
+                                color: (isLiked)? Colors.deepOrange : Theme.of(context).colorScheme.secondary,
                               ),
                             ),
                           ),

@@ -5,10 +5,10 @@ class ShopInformation{
   //final String
 }
 
-class ShopData{
+class ItemData{
   final dynamic id;
-  final String shopName;
-  final String shopCode;
+  final String name;
+  final String? dept;
   final String? email;
   final OpenDay openDay;
   final String? isOpened;
@@ -39,11 +39,11 @@ class ShopData{
   final dynamic canDeliver;
 
 
-  ShopData({
-    required this.shopName,
-    required this.shopCode,
+  ItemData({
+    required this.name,
+    required this.id,
     this.authenticate = false, this.certify = false,
-    this.id,
+    this.dept,
     this.imagePath,
     this.image,
     this.email,
@@ -70,9 +70,9 @@ class ShopData{
   Map<String, dynamic> asMap() {
     return {
       'id': id,
-      'shop_name': shopName,
+      'shop_name': name,
       'phone_number': phoneNumber,
-      'shop_code': shopCode,
+      'shop_code': id,
       'open_day': openDay.week,
       'is_opened': isOpened,
       'email': email,
@@ -92,10 +92,10 @@ class ShopData{
     };
   }
 
-  factory ShopData.fromMap(Map<String, dynamic> map) => ShopData(
+  factory ItemData.fromMap(Map<String, dynamic> map) => ItemData(
     id: map['id'],
-    shopName: map['shop_name'],
-    shopCode: map['shop_code'],
+    name: map['shop_name'],
+    dept: map['shop_code'],
     phoneNumber: map['phone_number'],
     phoneNumber2: map['phone_number2'],
     imagePath: map['image_path'],
