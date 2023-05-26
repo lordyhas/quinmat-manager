@@ -47,7 +47,7 @@ class _ProductScreenState extends State<ProductScreen>
       .map((s) => RentItemData(
       imagePath: s.imagePath!,
       titleTxt: s.name,
-      subTxt: s.dept ?? 'Quinmat L\'shi',
+      subTxt: s.dept ?? '${AppConstant.shortname} L\'shi',
       /*distance: null, DistanceBetween(
           fromLatLng: context.read<MapsBloc>().state.maps.currentLatLng2,
           toLatLng: dist.LatLng(s.location!.latitude, s.location!.longitude)
