@@ -113,7 +113,7 @@ class QuinmatApp extends StatelessWidget {
             const Filter.values(
                 maxPrice: 1200.0,
                 minPrice: 50,
-                maxDistance: 5.0,
+                maxDistance: 1.0,
                 minDistance: 0.0,
                 categoryList: []),
           ),
@@ -125,7 +125,6 @@ class QuinmatApp extends StatelessWidget {
             //key: _shellNavigatorKey,
             debugShowCheckedModeBanner: false,
             title: AppConstant.markName,
-
             theme: ThemeData(
               brightness: Brightness.dark,
               fontFamily: "Nunito",

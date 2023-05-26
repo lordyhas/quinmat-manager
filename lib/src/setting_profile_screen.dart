@@ -171,7 +171,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                   fontSize: 20.0,
                                 )),
                             const SelectableText(
-                              "guest-user@exploress.com",
+                              "guest-user@quinnmat.com",
                               style: TextStyle(color: Colors.white60),
                             ),
                           ],
