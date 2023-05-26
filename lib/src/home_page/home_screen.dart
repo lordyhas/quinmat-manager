@@ -60,16 +60,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         fit: BoxFit.cover,
                         opacity: 5.0,
                       ),
-
                     ),
                     child: BackdropFilter(
                       filter: ImageFilter.blur(sigmaX: 0.5, sigmaY: 0.5),
                       child: Stack(
                         children: [
                           Container(
-                            //width: MediaQuery.of(context).size.width,
                             height: 200,
-                            //MediaQuery.of(context).size.width,
                             color: Colors.black.withOpacity(0.6),
                           ),
                           Padding(
@@ -100,8 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ElevatedButton(
                                         style: ElevatedButton.styleFrom(
                                           textStyle: const TextStyle(
-                                              fontSize: 18),
-                                          //  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                                            fontSize: 18,),
                                         ),
                                         child: const Padding(
                                           padding: EdgeInsets.all(8.0),
