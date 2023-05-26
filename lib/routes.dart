@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:qmt_manager/src/add_doctor/data_tab.dart';
 import 'package:qmt_manager/src/add_product/add_product_page.dart';
@@ -26,7 +25,7 @@ class AppRouter extends GoRouter {
           navigatorKey: key,
           errorBuilder: (context, state) => OnErrorPage(error: state.error),
           initialLocation: HomePage.routeUrl, //LoginPage.routeName,
-          routes: [
+          routes: <RouteBase>[
             /*GoRoute(
               parentNavigatorKey: key,
               path: "/",
@@ -40,9 +39,9 @@ class AppRouter extends GoRouter {
               },
             ),*/
             ShellRoute(
-             // navigatorKey: shellNavigatorKey,
+              // navigatorKey: shellNavigatorKey,
               builder: (context, state, screen) => HomePage(child: screen),
-              routes: [
+              routes: <RouteBase>[
                 _homeGoRoute(parentKey: key),
               ],
             ),
@@ -67,7 +66,7 @@ class AppRouter extends GoRouter {
           GoRoute(
             name: DataTableDemo.routeName,
             path: 'data-table',
-            builder: (c,s) => const DataTableDemo(),
+            builder: (c, s) => const DataTableDemo(),
           ),
           GoRoute(
             name: UserSpaceScreen.routeName,

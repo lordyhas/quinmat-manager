@@ -21,7 +21,7 @@ class DataTest {
     ),
 
     ItemData(
-      name: "Boot",
+      name: "Rebel Safety Gear",
       id: "prole2",
       imagePath: "assets/qp/product (2).jpg",
       rating: (3 + 3 + 4 + 5 + 2),
@@ -180,16 +180,6 @@ class DataTest {
     ),
 
     //----------------------------
-    ItemData(
-      name: "Local avec 2 bureau",
-      id: "prostyle123",
-      imagePath: "assets/local/loc_bureau_2.jpg",
-      rating: (3 + 3 + 4 + 5 + 2),
-      rater: 5,
-      phoneNumber: "+243 998731145",
-      phoneNumber2: "+243 848731145",
-      canDeliver: true,
-    ),
 
     ItemData(
       id: 'BoutiqueGrandBoss1234',

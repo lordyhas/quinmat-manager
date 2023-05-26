@@ -11,7 +11,14 @@ part 'filter_data.dart';
 part 'filter_state.dart';
 
 class FilterCubit extends Cubit<Filter> {
-  FilterCubit(Filter filter) : super(filter);
+  FilterCubit({Filter? filter}) : super(
+    filter ?? const Filter.values(
+      maxPrice: 1200.0,
+      minPrice: 50,
+      maxDistance: 1.0,
+      minDistance: 0.0,
+      categoryList: []),
+  );
 
   void change({
     double? maxPrice,

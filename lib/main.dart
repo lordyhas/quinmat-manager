@@ -109,14 +109,7 @@ class QuinmatApp extends StatelessWidget {
           create: (context) => RentalControllerBloc(),
         ),
         BlocProvider<FilterCubit>(
-          create: (context) => FilterCubit(
-            const Filter.values(
-                maxPrice: 1200.0,
-                minPrice: 50,
-                maxDistance: 1.0,
-                minDistance: 0.0,
-                categoryList: []),
-          ),
+          create: (context) => FilterCubit(),
         ),
       ],
       child: BlocBuilder<StyleAppTheme, ThemeData>(
