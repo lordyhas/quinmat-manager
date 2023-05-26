@@ -91,8 +91,8 @@ class _FiltersScreenState extends  State<FiltersScreen> {
                       priceBarFilter(),
                       const Divider(height: 1),
                       popularFilter(),
-                      const Divider(height: 1),
-                      distanceViewUI(),
+                      //const Divider(height: 1),
+                      //distanceViewUI(),
                       const Divider(height: 1),
                       shopFilterUI()
                     ],
@@ -494,25 +494,22 @@ class _FiltersScreenState extends  State<FiltersScreen> {
   List<PopularFilterListData> popularFList(){
     return <PopularFilterListData>[
       PopularFilterListData(
-        titleTxt: "Bureau",
+        titleTxt: "Quincaillerie",
         isSelected: false,
       ),
       PopularFilterListData(
-        titleTxt: "Salle de fete",
+        titleTxt: "Mobilier",
         isSelected: false,
       ),
       PopularFilterListData(
-        titleTxt: "Salle de reunion",
+        titleTxt: "Papeterie",
         isSelected: true,
       ),
       PopularFilterListData(
-        titleTxt: "Boutique",
+        titleTxt: "Medical Equipment",
         isSelected: false,
       ),
-      PopularFilterListData(
-        titleTxt: "Grand espace",
-        isSelected: false,
-      ),
+
     ];
   }
 
