@@ -609,7 +609,7 @@ class _UserSpaceScreenState extends State<UserSpaceScreen> {
                 fit: BoxFit.cover,
               ),
               title: Text(
-                e.shopName,
+                e.name,
                 style: const TextStyle(),
               ),
               subtitle: Text(
