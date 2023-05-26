@@ -12,7 +12,7 @@ import 'package:qmt_manager/logic/maps_controller/maps.dart';
 
 class PlaceInfoData {
   final int? index;
-  final ShopData rent;
+  final ItemData rent;
   final void Function() onMapClick;
 
   PlaceInfoData({
@@ -85,7 +85,7 @@ class _PlaceInfoScreenState extends State<PlaceInfoScreen>
 
   @override
   Widget build(BuildContext context) {
-    final ShopData shop;
+    final ItemData shop;
     final PlaceInfoData data;
     data = widget.placeData; //?? ModalRoute.of(context)!.settings.arguments as PlaceInfoData;
     shop = data.rent;
@@ -185,7 +185,7 @@ class _PlaceInfoScreenState extends State<PlaceInfoScreen>
                   padding:
                       const EdgeInsets.only(top: 32.0, left: 16, right: 16),
                   child: Text(
-                    shop.shopName,
+                    shop.name,
                     textAlign: TextAlign.left,
                     style: const TextStyle(
                       fontWeight: FontWeight.w600,

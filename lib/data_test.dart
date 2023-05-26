@@ -6,22 +6,196 @@ import 'package:qmt_manager/logic/model/data_model.dart';
 
 
 class DataTest {
-  static List<ShopData> shops = [
-    ShopData(
-      shopName: "Espace de travail",
-      shopCode: "prole123",
-      imagePath: "assets/local/loc_bureau_1.jpg",
-      email: 'travail@exploress.com',
+  static List<ItemData> shops = [
+    ItemData(
+      name: "Crazy Horse Brown",
+      id: "prole123",
+      imagePath: "assets/qp/product (1).jpg",
+      email: 'info@quimat.com',
       rating: (3 + 3 + 4 + 5 + 2),
       rater: 5,
       phoneNumber: "+243 998731145",
       phoneNumber2: "+243 848731145",
       canDeliver: true,
-      location: const maps.LatLng(-11.6284708, 27.487585),
+      location: null,
+      dept: "Quincaillerie",
     ),
-    ShopData(
-      shopName: "Local avec 2 bureau",
-      shopCode: "prostyle123",
+
+    ItemData(
+      name: "Boot",
+      id: "prole2",
+      imagePath: "assets/qp/product (2).jpg",
+      email: 'info@quimat.com',
+      rating: (3 + 3 + 4 + 5 + 2),
+      rater: 5,
+      phoneNumber: "+243 998731145",
+      phoneNumber2: "+243 848731145",
+      canDeliver: true,
+      dept: "Quincaillerie",
+    ),
+
+    ItemData(
+      name: "YATO Drilling machine",
+      id: "prole3",
+      imagePath: "assets/qp/product (3).jpg",
+      email: 'info@quimat.com',
+      rating: (3 + 3 + 4 + 5 + 2),
+      rater: 5,
+      phoneNumber: "+243 998731145",
+      phoneNumber2: "+243 848731145",
+      canDeliver: true,
+      dept: "Quincaillerie",
+    ),
+
+    ItemData(
+      name: "Peinture",
+      id: "prole4",
+      imagePath: "assets/qp/product (4).jpg",
+      email: 'info@quimat.com',
+      rating: (3 + 3 + 4 + 5 + 2),
+      rater: 5,
+      phoneNumber: "+243 998731145",
+      phoneNumber2: "+243 848731145",
+      canDeliver: true,
+      dept: "Quincaillerie",
+    ),
+
+    ItemData(
+      name: "Pipes Quinmat",
+      id: "prole5",
+      imagePath: "assets/qp/product (5).jpg",
+      email: 'info@quimat.com',
+      rating: (3 + 3 + 4 + 5 + 2),
+      rater: 5,
+      phoneNumber: "+243 998731145",
+      phoneNumber2: "+243 848731145",
+      canDeliver: true,
+      dept: "Quincaillerie",
+    ),
+
+    ItemData(
+      name: "Polyethylene compression fittings",
+      id: "prole6",
+      imagePath: "assets/qp/product (6).jpg",
+      email: 'info@quimat.com',
+      rating: (3 + 3 + 4 + 5 + 2),
+      rater: 5,
+      phoneNumber: "+243 998731145",
+      phoneNumber2: "+243 848731145",
+      canDeliver: true,
+      dept: "Quincaillerie",
+    ),
+
+    ItemData(
+      name: "GI & PVC fittings",
+      id: "prole7",
+      imagePath: "assets/qp/product (7).jpg",
+      email: 'info@quimat.com',
+      rating: (3 + 3 + 4 + 5 + 2),
+      rater: 5,
+      phoneNumber: "+243 998731145",
+      phoneNumber2: "+243 848731145",
+      canDeliver: true,
+      dept: "Quincaillerie",
+    ),
+
+
+    ItemData(
+      name: "Papeterie",
+      id: "prole8",
+      imagePath: "assets/qp/product (8).jpg",
+      email: 'info@quimat.com',
+      rating: (3 + 3 + 4 + 5 + 2),
+      rater: 5,
+      phoneNumber: "+243 998731145",
+      phoneNumber2: "+243 848731145",
+      canDeliver: true,
+      dept: "Papeterie",
+    ),
+
+
+    ItemData(
+      name: "Canapé",
+      id: "prole9",
+      imagePath: "assets/qp/product (9).jpg",
+      email: 'info@quimat.com',
+      rating: (3 + 3 + 4 + 5 + 2),
+      rater: 5,
+      phoneNumber: "+243 998731145",
+      phoneNumber2: "+243 848731145",
+      canDeliver: true,
+      dept: "Mobilier",
+    ),
+
+    ItemData(
+      name: "Bureau, une chaise",
+      id: "prole10",
+      imagePath: "assets/qp/product (10).jpg",
+      email: 'info@quimat.com',
+      rating: (3 + 3 + 4 + 5 + 2),
+      rater: 5,
+      phoneNumber: "+243 998731145",
+      phoneNumber2: "+243 848731145",
+      canDeliver: true,
+      dept: "Mobilier",
+    ),
+
+    ItemData(
+      name: "Bureau, plusieurs chaise",
+      id: "prole11",
+      imagePath: "assets/qp/product (11).jpg",
+      email: 'info@quimat.com',
+      rating: (3 + 3 + 4 + 5 + 2),
+      rater: 5,
+      phoneNumber: "+243 998731145",
+      phoneNumber2: "+243 848731145",
+      canDeliver: true,
+      dept: "Mobilier",
+    ),
+
+    ItemData(
+      name: "Lit d'hopital, Medical",
+      id: "prole12",
+      imagePath: "assets/qp/product (12).jpg",
+      email: 'info@quimat.com',
+      rating: (3 + 3 + 4 + 5 + 2),
+      rater: 5,
+      phoneNumber: "+243 998731145",
+      phoneNumber2: "+243 848731145",
+      canDeliver: true,
+      dept: "Medical Equipment",
+    ),
+
+    ItemData(
+      name: "IRM Medical Equipment",
+      id: "prole13",
+      imagePath: "assets/qp/product (13).jpg",
+      email: 'info@quimat.com',
+      rating: (3 + 3 + 4 + 5 + 2),
+      rater: 5,
+      phoneNumber: "+243 998731145",
+      phoneNumber2: "+243 848731145",
+      canDeliver: true,
+      dept: "Medical Equipment",
+    ),
+
+    ItemData(
+      name: "Diagnostic Medical Equipment",
+      id: "prole14",
+      imagePath: "assets/qp/product (14).jpg",
+      email: 'info@quimat.com',
+      rating: (3 + 3 + 4 + 5 + 2),
+      rater: 5,
+      phoneNumber: "+243 998731145",
+      phoneNumber2: "+243 848731145",
+      canDeliver: true,
+      dept: "Medical Equipment",
+    ),
+
+    //----------------------------
+    ItemData(
+      name: "Local avec 2 bureau",
+      id: "prostyle123",
       imagePath: "assets/local/loc_bureau_2.jpg",
       email: 'prole243@exploress.com',
       rating: (3 + 3 + 4 + 5 + 2),
@@ -29,93 +203,42 @@ class DataTest {
       phoneNumber: "+243 998731145",
       phoneNumber2: "+243 848731145",
       canDeliver: true,
-      location: const maps.LatLng(-11.6284708, 27.487585),
     ),
-    ShopData(
-      shopName: "Entrepot",
-      shopCode: "galaxymobile1234",
-      imagePath: "assets/local/loc_lib_2.png",
-      email: 'galaxymobi@exploress.com',
-      rating: (3 + 3 + 4 + 5 + 2),
-      rater: 5,
-      phoneNumber: "+243 998466121",
-      phoneNumber2: "+243 8418321547",
-      canDeliver: true,
-      location: const maps.LatLng(-11.627637, 27.475301),
-    ),
-    ShopData(
-      shopCode: 'BoutiqueGrandBoss1234',
+
+    ItemData(
+      id: 'BoutiqueGrandBoss1234',
       imagePath: 'assets/local/loc_reunion_1.png',
-      shopName: 'Salle de reunion',
+      name: 'Salle de reunion',
+      dept: 'Mobilier',
       email: 'useto@exploress.com',
-      //subTxt: 'Lubumbashi, CD',
       rating: (3 + 3 + 4 + 5 + 2),
       rater: 5,
       phoneNumber: "+243 998466121",
       phoneNumber2: "+243 8418321547",
       canDeliver: true,
-      location: const maps.LatLng(-11.654236, 27.482564),
     ),
-    ShopData(
-      shopCode: 'QS1234',
+    ItemData(
+      id: 'QS1234',
       imagePath: 'assets/local/loc_restau_1.jpg',
-      shopName: 'Restaurant à louer',
+      name: 'Salle à manger',
       email: 'momo@exploress.com',
-
-      //subTxt: 'Lubumbashi, CD',
       rating: (3 + 3 + 4 + 5 + 2+5+5),
       rater: 7,
       phoneNumber: "+243 998466121",
       phoneNumber2: "+243 8418321547",
       canDeliver: true,
-      location: const maps.LatLng(-11.628488, 27.483457),
     ),
-
-    ShopData(
-      shopCode: 'VIPQS1234',
+    ItemData(
+      id: 'VIPQS1234',
       imagePath: 'assets/local/loc_reunion_2.jpg',
-      shopName: 'Salle de reunion (VIP)',
+      name: 'Salle de reunion (VIP)',
       email: 'jojo-vip@exploress.com',
-
-      //subTxt: 'Lubumbashi, CD',
+      dept: 'Mobilier',
       rating: (3 + 3 + 4 + 5 + 2+5+5),
       rater: 7,
       phoneNumber: "+243 998466121",
       phoneNumber2: "+243 8418321547",
       canDeliver: true,
-      location: const maps.LatLng(-11.628488, 27.483457),
     ),
-
-    ShopData(
-      shopName: "Magasin",
-      shopCode: "galaile1234",
-      imagePath: "assets/local/loc_lib_1.jpg",
-      email: 'magas@exploress.com',
-      rating: (3 + 3 + 4 + 5 + 2),
-      rater: 5,
-      phoneNumber: "+243 998466121",
-      phoneNumber2: "+243 8418321547",
-      canDeliver: true,
-      location: const maps.LatLng(-11.627637, 27.475301),
-    ),
-
   ];
-
-  /*static void addProduct() {
-    FirebaseManager firebaseManager = FirebaseManager();
-    ProductData productData = ProductData(
-      productName: "Xiaomi 11 Ultra 5G",
-      shopCode: shops.first.shopCode,
-      productCode:  DateTime.now().microsecondsSinceEpoch.toString(),
-      price: 1200,
-      isTendency: true,
-      stockNumber: 10,
-      //category: ,
-      imagePath: '',
-      about: "Xiaomi 11 Ultra, 5G"
-
-    );
-
-    ///firebaseManager.addProduct(productData: productData);
-  }*/
 }
