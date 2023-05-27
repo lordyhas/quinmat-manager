@@ -89,12 +89,12 @@ class _AboutState extends State<AboutPage>{
                               ),
                               const SizedBox(height: 8.0,),
                               Text(
-                                "${AppConstant.completeName} (${AppConstant.name})",
+                                AppConstant.completeName,
                                 style: TextStyle(
                                     color: Theme.of(context).primaryColorLight,
                                     fontSize: 24),
                               ),
-                              const Text("kodisha@exploress.space",),
+                              Text("info@${AppConstant.shortname.toLowerCase()}.com",),
 
                             ],),
                           ),
