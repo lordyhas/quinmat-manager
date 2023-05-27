@@ -1,6 +1,4 @@
-
 part of products;
-
 
 class RangeSliderView extends StatefulWidget {
   const RangeSliderView({required this.values, this.onChangeRangeValues,Key? key,})
@@ -16,7 +14,6 @@ class RangeSliderView extends StatefulWidget {
 class _RangeSliderViewState extends State<RangeSliderView> {
   late RangeValues _values;
   late final StyleAppTheme shopAppTheme ;
-
 
   @override
   void initState() {

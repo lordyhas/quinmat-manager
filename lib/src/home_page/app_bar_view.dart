@@ -1,6 +1,5 @@
 part of home_page;
 
-
 class ActionsAppBar extends StatelessWidget {
   const ActionsAppBar({Key? key}) : super(key: key);
 
