@@ -43,8 +43,8 @@ class _ProductScreenState extends State<ProductScreen>
     super.dispose();
   }
 
-  List<RentItemData> get _spaceList =>  DataTest.shops
-      .map((s) => RentItemData(
+  List<ItemViewModel> get _spaceList =>  DataTest.shops
+      .map((s) => ItemViewModel(
       imagePath: s.imagePath!,
       titleTxt: s.name,
       subTxt: s.dept ?? '${AppConstant.shortname} L\'shi',
@@ -218,18 +218,9 @@ class _ProductScreenState extends State<ProductScreen>
                   onLikeClick: (index) => showToastFavorite(context: context),
                   spaces: spaceList,
                   onShopClick: (index) {
-                    PlaceInfoData data = PlaceInfoData(
-                        rent: spaceList.first.rent!,
-                        onMapClick: () {
-                          Go.of(context).goNamed(
-                              MapSample.routeName,
-                              extra: spaceList[0].rent?.location
-                          );
-                        }
-                    );
                     Go.of(context).goNamed(
-                      PlaceInfoScreen.routeName,
-                      extra: data,
+                      SingleItemScreen.routeName,
+                      extra: ItemIntentData(rent: DataTest.shops[index],),
                     );
                   },
                 ),

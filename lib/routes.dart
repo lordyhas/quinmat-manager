@@ -4,7 +4,7 @@ import 'package:qmt_manager/src/add_product/add_product_page.dart';
 import 'package:qmt_manager/src/login_page.dart';
 import 'package:qmt_manager/src/maps_test.dart';
 import 'package:qmt_manager/src/home_page.dart';
-import 'package:qmt_manager/src/home_page/item_info_screen.dart';
+import 'package:qmt_manager/src/home_page/single_item_screen.dart';
 
 import 'package:qmt_manager/src/myspace_page.dart';
 import 'package:qmt_manager/src/preference_page/about_page.dart';
@@ -90,10 +90,10 @@ class AppRouter extends GoRouter {
             routes: [
               GoRoute(
                 parentNavigatorKey: parentKey,
-                name: PlaceInfoScreen.routeName,
+                name: SingleItemScreen.routeName,
                 path: "places/single",
-                builder: (context, state) => PlaceInfoScreen(
-                  placeData: state.extra as PlaceInfoData,
+                builder: (context, state) => SingleItemScreen(
+                  placeData: state.extra as ItemIntentData,
                 ),
               ),
               GoRoute(

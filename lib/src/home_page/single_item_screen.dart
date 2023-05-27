@@ -10,42 +10,42 @@ import 'package:latlong2/latlong.dart' as dist;
 
 import 'package:qmt_manager/logic/maps_controller/maps.dart';
 
-class PlaceInfoData {
+class ItemIntentData {
   final int? index;
   final ItemData rent;
-  final void Function() onMapClick;
+  final void Function()? onMapClick;
 
-  PlaceInfoData({
+  ItemIntentData({
     required this.rent,
-    required this.onMapClick,
+    this.onMapClick,
     this.index,
   });
 }
 
-class PlaceInfoScreen extends StatefulWidget {
+class SingleItemScreen extends StatefulWidget {
   static const routeName = "/home/explore/places/single-place";
-  final PlaceInfoData placeData;
+  final ItemIntentData placeData;
 
-  const PlaceInfoScreen({required this.placeData, Key? key}) : super(key: key);
+  const SingleItemScreen({required this.placeData, Key? key}) : super(key: key);
 
   @override
-  State createState() => _PlaceInfoScreenState();
+  State createState() => _SingleItemScreenState();
 
   //ShopData get shop => placeData.shop;
 
   static Route route({
-    required PlaceInfoData placeData,
+    required ItemIntentData placeData,
     Key? key,
   }) {
     return MaterialPageRoute<void>(
-        builder: (_) => PlaceInfoScreen(
+        builder: (_) => SingleItemScreen(
               placeData: placeData,
               key: key,
             ));
   }
 }
 
-class _PlaceInfoScreenState extends State<PlaceInfoScreen>
+class _SingleItemScreenState extends State<SingleItemScreen>
     with TickerProviderStateMixin {
   final double infoHeight = 364.0;
   late AnimationController animationController;
@@ -86,12 +86,14 @@ class _PlaceInfoScreenState extends State<PlaceInfoScreen>
   @override
   Widget build(BuildContext context) {
     final ItemData shop;
-    final PlaceInfoData data;
+    final ItemIntentData data;
     data = widget.placeData; //?? ModalRoute.of(context)!.settings.arguments as PlaceInfoData;
     shop = data.rent;
 
 
     var position = BlocProvider.of<MapsBloc>(context).state.maps;
+
+    var phone;
 
     /*final double tempHeight = MediaQuery.of(context).size.height -
         (MediaQuery.of(context).size.width / 1.2) +
@@ -124,7 +126,7 @@ class _PlaceInfoScreenState extends State<PlaceInfoScreen>
                   child: const FlexibleSpaceBar(
                     centerTitle: true,
                     title: SelectableText(
-                      "À louer",
+                      "",
                       style: TextStyle(
                         fontSize: 32,
                         fontWeight: FontWeight.bold,
@@ -133,48 +135,12 @@ class _PlaceInfoScreenState extends State<PlaceInfoScreen>
                   ),
                 )),
 
-            /*SliverAppBar(
-              floating: true, pinned: true, snap: false,
-              expandedHeight: 120.0,
-              flexibleSpace: SizedBox(
-                //height: 200,
-                child: ImageFiltered(
-                  imageFilter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                  child: Image.asset(
-                    widget.shop.imagePath!,
-                    //colorBlendMode: BlendMode,
-                    fit: BoxFit.cover,
-                    width: MediaQuery.of(context).size.width,
-                    gaplessPlayback: true,
-                  ),
-                ),
-              ),
-
-            ),*/
-
-            /*SliverPersistentHeader(
-              pinned: true,
-              floating: true,
-              delegate: RoundedContestTabHeader(context,
-                borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(32.0),
-                    topRight: Radius.circular(32.0)),
-              ),
-            ),*/
           ];
         },
         body: Container(
           color: Theme.of(context).scaffoldBackgroundColor,
           //height: MediaQuery.of(context).size.height * 0.75,
-          /*decoration: BoxDecoration(
-            color: Theme.of(context).scaffoldBackgroundColor, //Colors.grey.shade800,
-            boxShadow: <BoxShadow>[
-              BoxShadow(
-                  color: Colors.grey.withOpacity(0.2),
-                  offset: const Offset(1.1, 1.1),
-                  blurRadius: 10.0),
-            ],
-          ),*/
+
           child: Padding(
             padding: const EdgeInsets.only(left: 8, right: 8),
             child: Column(
@@ -202,11 +168,11 @@ class _PlaceInfoScreenState extends State<PlaceInfoScreen>
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Text(
-                        'à ${distance(fromLatLng: position.currentLatLng2, toLatLng: dist.LatLng(-11.6284708, 27.487585))} metre \ndu centre ville de Lubumbashi',
+                      const Text(
+                        'Chez ${AppConstant.shortname} Lubumbashi',
                         textAlign: TextAlign.left,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontWeight: FontWeight.w200,
                           fontSize: 22,
                           letterSpacing: 0.27,
@@ -255,7 +221,7 @@ class _PlaceInfoScreenState extends State<PlaceInfoScreen>
                                     getTimeBoxUI('24/24', 'Hour'),
                                     getTimeBoxUI('7 Day', 'Week'),
                                     getTimeBoxUI('${60 + Random().nextInt(30)}',
-                                        'Securité'),
+                                        '\$'),
                                   ],
                                 ),
                               ),
@@ -287,7 +253,7 @@ class _PlaceInfoScreenState extends State<PlaceInfoScreen>
                                           children: [
                                             TextSpan(
                                               text:
-                                                  "Contact 1: ${shop.phoneNumber ?? "do not have contact"}\n",
+                                                  "Contact 1: ${phone ?? "do not have contact"}\n",
                                               style: const TextStyle(
                                                 fontWeight: FontWeight.w100,
                                                 fontSize: 16,
@@ -296,7 +262,7 @@ class _PlaceInfoScreenState extends State<PlaceInfoScreen>
                                             ),
                                             TextSpan(
                                               text:
-                                                  "Contact 2: ${shop.phoneNumber2 ?? "do not have contact"}\n",
+                                                  "Contact 2: ${phone ?? "do not have contact"}\n",
                                               style: const TextStyle(
                                                 fontWeight: FontWeight.w100,
                                                 fontSize: 16,
@@ -304,7 +270,7 @@ class _PlaceInfoScreenState extends State<PlaceInfoScreen>
                                               ),
                                             ),
                                             TextSpan(
-                                              text: "Email : ${shop.email} \n",
+                                              text: "Email : info.${AppConstant.shortname.toLowerCase()}.com \n",
                                               style: const TextStyle(
                                                 fontWeight: FontWeight.w100,
                                                 fontSize: 16,
