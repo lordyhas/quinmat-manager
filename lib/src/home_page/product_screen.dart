@@ -43,7 +43,9 @@ class _ProductScreenState extends State<ProductScreen>
     super.dispose();
   }
 
-  List<ItemViewModel> get _spaceList =>  DataTest.shops
+  List get dataTest => DataTest.shops..addAll(DataTest.shops..shuffle());
+
+  List<ItemViewModel> get _spaceList =>  dataTest
       .map((s) => ItemViewModel(
       imagePath: s.imagePath!,
       titleTxt: s.name,
@@ -64,7 +66,7 @@ class _ProductScreenState extends State<ProductScreen>
     BlocProvider.of<NavigationController>(context).setState(NavigationScreen.explorer);
     //Brightness _currentBrightness = Theme.of(context).brightness;
     //_spaceList.add(_spaceList[Random().nextInt(_spaceList.length)+1]);
-    var spaceList = _spaceList..addAll(_spaceList..shuffle());
+    var spaceList = _spaceList;//..addAll(_spaceList..shuffle());
 
     void onMapClickOpenPage(int index) {
       Navigator.push(
@@ -220,7 +222,7 @@ class _ProductScreenState extends State<ProductScreen>
                   onShopClick: (index) {
                     Go.of(context).goNamed(
                       SingleItemScreen.routeName,
-                      extra: ItemIntentData(rent: DataTest.shops[index],),
+                      extra: ItemIntentData(rent: dataTest[index],),
                     );
                   },
                 ),
