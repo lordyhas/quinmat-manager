@@ -15,7 +15,7 @@ class SpaceListView extends StatefulWidget {
   final Function(int index) onShopClick;
   final Function(int index)? onHueClick;
   final Function(int index) onLikeClick;
-  final List<RentItemData> spaces;
+  final List<ItemViewModel> spaces;
 
   @override
   State<SpaceListView> createState() => _SpaceListViewState();

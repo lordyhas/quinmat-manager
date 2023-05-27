@@ -1,8 +1,8 @@
 part of rental.model;
 
 
-class RentItemData {
-  RentItemData({
+class ItemViewModel {
+  ItemViewModel({
     this.imagePath = '',
     this.titleTxt = '',
     this.subTxt = "",
