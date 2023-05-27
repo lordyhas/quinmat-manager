@@ -4,7 +4,7 @@ import 'package:qmt_manager/src/add_product/add_product_page.dart';
 import 'package:qmt_manager/src/login_page.dart';
 import 'package:qmt_manager/src/maps_test.dart';
 import 'package:qmt_manager/src/home_page.dart';
-import 'package:qmt_manager/src/home_page/place_info_screen.dart';
+import 'package:qmt_manager/src/home_page/item_info_screen.dart';
 
 import 'package:qmt_manager/src/myspace_page.dart';
 import 'package:qmt_manager/src/preference_page/about_page.dart';
