@@ -20,9 +20,9 @@ import 'package:qmt_manager/data_test.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:qmt_manager/src/maps_test.dart';
 import 'package:qmt_manager/src/preference_page/about_page.dart';
-import 'package:qmt_manager/src/home_page/products/rental_product.dart';
+import 'package:qmt_manager/src/home_page/products/product.dart';
 import 'package:qmt_manager/src/home_page/products/filters_screen.dart';
-import 'package:qmt_manager/src/home_page/products/model/rental_model.dart';
+import 'package:qmt_manager/src/home_page/products/model/view_model.dart';
 import 'package:qmt_manager/src/home_page/place_info_screen.dart';
 import 'package:qmt_manager/src/myspace_page.dart';
 

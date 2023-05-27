@@ -12,11 +12,11 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:image_cropper/image_cropper.dart';
 //import 'package:utils_component/utils_component.dart' hide Go;
 
-part 'rent_verification.dart';
+part 'add_verification.dart';
 
-part 'rent_upload_image.dart';
+part 'add_upload_image.dart';
 
-part 'rent_form.dart';
+part 'add_form.dart';
 
 enum StepperStep { zero, one, two }
 
