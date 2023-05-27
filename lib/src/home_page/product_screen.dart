@@ -50,31 +50,17 @@ class _ProductScreenState extends State<ProductScreen>
       imagePath: s.imagePath!,
       titleTxt: s.name,
       subTxt: s.dept ?? '${AppConstant.shortname} L\'shi',
-      /*distance: null, DistanceBetween(
-          fromLatLng: context.read<MapsBloc>().state.maps.currentLatLng2,
-          toLatLng: dist.LatLng(s.location!.latitude, s.location!.longitude)
-      ).distanceKiloMeter,*/
       reviews: 80,
       rating: s.rating / s.rater,
       perNight: 180,
       rent: s,
     ),
-  ).toList();//..addAll(spaceList..removeAt(1)..reversed.toList()..shuffle());
+  ).toList();
 
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<NavigationController>(context).setState(NavigationScreen.explorer);
-    //Brightness _currentBrightness = Theme.of(context).brightness;
-    //_spaceList.add(_spaceList[Random().nextInt(_spaceList.length)+1]);
     var spaceList = _spaceList;//..addAll(_spaceList..shuffle());
-
-    void onMapClickOpenPage(int index) {
-      Navigator.push(
-          context,
-          MapSample.route(initialPosition: spaceList[index].rent?.location),
-      );
-    }
-
 
     return Material(
       //backgroundColor: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.9),
