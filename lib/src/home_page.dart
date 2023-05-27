@@ -15,7 +15,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
 //import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
-import 'package:latlong2/latlong.dart' as dist;
+//import 'package:latlong2/latlong.dart' as dist;
 import 'package:qmt_manager/data_test.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:qmt_manager/src/maps_test.dart';
@@ -26,7 +26,7 @@ import 'package:qmt_manager/src/home_page/products/model/view_model.dart';
 import 'package:qmt_manager/src/home_page/item_info_screen.dart';
 import 'package:qmt_manager/src/myspace_page.dart';
 
-import '../logic/maps_controller/maps.dart';
+//import '../logic/maps_controller/maps.dart';
 
 
 

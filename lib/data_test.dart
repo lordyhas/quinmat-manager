@@ -1,5 +1,5 @@
 
-import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
+//import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
 //import 'package:latlong2/latlong.dart' as dist;
 
 import 'package:qmt_manager/logic/model/data_model.dart';

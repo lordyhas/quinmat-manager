@@ -76,18 +76,16 @@ class QuinmatApp extends StatelessWidget {
   final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: "rootKey");
   //final _shellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: "shellKey");
 
-  //NavigatorState get _navigator => _navigatorKey.currentState!;
-
   void _checkSomePermissions() async {
     if (kIsWeb) return;
-    // You can request multiple permissions at once.
-    Map<Permission, PermissionStatus> statuses = await [
+    //Map<Permission, PermissionStatus> statuses =
+    await [
       Permission.location,
       Permission.storage,
       //Permission.camera,
       //Permission.locationAlways,
     ].request();
-    debugPrint("===== Permissions : ${statuses[Permission.storage]}");
+    //debugPrint("===== Permissions : ${statuses[Permission.storage]}");
   }
 
   @override
