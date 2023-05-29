@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qmt_manager/src/add_doctor/add_doctor_page.dart';
 import 'package:qmt_manager/src/add_doctor/data_tab.dart';
 import 'package:qmt_manager/src/add_product/add_product_page.dart';
 import 'package:qmt_manager/src/login_page.dart';
@@ -63,24 +64,41 @@ class AppRouter extends GoRouter {
           return const NestedWebView(child: HomeScreen());
         },
         routes: <RouteBase>[
-          GoRoute(
-            name: DataTableDemo.routeName,
-            path: 'data-table',
-            builder: (c, s) => const DataTableDemo(),
-          ),
+
           GoRoute(
             name: UserSpaceScreen.routeName,
-            path: 'user/myspace',
+            path: 'user',
             builder: (context, state) {
               return const NestedWebView(child: UserSpaceScreen());
             },
+            routes: [
+              /*GoRoute(
+                parentNavigatorKey: parentKey,
+                name: ProductTablePage.routeName,
+                path: "product-table",
+                builder: (context, state) => const ProductTablePage(),
+              ),*/
+              GoRoute(
+                parentNavigatorKey: parentKey,
+                name: AddProductPage.routeName,
+                path: "add-product",
+                builder: (context, state) => const AddProductPage(),
+              ),
+              GoRoute(
+                parentNavigatorKey: parentKey,
+                name: DataTableDemo.routeName,
+                path: 'doctor-table',
+                builder: (c, s) => const DataTableDemo(),
+              ),
+              GoRoute(
+                parentNavigatorKey: parentKey,
+                name: AddDoctorPage.routeName,
+                path: 'add-doctor',
+                builder: (c, s) => const AddDoctorPage(),
+              ),
+            ]
           ),
-          GoRoute(
-            parentNavigatorKey: parentKey,
-            name: AddProductPage.routeName,
-            path: "user/form",
-            builder: (context, state) => const AddProductPage(),
-          ),
+
           GoRoute(
             name: ProductScreen.routeName,
             path: "explore",

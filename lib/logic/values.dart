@@ -101,7 +101,7 @@ class Responsive {
   Size get size => MediaQuery.of(context).size;
 
   bool get isPhone =>
-      size.width <= kPhoneDimens || !kIsWeb; // || Platform.isAndroid;
+      size.width <= kPhoneDimens; // || Platform.isAndroid;
   bool get isWeb => size.width > kPhoneDimens || kIsWeb;
 
   bool get isOnlyWeb => kIsWeb;

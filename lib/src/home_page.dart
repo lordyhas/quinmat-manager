@@ -56,6 +56,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey _iconMenuKey = GlobalKey();
 
   @override
   void initState() {
@@ -234,7 +235,62 @@ class _HomePageState extends State<HomePage> {
                 ),
 
                 actions: [
-                  PopupMenuButton(
+                  IconButton(
+                    key: _iconMenuKey,
+                    icon: const Icon(Icons.notifications),
+                    onPressed: (){
+                      final RenderBox renderBox = _iconMenuKey.currentContext?.findRenderObject() as RenderBox;
+                      // Get the size of the widget
+                      final Size size = renderBox.size;
+                      // Get the offset of the widget
+                      final Offset offset = renderBox.localToGlobal(Offset.zero);
+
+                      final RelativeRect position = RelativeRect.fromLTRB(
+                        offset.dx,
+                        offset.dy + size.height,
+                        offset.dx + size.width,
+                        offset.dy,
+                      );
+                      showMenu(
+                          context: context,
+                          position: position,
+                          items: <PopupMenuEntry<int>>[
+                            const PopupMenuItem<int>(
+                              value: 1,
+                              child: ListTile(
+                                title: Text('Heritier M.'),
+                                subtitle: Text(
+                                    "Il une erreur sur PP0022 ?"),
+                              ),
+                            ),
+                            const PopupMenuItem<int>(
+                              value: 2,
+                              child: ListTile(
+                                title: Text('Mark'),
+                                subtitle:
+                                Text("Corrige l'adresse QC17889 ?"),
+                              ),
+                            ),
+                            const PopupMenuItem<int>(
+                              value: 3,
+                              child: ListTile(
+                                title: Text('Sami Konda'),
+                                subtitle: Text("Corriger l'erreur, svp, MD4589"),
+                              ),
+                            ),
+                            const PopupMenuItem<int>(
+                              value: 3,
+                              child: ListTile(
+                                title: Text('Olga Wivine'),
+                                subtitle: Text("Merci beaucoup."),
+                              ),
+                            ),
+                          ],
+                      );
+                    },
+                  ),
+                  //
+                  /*PopupMenuButton(
                     //enabled: false,
                     tooltip: "",
                     icon: const Icon(Icons.notifications),
@@ -271,7 +327,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     ],
-                  ),
+                  ),*/
                 ],
               ),
               drawer:
@@ -342,6 +398,7 @@ class _HomePageState extends State<HomePage> {
                         onTap: () {
                           BlocProvider.of<NavigationController>(context)
                               .setState(NavigationScreen.myspace);
+                          Go.of(context).to(routeName: UserSpaceScreen.routeName);
                           closeDrawer();
                         },
                         horizontalTitleGap: 32.0,

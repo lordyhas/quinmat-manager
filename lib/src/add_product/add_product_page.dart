@@ -31,9 +31,9 @@ class AddProductPage extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.close),
-          onPressed: Navigator.of(context).pop,
+          onPressed: Go.of(context).pop,
         ),
-        title: const Text("Enregistrer"),
+        title: const Text("Ajouter un produit "),
       ),
       body: const AddProductScreen(),
     );
@@ -64,20 +64,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
     controllers = List<TextEditingController>.generate(
         10, (index) => TextEditingController());
     //.filled(10, TextEditingController());
-    /*ctrl = {
-      'id': TextEditingController(),
-      'label': TextEditingController(),
-      'room': TextEditingController(),
-      'price': TextEditingController(),
-      'address': TextEditingController(),
-      'coordinates': TextEditingController(),
-      'spaceType': TextEditingController(),
-      'description': TextEditingController(),
-      'owner': TextEditingController(),
-      'imageUrl': TextEditingController(),
-      'images': TextEditingController(),
-      'isTaken': TextEditingController(),
-    };*/
 
     vehicleCtrl = vehicle
         .toMap()
