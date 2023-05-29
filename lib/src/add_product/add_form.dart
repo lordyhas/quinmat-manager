@@ -273,59 +273,6 @@ class RentForm extends StatelessWidget {
     );
   }
 }
-/*
-class TabBarButton extends StatelessWidget {
-  const TabBarButton({
-    required this.title,
-    required this.onTap,
-    required this.isSelected,
-    Key? key,
-  }) :  super(key: key);
-
-  final Function() onTap;
-  final bool isSelected;
-  final Text title;
-
-  @override
-  Widget build(BuildContext context) {
-    String txt = title.data!;
-    TextStyle? style = title.style;
-    Color color =  Theme.of(context).primaryColorLight;
-
-    return Expanded(
-      child: Container(
-        decoration: BoxDecoration(
-            color: !isSelected ? null : color.withOpacity(0.3),
-            borderRadius: const BorderRadius.all(Radius.circular(24.0)),
-            border: Border.all(color: color)),
-        child: Material(
-          color: Colors.transparent,
-          child: InkWell(
-            splashColor: Colors.white30,
-            borderRadius: const BorderRadius.all(Radius.circular(24.0)),
-            onTap: onTap,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-              child: Center(
-                child: Text(
-                  txt,
-                  textAlign: TextAlign.left,
-                  style: style ?? const TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 12,
-                    //letterSpacing: 0.27,
-                    //color: isSelected ? null : color,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}*/
-
 
 
 

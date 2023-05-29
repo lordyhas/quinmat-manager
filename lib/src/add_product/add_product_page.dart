@@ -35,19 +35,19 @@ class AddProductPage extends StatelessWidget {
         ),
         title: const Text("Enregistrer"),
       ),
-      body: const RentScreen(),
+      body: const AddProductScreen(),
     );
   }
 }
 
-class RentScreen extends StatefulWidget {
-  const RentScreen({Key? key}) : super(key: key);
+class AddProductScreen extends StatefulWidget {
+  const AddProductScreen({Key? key}) : super(key: key);
 
   @override
-  State<RentScreen> createState() => _RentScreenState();
+  State<AddProductScreen> createState() => _AddProductScreenState();
 }
 
-class _RentScreenState extends State<RentScreen> {
+class _AddProductScreenState extends State<AddProductScreen> {
   late StepperStep _index;
   CroppedFile? croppedFile;
   final GlobalKey<FormState> validator = GlobalKey<FormState>();

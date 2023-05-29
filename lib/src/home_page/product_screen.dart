@@ -3,11 +3,9 @@ part of home_page;
 class ProductScreen extends StatefulWidget {
 
   static const routeName = "RentProductScreen";
-  //final List<SpaceItemData> shopList;
   final void Function()? onMenuTap;
 
-  const   ProductScreen({
-    //required this.shopList,
+  const ProductScreen({
     super.key,
     this.onMenuTap,
   });
@@ -459,9 +457,7 @@ class RContestTabHeader extends SliverPersistentHeaderDelegate {
     //final shopAppTheme = BlocProvider.of<StyleAppTheme>(context);
     Color? filBarColor = secondary? Theme.of(context).primaryColorLight : null;
     Widget? h3text = !secondary ? RouteNameTitle(title!.data!) : null;
-    //print("xxxxxxxxxxxxxxxxxxxxxxxx => "+title!.data!);
     return SizedBox(
-      //color: Theme.of(context).scaffoldBackgroundColor,
       child: Stack(
         children: <Widget>[
           Positioned(

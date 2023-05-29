@@ -123,7 +123,7 @@ class _ProfilePageState extends State<ProfilePage>
                                     ],
                                   )*/
                                 ],
-                              )
+                              ),
                           ),
                           const Padding(
                               padding: EdgeInsets.only(left: 25.0, right: 25.0, top: 25.0),
@@ -143,7 +143,8 @@ class _ProfilePageState extends State<ProfilePage>
                                     ],
                                   ),
                                 ],
-                              )),
+                              ),
+                          ),
                           Padding(
                               padding: const EdgeInsets.only(
                                   left: 25.0, right: 25.0, top: 2.0),
@@ -161,7 +162,8 @@ class _ProfilePageState extends State<ProfilePage>
                                     ),
                                   ),
                                 ],
-                              )),
+                              ),
+                          ),
                           const Padding(
                               padding:  EdgeInsets.only(
                                   left: 25.0, right: 25.0, top: 25.0),
