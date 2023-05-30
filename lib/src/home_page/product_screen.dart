@@ -41,7 +41,7 @@ class _ProductScreenState extends State<ProductScreen>
     super.dispose();
   }
 
-  List get dataTest => DataTest.shops..addAll(DataTest.shops..shuffle());
+  List get dataTest => DataTest.shops;//..addAll(DataTest.shops..shuffle());
 
   List<ItemViewModel> get _spaceList =>  dataTest
       .map((s) => ItemViewModel(

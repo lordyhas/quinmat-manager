@@ -8,13 +8,13 @@ class Product {
   final ProductType productType;
   final dynamic employee;
   final int? promotionPrice;
+  final DateTime? promotionOutdated;
   final int stockNumber;
   final List<String> images;
   final AddressData? address;
-  final bool isPossibleReservation;
+  final bool canReserve;
   final int? price;
   final bool? isTendency;
-
   final PriceCurrency pricePer;
 
 
@@ -25,13 +25,13 @@ class Product {
     required this.description,
     required this.productType,
     required this.price,
-
     this.promotionPrice,
+    this.promotionOutdated,
     this.employee,
     this.stockNumber = 1,
     this.images = const [],
     this.address,
-    this.isPossibleReservation = false,
+    this.canReserve = false,
     this.isTendency,
     this.pricePer = PriceCurrency.CDF,
   });
@@ -44,7 +44,6 @@ class Product {
 
   };
 
-
   static const empty = Product(
       id: '',
       name: '',
@@ -53,7 +52,6 @@ class Product {
       productType: ProductType.unknown,
       model: ''
   );
-
 
   /// Convenience getter to determine whether the
   /// current [Product] is empty.
@@ -64,7 +62,6 @@ class Product {
   bool get isNotEmpty => this != Product.empty;
 
   bool get isComplete => isNotEmpty && images.isNotEmpty;
-
 
 
 
@@ -80,10 +77,11 @@ class Product {
           productType == other.productType &&
           employee == other.employee &&
           promotionPrice == other.promotionPrice &&
+          promotionOutdated == other.promotionOutdated &&
           stockNumber == other.stockNumber &&
           images == other.images &&
           address == other.address &&
-          isPossibleReservation == other.isPossibleReservation &&
+          canReserve == other.canReserve &&
           price == other.price &&
           isTendency == other.isTendency &&
           pricePer == other.pricePer);
@@ -100,7 +98,7 @@ class Product {
       stockNumber.hashCode ^
       images.hashCode ^
       address.hashCode ^
-      isPossibleReservation.hashCode ^
+      canReserve.hashCode ^
       price.hashCode ^
       isTendency.hashCode ^
       pricePer.hashCode;
@@ -118,7 +116,7 @@ class Product {
         ' stockNumber: $stockNumber,'
         ' images: $images,'
         ' address: $address,'
-        ' isPossibleReservation: $isPossibleReservation,'
+        ' isPossibleReservation: $canReserve,'
         ' price: $price,'
         ' isTendency: $isTendency,'
         ' pricePer: $pricePer,'
@@ -133,10 +131,11 @@ class Product {
     ProductType? productType,
     dynamic employee,
     int? promotionPrice,
+    DateTime? promotionOutdated,
     int? stockNumber,
     List<String>? images,
     AddressData? address,
-    bool? isPossibleReservation,
+    bool? canReserve,
     int? price,
     bool? isTendency,
     PriceCurrency? pricePer,
@@ -149,11 +148,11 @@ class Product {
       productType: productType ?? this.productType,
       employee: employee ?? this.employee,
       promotionPrice: promotionPrice ?? this.promotionPrice,
+      promotionOutdated: promotionOutdated ?? this.promotionOutdated,
       stockNumber: stockNumber ?? this.stockNumber,
       images: images ?? this.images,
       address: address ?? this.address,
-      isPossibleReservation:
-          isPossibleReservation ?? this.isPossibleReservation,
+      canReserve: canReserve ?? this.canReserve,
       price: price ?? this.price,
       isTendency: isTendency ?? this.isTendency,
       pricePer: pricePer ?? this.pricePer,
@@ -172,7 +171,7 @@ class Product {
       'stockNumber': stockNumber,
       'images': images,
       'address': address?.toMap(),
-      'isPossibleReservation': isPossibleReservation,
+      'canReserve': canReserve,
       'price': price,
       'isTendency': isTendency,
       'pricePer': pricePer,
@@ -188,10 +187,11 @@ class Product {
       productType: map['productType'] as ProductType,
       employee: map['employee'] as dynamic,
       promotionPrice: map['promotionPrice'] as int,
+      promotionOutdated: map['promotionOutdated'] as DateTime,
       stockNumber: map['stockNumber'] as int,
       images: map['images'] as List<String>,
       address: AddressData.fromMap(map['address']),
-      isPossibleReservation: map['isPossibleReservation'] as bool,
+      canReserve: map['canReserve'] as bool,
       price: map['price'] as int,
       isTendency: map['isTendency'] as bool,
       pricePer: map['pricePer'] as PriceCurrency,
