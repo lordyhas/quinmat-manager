@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:qmt_manager/src/add_doctor/add_doctor_page.dart';
 import 'package:qmt_manager/src/add_doctor/data.csv.dart';
+
+import '../../logic/values.dart';
 
 /*
 class _Dessert {
@@ -18,6 +21,20 @@ class _Dessert {
   bool? selected = false;
 }
 */
+
+enum ContactLabel { mobile, work }
+
+extension ContactLabelHelper on ContactLabel {
+  String get name {
+    switch (this) {
+      case ContactLabel.mobile:
+        return "Mobile";
+      case ContactLabel.work:
+        return "Travail";
+    }
+  }
+}
+
 class Doctor {
   final String? title;
   final String name;
@@ -48,6 +65,30 @@ class Doctor {
   });
 
   bool selected = false;
+
+  static Doctor empty = Doctor(
+    name: "",
+    firstName: "",
+    lastName: "",
+    sex: "",
+    hospital: "",
+    speciality: "",
+    location: "",
+    isDoctor: false,
+    lastUpdate: DateTime.now(),
+    phoneNumbers : const <String>[],
+    emails : const <String>[],
+  );
+
+
+  /// Convenience getter to determine whether the
+  /// current [Doctor] is empty.
+
+  bool get isEmpty => this == Doctor.empty;
+
+  /// Convenience getter to determine whether the
+  /// current [Doctor] is not empty.
+  bool get isNotEmpty => this != Doctor.empty;
 
   @override
   bool operator ==(Object other) =>
@@ -229,7 +270,9 @@ class DoctorDataSource extends DataTableSource {
         ),
         DataCell(Text(doctor.location)),
         DataCell(Text(doctor.phoneNumbers.first)),
-        DataCell(Text(doctor.emails.first),),
+        DataCell(
+          Text(doctor.emails.first),
+        ),
         DataCell(Text(doctor.isDoctor ? "Yes" : "")),
       ],
     );
@@ -279,10 +322,15 @@ class _DataTableDemoState extends State<DataTableDemo> {
 
   @override
   Widget build(BuildContext context) {
-    final ScrollController scrollController = ScrollController(debugLabel: 'scrollDoctors');
+    final ScrollController scrollController =
+        ScrollController(debugLabel: 'scrollDoctors');
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Data tables'),
+        leading: IconButton(
+          icon: const Icon(Icons.close),
+          onPressed: Go.of(context).pop,
+        ),
+        title: const Text('Doctor data tables'),
         actions: const <Widget>[
           //MaterialDemoDocumentationButton(DataTableDemo.routeName),
         ],
@@ -296,10 +344,16 @@ class _DataTableDemoState extends State<DataTableDemo> {
             PaginatedDataTable(
               //controller: scrollController,
               actions: [
-                IconButton(onPressed: (){}, icon: const Icon(Icons.delete)),
-                IconButton(onPressed: (){}, icon: const Icon(Icons.wifi_protected_setup)),
-                IconButton(onPressed: (){}, icon: const Icon(Icons.send)),
-
+                IconButton(onPressed: () {}, icon: const Icon(Icons.delete)),
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.wifi_protected_setup)),
+                IconButton(
+                  icon: const Icon(Icons.add),
+                  onPressed: () => Go.of(context).to(
+                    routeName: AddDoctorPage.routeName,
+                  ),
+                ),
               ],
               header: const Text('Doctors'),
               rowsPerPage: _rowsPerPage!,
@@ -319,7 +373,6 @@ class _DataTableDemoState extends State<DataTableDemo> {
                 ),
                 DataColumn(
                   label: const Text('Sex'),
-
                   numeric: true,
                   onSort: (int columnIndex, bool ascending) => _sort<String>(
                       (Doctor d) => d.sex, columnIndex, ascending),

@@ -32,7 +32,6 @@ class TransferProtocol {
   Future<void> send(Map data) async {
     final response = await http.post(_uri, body: data);
     debugPrint('Response status: ${response.statusCode}');
-
     debugPrint('Response body: ${response.body}');
 
 

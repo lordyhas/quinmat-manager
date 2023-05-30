@@ -43,7 +43,7 @@ class _UserSpaceScreenState extends State<UserSpaceScreen> {
       const TextStyle(fontSize: 24, fontWeight: FontWeight.bold);
 
   TextStyle get textStyle =>
-      const TextStyle(fontSize: 20, color: Colors.white70);
+      const TextStyle(color: Colors.white70);
 
   bool underline = false;
 
@@ -79,7 +79,7 @@ class _UserSpaceScreenState extends State<UserSpaceScreen> {
                         constraints: const BoxConstraints(
                           maxWidth: kPhoneDimens,
                         ),
-                        height: 320,
+                        height: Responsive.of(context).isPhone ? null : 320,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.grey),
                           borderRadius: BorderRadius.circular(20),
@@ -378,9 +378,6 @@ class _UserSpaceScreenState extends State<UserSpaceScreen> {
                                                 text: "4",
                                                 style: numStyle,
                                               ),
-                                              const TextSpan(
-                                                text: "",
-                                              )
                                             ],
                                           )),
                                         ],
