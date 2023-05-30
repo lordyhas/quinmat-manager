@@ -330,8 +330,7 @@ class _HomePageState extends State<HomePage> {
                   ),*/
                 ],
               ),
-              drawer:
-              BlocBuilder<NavigationController, NavigationScreen>(
+              drawer: BlocBuilder<NavigationController, NavigationScreen>(
                 builder: (context, state) {
                   int index = state.index <= 2 ? state.index : 2;
                   return NavigationDrawer(
@@ -446,34 +445,7 @@ class _HomePageState extends State<HomePage> {
 
                 },
               ),
-              /*Drawer(
-                child: Column(
-                  children: [
 
-
-                    BlocBuilder<NavigationController, NavigationScreen>(
-                      builder: (context, state) {
-                        return Column(
-                          children: items
-                              .map((item) => SizedBox(
-                            child: ListTile(
-                              key: item.key,
-                              leading: item.icon,
-                              // ? : item.selectedIcon
-                              title: item.label,
-                              onTap: item.onPressed,
-                              selected:
-                              state == item.navigationScreen,
-                            ),
-                          ))
-                              .toList(),
-                        );
-                      },
-                    ),
-
-                  ],
-                ),
-              ),*/
               body: widget.child,
             ),
           ),
@@ -502,33 +474,3 @@ class DrawerItem {
     this.key,
   });
 }
-
-/*
- Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      child: Row(
-
-        children: [
-          SizedBox(
-            width: MediaQuery.of(context).size.width*0.1,
-            height: MediaQuery.of(context).size.height, 
-            child: Container(
-              color: Colors.green,
-              child: Column(
-                children: [
-                  Ink
-                ],
-              ),
-            ),
-          ),
-          Expanded(
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height,
-              child: Column(),
-            ),
-          ),
-        ],
-      ),
-    );
-*/
