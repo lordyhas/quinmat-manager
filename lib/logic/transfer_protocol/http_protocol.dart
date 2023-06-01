@@ -23,9 +23,7 @@ class TransferProtocol {
     this.method = MethodProtocol.GET,
   });
 
-  //final _url = "https://jsonplaceholder.typicode.com/albums/1";
-  //Uri get _uri => Uri.https('jsonplaceholder.typicode.com', '/albums/1');
-  Uri get _uri => Uri.http('http://127.0.0.1:8000', '/doctor_create');
+  Uri get _uri => Uri.parse('http://127.0.0.1:8000/doctor_create');
 
   //Uri? get _uriFromUrl => (url != null) ? Uri.parse(url!) : null;
 
@@ -34,21 +32,17 @@ class TransferProtocol {
     debugPrint('Response status: ${response.statusCode}');
     debugPrint('Response body: ${response.body}');
 
-
     //return response.statusCode;
   }
 
-  Future<Map?> get() async {
-    // Url of the website where we get the data from.
-    //getp.toString();
-    //var uri = Uri.https('jsonplaceholder.typicode.com','/albums/1',{'where':null,'table':null,},);
 
+  Future<Map?> get() async {
     var uri = _uri;
     var request = http.Request(method.name, uri); // Set to GET
     http.StreamedResponse response = await request.send(); // Send request.
     // Check if response is okay
     if (response.statusCode == 200) {
-      return jsonDecode(await response.stream.bytesToString());
+      return jsonDecode(await response.stream.bytesToString()) as Map;
     }
     return null;
   }
@@ -64,7 +58,6 @@ class GetProtocol {
   final String? url;
   final Map<String, dynamic> tag;
 
-
   GetProtocol({
     required this.query,
     required this.where,
@@ -79,7 +72,6 @@ class SendProtocol {
   final String where;
   final String table;
   final Map<String, dynamic> tag;
-
 
   SendProtocol({
     required this.query,

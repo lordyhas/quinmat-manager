@@ -1,5 +1,6 @@
 library home_page;
 
+import 'dart:convert';
 import 'dart:math';
 import 'dart:ui';
 
@@ -18,13 +19,15 @@ import 'package:intl/intl.dart';
 //import 'package:latlong2/latlong.dart' as dist;
 import 'package:qmt_manager/data_test.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:qmt_manager/src/maps_test.dart';
+//import 'package:qmt_manager/src/maps_test.dart';
 import 'package:qmt_manager/src/preference_page/about_page.dart';
 import 'package:qmt_manager/src/home_page/products/product.dart';
 import 'package:qmt_manager/src/home_page/products/filters_screen.dart';
 import 'package:qmt_manager/src/home_page/products/model/view_model.dart';
 import 'package:qmt_manager/src/home_page/single_item_screen.dart';
 import 'package:qmt_manager/src/myspace_page.dart';
+
+import 'package:http/http.dart' as http;
 
 //import '../logic/maps_controller/maps.dart';
 
@@ -108,8 +111,39 @@ class _HomePageState extends State<HomePage> {
     child: const Icon(CupertinoIcons.map),
   );
 
+  Future<void> getTest() async {
+
+    final response = await http
+        .get(Uri.parse('https://exploress.space/index.php'));
+
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      print(jsonDecode(response.body));
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load');
+    }
+
+  }
+
+  Future<void> sendTest(Map data) async {
+    final response = await http
+        .post(Uri.parse('http://127.0.0.1:8000/api/test_post'), body: data);
+    debugPrint('Response status: ${response.statusCode}');
+    debugPrint('Response body: ${response.body}');
+
+    //return response.statusCode;
+  }
+
   @override
   Widget build(BuildContext context) {
+
+    //getTest();
+    sendTest({'host':'Hassan K.'});
+
+
     Responsive responsive = Responsive.of(context);
     double screenWidth = MediaQuery.of(context).size.width;
     if (kDebugMode) {
@@ -125,7 +159,7 @@ class _HomePageState extends State<HomePage> {
     return Material(
       child: Row(
         children: <Widget>[
-          ///  NavigationRail ++++++++++++++++++++++
+          ///  NavigationRail ++++++++++++++++++++++ ///
           if (screenWidth > kPhoneDimens && kIsWeb)
             BlocBuilder<NavigationController, NavigationScreen>(
               builder: (context, state) {
@@ -211,7 +245,6 @@ class _HomePageState extends State<HomePage> {
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (context, state) {
                               switch(state.status){
-                                
                                 case AuthenticationStatus.authenticated:
                                   return ElevatedButton(
                                     style: ElevatedButton.styleFrom(
