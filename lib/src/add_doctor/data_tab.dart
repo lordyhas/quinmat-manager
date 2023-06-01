@@ -206,7 +206,7 @@ class DoctorDataSource extends DataTableSource {
             hospital: data["HOSPITAL"] as String,
             speciality: data["SPECIALITY"] as String,
             location: data["LOCATION"] as String,
-            isDoctor: data["SPECIALITY"].toString().toLowerCase() == 'yes',
+            isDoctor: data["Doctor"].toString().toLowerCase() == 'yes',
             lastUpdate: DateTime.now(),
             phoneNumbers: [
               data["MOB_NUMBER1"] as String,
@@ -306,7 +306,7 @@ class DataTableDemo extends StatefulWidget {
 }
 
 class _DataTableDemoState extends State<DataTableDemo> {
-  int? _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
+  int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
   int? _sortColumnIndex;
   bool _sortAscending = true;
   final DoctorDataSource _doctorsDataSource = DoctorDataSource();
@@ -326,14 +326,14 @@ class _DataTableDemoState extends State<DataTableDemo> {
         ScrollController(debugLabel: 'scrollDoctors');
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
+        leading: const ImageIcon(
+          AssetImage("'assets/icon_app.png'"),
+          size: 32,
+        ), /*IconButton(
           icon: const Icon(Icons.close),
           onPressed: Go.of(context).pop,
-        ),
+        ),*/
         title: const Text('Doctor data tables'),
-        actions: const <Widget>[
-          //MaterialDemoDocumentationButton(DataTableDemo.routeName),
-        ],
       ),
       body: Scrollbar(
         controller: scrollController,
@@ -341,33 +341,39 @@ class _DataTableDemoState extends State<DataTableDemo> {
           controller: scrollController,
           padding: const EdgeInsets.all(20.0),
           children: <Widget>[
+
             PaginatedDataTable(
-              //controller: scrollController,
+              //
+              header: const Text('Doctors'),
               actions: [
                 IconButton(onPressed: () {}, icon: const Icon(Icons.delete)),
                 IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.wifi_protected_setup)),
+                  onPressed: () {},
+                  icon: const Icon(Icons.wifi_protected_setup,),
+                ),
                 IconButton(
                   icon: const Icon(Icons.add),
-                  onPressed: () => Go.of(context).to(
-                    routeName: AddDoctorPage.routeName,
-                  ),
+                  onPressed: () {
+                    Go.of(context).to(
+                      routeName: AddDoctorPage.routeName,
+                    );
+                  }
                 ),
               ],
-              header: const Text('Doctors'),
-              rowsPerPage: _rowsPerPage!,
+              rowsPerPage: _rowsPerPage,
               onRowsPerPageChanged: (int? value) {
                 setState(() {
-                  _rowsPerPage = value;
+                  _rowsPerPage = value!;
                 });
               },
               sortColumnIndex: _sortColumnIndex,
               sortAscending: _sortAscending,
               onSelectAll: _doctorsDataSource.selectAll,
+              availableRowsPerPage: const <int>[10,20,40,60],
+
               columns: <DataColumn>[
                 DataColumn(
-                  label: const Text('Name'),
+                  label: const Text('Nom Complet'),
                   onSort: (int columnIndex, bool ascending) => _sort<String>(
                       (Doctor d) => d.name, columnIndex, ascending),
                 ),

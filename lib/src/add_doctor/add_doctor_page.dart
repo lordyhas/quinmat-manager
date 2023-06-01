@@ -44,9 +44,9 @@ class _AddDoctorPageState extends State<AddDoctorPage> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.close),
-          onPressed: GoRouter.of(context).pop,
+        leading: const ImageIcon(
+          AssetImage("'assets/icon_app.png'"),
+          size: 32,
         ),
         title: const Text('Add Doctor'),
       ),
@@ -62,7 +62,10 @@ class _AddDoctorPageState extends State<AddDoctorPage> {
                 spacing: 8.0,
                 children: [
                   Container(
-                    constraints: isWrapped ? null : const BoxConstraints(maxWidth: kTabDimens*.2),
+                    constraints:
+                    isWrapped
+                        ? null
+                        : const BoxConstraints(maxWidth: kTabDimens*.2),
                     //width: 100,
                     child: DropdownButtonFormField<String>(
                       items: titles
@@ -83,10 +86,14 @@ class _AddDoctorPageState extends State<AddDoctorPage> {
                   ),
 
                   Container(
-                    constraints: isWrapped ? null : const BoxConstraints(maxWidth: kTabDimens*.7),
+                    constraints: isWrapped
+                        ? null
+                        : const BoxConstraints(maxWidth: kTabDimens*.7),
                     //width:  100,
                     child: TextFormField(
-                      initialValue: (doctor.isNotEmpty) ? doctor.firstName : null,
+                      initialValue: (doctor.isNotEmpty)
+                          ? doctor.firstName
+                          : null,
                       decoration: const InputDecoration(
                         hintText: 'Entrer le Prenom *',
                       ),
@@ -155,7 +162,6 @@ class _AddDoctorPageState extends State<AddDoctorPage> {
                   },
                 ),
               ),
-
               Wrap(
                 spacing: 8.0,
                 children: [
@@ -205,7 +211,6 @@ class _AddDoctorPageState extends State<AddDoctorPage> {
                   ),
                 ],
               ),
-
               Wrap(
                 children: [
                   Container(
@@ -255,17 +260,13 @@ class _AddDoctorPageState extends State<AddDoctorPage> {
                   ),
                 ],
               ),
-
               Row(
                 children: [
                   const Spacer(),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 32.0),
                     child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          //minimumSize: const Size(72, 42),
-
-                          ),
+                      style: ElevatedButton.styleFrom(),
                       onPressed: () {
                         // Validate will return true if the form is valid, or false if
                         // the form is invalid.
