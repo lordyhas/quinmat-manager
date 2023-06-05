@@ -175,11 +175,13 @@ class Doctor {
       'lastUpdate': lastUpdate,
       'phoneNumbers': phoneNumbers,
       'emails': emails,
+      'speciality': speciality,
     };
   }
 
   factory Doctor.fromMap(Map<String, dynamic> map) {
     return Doctor(
+      title: map['title'] as String,
       name: map['name'] as String,
       firstName: map['firstName'] as String,
       lastName: map['lastName'] as String,
@@ -193,31 +195,37 @@ class Doctor {
       emails: map['emails'] as List<String>,
     );
   }
+
+  factory Doctor.fromJsonApi(Map<String, dynamic> data) {
+    return Doctor(
+      title: data['title'] as String,
+      name: data['name'] as String,
+      firstName: data['firstName'] as String,
+      lastName: data['lastName'] as String,
+      sex: data['sex'] as String,
+      hospital: data['hospital'] as String,
+      speciality: data['speciality'] as String,
+      location: data['location'] as String,
+      lastUpdate: DateTime.now(),
+      isDoctor : data["is_doctor"].toString().toLowerCase() == 'yes',
+      phoneNumbers: [
+        data['mob_number1'] as String,
+        data['mob_number1'] as String,
+      ],
+      emails : [
+        data['email1'] as String,
+        data['email1'] as String,
+      ],
+    );
+  }
 }
 
 class DoctorDataSource extends DataTableSource {
   final List<Doctor> _doctors = doctorData
-      .map((final Map<String, String> data) => Doctor(
-            title: data["TITLE"],
-            name: data["NAME"] as String,
-            firstName: data["FIRST_NAME"] as String,
-            lastName: data["LAST_NAME"] as String,
-            sex: data["SEXE"] as String,
-            hospital: data["HOSPITAL"] as String,
-            speciality: data["SPECIALITY"] as String,
-            location: data["LOCATION"] as String,
-            isDoctor: data["Doctor"].toString().toLowerCase() == 'yes',
-            lastUpdate: DateTime.now(),
-            phoneNumbers: [
-              data["MOB_NUMBER1"] as String,
-              data["MOB_NUMBER2"] as String,
-            ],
-            emails: [
-              data["EMAIL1"] as String,
-              data["EMAIL2"] as String,
-            ],
-          ))
-      .toList();
+      .map((final Map<String, dynamic> data) {
+
+    return  Doctor.fromJsonApi(data);
+  }).toList();
 
   void _sort<T>(Comparable<T> Function(Doctor d) getField, bool ascending) {
     _doctors.sort((Doctor a, Doctor b) {
@@ -253,11 +261,11 @@ class DoctorDataSource extends DataTableSource {
       },
       cells: <DataCell>[
         DataCell(
-          Text("${doctor.title} ${doctor.firstName} "
+          Text("${doctor.firstName} "
               "${doctor.name} ${doctor.lastName}"),
           onDoubleTap: () {},
           onLongPress: () {},
-          showEditIcon: true,
+          //showEditIcon: true,
 
           //placeholder: true,
         ),
@@ -326,9 +334,9 @@ class _DataTableDemoState extends State<DataTableDemo> {
         ScrollController(debugLabel: 'scrollDoctors');
     return Scaffold(
       appBar: AppBar(
-        leading: const ImageIcon(
-          AssetImage("'assets/icon_app.png'"),
-          size: 32,
+        leading:  Padding(
+          padding: const EdgeInsets.only(left: 8.0),
+          child: Image.asset("assets/icon_app_red.png", height: 32 ,)
         ), /*IconButton(
           icon: const Icon(Icons.close),
           onPressed: Go.of(context).pop,
@@ -379,7 +387,7 @@ class _DataTableDemoState extends State<DataTableDemo> {
                 ),
                 DataColumn(
                   label: const Text('Sex'),
-                  numeric: true,
+                  //numeric: true,
                   onSort: (int columnIndex, bool ascending) => _sort<String>(
                       (Doctor d) => d.sex, columnIndex, ascending),
                 ),

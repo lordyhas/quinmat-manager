@@ -12,23 +12,45 @@ abstract class HttpProtocol<T> {
   Future<void> sendData(Object? data);
 }
 
-class TransferProtocol {
-  final String? url;
-  final CRUD mode;
-  final MethodProtocol method;
 
-  const TransferProtocol({
-    required this.mode,
-    this.url,
+class UserAgentClient extends http.BaseClient {
+  final String userAgent;
+  final http.Client _inner;
+
+  UserAgentClient(this.userAgent, this._inner);
+
+  Future<http.StreamedResponse> send(http.BaseRequest request) {
+    request.headers['user-agent'] = userAgent;
+    return _inner.send(request);
+  }
+}
+
+class TransferProtocol {
+  final String url;
+  final CRUD? mode;
+  final MethodProtocol method;
+  final Map<String, dynamic> data;
+  final String? message;
+
+  const TransferProtocol( this.url,{
+    this.data = const <String,dynamic>{},
+    this.message,
+    this.mode,
     this.method = MethodProtocol.GET,
   });
 
-  Uri get _uri => Uri.parse('http://127.0.0.1:8000/doctor_create');
+  Uri get _uri => Uri.parse('http://127.0.0.1:8000/api/test_post');
+
 
   //Uri? get _uriFromUrl => (url != null) ? Uri.parse(url!) : null;
 
-  Future<void> send(Map data) async {
-    final response = await http.post(_uri, body: data);
+  Future<void> send() async {
+    //http://127.0.0.1:8000/api/test_post
+    Map<String, dynamic> datax = {};
+    datax['data'] = data;
+    datax['message'] = message;
+    datax['mode'] = mode?.name;
+    final response = await http.post(_uri, body: datax);
     debugPrint('Response status: ${response.statusCode}');
     debugPrint('Response body: ${response.body}');
 
@@ -36,15 +58,32 @@ class TransferProtocol {
   }
 
 
-  Future<Map?> get() async {
-    var uri = _uri;
-    var request = http.Request(method.name, uri); // Set to GET
-    http.StreamedResponse response = await request.send(); // Send request.
-    // Check if response is okay
+  Future<Map<String, dynamic>> get() async {
+    //http://127.0.0.1:8000/api/csv
+    final response = await http.get(_uri);
+
     if (response.statusCode == 200) {
-      return jsonDecode(await response.stream.bytesToString()) as Map;
+      var value = jsonDecode(response.body) as Map;
+      return value['data'];
+    } else {
+      throw Exception('Failed to load');
     }
-    return null;
+  }
+
+  Future<void> _clientTest() async {
+    var client = http.Client();
+    try {
+      var response = await client.get(
+        Uri.parse('http://127.0.0.1:8000/api/csv'),);
+      var decodedResponse = jsonDecode(utf8.decode(response.bodyBytes));
+      if (kDebugMode) {
+        print(decodedResponse);
+      }
+      //var uri = Uri.parse(decodedResponse['uri'] as String);
+      //print(await client.get(uri));
+    } finally {
+      client.close();
+    }
   }
 }
 
@@ -117,4 +156,15 @@ enum CRUD {
   read,
   update,
   delete,
+}
+
+extension CRUDHelper on CRUD {
+  String get name {
+    switch(this){
+      case CRUD.create : return "create";
+      case CRUD.read : return "read";
+      case CRUD.delete : return "delete";
+      case CRUD.update : return "update";
+    }
+  }
 }
