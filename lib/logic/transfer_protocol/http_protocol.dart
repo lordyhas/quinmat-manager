@@ -39,6 +39,9 @@ class TransferProtocol {
     this.method = MethodProtocol.GET,
   });
 
+  //todo : here
+  http.Client? get _client => null;
+
   Uri get _uri => Uri.parse('http://127.0.0.1:8000/api/test_post');
 
 
@@ -46,11 +49,12 @@ class TransferProtocol {
 
   Future<void> send() async {
     //http://127.0.0.1:8000/api/test_post
-    Map<String, dynamic> datax = {};
-    datax['data'] = data;
-    datax['message'] = message;
-    datax['mode'] = mode?.name;
-    final response = await http.post(_uri, body: datax);
+
+    final response = await http.post(_uri, body: {
+      'data': data,
+      'message': message,
+      'mode': mode?.name,
+    });
     debugPrint('Response status: ${response.statusCode}');
     debugPrint('Response body: ${response.body}');
 
@@ -60,7 +64,7 @@ class TransferProtocol {
 
   Future<Map<String, dynamic>> get() async {
     //http://127.0.0.1:8000/api/csv
-    final response = await http.get(_uri);
+    final response = await http.post(_uri);
 
     if (response.statusCode == 200) {
       var value = jsonDecode(response.body) as Map;

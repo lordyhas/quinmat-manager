@@ -29,6 +29,8 @@ import 'package:qmt_manager/src/myspace_page.dart';
 
 import 'package:http/http.dart' as http;
 
+import '../logic/transfer_protocol/http_protocol.dart';
+
 //import '../logic/maps_controller/maps.dart';
 
 
@@ -111,37 +113,20 @@ class _HomePageState extends State<HomePage> {
     child: const Icon(CupertinoIcons.map),
   );
 
-  Future<void> getTest() async {
 
-    final response = await http
-        .get(Uri.parse('https://exploress.space/index.php'));
 
-    if (response.statusCode == 200) {
-      // If the server did return a 200 OK response,
-      // then parse the JSON.
-      print(jsonDecode(response.body));
-    } else {
-      // If the server did not return a 200 OK response,
-      // then throw an exception.
-      throw Exception('Failed to load');
-    }
 
-  }
 
-  Future<void> sendTest(Map data) async {
-    final response = await http
-        .post(Uri.parse('http://127.0.0.1:8000/api/test_post'), body: data);
-    debugPrint('Response status: ${response.statusCode}');
-    debugPrint('Response body: ${response.body}');
-
-    //return response.statusCode;
+  Future<void> sendTest() async {
+    TransferProtocol transfer = const TransferProtocol("http://127.0.0.1:8000/api/csv");
+    transfer.get();
   }
 
   @override
   Widget build(BuildContext context) {
 
-    //getTest();
-    sendTest({'host':'Hassan K.'});
+
+    //sendTest();
 
 
     Responsive responsive = Responsive.of(context);
