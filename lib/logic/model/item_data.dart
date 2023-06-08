@@ -1,33 +1,27 @@
 part of data.model;
 
-class ShopInformation{
-  //final String owner;
-  //final String
-}
-
 class ItemData{
   final dynamic id;
   final String name;
-  final String? dept;
+  final String department;
   final String? email;
   final OpenDay openDay;
   final String? isOpened;
   final maps.LatLng? location;
   final String? phoneNumber;
   final String? phoneNumber2;
-  final String? imagePath;
+  final String imagePath;
   final dynamic image;
-
 
 
   AddressData? addressData;
 
   /// sum of the rating out of 5 given by users
-  final int rating;
+  final int ratings;
 
   ///number of rater, then rating in code will be :
   ///[ShopData.rating/(ShopData.rater*5)]
-  final int rater;
+  final int raters;
 
   /// [authenticate] shop is when this exists
   final bool authenticate;
@@ -38,17 +32,20 @@ class ItemData{
   /// will be true if delivery is possible
   final dynamic canDeliver;
 
+  final Product product;
+
 
   ItemData({
     required this.name,
     required this.id,
-    this.authenticate = false, this.certify = false,
-    this.dept,
-    this.imagePath,
+    required this.imagePath,
+    this.department = "",
+    this.authenticate = false,
+    this.certify = false,
     this.image,
     this.email,
-    this.rating = 0,
-    this.rater = 0,
+    this.ratings = 0,
+    this.raters = 0,
     this.addressData,
     this.openDay = const OpenDay.openable(),
     this.isOpened,
@@ -56,6 +53,7 @@ class ItemData{
     this.phoneNumber,
     this.phoneNumber2,
     this.canDeliver,
+    this.product = Product.empty
   });
   //: super(id:id, name:shopName, userCode:shopCode, location:location, phoneNumber:number,);
 
@@ -81,8 +79,8 @@ class ItemData{
         'longitude':location?.longitude,
       },
       'phone_number2': phoneNumber2,
-      'rating': rating,
-      'rater': rater,
+      'ratings': ratings,
+      'raters': raters,
       'address': addressData!.asMap(),
       'image_path': imagePath,
       'image': image,
@@ -95,15 +93,15 @@ class ItemData{
   factory ItemData.fromMap(Map<String, dynamic> map) => ItemData(
     id: map['id'],
     name: map['shop_name'],
-    dept: map['shop_code'],
+    department: map['shop_code'],
     phoneNumber: map['phone_number'],
     phoneNumber2: map['phone_number2'],
     imagePath: map['image_path'],
     image: map['image'],
     openDay: map['open_day'],
     isOpened: map['is_opened'],
-    rating: map['rating'],
-    rater: map['rater'],
+    ratings: map['ratings'],
+    raters: map['raters'],
     email: map['email'],
     canDeliver: map['delivery'],
     location: maps.LatLng(

@@ -3,7 +3,7 @@ part of products;
 class SpaceListView extends StatefulWidget {
   //final heroTag;
   const SpaceListView({
-    required this.spaces, //this.heroTag,
+    required this.items, //this.heroTag,
     //required this.animationController,
     //required this.animation,
     required this.onShopClick,
@@ -15,7 +15,7 @@ class SpaceListView extends StatefulWidget {
   final Function(int index) onShopClick;
   final Function(int index)? onHueClick;
   final Function(int index) onLikeClick;
-  final List<ItemViewModel> spaces;
+  final List<ItemData> items;
 
   @override
   State<SpaceListView> createState() => _SpaceListViewState();
@@ -57,7 +57,7 @@ class _SpaceListViewState extends State<SpaceListView> {
           spacing: 8.0,
           alignment: WrapAlignment.center,
           children: List.generate(
-            widget.spaces.length,
+            widget.items.length,
             (index) => Padding(
               padding: const EdgeInsets.only(
                   left: 24, right: 24, top: 8, bottom: 16),
@@ -89,7 +89,7 @@ class _SpaceListViewState extends State<SpaceListView> {
                             AspectRatio(
                               aspectRatio: 2,
                               child: Image.asset(
-                                widget.spaces[index].imagePath,
+                                widget.items[index].imagePath,
                                 fit: BoxFit.cover,
                                 gaplessPlayback: true,
                               ),
@@ -113,7 +113,7 @@ class _SpaceListViewState extends State<SpaceListView> {
                                             CrossAxisAlignment.start,
                                         children: <Widget>[
                                           Text(
-                                            widget.spaces[index].titleTxt,
+                                            widget.items[index].name,
                                             textAlign: TextAlign.left,
                                             overflow: TextOverflow.ellipsis,
                                             style: const TextStyle(
@@ -128,7 +128,7 @@ class _SpaceListViewState extends State<SpaceListView> {
                                                 MainAxisAlignment.start,
                                             children: <Widget>[
                                               Text(
-                                                widget.spaces[index].subTxt,
+                                                widget.items[index].department,
                                                 style: textStyle,
                                               ),
                                               const SizedBox(
@@ -155,22 +155,11 @@ class _SpaceListViewState extends State<SpaceListView> {
                                               StarRating(
                                                 allowHalfRating: true,
                                                 starCount: 5,
-                                                rating: widget.spaces[index].rating,
+                                                rating: widget.items[index].ratings / widget.items[index].raters,
                                                 size: 20,
                                               ),
-                                              //for (var i = 0; i < 3; ++i)
-                                              //Icon(Icons.star, size: 15, color: Colors.amber,),
-                                              //Icon(Icons.star_half, size: 15, color: Colors.amber,),
-                                              //Icon(Icons.star_border, size: 15, color: Colors.amber,),
-
-                                              /*Container(
-                                                    margin: EdgeInsets.symmetric(horizontal: 2.0),
-                                                    height: 10,
-                                                    width: 10,
-                                                    child: Icon(Icons.star, size: 15,),
-                                                  ),*/
                                               Text(
-                                                ' ${widget.spaces[index].reviews} Reviews',
+                                                ' ${widget.items[index].ratings} Reviews',
                                                 style: textStyle,
                                               ),
                                             ],

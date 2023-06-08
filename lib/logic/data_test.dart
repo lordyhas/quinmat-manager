@@ -2,216 +2,212 @@
 //import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
 //import 'package:latlong2/latlong.dart' as dist;
 
+import 'dart:math';
+
 import 'package:qmt_manager/logic/model/data_model.dart';
+import 'package:qmt_manager/logic/utils.dart';
 
 
-class DataTest {
-  static List<ItemData> shops = [
-    ItemData(
+class ItemDataTest {
+  static List<Product> products = [
+    Product(
+        id: "",
+        name: "" ,
+        images: [],
+        model: "",
+        description: "",
+        productType: ProductType.unknown,
+        price: Random().nextInt(500) + 20,
+    ),
+
+    Product(
       name: "Crazy Horse Brown",
       id: "prole123",
-      imagePath: "assets/qp/product (1).jpg",
-      rating: (3 + 3 + 4 + 5 + 2),
-      rater: 5,
-      phoneNumber: "+243 998731145",
-      phoneNumber2: "+243 848731145",
-      canDeliver: true,
-      location: null,
-      dept: "Quincaillerie",
+      images: ["assets/qp/product (1).jpg"],
+      model: "",
+      description: "",
+      productType: ProductType.unknown,
+      price: Random().nextInt(500) + 20,
     ),
 
-    ItemData(
+    Product(
       name: "Rebel Safety Gear",
       id: "prole2",
-      imagePath: "assets/qp/product (2).jpg",
-      rating: (3 + 3 + 4 + 5 + 2),
-      rater: 5,
-      phoneNumber: "+243 998731145",
-      phoneNumber2: "+243 848731145",
-      canDeliver: true,
-      dept: "Quincaillerie",
+      images: ["assets/qp/product (2).jpg"],
+      model: "",
+      description: "",
+      productType: ProductType.QCL,
+      price: Random().nextInt(500) + 20,
     ),
 
-    ItemData(
+    Product(
       name: "YATO Drilling machine",
       id: "prole3",
-      imagePath: "assets/qp/product (3).jpg",
-      rating: (3 + 3 + 4 + 5 + 2),
-      rater: 5,
-      phoneNumber: "+243 998731145",
-      phoneNumber2: "+243 848731145",
-      canDeliver: true,
-      dept: "Quincaillerie",
+      images: ["assets/qp/product (3).jpg"],
+      model: "",
+      description: "",
+      productType: ProductType.QCL,
+      price: Random().nextInt(500) + 20,
     ),
 
-    ItemData(
+    Product(
       name: "Peinture",
       id: "prole4",
-      imagePath: "assets/qp/product (4).jpg",
-      rating: (3 + 3 + 4 + 5 + 2),
-      rater: 5,
-      phoneNumber: "+243 998731145",
-      phoneNumber2: "+243 848731145",
-      canDeliver: true,
-      dept: "Quincaillerie",
+      images: ["assets/qp/product (4).jpg"],
+      model: "",
+      description: "",
+      productType: ProductType.QCL,
+      price: Random().nextInt(500) + 20,
     ),
 
-    ItemData(
+    Product(
       name: "Pipes Quinmat",
       id: "prole5",
-      imagePath: "assets/qp/product (5).jpg",
-      rating: (3 + 3 + 4 + 5 + 2),
-      rater: 5,
-      phoneNumber: "+243 998731145",
-      phoneNumber2: "+243 848731145",
-      canDeliver: true,
-      dept: "Quincaillerie",
+      images: ["assets/qp/product (5).jpg"],
+      model: "",
+      description: "",
+      productType: ProductType.QCL,
+      price: Random().nextInt(500) + 20,
     ),
 
-    ItemData(
+    Product(
       name: "Polyethylene compression fittings",
       id: "prole6",
-      imagePath: "assets/qp/product (6).jpg",
-      rating: (3 + 3 + 4 + 5 + 2),
-      rater: 5,
-      phoneNumber: "+243 998731145",
-      phoneNumber2: "+243 848731145",
-      canDeliver: true,
-      dept: "Quincaillerie",
+      images: ["assets/qp/product (6).jpg"],
+      model: "",
+      description: "",
+      productType: ProductType.QCL,
+      price: Random().nextInt(500) + 20,
     ),
 
-    ItemData(
+    Product(
       name: "GI & PVC fittings",
       id: "prole7",
-      imagePath: "assets/qp/product (7).jpg",
-      rating: (3 + 3 + 4 + 5 + 2),
-      rater: 5,
-      phoneNumber: "+243 998731145",
-      phoneNumber2: "+243 848731145",
-      canDeliver: true,
-      dept: "Quincaillerie",
+      images: ["assets/qp/product (7).jpg"],
+      model: "",
+      description: "",
+      productType: ProductType.QCL,
+      price: Random().nextInt(500) + 20,
     ),
 
-
-    ItemData(
+    Product(
       name: "Papeterie",
       id: "prole8",
-      imagePath: "assets/qp/product (8).jpg",
-      rating: (3 + 3 + 4 + 5 + 2),
-      rater: 5,
-      phoneNumber: "+243 998731145",
-      phoneNumber2: "+243 848731145",
-      canDeliver: true,
-      dept: "Papeterie",
+      images: ["assets/qp/product (8).jpg"],
+      model: "",
+      description: "",
+      productType: ProductType.PAP,
+      price: Random().nextInt(500) + 20,
     ),
 
-
-    ItemData(
+    Product(
       name: "Canapé",
       id: "prole9",
-      imagePath: "assets/qp/product (9).jpg",
-      rating: (3 + 3 + 4 + 5 + 2),
-      rater: 5,
-      phoneNumber: "+243 998731145",
-      phoneNumber2: "+243 848731145",
-      canDeliver: true,
-      dept: "Mobilier",
+      images: ["assets/qp/product (9).jpg"],
+      model: "",
+      description: "",
+      productType: ProductType.MOB,
+      price: Random().nextInt(500) + 20,
     ),
 
-    ItemData(
+    Product(
       name: "Bureau, une chaise",
       id: "prole10",
-      imagePath: "assets/qp/product (10).jpg",
-      rating: (3 + 3 + 4 + 5 + 2),
-      rater: 5,
-      phoneNumber: "+243 998731145",
-      phoneNumber2: "+243 848731145",
-      canDeliver: true,
-      dept: "Mobilier",
+      images: ["assets/qp/product (11).jpg"],
+      model: "",
+      description: "",
+      productType: ProductType.MOB,
+      price: Random().nextInt(500) + 20,
     ),
 
-    ItemData(
+    Product(
       name: "Bureau, plusieurs chaise",
       id: "prole11",
-      imagePath: "assets/qp/product (11).jpg",
-      email: 'info@quimat.com',
-      rating: (3 + 3 + 4 + 5 + 2),
-      rater: 5,
-      phoneNumber: "+243 998731145",
-      phoneNumber2: "+243 848731145",
-      canDeliver: true,
-      dept: "Mobilier",
+      images: ["assets/qp/product (12).jpg"],
+      model: "",
+      description: "",
+      productType: ProductType.MOB,
+      price: Random().nextInt(500) + 20,
     ),
 
-    ItemData(
+    Product(
       name: "Lit d'hopital, Medical",
       id: "prole12",
-      imagePath: "assets/qp/product (12).jpg",
-      rating: (3 + 3 + 4 + 5 + 2),
-      rater: 5,
-      phoneNumber: "+243 998731145",
-      phoneNumber2: "+243 848731145",
-      canDeliver: true,
-      dept: "Medical Equipment",
+      images: ["assets/qp/product (13).jpg"],
+      model: "",
+      description: "",
+      productType: ProductType.MED,
+      price: Random().nextInt(500) + 20,
     ),
 
-    ItemData(
+    Product(
       name: "IRM Medical Equipment",
       id: "prole13",
-      imagePath: "assets/qp/product (13).jpg",
-      rating: (3 + 3 + 4 + 5 + 2),
-      rater: 5,
-      phoneNumber: "+243 998731145",
-      phoneNumber2: "+243 848731145",
-      canDeliver: true,
-      dept: "Medical Equipment",
+      images: ["assets/qp/product (14).jpg"],
+      model: "",
+      description: "",
+      productType: ProductType.MED,
+      price: Random().nextInt(500) + 20,
     ),
 
-    ItemData(
+    Product(
       name: "Diagnostic Medical Equipment",
       id: "prole14",
-      imagePath: "assets/qp/product (14).jpg",
-      rating: (3 + 3 + 4 + 5 + 2),
-      rater: 5,
-      phoneNumber: "+243 998731145",
-      phoneNumber2: "+243 848731145",
-      canDeliver: true,
-      dept: "Medical Equipment",
+      images: ["assets/qp/product (15).jpg"],
+      model: "",
+      description: "",
+      productType: ProductType.MED,
+      price: Random().nextInt(500) + 20,
     ),
 
-    //----------------------------
-
-    ItemData(
+    Product(
       id: 'BoutiqueGrandBoss1234',
-      imagePath: 'assets/local/loc_reunion_1.png',
       name: 'Salle de reunion',
-      dept: 'Mobilier',
-      rating: (3 + 3 + 4 + 5 + 2),
-      rater: 5,
-      phoneNumber: "+243 998466121",
-      phoneNumber2: "+243 8418321547",
-      canDeliver: true,
+      images: ["assets/local/loc_reunion_1.png"],
+      model: "",
+      description: "",
+      productType: ProductType.unknown,
+      price: Random().nextInt(500) + 20,
     ),
-    ItemData(
+
+    Product(
       id: 'QS1234',
-      imagePath: 'assets/local/loc_restau_1.jpg',
       name: 'Salle à manger',
-      rating: (3 + 3 + 4 + 5 + 2+5+5),
-      rater: 7,
-      phoneNumber: "+243 998466121",
-      phoneNumber2: "+243 8418321547",
-      canDeliver: true,
+      images: ["assets/local/loc_restau_1.jpg"],
+      model: "",
+      description: "",
+      productType: ProductType.unknown,
+      price: Random().nextInt(500) + 20,
     ),
-    ItemData(
+
+    Product(
       id: 'VIPQS1234',
-      imagePath: 'assets/local/loc_reunion_2.jpg',
       name: 'Salle de reunion (VIP)',
-      dept: 'Mobilier',
-      rating: (3 + 3 + 4 + 5 + 2+5+5),
-      rater: 7,
-      phoneNumber: "+243 998466121",
-      phoneNumber2: "+243 8418321547",
-      canDeliver: true,
+      images: ["assets/local/loc_reunion_2.jpg"],
+      model: "",
+      description: "",
+      productType: ProductType.unknown,
+      price: Random().nextInt(500) + 20,
     ),
+
+
   ];
+  static List<ItemData> items = products.map((p) =>
+      ItemData(
+        name: p.name,
+        id: p.id,
+        imagePath: p.images.first,
+        ratings: (3 + 3 + 4 + 5 + 2),
+        raters: 5,
+        phoneNumber: "+243 998731145",
+        phoneNumber2: "+243 848731145",
+        canDeliver: true,
+        location: null,
+        department: p.productType.name.isEmpty
+            ? "${AppConstant.shortname} L'shi"
+            : p.productType.name,
+        product: p,
+      ), ).toList();
+
+
 }

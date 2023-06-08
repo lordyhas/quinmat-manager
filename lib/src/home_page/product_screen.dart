@@ -41,24 +41,14 @@ class _ProductScreenState extends State<ProductScreen>
     super.dispose();
   }
 
-  List get dataTest => DataTest.shops;//..addAll(DataTest.shops..shuffle());
+  List<ItemData> get dataTest => ItemDataTest.items;//..addAll(DataTest.shops..shuffle());
 
-  List<ItemViewModel> get _spaceList =>  dataTest
-      .map((s) => ItemViewModel(
-      imagePath: s.imagePath!,
-      titleTxt: s.name,
-      subTxt: s.dept ?? '${AppConstant.shortname} L\'shi',
-      reviews: 80,
-      rating: s.rating / s.rater,
-      perNight: 180,
-      rent: s,
-    ),
-  ).toList();
+
 
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<NavigationController>(context).setState(NavigationScreen.explorer);
-    var spaceList = _spaceList;//..addAll(_spaceList..shuffle());
+    //var spaceList = _spaceList;//..addAll(_spaceList..shuffle());
 
     return Material(
       //backgroundColor: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.9),
@@ -202,7 +192,7 @@ class _ProductScreenState extends State<ProductScreen>
                   //heroTag: shopData.shopCode+"$index",
                   //onHueClick: (index) => onMapClickOpenPage(index),
                   onLikeClick: (index) => showToastFavorite(context: context),
-                  spaces: spaceList,
+                  items: dataTest,
                   onShopClick: (index) {
                     Go.of(context).goNamed(
                       SingleItemScreen.routeName,

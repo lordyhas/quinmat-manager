@@ -5,7 +5,7 @@ library data.model;
 import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
 //import 'package:latlong2/latlong.dart' as geo;
 
-part 'shop_data.dart';
+part 'item_data.dart';
 part 'product.dart';
 
 
@@ -13,6 +13,18 @@ enum RentalSpaceType{apartment, house, bureau, reception, hall, unknown}
 
 // ignore: constant_identifier_names
 enum ProductType{QCL,MOB,MED,PAP, unknown}
+extension on ProductType {
+  String get name {
+    switch(this){
+      case ProductType.QCL: return "Quincaillerie";
+      case ProductType.MOB: return "Mobilier";
+      case ProductType.MED: return "Medical Equipment";
+      case ProductType.PAP: return "Papeterie";
+      case ProductType.unknown: return "";
+
+    }
+  }
+}
 /*abstract class RentalSpaceType{
   static const apartment = 0;
   static const house = 1;
