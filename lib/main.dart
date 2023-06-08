@@ -18,6 +18,8 @@ import 'package:url_strategy/url_strategy.dart';
 import 'firebase_options.dart';
 import 'logic/maps_controller/maps.dart';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
+
 void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
@@ -86,6 +88,39 @@ class QuinmatApp extends StatelessWidget {
       //Permission.locationAlways,
     ].request();
     //debugPrint("===== Permissions : ${statuses[Permission.storage]}");
+  }
+
+  void checkConnect() async {
+
+    final connectivityResult = await (Connectivity().checkConnectivity());
+    switch(connectivityResult){
+
+      case ConnectivityResult.bluetooth:
+        debugPrint("I am connected to a bluetooth. ###");
+        break;
+      case ConnectivityResult.wifi:
+        debugPrint(" I am connected to a wifi network. ###");
+        break;
+      case ConnectivityResult.ethernet:
+        debugPrint("I am connected to a ethernet network. ###");
+        break;
+      case ConnectivityResult.mobile:
+        debugPrint("I am connected to a mobile network. ###");
+        break;
+      case ConnectivityResult.none:
+        debugPrint("I am not connected to any network. ###");
+        break;
+      case ConnectivityResult.vpn:
+      // I am connected to a vpn network.
+      // Note for iOS and macOS:
+      // There is no separate network interface type for [vpn].
+      // It returns [other] on any device (also simulator)
+        debugPrint("I am connected to a vpn network. ###");
+        break;
+      case ConnectivityResult.other:
+        debugPrint("I am connected to a network which is not in the above mentioned networks. ###");
+        break;
+    }
   }
 
   @override
