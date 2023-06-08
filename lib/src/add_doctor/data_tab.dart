@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qmt_manager/src/add_doctor/add_doctor_page.dart';
-import 'package:qmt_manager/src/add_doctor/data.csv.dart';
+import 'package:qmt_manager/logic/data.csv.dart';
 
 import '../../logic/values.dart';
 
