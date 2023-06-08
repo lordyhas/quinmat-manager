@@ -2,7 +2,7 @@ library myspace_page;
 
 import 'dart:math';
 
-import 'package:qmt_manager/data_test.dart';
+import 'package:qmt_manager/logic/data_test.dart';
 import 'package:qmt_manager/logic/values.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,35 +10,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'add_doctor/data_tab.dart';
 import 'add_product/add_product_page.dart';
 
-class MySpacePage extends StatelessWidget {
-  const MySpacePage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0.0,
-        backgroundColor: Colors.black12,
-        title: const Text("MySpace"),
-      ),
-      body: UserSpaceScreen(
-        key: key,
-      ),
-    );
-  }
-}
-
-class UserSpaceScreen extends StatefulWidget {
+class MySpaceScreen extends StatefulWidget {
   static const routeName = "/home/user/my_space";
   static const routeUrl = "/home/user/myspace";
 
-  const UserSpaceScreen({Key? key}) : super(key: key);
+  const MySpaceScreen({Key? key}) : super(key: key);
 
   @override
-  State<UserSpaceScreen> createState() => _UserSpaceScreenState();
+  State<MySpaceScreen> createState() => _MySpaceScreenState();
 }
 
-class _UserSpaceScreenState extends State<UserSpaceScreen> {
+class _MySpaceScreenState extends State<MySpaceScreen> {
   TextStyle get numStyle =>
       const TextStyle(fontSize: 24, fontWeight: FontWeight.bold);
 
@@ -595,7 +577,7 @@ class _UserSpaceScreenState extends State<UserSpaceScreen> {
     );
   }
 
-  List<Widget> get dataTestList => DataTest.shops
+  List<Widget> get dataTestList => ItemDataTest.items
       .map((e) => SizedBox(
             width: 400,
             child: ListTile(
@@ -610,7 +592,7 @@ class _UserSpaceScreenState extends State<UserSpaceScreen> {
                 style: const TextStyle(),
               ),
               subtitle: Text(
-                "Prix: ${(Random().nextInt(40) + 20 * (e.rater * e.rating)).toInt()}\$",
+                "Prix: ${(Random().nextInt(40) + 20 * (e.raters * e.ratings)).toInt()}\$",
               ),
               onTap: () {},
             ),
