@@ -66,10 +66,10 @@ class AppRouter extends GoRouter {
         routes: <RouteBase>[
 
           GoRoute(
-            name: UserSpaceScreen.routeName,
+            name: MySpaceScreen.routeName,
             path: 'user',
             builder: (context, state) {
-              return const NestedWebView(child: UserSpaceScreen());
+              return const NestedWebView(child: MySpaceScreen());
             },
             routes: [
               /*GoRoute(
