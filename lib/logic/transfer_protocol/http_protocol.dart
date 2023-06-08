@@ -24,6 +24,79 @@ class UserAgentClient extends http.BaseClient {
     return _inner.send(request);
   }
 }
+class TransferProtocolTransaction{
+
+  final String url;
+  final http.Client client;
+
+
+  TransferProtocolTransaction(this.url): client = http.Client();
+
+  Future<void> _clientTest() async {
+     //client = http.Client();
+    try {
+      var response = await client.get(
+        Uri.parse('http://127.0.0.1:8000/api/csv'),);
+      var decodedResponse = jsonDecode(utf8.decode(response.bodyBytes));
+      if (kDebugMode) {
+        print(decodedResponse.runtimeType);
+      }
+      //var uri = Uri.parse(decodedResponse['uri'] as String);
+      //print(await client.get(uri));
+
+    } finally {
+      client.close();
+    }
+  }
+
+  void close() => client.close();
+
+}
+class Protocol {
+  final String url;
+  final CRUD? mode;
+  final MethodProtocol method;
+  final Map<String, dynamic> data;
+  final String? message;
+
+  Protocol(this.url, {
+    this.mode,
+    this.method = MethodProtocol.GET,
+    required this.data,
+    this.message,
+  });
+
+}
+
+mixin TransactionHttp {
+
+  Future<void> send(Protocol protocol) async {
+    //http://127.0.0.1:8000/api/test_post
+
+    final response = await http.post(Uri.parse(protocol.url), body: {
+      'data': protocol.data,
+      'message': protocol.message,
+      'mode': protocol.mode?.name,
+    });
+    debugPrint('Response status: ${response.statusCode}');
+    debugPrint('Response body: ${response.body}');
+
+    //return response.statusCode;
+  }
+
+
+  Future<Map<String, dynamic>> get(String url) async {
+    //http://127.0.0.1:8000/api/csv
+    final response = await http.post(Uri.parse(url));
+
+    if (response.statusCode == 200) {
+      var value = jsonDecode(response.body) as Map;
+      return value['data'];
+    } else {
+      throw Exception('Failed to load');
+    }
+  }
+}
 
 class TransferProtocol {
   final String url;
@@ -39,11 +112,7 @@ class TransferProtocol {
     this.method = MethodProtocol.GET,
   });
 
-  //todo : here
-  http.Client? get _client => null;
-
   Uri get _uri => Uri.parse('http://127.0.0.1:8000/api/test_post');
-
 
   //Uri? get _uriFromUrl => (url != null) ? Uri.parse(url!) : null;
 
@@ -57,10 +126,8 @@ class TransferProtocol {
     });
     debugPrint('Response status: ${response.statusCode}');
     debugPrint('Response body: ${response.body}');
-
     //return response.statusCode;
   }
-
 
   Future<Map<String, dynamic>> get() async {
     //http://127.0.0.1:8000/api/csv
@@ -74,21 +141,7 @@ class TransferProtocol {
     }
   }
 
-  Future<void> _clientTest() async {
-    var client = http.Client();
-    try {
-      var response = await client.get(
-        Uri.parse('http://127.0.0.1:8000/api/csv'),);
-      var decodedResponse = jsonDecode(utf8.decode(response.bodyBytes));
-      if (kDebugMode) {
-        print(decodedResponse);
-      }
-      //var uri = Uri.parse(decodedResponse['uri'] as String);
-      //print(await client.get(uri));
-    } finally {
-      client.close();
-    }
-  }
+
 }
 
 /// [GetProtocol] is equivalent to  the query below
