@@ -582,7 +582,7 @@ class _MySpaceScreenState extends State<MySpaceScreen> {
             width: 400,
             child: ListTile(
               leading: Image.asset(
-                e.imagePath!,
+                e.imagePath,
                 width: 100,
                 height: 100,
                 fit: BoxFit.cover,

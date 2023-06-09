@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:qmt_manager/logic/model/data_model.dart';
 import 'package:qmt_manager/logic/values.dart';
 import 'package:qmt_manager/src/login_page.dart';
 import 'package:qmt_manager/src/preference_page/edit_profile_page.dart';
@@ -17,7 +18,7 @@ import 'package:intl/intl.dart';
 
 //import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
 //import 'package:latlong2/latlong.dart' as dist;
-import 'package:qmt_manager/data_test.dart';
+import 'package:qmt_manager/logic/data_test.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 //import 'package:qmt_manager/src/maps_test.dart';
 import 'package:qmt_manager/src/preference_page/about_page.dart';
@@ -200,7 +201,7 @@ class _HomePageState extends State<HomePage> {
                           TextButton(
                             child: const Text("Mon Compte"),
                             onPressed: () => Go.of(context)
-                                .goNamed(UserSpaceScreen.routeName),
+                                .goNamed(MySpaceScreen.routeName),
                           ),
                           const SizedBox(
                             width: 8.0,
@@ -415,7 +416,7 @@ class _HomePageState extends State<HomePage> {
                         onTap: () {
                           BlocProvider.of<NavigationController>(context)
                               .setState(NavigationScreen.myspace);
-                          Go.of(context).to(routeName: UserSpaceScreen.routeName);
+                          Go.of(context).to(routeName: MySpaceScreen.routeName);
                           closeDrawer();
                         },
                         horizontalTitleGap: 32.0,

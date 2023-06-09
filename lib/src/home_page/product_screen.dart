@@ -1,7 +1,6 @@
 part of home_page;
 
 class ProductScreen extends StatefulWidget {
-
   static const routeName = "RentProductScreen";
   final void Function()? onMenuTap;
 
@@ -21,12 +20,12 @@ class _ProductScreenState extends State<ProductScreen>
 
   AnimationController? animationController;
 
-
-
   @override
   void initState() {
     animationController = AnimationController(
-        duration: const Duration(milliseconds: 1000), vsync: this);
+      duration: const Duration(milliseconds: 1000),
+      vsync: this,
+    );
     super.initState();
   }
 
@@ -41,167 +40,171 @@ class _ProductScreenState extends State<ProductScreen>
     super.dispose();
   }
 
-  List<ItemData> get dataTest => ItemDataTest.items;//..addAll(DataTest.shops..shuffle());
-
-
+  List<ItemData> get dataTest =>
+      ItemDataTest.items; //..addAll(DataTest.shops..shuffle());
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<NavigationController>(context).setState(NavigationScreen.explorer);
+    BlocProvider.of<NavigationController>(context)
+        .setState(NavigationScreen.explorer);
     //var spaceList = _spaceList;//..addAll(_spaceList..shuffle());
 
     return Material(
       //backgroundColor: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.9),
       child: NestedScrollView(
         //controller: _scrollController,
-          headerSliverBuilder: (context, innerBoxIsScrolled) {
-            return <Widget>[
-              SliverList(
-                delegate: SliverChildBuilderDelegate(
-                        (BuildContext context, int index) {
-                      return Stack(
-                        alignment: AlignmentDirectional.topEnd,
-
-                        children: [
-                          SizedBox(
-                            height: 200,
-                            child: Image.asset([
-                                "assets/img/pub_headset.jpeg",
-                                "assets/img/pub_sofa.jpeg",
-                              ].elementAt(Random().nextInt(2)),
-                              //colorBlendMode: BlendMode,
-                              fit: BoxFit.cover,
-                              width: MediaQuery.of(context).size.width,
-                              gaplessPlayback: true,
-                            ),
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: 200,
-                            //MediaQuery.of(context).size.width,
-                            color: Colors.black.withOpacity(0.6),
-                          ),
-                          Column(
-                            children: [
-                              Container(
-                                //width: 500,
-                                constraints: const BoxConstraints(maxWidth: 600),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
-                                  child: Row(
-                                    children: <Widget>[
-                                      /// Search Entry Widget
-                                      Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(right: 16, top: 8, bottom: 8),
-                                          child: Container(
-
-                                            decoration: BoxDecoration(
-                                              color: Colors.grey.shade300.withOpacity(0.70),
-                                              borderRadius: const BorderRadius.all(
-                                                Radius.circular(38.0),
-                                              ),
-                                              /*boxShadow: <BoxShadow>[
-                                          BoxShadow(
-                                              color: Colors.grey.withOpacity(0.5),
-                                              offset: const Offset(0, 2),
-                                              blurRadius: 8.0),
-                                        ],*/
-                                            ),
-                                            child: Padding(
-                                              padding: const EdgeInsets.symmetric(horizontal: 16),//only(left: 16, right: 16, top: 4, bottom: 4),
-                                              child: TextField(
-                                                onChanged: (String txt) {},
-                                                style: const TextStyle(
-                                                  fontSize: 18,
-                                                  color: Colors.black,
-                                                ),
-                                                cursorColor: Theme.of(context).colorScheme.secondary,
-                                                decoration: const InputDecoration(
-                                                  border: InputBorder.none,
-                                                  hintText: 'Lubumbashi...',
-                                                  hintStyle: TextStyle(color: Colors.black),
-                                                ),
-                                              ),
-                                            ),
+        headerSliverBuilder: (context, innerBoxIsScrolled) {
+          return <Widget>[
+            SliverList(
+              delegate:
+                  SliverChildBuilderDelegate((BuildContext context, int index) {
+                return Stack(
+                  alignment: AlignmentDirectional.topEnd,
+                  children: [
+                    SizedBox(
+                      height: 200,
+                      child: Image.asset(
+                        [
+                          "assets/img/pub_headset.jpeg",
+                          "assets/img/pub_sofa.jpeg",
+                        ].elementAt(Random().nextInt(2)),
+                        //colorBlendMode: BlendMode,
+                        fit: BoxFit.cover,
+                        width: MediaQuery.of(context).size.width,
+                        gaplessPlayback: true,
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 200,
+                      //MediaQuery.of(context).size.width,
+                      color: Colors.black.withOpacity(0.6),
+                    ),
+                    Column(
+                      children: [
+                        Container(
+                          //width: 500,
+                          constraints: const BoxConstraints(maxWidth: 600),
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 16, right: 16, top: 8, bottom: 8),
+                            child: Row(
+                              children: <Widget>[
+                                /// Search Entry Widget
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        right: 16, top: 8, bottom: 8),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey.shade300
+                                            .withOpacity(0.70),
+                                        borderRadius: const BorderRadius.all(
+                                          Radius.circular(38.0),
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 16),
+                                        //only(left: 16, right: 16, top: 4, bottom: 4),
+                                        child: TextField(
+                                          onChanged: (String txt) {},
+                                          style: const TextStyle(
+                                            fontSize: 18,
+                                            color: Colors.black,
+                                          ),
+                                          cursorColor: Theme.of(context)
+                                              .colorScheme
+                                              .secondary,
+                                          decoration: const InputDecoration(
+                                            border: InputBorder.none,
+                                            hintText: 'Lubumbashi...',
+                                            hintStyle:
+                                                TextStyle(color: Colors.black),
                                           ),
                                         ),
                                       ),
-
-                                      /// Search button
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          color: Theme.of(context).floatingActionButtonTheme.backgroundColor,
-                                          borderRadius: const BorderRadius.all(
-                                            Radius.circular(38.0),
-                                          ),
-                                        ),
-                                        child: Material(
-                                          color: Colors.transparent,
-                                          child: InkWell(
-                                            borderRadius: const BorderRadius.all(
-                                              Radius.circular(32.0),
-                                            ),
-                                            onTap: () {
-                                              //FocusScope.of(context).requestFocus(FocusNode());
-                                            },
-                                            child: const Padding(
-                                              padding: EdgeInsets.all(16.0),
-                                              child: Icon(
-                                                FontAwesomeIcons.magnifyingGlass,
-                                                size: 20,),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Container(
-                                  margin: const EdgeInsets.symmetric(
-                                      vertical: 16.0),
-                                  child: const Text(
-                                    "Trouver un produit specifique, "
-                                        "${AppConstant.shortname}",
-                                    style: TextStyle(
-                                        fontSize: 18, color: Colors.white70),
-                                  )),
-                            ],
-                          ),
 
-                        ],
-                      );
-                    }, childCount: 1),
-              ),
-              SliverPersistentHeader(
-                pinned: true,
-                floating: true,
-                delegate: RContestTabHeader(context, secondary: true,
-                    title: const Text("4532 produits disponible")
-                ),
-              ),
-            ];
-          },
-          body: ClipRRect(
-            borderRadius: BorderRadius.circular(30),
-            child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                padding: const EdgeInsets.only(bottom: 32.0),
-                child: SpaceListView(
-                  //heroTag: shopData.shopCode+"$index",
-                  //onHueClick: (index) => onMapClickOpenPage(index),
-                  onLikeClick: (index) => showToastFavorite(context: context),
-                  items: dataTest,
-                  onShopClick: (index) {
-                    Go.of(context).goNamed(
-                      SingleItemScreen.routeName,
-                      extra: ItemIntentData(rent: dataTest[index],),
-                    );
-                  },
-                ),
+                                /// Search button
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context)
+                                        .floatingActionButtonTheme
+                                        .backgroundColor,
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(38.0),
+                                    ),
+                                  ),
+                                  child: Material(
+                                    color: Colors.transparent,
+                                    child: InkWell(
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(32.0),
+                                      ),
+                                      onTap: () {
+                                        //FocusScope.of(context).requestFocus(FocusNode());
+                                      },
+                                      child: const Padding(
+                                        padding: EdgeInsets.all(16.0),
+                                        child: Icon(
+                                          FontAwesomeIcons.magnifyingGlass,
+                                          size: 20,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Container(
+                            margin: const EdgeInsets.symmetric(vertical: 16.0),
+                            child: const Text(
+                              "Trouver un produit specifique, "
+                              "${AppConstant.shortname}",
+                              style: TextStyle(
+                                  fontSize: 18, color: Colors.white70),
+                            )),
+                      ],
+                    ),
+                  ],
+                );
+              }, childCount: 1),
+            ),
+            SliverPersistentHeader(
+              pinned: true,
+              floating: true,
+              delegate: RContestTabHeader(context,
+                  secondary: true,
+                  title: const Text("4532 produits disponible")),
+            ),
+          ];
+        },
+        body: ClipRRect(
+          borderRadius: BorderRadius.circular(30),
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            padding: const EdgeInsets.only(bottom: 32.0),
+            child: SpaceListView(
+              //heroTag: shopData.shopCode+"$index",
+              //onHueClick: (index) => onMapClickOpenPage(index),
+              onLikeClick: (index) => showToastFavorite(context: context),
+              items: dataTest,
+              onShopClick: (index) {
+                Go.of(context).goNamed(
+                  SingleItemScreen.routeName,
+                  extra: ItemIntentData(
+                    rent: dataTest[index],
+                  ),
+                );
+              },
             ),
           ),
+        ),
       ),
     );
   }
@@ -264,13 +267,18 @@ class _ProductScreenState extends State<ProductScreen>
             child: Material(
               color: Colors.transparent,
               child: InkWell(
-                borderRadius: const BorderRadius.all(Radius.circular(32.0),),
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(32.0),
+                ),
                 onTap: () {
                   FocusScope.of(context).requestFocus(FocusNode());
                 },
                 child: const Padding(
                   padding: EdgeInsets.all(16.0),
-                  child: Icon(FontAwesomeIcons.magnifyingGlass, size: 20,),
+                  child: Icon(
+                    FontAwesomeIcons.magnifyingGlass,
+                    size: 20,
+                  ),
                 ),
               ),
             ),
@@ -352,9 +360,7 @@ class _ProductScreenState extends State<ProductScreen>
                             height: 8,
                           ),
                           Text(
-                            '${DateFormat("dd, MMM")
-                                .format(startDate)} - ${DateFormat("dd, MMM")
-                                .format(endDate)}',
+                            '${DateFormat("dd, MMM").format(startDate)} - ${DateFormat("dd, MMM").format(endDate)}',
                             style: const TextStyle(
                               fontWeight: FontWeight.w100,
                               fontSize: 16,
@@ -431,7 +437,8 @@ class _ProductScreenState extends State<ProductScreen>
 }
 
 class RContestTabHeader extends SliverPersistentHeaderDelegate {
-  const RContestTabHeader(this.context, {
+  const RContestTabHeader(
+    this.context, {
     this.onSearchDataEnter,
     this.secondary = false,
     this.title,
@@ -445,7 +452,7 @@ class RContestTabHeader extends SliverPersistentHeaderDelegate {
   @override
   Widget build(context, double shrinkOffset, bool overlapsContent) {
     //final shopAppTheme = BlocProvider.of<StyleAppTheme>(context);
-    Color? filBarColor = secondary? Theme.of(context).primaryColorLight : null;
+    Color? filBarColor = secondary ? Theme.of(context).primaryColorLight : null;
     Widget? h3text = !secondary ? RouteNameTitle(title!.data!) : null;
     return SizedBox(
       child: Stack(
@@ -474,19 +481,20 @@ class RContestTabHeader extends SliverPersistentHeaderDelegate {
             ///color: HotelAppTheme.buildLightTheme().backgroundColor,
             child: Padding(
               padding:
-              const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 4),
+                  const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 4),
               child: Row(
                 children: <Widget>[
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: h3text ?? Text(
-                        title?.data ?? "",
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w100,
-                          fontSize: 16,
-                        ),
-                      ),
+                      child: h3text ??
+                          Text(
+                            title?.data ?? "",
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w100,
+                              fontSize: 16,
+                            ),
+                          ),
                     ),
                   ),
                   Material(
@@ -504,9 +512,10 @@ class RContestTabHeader extends SliverPersistentHeaderDelegate {
                         Navigator.push<dynamic>(
                           context,
                           MaterialPageRoute<dynamic>(
-                              builder: (BuildContext context) =>
-                              const FiltersScreen(),
-                              fullscreenDialog: true,),
+                            builder: (BuildContext context) =>
+                                const FiltersScreen(),
+                            fullscreenDialog: true,
+                          ),
                         );
                       },
                       child: Padding(
@@ -522,10 +531,12 @@ class RContestTabHeader extends SliverPersistentHeaderDelegate {
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Icon(Icons.sort,
-                                color: filBarColor ?? Theme.of(context)
-                                    .floatingActionButtonTheme
-                                    .backgroundColor,
+                              child: Icon(
+                                Icons.sort,
+                                color: filBarColor ??
+                                    Theme.of(context)
+                                        .floatingActionButtonTheme
+                                        .backgroundColor,
                                 //shopAppTheme.buildLightShopTheme.primaryColor
                               ),
                             ),
@@ -563,7 +574,6 @@ class RContestTabHeader extends SliverPersistentHeaderDelegate {
   }
 }
 
-
 /*
 void _barBottomNav(){
   Align(
@@ -592,4 +602,3 @@ void _barBottomNav(){
 }
 
  */
-

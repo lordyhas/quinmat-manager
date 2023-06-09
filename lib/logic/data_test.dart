@@ -1,7 +1,3 @@
-
-//import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
-//import 'package:latlong2/latlong.dart' as dist;
-
 import 'dart:math';
 
 import 'package:qmt_manager/logic/model/data_model.dart';
@@ -10,16 +6,6 @@ import 'package:qmt_manager/logic/utils.dart';
 
 class ItemDataTest {
   static List<Product> products = [
-    Product(
-        id: "",
-        name: "" ,
-        images: [],
-        model: "",
-        description: "",
-        productType: ProductType.unknown,
-        price: Random().nextInt(500) + 20,
-    ),
-
     Product(
       name: "Crazy Horse Brown",
       id: "prole123",
@@ -113,7 +99,7 @@ class ItemDataTest {
     Product(
       name: "Bureau, une chaise",
       id: "prole10",
-      images: ["assets/qp/product (11).jpg"],
+      images: ["assets/qp/product (10).jpg"],
       model: "",
       description: "",
       productType: ProductType.MOB,
@@ -123,7 +109,7 @@ class ItemDataTest {
     Product(
       name: "Bureau, plusieurs chaise",
       id: "prole11",
-      images: ["assets/qp/product (12).jpg"],
+      images: ["assets/qp/product (11).jpg"],
       model: "",
       description: "",
       productType: ProductType.MOB,
@@ -133,7 +119,7 @@ class ItemDataTest {
     Product(
       name: "Lit d'hopital, Medical",
       id: "prole12",
-      images: ["assets/qp/product (13).jpg"],
+      images: ["assets/qp/product (12).jpg"],
       model: "",
       description: "",
       productType: ProductType.MED,
@@ -143,7 +129,7 @@ class ItemDataTest {
     Product(
       name: "IRM Medical Equipment",
       id: "prole13",
-      images: ["assets/qp/product (14).jpg"],
+      images: ["assets/qp/product (13).jpg"],
       model: "",
       description: "",
       productType: ProductType.MED,
@@ -153,7 +139,7 @@ class ItemDataTest {
     Product(
       name: "Diagnostic Medical Equipment",
       id: "prole14",
-      images: ["assets/qp/product (15).jpg"],
+      images: ["assets/qp/product (14).jpg"],
       model: "",
       description: "",
       productType: ProductType.MED,
