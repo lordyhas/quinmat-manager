@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:qmt_manager/logic/access_controller/access_controller_cubit.dart';
 
 import 'package:qmt_manager/logic/values.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -99,7 +100,7 @@ class QuinmatApp extends StatelessWidget {
         debugPrint("I am connected to a bluetooth. ###");
         break;
       case ConnectivityResult.wifi:
-        debugPrint(" I am connected to a wifi network. ###");
+        debugPrint("I am connected to a wifi network. ###");
         break;
       case ConnectivityResult.ethernet:
         debugPrint("I am connected to a ethernet network. ###");
@@ -126,11 +127,14 @@ class QuinmatApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (!kIsWeb) _checkSomePermissions();
-
+    checkConnect();
     return MultiBlocProvider(
       providers: [
         BlocProvider<StyleAppTheme>(
           create: (context) => StyleAppTheme(),
+        ),
+        BlocProvider<AccessController>(
+          create: (context) => AccessController(),
         ),
         BlocProvider<MapsBloc>(
           create: (context) => MapsBloc(),
