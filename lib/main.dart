@@ -1,5 +1,6 @@
+import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+//import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,7 +23,6 @@ import 'logic/maps_controller/maps.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   setPathUrlStrategy();
   await Firebase.initializeApp(
@@ -77,6 +77,7 @@ class QuinmatApp extends StatelessWidget {
   QuinmatApp({super.key});
 
   final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: "rootKey");
+
   //final _shellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: "shellKey");
 
   void _checkSomePermissions() async {
@@ -92,10 +93,8 @@ class QuinmatApp extends StatelessWidget {
   }
 
   void checkConnect() async {
-
     final connectivityResult = await (Connectivity().checkConnectivity());
-    switch(connectivityResult){
-
+    switch (connectivityResult) {
       case ConnectivityResult.bluetooth:
         debugPrint("I am connected to a bluetooth. ###");
         break;
@@ -112,14 +111,15 @@ class QuinmatApp extends StatelessWidget {
         debugPrint("I am not connected to any network. ###");
         break;
       case ConnectivityResult.vpn:
-      // I am connected to a vpn network.
-      // Note for iOS and macOS:
-      // There is no separate network interface type for [vpn].
-      // It returns [other] on any device (also simulator)
+        // I am connected to a vpn network.
+        // Note for iOS and macOS:
+        // There is no separate network interface type for [vpn].
+        // It returns [other] on any device (also simulator)
         debugPrint("I am connected to a vpn network. ###");
         break;
       case ConnectivityResult.other:
-        debugPrint("I am connected to a network which is not in the above mentioned networks. ###");
+        debugPrint(
+            "I am connected to a network which is not in the above mentioned networks. ###");
         break;
     }
   }
@@ -149,24 +149,17 @@ class QuinmatApp extends StatelessWidget {
           create: (context) => FilterCubit(),
         ),
       ],
-      child: BlocBuilder<StyleAppTheme, ThemeData>(
+      child: BlocBuilder<StyleAppTheme, FluentThemeData>(
         builder: (context, theme) {
-          return MaterialApp.router(
+          return FluentApp.router(
             //key: _shellNavigatorKey,
             debugShowCheckedModeBanner: false,
             title: AppConstant.markName,
-            theme: ThemeData(
-              brightness: Brightness.dark,
-              fontFamily: "Nunito",
-            ).copyWith(
-              visualDensity: VisualDensity.adaptivePlatformDensity,
-              primaryColorLight: Colors.teal.shade400,
-              floatingActionButtonTheme: FloatingActionButtonThemeData(
-                backgroundColor: Colors.cyan.withOpacity(1),
-              ),
-            ),
+            theme: theme,
             //supportedLocales: const <Locale>[Locale('fr')],
-            routerConfig: AppRouter(key: _rootNavigatorKey,),
+            routerConfig: AppRouter(
+              key: _rootNavigatorKey,
+            ),
           );
         },
       ),

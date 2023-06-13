@@ -1,20 +1,25 @@
 
-import 'package:flutter/material.dart';
+import 'package:fluent_ui/fluent_ui.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 
 
 
 
 enum StylesThemeState{light,dark}
 
-class StyleAppTheme extends Cubit<ThemeData> {
+class StyleAppTheme extends Cubit<FluentThemeData> {
 
   //final DatabaseManager objectBoxManager = DatabaseManager.empty();
 
   StyleAppTheme([StylesThemeState? stylesTheme])
       : super(_darkTheme);
 
-  //get stylesTheme => stylesTheme;
+  FluentThemeData get theme => state;
+
+  Color get gray => Colors.grey;
+  Color get primary => Colors.teal;
 
   //String? a;
   /*
@@ -46,8 +51,9 @@ class StyleAppTheme extends Cubit<ThemeData> {
 
   }
   */
+
   /// [defaultTheme] return a [StylesThemeState] in arg, if arg null return [StylesThemeState.light]
-  static ThemeData defaultTheme([StylesThemeState? stylesTheme]){
+  static FluentThemeData defaultTheme([StylesThemeState? stylesTheme]){
     if (stylesTheme != null) {
       switch(stylesTheme){
         case StylesThemeState.light: return _lightTheme;
@@ -56,175 +62,27 @@ class StyleAppTheme extends Cubit<ThemeData> {
     }
     return _lightTheme;
   }
+
   bool get isDarkMode => state.brightness == Brightness.dark;
 
 
-  Color get originalPrimaryOrange {
-    if(state.brightness == Brightness.dark) {
-      return Colors.deepOrange;
-    }
-    return Colors.orange.shade700;
-    //return HexColor('#ff7f00');
-  }
-
-  static const Color primaryPurple = Colors.deepPurple;
-  static final Color primaryOrange = Colors.deepOrange.shade600;
-  static final Color primaryOrange1 = HexColor('#ff7f00'); // Color.fromRGBO(255, 127, 0, 0);
-  static const Color primaryBlack = Colors.black;
-  static const Color primaryWhite = Colors.white;
-  static const Color deepPurple = Colors.deepPurpleAccent;
-  static const Color accentColorLight = Colors.cyan;  //HexColor('#54D3C2'); //Colors.cyan;
-  static const Color accentColorDark =  accentColorLight;
-
-  static final Color secondaryOrange = Colors.deepOrange.shade800;
-  static const Color secondaryPurple = Colors.deepPurple;
-
-  static final Color scaffoldBackgroundColor = Colors.grey.shade200;
-  static final Color scaffoldBackgroundColorDark = Colors.grey.shade700;
-
-
-  /*
-  static final Color textColor1 = primaryWhite;
-  static final Color textColor2 = primaryBlack;
-  static final Color textColor3 = primaryOrange;
-  static final Color textColor4 = primaryPurple;*/
-
-  /// light theme
-  static final _lightTheme = ThemeData(
-    fontFamily: 'Nunito',
-    scaffoldBackgroundColor: scaffoldBackgroundColor,
-    primaryColor: primaryOrange,
-    primaryColorLight: primaryPurple,
-    primaryColorDark: primaryBlack,
-    ///accentColor: accentColorLight,
-    //accentColorBrightness: Brightness.light,
-    appBarTheme: AppBarTheme(
-        backgroundColor: primaryOrange
-    ),
-
-
-    iconTheme: const IconThemeData(
-        color: Colors.white
-    ),
-
-    //primarySwatch: Colors.,
-    //visualDensity: VisualDensity.adaptivePlatformDensity,
-    floatingActionButtonTheme: const FloatingActionButtonThemeData(
-      foregroundColor: Colors.white,
-    ),
+  static final _lightTheme = FluentThemeData(
     brightness: Brightness.light,
   );
+
   /// dark theme
-  static final _darkTheme = ThemeData(
-    fontFamily: 'ubuntu',
-    scaffoldBackgroundColor: scaffoldBackgroundColorDark,
-    primaryColor: secondaryOrange,
-    primaryColorLight: Colors.deepPurple, // Colors.deepPurple.shade700,
-    primaryColorDark: primaryWhite,
-    ///accentColor: accentColorDark,
-    //accentColorBrightness: Brightness.dark,
-    appBarTheme: AppBarTheme(
-        backgroundColor: secondaryOrange
-    ),
-
-    textTheme: TextTheme(
-      headlineSmall: const TextStyle(color: primaryWhite, fontSize: 24),
-      titleLarge: const TextStyle(color: primaryWhite,),
-      bodyLarge: const TextStyle(color: primaryBlack,),
-      bodyMedium: const TextStyle(color: primaryWhite,),
-      titleMedium: TextStyle(color: primaryWhite.withOpacity(0.3),),
-      titleSmall: const TextStyle(color: primaryPurple,),
-    ),
-
-    floatingActionButtonTheme: const FloatingActionButtonThemeData(
-      foregroundColor: Colors.black,
-    ),
+  static final _darkTheme = FluentThemeData(
+    fontFamily: 'Nunito',
+    //scaffoldBackgroundColor: Colors.grey[170],
+    //typography: Typography.raw(),
     brightness: Brightness.dark,
   );
 
 
-
-  /// Toggles the current brightness between light and dark.
-  /*void toggleTheme() {
-    emit((state.brightness == Brightness.dark) ? _lightTheme : _darkTheme);
-    HiveBoxManager().updateTheme((state.brightness == Brightness.dark)
-        ? StylesThemeState.light
-        : StylesThemeState.dark
-    );
-  }*/
-
-  /// change [StylesThemeState]
-  /*void setTheme(StylesThemeState stylesTheme){
-    HiveBoxManager().updateTheme(stylesTheme);
-    switch(stylesTheme){
-      case StylesThemeState.light:
-        emit(_lightTheme);
-
-        break;
-      case StylesThemeState.dark:
-        emit(_darkTheme);
-        break;
-    }
-  }*/
-
-  static TextTheme _buildTextShopTheme(TextTheme base) {
-    const String fontName = 'ubuntu';
-    return base.copyWith(
-      displayLarge: base.displayLarge!.copyWith(fontFamily: fontName),
-      displayMedium: base.displayMedium!.copyWith(fontFamily: fontName),
-      displaySmall: base.displaySmall!.copyWith(fontFamily: fontName),
-      headlineMedium: base.headlineMedium!.copyWith(fontFamily: fontName),
-      headlineSmall: base.headlineSmall!.copyWith(fontFamily: fontName),
-      titleLarge: base.titleLarge!.copyWith(fontFamily: fontName),
-      labelLarge: base.labelLarge!.copyWith(fontFamily: fontName),
-      bodySmall: base.bodySmall!.copyWith(fontFamily: fontName),
-      bodyLarge: base.bodyLarge!.copyWith(fontFamily: fontName),
-      bodyMedium: base.bodyMedium!.copyWith(fontFamily: fontName),
-      titleMedium: base.titleMedium!.copyWith(fontFamily: fontName),
-      titleSmall: base.titleSmall!.copyWith(fontFamily: fontName),
-      labelSmall: base.labelSmall!.copyWith(fontFamily: fontName),
-    );
-  }
-
-  ThemeData get buildLightShopTheme => _buildLightShopTheme() ;
-
-  ThemeData _buildLightShopTheme()
-  {
-    final Color primaryColor = HexColor('#54D3C2');
-    final Color secondaryColor = HexColor('#54D3C2');
-    final ColorScheme colorScheme = const ColorScheme.light().copyWith(
-      primary: primaryColor,
-      secondary: secondaryColor,
-    );
-    final ThemeData base = ThemeData.light();
-    return base.copyWith(
-      primaryColor: Colors.cyan,
-      ///buttonColor: primaryColor,
-      indicatorColor: Colors.white,
-      splashColor: Colors.white24,
-      splashFactory: InkRipple.splashFactory,
-      ///accentColor: secondaryColor,
-      canvasColor: Colors.white,
-      scaffoldBackgroundColor: const Color(0xFFF6F6F6),
-      ///errorColor: const Color(0xFFB00023),
-      buttonTheme: ButtonThemeData(
-        colorScheme: colorScheme,
-        textTheme: ButtonTextTheme.primary,
-      ),
-      textTheme: _buildTextShopTheme(base.textTheme),
-      primaryTextTheme: _buildTextShopTheme(base.primaryTextTheme),
-      ///accentTextTheme: _buildTextShopTheme(base.accentTextTheme),
-      platform: TargetPlatform.iOS,
-      colorScheme: colorScheme.copyWith(
-          background: const Color(0xFFFFFFFF),
-      ),
-    );
-  }
 }
 
 class HexColor extends Color {
   HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
-
   static int _getColorFromHex(String hexColor) {
     hexColor = hexColor.toUpperCase().replaceAll('#', '');
     if (hexColor.length == 6) {
@@ -232,4 +90,12 @@ class HexColor extends Color {
     }
     return int.parse(hexColor, radix: 16);
   }
+}
+
+extension UtilsColors on Colors {
+  static Color greyDark = Colors.grey[170];
+  static Color greyLight = Colors.grey[50];
+}
+extension UtilsShadedColor on ShadedColor {
+
 }
