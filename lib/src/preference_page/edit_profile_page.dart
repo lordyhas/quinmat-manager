@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 
 class ProfilePage extends StatefulWidget {
-
+  static const routeName = "profile-edit";
   const ProfilePage({super.key});
 
   @override

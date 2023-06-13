@@ -1,4 +1,16 @@
-part of home_page;
+
+
+import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart%20';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:qmt_manager/logic/controller/my_bloc_controller.dart';
+import 'package:qmt_manager/logic/values.dart';
+import 'package:qmt_manager/src/preference_page/about_page.dart';
+import 'package:qmt_manager/src/preference_page/edit_profile_page.dart';
+
+import 'login_page.dart';
+import 'myspace_page.dart';
 
 class SettingScreen extends StatefulWidget {
   static const routeName = "SettingScreen";
@@ -17,11 +29,14 @@ class _SettingScreenState extends State<SettingScreen> {
   bool notification = false;
   bool mail = false;
 
+
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<NavigationController>(context).setState(NavigationScreen.setting);
-    return Material(
-      child: SingleChildScrollView(
+    const Icon chevronRight = Icon(FluentIcons.chevron_right_med);
+
+    return ScaffoldPage(
+      content: SingleChildScrollView(
         padding: const EdgeInsets.only(top: 32.0),
         child: Center(
           child: Container(
@@ -35,63 +50,38 @@ class _SettingScreenState extends State<SettingScreen> {
                       Padding(
                         padding: const EdgeInsets.all(8.0).copyWith(top: 50.0),
                         child: Card(
-                          shape: RoundedRectangleBorder(
+                          /*shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20.0),
-                          ),
+                          ),*/
                           child: Padding(
                             padding: const EdgeInsets.only(top: 100.0),
                             child: Column(
                               children: [
                                 ListTile(
-                                  leading: const Icon(Icons.person),
+                                  leading: const Icon(FluentIcons.edit_contact),
                                   title: const Text("Modifier le profile"),
-                                  trailing: const Icon(Icons.arrow_forward_ios),
-                                  onTap: () {
-                                    /*Go.to(context,
-                                        page: const ProfilePage(),
-                                        routeName: ProfilePage.routeName);*/
+                                  trailing: chevronRight,
+                                  onPressed: () {
 
-                                    if (!kIsWeb) {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (_) => Scaffold(
-                                            appBar: AppBar(
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              elevation: 0.0,
-                                              centerTitle: true,
-                                              leading: IconButton(
-                                                icon: const Icon(Icons.close),
-                                                onPressed: () {
-                                                  Navigator.of(context).pop();
-                                                },
-                                              ),
-                                              title: const Text("Profile info"),
-                                            ),
-                                            body: const SingleChildScrollView(
-                                                child: ProfilePage()),
-                                          ),
-                                        ),
-                                      );
-                                      return;
-                                    }
-                                    showDialog(
+                                    Go.to(context, routeName: ProfilePage.routeName);
+
+
+                                    /*showDialog(
                                       barrierDismissible: false,
                                       context: context,
                                       builder: (context) => SizedBox(
-                                        child: AlertDialog(
-                                            scrollable: true,
+                                        child: ContentDialog(
+                                            //scrollable: true,
                                             title: Row(
                                               children: [
-                                                const Icon(Icons.close,
+                                                const Icon(FluentIcons.accounts,
                                                   color: Colors.transparent,
                                                 ),
                                                 const Spacer(),
                                                 const Text("Profile info"),
                                                 const Spacer(),
                                                 IconButton(
-                                                  icon: const Icon(Icons.close),
+                                                  icon: const Icon(FluentIcons.chrome_close),
                                                   onPressed: () {
                                                     Navigator.of(context).pop();
                                                   },
@@ -99,51 +89,52 @@ class _SettingScreenState extends State<SettingScreen> {
                                               ],
                                             ),
                                             content: const SizedBox(
-                                              width: kMediumDimens,
-                                              child: ProfilePage(),
+                                              width: 400,
+                                              child: SingleChildScrollView(child: ProfilePage()),
                                             )),
                                       ),
-                                    );
+                                    );*/
                                   },
                                 ),
                                 ListTile(
-                                  leading: const Icon(Icons.password),
+                                  leading: const Icon(FluentIcons.password_field),
                                   title: const Text("Modifier le mot de passe"),
-                                  trailing: const Icon(Icons.arrow_forward_ios),
-                                  onTap: () {},
+                                  trailing: chevronRight,
+                                  onPressed: () {},
                                 ),
                                 ListTile(
-                                  leading: const Icon(Icons.space_dashboard),
+                                  leading: const Icon(FluentIcons.local_admin),
                                   title: const Text("Accéder à Mon Compte"),
-                                  trailing: const Icon(Icons.arrow_forward_ios),
-                                  onTap: () =>  Go.of(context).to(routeName: MySpaceScreen.routeName),
+                                  trailing: chevronRight,
+                                  onPressed: () =>  Go.of(context).to(routeName: MySpaceScreen.routeName),
 
                                 ),
                                 ListTile(
-                                  leading: const Icon(Icons.message),
+                                  leading: const Icon(FluentIcons.skype_message),
                                   title: const Text("Message et Chat"),
-                                  trailing: const Icon(Icons.arrow_forward_ios),
-                                  onTap: () {},
+                                  trailing: chevronRight,
+                                  onPressed: () {},
                                 ),
                                 ListTile(
-                                  leading: const Icon(Icons.map),
+                                  leading: const Icon(FluentIcons.input_address),
                                   title: const Text("Mon adresse"),
-                                  trailing: const Icon(Icons.arrow_forward_ios),
-                                  onTap: () {},
+                                  trailing: chevronRight,
+                                  onPressed: () {},
                                 ),
                                 ListTile(
-                                  leading: const Icon(Icons.credit_card),
+                                  leading: const Icon(FluentIcons.payment_card),
                                   title: const Text("Mode de payement"),
-                                  trailing: const Icon(Icons.arrow_forward_ios),
-                                  onTap: () {},
+                                  trailing: chevronRight,
+                                  onPressed: () {},
                                 ),
                                 ListTile(
-                                  leading: const Icon(Icons.output),
+                                  //FluentIcons.plug_disconnected
+                                  leading: const Icon(FluentIcons.leave),
                                   title: const Text("Se deconnecter"),
-                                  trailing: const Icon(Icons.arrow_forward_ios),
-                                  onTap: (){
+                                  trailing: chevronRight,
+                                  onPressed: (){
                                     BlocProvider.of<AuthenticationBloc>(context).logout();
-                                    GoRouter.of(context).goNamed(LoginPage.routeName);
+                                    Go.of(context).goNamed(LoginPage.routeName);
                                   },
                                 ),
                                 const Spacer(),
@@ -172,7 +163,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                 )),
                             const SelectableText(
                               "guest-user@quinnmat.com",
-                              style: TextStyle(color: Colors.white60),
+                              style: TextStyle(color: Colors.white),
                             ),
                           ],
                         ),
@@ -184,52 +175,49 @@ class _SettingScreenState extends State<SettingScreen> {
                   padding: const EdgeInsets.all(8.0),
                   child: Card(
                     margin: const EdgeInsets.all(8.0),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                    ),
                     child: Column(
                       children: [
                         ListTile(
-                          leading: const Icon(Icons.dark_mode),
+                          leading: const Icon(FluentIcons.clear_night),
                           title: const Text("Dark Mode"),
-                          trailing: Switch(
-                            value: true,
+                          trailing: ToggleSwitch(
+                            checked: true,
                             onChanged: (bool value) {},
                           ),
-                          onTap: () {},
+                          onPressed: () {},
                         ),
                         ListTile(
-                          leading: const Icon(Icons.notifications),
+                          leading: const Icon(FluentIcons.mail_reminder),
                           title: const Text("Notification"),
-                          trailing: Switch(
-                            value: notification,
+                          trailing: ToggleSwitch(
+                            checked: notification,
                             onChanged: (bool value) {
                               setState(() {
                                 notification = value;
                               });
                             },
                           ),
-                          onTap: () {},
+                          onPressed: () {},
                         ),
                         ListTile(
-                          leading: const Icon(Icons.mail_rounded),
+                          leading: const Icon(FluentIcons.mail_solid),
                           title: const Text("Avis via mail"),
                           subtitle: const Text("M'envoyer des avis par mail"),
-                          trailing: Switch(
-                            value: mail,
+                          trailing: ToggleSwitch(
+                            checked: mail,
                             onChanged: (bool value) {
                               setState(() {
                                 mail = value;
                               });
                             },
                           ),
-                          onTap: () {},
+                          onPressed: () {},
                         ),
                         ListTile(
-                          leading: const Icon(Icons.more_horiz),
+                          leading: const Icon(FluentIcons.more),
                           title: const Text("More"),
-                          trailing: const Icon(Icons.arrow_forward_ios),
-                          onTap: () {},
+                          trailing: chevronRight,
+                          onPressed: () {},
                         ),
                       ],
                     ),
@@ -239,22 +227,19 @@ class _SettingScreenState extends State<SettingScreen> {
                   padding: const EdgeInsets.all(8.0),
                   child: Card(
                     margin: const EdgeInsets.all(8.0),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                    ),
                     child: Column(
                       children: [
                         ListTile(
                           //leading: const Icon(Icons.dark_mode),
                           title: const Text("About Us"),
-                          trailing: const Icon(Icons.arrow_forward_ios),
-                          onTap: () {},
+                          trailing: chevronRight,
+                          onPressed: () {},
                         ),
                         ListTile(
                           //leading: const Icon(Icons.dark_mode),
                           title: const Text("About this app"),
-                          trailing: const Icon(Icons.arrow_forward_ios),
-                          onTap: () {
+                          trailing: chevronRight,
+                          onPressed: () {
                             Go.of(context).to(routeName: AboutPage.routeName);
                           },
                         ),
@@ -270,12 +255,12 @@ class _SettingScreenState extends State<SettingScreen> {
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
                                 return ListTile(
-                                  leading: const Icon(Icons.launch_sharp),
+                                  leading: const Icon(FluentIcons.decrease_indent_mirrored),
                                   title: const Text("Last Update"),
                                   subtitle: Text(
                                       "version beta : ${snapshot.data?.version} "),
-                                  trailing: const Icon(Icons.arrow_forward_ios),
-                                  onTap: () {},
+                                  trailing: chevronRight,
+                                  onPressed: () {},
                                 );
                               }
 
