@@ -1,4 +1,9 @@
-part of products;
+import 'package:qmt_manager/logic/values.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart' show DateFormat;
+
+import 'custom_calendar.dart';
 
 
 class CalendarPopupView extends StatefulWidget {
@@ -137,8 +142,7 @@ class _CalendarPopupViewState extends State<CalendarPopupView>
                                 Container(
                                   height: 74,
                                   width: 1,
-                                  color: ShopAppTheme
-                                      .buildLightShopTheme.dividerColor,
+                                  color: Colors.grey, //ShopAppTheme.buildLightShopTheme.dividerColor,
                                 ),
                                 Expanded(
                                   child: Column(
@@ -192,10 +196,9 @@ class _CalendarPopupViewState extends State<CalendarPopupView>
                                   left: 16, right: 16, bottom: 16, top: 8),
                               child: Container(
                                 height: 48,
-                                decoration: BoxDecoration(
-                                  color: ShopAppTheme
-                                      .buildLightShopTheme.primaryColor,
-                                  borderRadius: const BorderRadius.all(
+                                decoration: const BoxDecoration(
+                                  color: Colors.teal,
+                                  borderRadius: BorderRadius.all(
                                       Radius.circular(24.0)),
                                   /*boxShadow: <BoxShadow>[
                                     BoxShadow(

@@ -12,10 +12,12 @@ import 'package:qmt_manager/src/home_page/products/model/view_model.dart';
 
 import '../../../logic/model/data_model.dart';
 
+export 'custom_calendar.dart';
+export 'calendar_popup_view.dart';
+
 //part 'model/popular_filter_lmodel.dart';
 //part 'model/item_model.dart';
-part 'custom_calendar.dart';
-part 'calendar_popup_view.dart';
+
 part 'product_list_view.dart';
 part 'slider_view.dart';
 part 'range_slider_view.dart';

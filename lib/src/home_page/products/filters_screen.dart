@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qmt_manager/src/home_page/products/model/view_model.dart';
 import 'package:qmt_manager/src/home_page/products/product.dart';
 
-
 class FiltersScreen extends StatefulWidget {
   const FiltersScreen({super.key});
 
@@ -14,14 +13,16 @@ class FiltersScreen extends StatefulWidget {
   State<FiltersScreen> createState() => _FiltersScreenState();
 }
 
-class _FiltersScreenState extends  State<FiltersScreen> {
-  late List<PopularFilterListData> popularFilterListData ;
-  late List<PopularFilterListData> storeListData ;
+class _FiltersScreenState extends State<FiltersScreen> {
+  late List<PopularFilterListData> popularFilterListData;
+
+  late List<PopularFilterListData> storeListData;
 
   late RangeValues _values;
   late double distValue;
   late Filter filter;
   late bool isDarkMode;
+
   //late final _text;
 
   /*Map<String, String> lang = <String, String>{
@@ -44,8 +45,6 @@ class _FiltersScreenState extends  State<FiltersScreen> {
     "cat_" : "",
   };*/
 
-
-
   @override
   void initState() {
     super.initState();
@@ -55,24 +54,18 @@ class _FiltersScreenState extends  State<FiltersScreen> {
     storeListData = storeFilterList();
     filter = BlocProvider.of<FilterCubit>(context).state;
     //_values = const RangeValues(100, 600);
-    _values =  RangeValues(filter.minPrice, filter.maxPrice);
+    _values = RangeValues(filter.minPrice, filter.maxPrice);
     distValue = filter.maxDistance;
-
   }
 
-  Color colorTitle(){
+  Color colorTitle() {
     return isDarkMode ? Colors.black54 : Colors.grey.shade700;
   }
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
     final shopAppTheme = BlocProvider.of<StyleAppTheme>(context);
-    isDarkMode = Theme.of(context).brightness == Brightness.dark ;
-
+    isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
       //appBar: AppBar(),
@@ -105,15 +98,14 @@ class _FiltersScreenState extends  State<FiltersScreen> {
             height: 1,
           ),
           Padding(
-            padding: const EdgeInsets.only(
-                left: 16, right: 16, bottom: 16, top: 8),
+            padding:
+                const EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 8),
             child: Container(
               height: 48,
               constraints: const BoxConstraints(maxWidth: 520),
               decoration: BoxDecoration(
-                color: shopAppTheme.buildLightShopTheme.primaryColor,
+                color: shopAppTheme.primary,
                 borderRadius: const BorderRadius.all(Radius.circular(24.0)),
-
               ),
               child: Material(
                 color: Colors.transparent,
@@ -146,7 +138,6 @@ class _FiltersScreenState extends  State<FiltersScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-
         Padding(
           padding:
               const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 8),
@@ -197,12 +188,12 @@ class _FiltersScreenState extends  State<FiltersScreen> {
                       date.titleTxt,
                       style: const TextStyle(
                           //color: Theme.of(context).textTheme.subtitle2?.color
-                      ),
+                          ),
                     ),
                   ),
                   CupertinoSwitch(
                     activeColor: date.isSelected
-                        ? shopAppTheme.buildLightShopTheme.primaryColor
+                        ? shopAppTheme.primary
                         : Colors.grey.withOpacity(0.6),
                     onChanged: (bool value) {
                       setState(() {
@@ -238,8 +229,7 @@ class _FiltersScreenState extends  State<FiltersScreen> {
         }
       }
     } else {
-      storeListData[index].isSelected =
-          !storeListData[index].isSelected;
+      storeListData[index].isSelected = !storeListData[index].isSelected;
 
       int count = 0;
       for (int i = 0; i < storeListData.length; i++) {
@@ -354,7 +344,7 @@ class _FiltersScreenState extends  State<FiltersScreen> {
                                 ? Icons.check_box
                                 : Icons.check_box_outline_blank,
                             color: data.isSelected
-                                ? shopAppTheme.buildLightShopTheme.primaryColor
+                                ? shopAppTheme.primary
                                 : Colors.grey.shade400,
                           ),
                           const SizedBox(
@@ -395,7 +385,6 @@ class _FiltersScreenState extends  State<FiltersScreen> {
   }
 
   Widget priceBarFilter() {
-
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -433,7 +422,6 @@ class _FiltersScreenState extends  State<FiltersScreen> {
   }
 
   Widget getAppBarUI() {
-
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).scaffoldBackgroundColor,
@@ -491,7 +479,7 @@ class _FiltersScreenState extends  State<FiltersScreen> {
     );
   }
 
-  List<PopularFilterListData> popularFList(){
+  List<PopularFilterListData> popularFList() {
     return <PopularFilterListData>[
       PopularFilterListData(
         titleTxt: "Quincaillerie",
@@ -509,11 +497,10 @@ class _FiltersScreenState extends  State<FiltersScreen> {
         titleTxt: "Medical Equipment",
         isSelected: false,
       ),
-
     ];
   }
 
-  List<PopularFilterListData> storeFilterList(){
+  List<PopularFilterListData> storeFilterList() {
     return <PopularFilterListData>[
       PopularFilterListData(
         titleTxt: 'Tout type',
@@ -527,10 +514,9 @@ class _FiltersScreenState extends  State<FiltersScreen> {
         titleTxt: 'Electronique',
         isSelected: true,
       ),
-
       PopularFilterListData(
-      titleTxt: 'Plastique',
-      isSelected: false,
+        titleTxt: 'Plastique',
+        isSelected: false,
       ),
       PopularFilterListData(
         titleTxt: 'Meublier',
@@ -542,6 +528,4 @@ class _FiltersScreenState extends  State<FiltersScreen> {
       ),
     ];
   }
-
-
 }

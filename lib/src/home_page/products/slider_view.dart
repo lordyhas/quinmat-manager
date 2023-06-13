@@ -65,7 +65,7 @@ class _SliderViewState extends State<SliderView> {
             min: 0,
             max: 100,
             //maximumDistanceMeter/1000,
-            activeColor: shopAppTheme.buildLightShopTheme.primaryColor,
+            activeColor: shopAppTheme.primary,
             inactiveColor: Colors.grey.withOpacity(0.4),
             divisions: 100,
             value: distValue,

@@ -1,4 +1,9 @@
-part of products;
+
+
+import 'package:flutter/material.dart';
+import 'package:qmt_manager/logic/values.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart' show DateFormat;
 
 class CustomCalendarView extends StatefulWidget {
   const CustomCalendarView({
@@ -81,7 +86,7 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
                         const BorderRadius.all(Radius.circular(24.0)),
                     border: Border.all(
                       color: BlocProvider.of<StyleAppTheme>(context)
-                          .buildLightShopTheme.dividerColor,
+                          .theme.cardColor,
                     ),
                   ),
                   child: Material(
@@ -124,8 +129,7 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
                     borderRadius:
                         const BorderRadius.all(Radius.circular(24.0)),
                     border: Border.all(
-                      color: BlocProvider.of<StyleAppTheme>(context)
-                          .buildLightShopTheme.dividerColor,
+                      color: BlocProvider.of<StyleAppTheme>(context).gray,
                     ),
                   ),
                   child: Material(
@@ -178,8 +182,7 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
               style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
-                  color:BlocProvider.of<StyleAppTheme>(context)
-                      .buildLightShopTheme.primaryColor),
+                  color:BlocProvider.of<StyleAppTheme>(context).primary),
             ),
           ),
         ),
@@ -217,7 +220,7 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
                                 ? getIsItStartAndEndDate(date) ||
                                         getIsInRange(date)
                                     ? BlocProvider.of<StyleAppTheme>(context)
-                                        .buildLightShopTheme                                          .primaryColor
+                                        .gray
                                         .withOpacity(0.4)
                                     : Colors.transparent
                                 : Colors.transparent,
@@ -287,8 +290,7 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
                         child: Container(
                           decoration: BoxDecoration(
                             color: getIsItStartAndEndDate(date)
-                                ? BlocProvider.of<StyleAppTheme>(context)
-                                  .buildLightShopTheme.primaryColor
+                                ? BlocProvider.of<StyleAppTheme>(context).primary
                                 : Colors.transparent,
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(32.0)),
@@ -343,8 +345,7 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
                               ? getIsInRange(date)
                                   ? Colors.white
                                   : BlocProvider.of<StyleAppTheme>(context)
-                                      .buildLightShopTheme
-                                      .primaryColor
+                                      .primary
                               : Colors.transparent,
                           shape: BoxShape.circle),
                     ),
