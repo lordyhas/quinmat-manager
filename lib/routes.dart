@@ -1,14 +1,22 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qmt_manager/src/add_doctor/add_doctor_page.dart';
 import 'package:qmt_manager/src/add_doctor/data_tab.dart';
 import 'package:qmt_manager/src/add_product/add_product_page.dart';
+import 'package:qmt_manager/src/home_page/home_screen.dart';
+import 'package:qmt_manager/src/home_page/nested_web_view.dart';
 import 'package:qmt_manager/src/login_page.dart';
 import 'package:qmt_manager/src/maps_test.dart';
 import 'package:qmt_manager/src/home_page.dart';
 import 'package:qmt_manager/src/home_page/single_item_screen.dart';
 
 import 'package:qmt_manager/src/myspace_page.dart';
+import 'package:qmt_manager/src/navigation_layout.dart';
 import 'package:qmt_manager/src/preference_page/about_page.dart';
+import 'package:qmt_manager/src/preference_page/edit_profile_page.dart';
+import 'package:qmt_manager/src/setting_profile_screen.dart';
 
 import 'logic/values.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
@@ -16,36 +24,49 @@ import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
 import 'on_error_page.dart';
 
 class AppRouter extends GoRouter {
-  //final GlobalKey<NavigatorState>? shellNavigatorKey;
   final GlobalKey<NavigatorState> key;
 
   AppRouter({
-    //this.shellNavigatorKey,
     required this.key,
   }) : super(
           navigatorKey: key,
           errorBuilder: (context, state) => OnErrorPage(error: state.error),
           initialLocation: HomePage.routeUrl, //LoginPage.routeName,
           routes: <RouteBase>[
-            /*GoRoute(
+            GoRoute(
               parentNavigatorKey: key,
-              path: "/",
+              path: "/index",
               redirect: (_,state) {
-                /*if(BlocProvider.of<AuthenticationBloc>(_).state.
+                if(BlocProvider.of<AuthenticationBloc>(_).state.
                 status == AuthenticationStatus.authenticated){
                     return HomePage.routeUrl;
-                }*/
+                }
                 //return LoginPage.routeUrl;
                 return HomePage.routeUrl;
               },
+            ),
+            /*GoRoute(
+              parentNavigatorKey: key,
+              path: "/layout",
+              name: NavigationLayout.routeName,
+              builder: (context, state) {
+                 return const NavigationLayout();
+              }
             ),*/
             ShellRoute(
+              // navigatorKey: shellNavigatorKey,
+              builder: (context, state, screen) => NavigationLayout(child: screen),
+              routes: <RouteBase>[
+                _homeGoRoute(parentKey: key),
+              ],
+            ),
+            /*ShellRoute(
               // navigatorKey: shellNavigatorKey,
               builder: (context, state, screen) => HomePage(child: screen),
               routes: <RouteBase>[
                 _homeGoRoute(parentKey: key),
               ],
-            ),
+            ),*/
             GoRoute(
               parentNavigatorKey: key,
               name: LoginPage.routeName,
@@ -61,15 +82,14 @@ class AppRouter extends GoRouter {
         path: HomePage.routeName,
         redirect: null,
         builder: (context, state) {
-          return const NestedWebView(child: HomeScreen());
+          return const NestedView(child: HomeScreen());
         },
         routes: <RouteBase>[
-
           GoRoute(
             name: MySpaceScreen.routeName,
             path: 'user',
             builder: (context, state) {
-              return const NestedWebView(child: MySpaceScreen());
+              return const  NestedView(child:MySpaceScreen());
             },
             routes: [
               /*GoRoute(
@@ -133,6 +153,11 @@ class AppRouter extends GoRouter {
                 name: AboutPage.routeName,
                 path: "about",
                 builder: (ctx, state) => const AboutPage(),
+              ),
+              GoRoute(
+                name: ProfilePage.routeName,
+                path: "profile/edit",
+                builder: (ctx, state) => const ProfilePage(),
               ),
             ],
           ),
