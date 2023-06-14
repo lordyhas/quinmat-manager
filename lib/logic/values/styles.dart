@@ -73,9 +73,11 @@ class StyleAppTheme extends Cubit<FluentThemeData> {
   /// dark theme
   static final _darkTheme = FluentThemeData(
     fontFamily: 'Nunito',
+    visualDensity: VisualDensity.standard,
     //scaffoldBackgroundColor: Colors.grey[170],
     //typography: Typography.raw(),
     brightness: Brightness.dark,
+
   );
 
 
@@ -95,7 +97,4 @@ class HexColor extends Color {
 extension UtilsColors on Colors {
   static Color greyDark = Colors.grey[170];
   static Color greyLight = Colors.grey[50];
-}
-extension UtilsShadedColor on ShadedColor {
-
 }
