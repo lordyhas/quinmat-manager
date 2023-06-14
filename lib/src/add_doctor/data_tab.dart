@@ -333,6 +333,7 @@ class _DataTableDemoState extends State<DataTableDemo> {
     final ScrollController scrollController =
         ScrollController(debugLabel: 'scrollDoctors');
     return Scaffold(
+      backgroundColor: Colors.grey.shade900,
       appBar: AppBar(
         leading:  Padding(
           padding: const EdgeInsets.only(left: 8.0),
