@@ -50,9 +50,8 @@ class _SettingScreenState extends State<SettingScreen> {
                       Padding(
                         padding: const EdgeInsets.all(8.0).copyWith(top: 50.0),
                         child: Card(
-                          /*shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0),
-                          ),*/
+
+                          borderRadius: BorderRadius.circular(20.0),
                           child: Padding(
                             padding: const EdgeInsets.only(top: 100.0),
                             child: Column(
@@ -174,6 +173,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Card(
+                    borderRadius: BorderRadius.circular(20.0),
                     margin: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
@@ -226,6 +226,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Card(
+                    borderRadius: BorderRadius.circular(20.0),
                     margin: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
