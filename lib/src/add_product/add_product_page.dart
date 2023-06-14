@@ -28,6 +28,7 @@ class AddProductPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey.shade800,
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.close),
@@ -72,307 +73,311 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 720,
-      child: Stepper(
-        currentStep: _index.index,
-        onStepCancel: () {
-          switch (_index) {
-            case StepperStep.zero:
-              break;
-            case StepperStep.one:
-              setState(() {
-                _index = StepperStep.zero;
-              });
-              break;
-            case StepperStep.two:
-              setState(() {
-                _index = StepperStep.one;
-              });
-              break;
-          }
-        },
-        onStepContinue: () {
-          switch (_index) {
-            case StepperStep.zero:
-              if (validator.currentState!.validate()) {
-                validator.currentState!.save();
-                //context.watch<RentalControllerBloc>();
 
+    return Container(
+      //color: Colors.grey[160],
+      child: SizedBox(
+        width: 720,
+        child: Stepper(
+          currentStep: _index.index,
+          onStepCancel: () {
+            switch (_index) {
+              case StepperStep.zero:
+                break;
+              case StepperStep.one:
+                setState(() {
+                  _index = StepperStep.zero;
+                });
+                break;
+              case StepperStep.two:
                 setState(() {
                   _index = StepperStep.one;
                 });
-              }
-              break;
-            case StepperStep.one:
-              if (croppedFile.isNull) break;
+                break;
+            }
+          },
+          onStepContinue: () {
+            switch (_index) {
+              case StepperStep.zero:
+                if (validator.currentState!.validate()) {
+                  validator.currentState!.save();
+                  //context.watch<RentalControllerBloc>();
 
-                Product vehicle = context
-                    .read<RentalControllerBloc>()
-                    .state
-                    .product
-                    .copyWith(images: [croppedFile!.path]);
-                context
-                    .read<RentalControllerBloc>()
-                    .addVehicleRentalImaged(vehicle);
+                  setState(() {
+                    _index = StepperStep.one;
+                  });
+                }
+                break;
+              case StepperStep.one:
+                if (croppedFile.isNull) break;
+
+                  Product vehicle = context
+                      .read<RentalControllerBloc>()
+                      .state
+                      .product
+                      .copyWith(images: [croppedFile!.path]);
+                  context
+                      .read<RentalControllerBloc>()
+                      .addVehicleRentalImaged(vehicle);
 
 
-              setState(() {
-                _index = StepperStep.two;
-              });
-              break;
-            case StepperStep.two:
-              //setState((){_index = StepperStep.one;});
-              break;
-          }
-        },
-        onStepTapped:
-        (int index) {
-              setState(() {
-                _index = StepperStep.values[index];
-              });
-            },
-        controlsBuilder: (BuildContext context, ControlsDetails controls) {
-          return Container(
-            constraints: const BoxConstraints(
-              maxWidth: 520.0,
-            ),
-            child: ButtonBar(
-              children: [
-                ElevatedButton(
-                    onPressed: controls.onStepContinue,
-                    child: const Text('Suivant')),
-                TextButton(
-                  onPressed: controls.onStepCancel,
-                  child:
-                      Text(controls.currentStep == 0 ? 'Annulé' : 'Précédant'),
-                ),
-              ],
-            ),
-          );
-        },
-        steps: <Step>[
-          Step(
-            title: const Text("Info à propos "),
-            content: Container(
-              alignment: Alignment.centerLeft,
-              child: SizedBox(
-                child: RentForm(
-                  controllers: controllers,
-                  //spaceController: spaceCtrl,
-                  productController: vehicleCtrl,
-                  validator: validator,
-                  onComplete: (_) {},
-                  onValidForm: (_) {},
+                setState(() {
+                  _index = StepperStep.two;
+                });
+                break;
+              case StepperStep.two:
+                //setState((){_index = StepperStep.one;});
+                break;
+            }
+          },
+          onStepTapped:
+          (int index) {
+                setState(() {
+                  _index = StepperStep.values[index];
+                });
+              },
+          controlsBuilder: (BuildContext context, ControlsDetails controls) {
+            return Container(
+              constraints: const BoxConstraints(
+                maxWidth: 520.0,
+              ),
+              child: ButtonBar(
+                children: [
+                  ElevatedButton(
+                      onPressed: controls.onStepContinue,
+                      child: const Text('Suivant')),
+                  TextButton(
+                    onPressed: controls.onStepCancel,
+                    child:
+                        Text(controls.currentStep == 0 ? 'Annulé' : 'Précédant'),
+                  ),
+                ],
+              ),
+            );
+          },
+          steps: <Step>[
+            Step(
+              title: const Text("Info à propos "),
+              content: Container(
+                alignment: Alignment.centerLeft,
+                child: SizedBox(
+                  child: RentForm(
+                    controllers: controllers,
+                    //spaceController: spaceCtrl,
+                    productController: vehicleCtrl,
+                    validator: validator,
+                    onComplete: (_) {},
+                    onValidForm: (_) {},
+                  ),
                 ),
               ),
             ),
-          ),
-          Step(
-            title: const Text('Téléversé l\'image'),
-            content: Container(
+            Step(
+              title: const Text('Téléversé l\'image'),
+              content: Container(
+                  alignment: Alignment.centerLeft,
+                  child: SizedBox(
+                    child: UploadImage(
+                      onUploaded: (file) {
+                        setState(() {
+                          croppedFile = file;
+                        });
+                        //print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+                        //print(croppedFile!.path);
+                      },
+                    ),
+                  )),
+            ),
+            Step(
+              title: const Text('Vérfication'),
+              content: Container(
                 alignment: Alignment.centerLeft,
                 child: SizedBox(
-                  child: UploadImage(
-                    onUploaded: (file) {
-                      setState(() {
-                        croppedFile = file;
-                      });
-                      //print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-                      //print(croppedFile!.path);
-                    },
-                  ),
-                )),
-          ),
-          Step(
-            title: const Text('Vérfication'),
-            content: Container(
-              alignment: Alignment.centerLeft,
-              child: SizedBox(
-                height: 540,
-                child: BooleanBuilder(
-                  condition: () =>
-                      context.read<RentalControllerBloc>().isImmovable,
-                  ifTrue: Column(
-                    children: [
-                      /*if (context
-                          .read<RentalControllerBloc>()
-                          .space
-                          .images
-                          .isNotEmpty)
-                        SizedBox(
-                          height: 320,
-                          width: 320,
-                          child: Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(8.0),
-                                child: Responsive.of(context).isOnlyWeb
-                                    ? Image.network(context
-                                        .read<RentalControllerBloc>()
-                                        .space
-                                        .images
-                                        .first)
-                                    : Image.file(File(context
-                                        .read<RentalControllerBloc>()
-                                        .space
-                                        .images
-                                        .first)),
-                              ),
-                            ),
-                          ),
-                        ),*/
-                      const SizedBox(
-                        width: 16.0,
-                      ),
-                      Row(
-                        children: [
-                          Builder(builder: (context) {
-                            final val = context
-                                .read<RentalControllerBloc>()
-                                .state
-                                .product;
-                            return Text.rich(TextSpan(
-                              children: [
-                                const TextSpan(
-                                  text: "Titre : ",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                                TextSpan(text: "${val.name} \n"),
-                                const TextSpan(
-                                  text: "Description : ",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                                TextSpan(text: "${val.description} \n"),
-                                const TextSpan(
-                                  text: "Pièce(s) : ",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                                TextSpan(text: "${val.stockNumber} \n"),
-                                const TextSpan(
-                                  text: "Prix : ",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                                TextSpan(text: "${val.price} \n"),
-                                const TextSpan(
-                                  text: "Catégorie :",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                                TextSpan(
-                                    text: "${Product.departments[val.productType]} \n"),
-                              ],
-                            ));
-                          }),
-                        ],
-                      ),
-                    ],
-                  ),
-                  ifFalse: Column(
-                    children: [
-                      if (context
-                          .read<RentalControllerBloc>()
-                          .vehicle
-                          .images
-                          .isNotEmpty)
-                        SizedBox(
-                          height: 320,
-                          width: 320,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                  height: 540,
+                  child: BooleanBuilder(
+                    condition: () =>
+                        context.read<RentalControllerBloc>().isImmovable,
+                    ifTrue: Column(
+                      children: [
+                        /*if (context
+                            .read<RentalControllerBloc>()
+                            .space
+                            .images
+                            .isNotEmpty)
+                          SizedBox(
+                            height: 320,
+                            width: 320,
                             child: Card(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8.0),
                               ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(8.0),
-                                child: Responsive.of(context).isOnlyWeb
-                                    ? Image.network(context
-                                        .read<RentalControllerBloc>()
-                                        .vehicle
-                                        .images
-                                        .first)
-                                    : Image.file(File(context
-                                        .read<RentalControllerBloc>()
-                                        .vehicle
-                                        .images
-                                        .first)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  child: Responsive.of(context).isOnlyWeb
+                                      ? Image.network(context
+                                          .read<RentalControllerBloc>()
+                                          .space
+                                          .images
+                                          .first)
+                                      : Image.file(File(context
+                                          .read<RentalControllerBloc>()
+                                          .space
+                                          .images
+                                          .first)),
+                                ),
+                              ),
+                            ),
+                          ),*/
+                        const SizedBox(
+                          width: 16.0,
+                        ),
+                        Row(
+                          children: [
+                            Builder(builder: (context) {
+                              final val = context
+                                  .read<RentalControllerBloc>()
+                                  .state
+                                  .product;
+                              return Text.rich(TextSpan(
+                                children: [
+                                  const TextSpan(
+                                    text: "Titre : ",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  TextSpan(text: "${val.name} \n"),
+                                  const TextSpan(
+                                    text: "Description : ",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  TextSpan(text: "${val.description} \n"),
+                                  const TextSpan(
+                                    text: "Pièce(s) : ",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  TextSpan(text: "${val.stockNumber} \n"),
+                                  const TextSpan(
+                                    text: "Prix : ",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  TextSpan(text: "${val.price} \n"),
+                                  const TextSpan(
+                                    text: "Catégorie :",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                      text: "${Product.departments[val.productType]} \n"),
+                                ],
+                              ));
+                            }),
+                          ],
+                        ),
+                      ],
+                    ),
+                    ifFalse: Column(
+                      children: [
+                        if (context
+                            .read<RentalControllerBloc>()
+                            .vehicle
+                            .images
+                            .isNotEmpty)
+                          SizedBox(
+                            height: 320,
+                            width: 320,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Card(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  child: Responsive.of(context).isOnlyWeb
+                                      ? Image.network(context
+                                          .read<RentalControllerBloc>()
+                                          .vehicle
+                                          .images
+                                          .first)
+                                      : Image.file(File(context
+                                          .read<RentalControllerBloc>()
+                                          .vehicle
+                                          .images
+                                          .first)),
+                                ),
                               ),
                             ),
                           ),
+                        const SizedBox(
+                          width: 16.0,
                         ),
-                      const SizedBox(
-                        width: 16.0,
-                      ),
-                      Row(
-                        children: [
-                          Builder(builder: (context) {
-                            final val =
-                                context.read<RentalControllerBloc>().vehicle;
-                            return Text.rich(TextSpan(
-                              children: [
-                                const TextSpan(
-                                  text: "Titre : ",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w700,
+                        Row(
+                          children: [
+                            Builder(builder: (context) {
+                              final val =
+                                  context.read<RentalControllerBloc>().vehicle;
+                              return Text.rich(TextSpan(
+                                children: [
+                                  const TextSpan(
+                                    text: "Titre : ",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                    ),
                                   ),
-                                ),
-                                TextSpan(text: "${val.name} \n"),
-                                const TextSpan(
-                                  text: "Description : ",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w700,
+                                  TextSpan(text: "${val.name} \n"),
+                                  const TextSpan(
+                                    text: "Description : ",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                    ),
                                   ),
-                                ),
-                                TextSpan(text: "${val.description} \n"),
-                                const TextSpan(
-                                  text: "Pièce(s) : ",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w700,
+                                  TextSpan(text: "${val.description} \n"),
+                                  const TextSpan(
+                                    text: "Pièce(s) : ",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                    ),
                                   ),
-                                ),
-                                TextSpan(text: "${val.promotionPrice} \n"),
-                                const TextSpan(
-                                  text: "Prix : ",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w700,
+                                  TextSpan(text: "${val.promotionPrice} \n"),
+                                  const TextSpan(
+                                    text: "Prix : ",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                    ),
                                   ),
-                                ),
-                                TextSpan(text: "${val.price} \n"),
-                                const TextSpan(
-                                  text: "Catégorie :",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w700,
+                                  TextSpan(text: "${val.price} \n"),
+                                  const TextSpan(
+                                    text: "Catégorie :",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                    ),
                                   ),
-                                ),
-                                TextSpan(
-                                    text: "${Product
-                                        .departments[val.productType]} \n"),
-                              ],
-                            ));
-                          }),
-                        ],
-                      ),
-                    ],
+                                  TextSpan(
+                                      text: "${Product
+                                          .departments[val.productType]} \n"),
+                                ],
+                              ));
+                            }),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

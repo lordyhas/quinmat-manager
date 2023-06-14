@@ -43,6 +43,7 @@ class _AddDoctorPageState extends State<AddDoctorPage> {
     bool isWrapped = MediaQuery.of(context).size.width < 718;
 
     return Scaffold(
+      backgroundColor: Colors.grey.shade800,
       appBar: AppBar(
         leading: const ImageIcon(
           AssetImage("'assets/icon_app.png'"),
