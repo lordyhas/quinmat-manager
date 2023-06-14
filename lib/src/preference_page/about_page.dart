@@ -1,7 +1,8 @@
 
+import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter/material.dart' show showLicensePage, showAboutDialog;
 import 'package:qmt_manager/logic/values.dart';
 import 'package:qmt_manager/widgets/widgets.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -54,17 +55,17 @@ class _AboutState extends State<AboutPage>{
     BlocProvider.of<NavigationController>(context).setState(NavigationScreen.setting);
     ///text =  BlocProvider.of<LanguageBloc>(context).state.strings;
     ///
-    var primaryTextStyle20 = Theme.of(context)
-        .textTheme.bodyMedium!
-        .copyWith(fontSize: 17, /*fontWeight: FontWeight.bold*/);
-    var textSettingsStyle = TextStyle(color: Colors.blue[600]);
+    final primaryTextStyle20 = const TextStyle().copyWith(fontSize: 17,);
+    final textSettingsStyle = TextStyle(color: Colors.blue);
+
+    final Color backgroundColor = FluentTheme.of(context).cardColor.withOpacity(0.8); //Colors.grey[160].withOpacity(0.8);
 
 
     return WillPopScope(
       onWillPop: () => Future.value(true),
       child: BackgroundUI(
-        child: Material(
-          child: SingleChildScrollView(
+        child: ScaffoldPage(
+          content: SingleChildScrollView(
             padding: const EdgeInsets.only(left: 5.0, right: 5.0,),
             physics: const BouncingScrollPhysics(),
             child: Center(
@@ -74,9 +75,12 @@ class _AboutState extends State<AboutPage>{
 
                   children: <Widget>[
                     const SizedBox(height: 82,),
+
                     Card(
+                      margin: const EdgeInsets.all(8.0),
                       //color: background2,
-                      color: Theme.of(context).cardColor.withOpacity(0.8),
+                      //backgroundColor: BlocProvider.of<StyleAppTheme>(context).theme.cardColor.withOpacity(0.8),
+                      backgroundColor: backgroundColor,
                       child: Column(
                         children: <Widget>[
                           Padding(
@@ -88,10 +92,10 @@ class _AboutState extends State<AboutPage>{
                                 child: Image.asset("assets/icon_app.png"),
                               ),
                               const SizedBox(height: 8.0,),
-                              Text(
+                              const Text(
                                 AppConstant.completeName,
                                 style: TextStyle(
-                                    color: Theme.of(context).primaryColorLight,
+                                    color: Colors.grey,
                                     fontSize: 24),
                               ),
                               Text("info@${AppConstant.shortname.toLowerCase()}.com",),
@@ -105,7 +109,7 @@ class _AboutState extends State<AboutPage>{
                               String version = snapshot.data?.version ?? "";
                               String number = snapshot.data?.buildNumber ?? "";
                               return ListTile(
-                                leading: const Icon(Icons.info),
+                                leading: const Icon(FluentIcons.info),
                                 title: Text("Version", style: primaryTextStyle20,),
                                 subtitle: Text("$version+$number (non-stable)",),
 
@@ -113,32 +117,32 @@ class _AboutState extends State<AboutPage>{
                             }
                           ),
                           ListTile(
-                            leading: const Icon(Icons.update),
+                            leading: const Icon(FluentIcons.update_restore),
                             title: Text('Update', style: primaryTextStyle20,),
                             subtitle: Text("${timeUpdate.subtract(const Duration(days: 35, hours: 1))}",
                             ),
-                            onTap: (){},
+                            onPressed: (){},
                           ),
                           ListTile(
-                            leading: const Icon(Icons.sync),
+                            leading: const Icon(FluentIcons.sync),
                             title: Text("Changelog",style: primaryTextStyle20,),
-                            onTap: (){
+                            onPressed: (){
                               //showAboutDialog(context: context);
                             },
                           ),
 
                           ListTile(
-                            leading: const Icon(Icons.turned_in_not),
+                            leading: const Icon(FluentIcons.double_bookmark),
                             title: Text('Licence',style: primaryTextStyle20,),
-                            onTap: (){
+                            onPressed: (){
                               showLicensePage(context: context);
                             },
                           ),
 
                           ListTile(
-                            leading: const Icon(Icons.share),
+                            leading: const Icon(FluentIcons.share),
                             title: Text('Share this app',style: primaryTextStyle20,),
-                            onTap: (){
+                            onPressed: (){
                               Share.share(
                                   'check out my favorite app Rental App: \n'
                                       'https://hassankajila.com',
@@ -147,9 +151,9 @@ class _AboutState extends State<AboutPage>{
                             },
                           ),
                           ListTile(
-                            leading: const Icon(Icons.more_horiz),
+                            leading: const Icon(FluentIcons.more),
                             title: Text('More app',style: primaryTextStyle20,),
-                            onTap: (){},
+                            onPressed: (){},
                           ),
                         ],
                       ),
@@ -157,7 +161,9 @@ class _AboutState extends State<AboutPage>{
 
                     Card(
                       //color: background2,
-                      color: Theme.of(context).cardColor.withOpacity(0.8),
+
+                      margin: const EdgeInsets.all(8.0),
+                      backgroundColor: backgroundColor,
                       child: Column(
                         children: <Widget>[
 
@@ -168,7 +174,7 @@ class _AboutState extends State<AboutPage>{
                             leading: const Icon(FontAwesomeIcons.user),
                             title: Text("Hassan K.",style: primaryTextStyle20,),
                             subtitle: const Text("@lordyhas"), //Text("dev.haspro@gmail.com",),
-                            onTap: () async {
+                            onPressed: () async {
                               final Uri url = Uri.parse("https://linktr.ee/hassankajila");
                               if (!await launchUrl(url)) {
                                 throw 'Could not launch $url';
@@ -182,7 +188,7 @@ class _AboutState extends State<AboutPage>{
                           ),
 
                           ListTile(
-                            leading: const Icon(Icons.group_outlined),
+                            leading: const Icon(FluentIcons.teamwork),
                             title: Text("Our team",style: primaryTextStyle20,),
                           ),
                         ],
@@ -190,7 +196,8 @@ class _AboutState extends State<AboutPage>{
                     ),
                     Card(
                       //color: background2,
-                      color: Theme.of(context).cardColor.withOpacity(0.8),
+                      margin: const EdgeInsets.all(8.0),
+                      backgroundColor: backgroundColor,
                       child: Column(
                         children: <Widget>[
 
@@ -198,12 +205,12 @@ class _AboutState extends State<AboutPage>{
                             title: Text("Company",style: textSettingsStyle,),
                           ),
                           ListTile(
-                            leading: const Icon(Icons.business),
+                            leading: const Icon(FluentIcons.city_next),
                             title: Text("KDynamic Lab.",style: primaryTextStyle20,),
                             subtitle: const Text("Mobile App Developers ",),
                           ),
                           ListTile(
-                            leading: const Icon(Icons.location_on),
+                            leading: const Icon(FluentIcons.map_pin),
                             title: Text('Address',style: primaryTextStyle20,),
                             subtitle: const Text("None ",),
                           ),
@@ -223,3 +230,4 @@ class _AboutState extends State<AboutPage>{
   }
 
 }
+
