@@ -60,112 +60,117 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0).copyWith(top: 32),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20.0),
-                  child: Container(
-                    //height: 200,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        //image: AssetImage("assets/img/bg_image2.jpg"),
-                        image: AssetImage("assets/img/qmt-batiment.jpg"),
-                        fit: BoxFit.cover,
-                        opacity: 5.0,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20.0),
+                    border: Border.all(color: Colors.white,),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20.0),
+                    child: Container(
+                      //height: 200,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          //image: AssetImage("assets/img/bg_image2.jpg"),
+                          image: AssetImage("assets/img/qmt-batiment.jpg"),
+                          fit: BoxFit.cover,
+                          opacity: 5.0,
+                        ),
                       ),
-                    ),
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 0.5, sigmaY: 0.5),
-                      child: Stack(
-                        children: [
-                          Container(
-                            height: 200,
-                            color: Colors.black.withOpacity(0.6),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 16.0,
-                              vertical: 16.0,
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 0.5, sigmaY: 0.5),
+                        child: Stack(
+                          children: [
+                            Container(
+                              height: 200,
+                              color: Colors.black.withOpacity(0.6),
                             ),
-                            child: Column(
-                              children: [
-                                const SizedBox(
-                                  height: 8.0,
-                                ),
-                                const ListTile(
-                                  title: SelectableText(
-                                    "Bienvenue dans ${AppConstant.name}",
-                                    style: TextStyle(
-                                      fontSize: 24,
-                                    ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16.0,
+                                vertical: 16.0,
+                              ),
+                              child: Column(
+                                children: [
+                                  const SizedBox(
+                                    height: 8.0,
                                   ),
-                                  subtitle: SelectableText(
-                                    "Faire la gestion des produits",
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0)
-                                      .copyWith(top: 16.0),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      FilledButton(
-                                        /*style: ElevatedButton.styleFrom(
-                                          textStyle: const TextStyle(
-                                            fontSize: 18,
-                                          ),
-                                        ),*/
-                                        child: const Padding(
-                                          padding: EdgeInsets.all(8.0),
-                                          child: Text(
-                                            "Créér un compte",
-                                          ),
-                                        ),
-                                        onPressed: () {},
+                                  const ListTile(
+                                    title: SelectableText(
+                                      "Bienvenue dans ${AppConstant.name}",
+                                      style: TextStyle(
+                                        fontSize: 24,
                                       ),
-                                      SizedBox(width: 8.0,),
-                                      HyperlinkButton(
-
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child:
-                                              Text.rich(TextSpan(children: [
-                                            TextSpan(
-                                              text: "Besoin d'aide",
-                                              style: TextStyle(
-                                                  fontSize: 18.0,
-                                                  //letterSpacing: underline ? .0 : null,
-                                                  decoration: underline
-                                                      ? TextDecoration
-                                                          .underline
-                                                      : TextDecoration.none),
-                                            ),
-                                            const TextSpan(
-                                              text: " ?",
-                                              style: TextStyle(
-                                                fontSize: 18.0,
-                                              ),
-                                            ),
-                                          ])),
-                                        ),
-                                        /*onHover: (value) {
-                                          setState(() {
-                                            underline = value;
-                                          });
-                                        },*/
-                                        onPressed: () {
-                                          //Go.of(context).to(routeName: DataTableDemo.routeName);
-                                        },
-                                        onLongPress: () {},
-                                      )
-                                    ],
+                                    ),
+                                    subtitle: SelectableText(
+                                      "Faire la gestion des produits",
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ],
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0)
+                                        .copyWith(top: 16.0),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        FilledButton(
+                                          /*style: ElevatedButton.styleFrom(
+                                            textStyle: const TextStyle(
+                                              fontSize: 18,
+                                            ),
+                                          ),*/
+                                          child: const Padding(
+                                            padding: EdgeInsets.all(8.0),
+                                            child: Text(
+                                              "Créér un compte",
+                                            ),
+                                          ),
+                                          onPressed: () {},
+                                        ),
+                                        const SizedBox(width: 8.0,),
+                                        HyperlinkButton(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child:
+                                                Text.rich(TextSpan(children: [
+                                              TextSpan(
+                                                text: "Besoin d'aide",
+                                                style: TextStyle(
+                                                    fontSize: 18.0,
+                                                    //letterSpacing: underline ? .0 : null,
+                                                    decoration: underline
+                                                        ? TextDecoration
+                                                            .underline
+                                                        : TextDecoration.none),
+                                              ),
+                                              const TextSpan(
+                                                text: " ?",
+                                                style: TextStyle(
+                                                  fontSize: 18.0,
+                                                ),
+                                              ),
+                                            ])),
+                                          ),
+                                          /*onHover: (value) {
+                                            setState(() {
+                                              underline = value;
+                                            });
+                                          },*/
+                                          onPressed: () {
+                                            //Go.of(context).to(routeName: DataTableDemo.routeName);
+                                          },
+                                          onLongPress: () {},
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -198,7 +203,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ),
                               //Image.asset("assets/img/vector_mg2.jpg"),
-
                             ],
                           ),
                           Container(
@@ -244,86 +248,87 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: 16.0,
               ),
-              Card(
+              Container(
                 margin: const EdgeInsets.all(8.0),
-                /*shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                ),*/
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Column(
-                    children: [
-                      ListTile(
-                        //visualDensity: const VisualDensity(vertical: VisualDensity.minimumDensity),
-                        //  titleAlignment: ListTileTitleAlignment.center,
-                        //horizontalTitleGap: 32.0,
-                        leading: const Icon(
-                          cup.CupertinoIcons.home,
-                        ),
-                        title: const SelectableText(
-                          "Mobiler",
-                          style: TextStyle(
-                            fontSize: 18.0,
-                          ),
-                        ),
-                        trailing: const Icon(cup.CupertinoIcons.chevron_right_2),
-                        onPressed: () {},
-                      ),
-                      const SizedBox(
-                        height: 8.0,
-                      ),
-                      ListTile(
-                        //visualDensity: const VisualDensity(vertical: VisualDensity.minimumDensity),
-                        //horizontalTitleGap: 32.0,
-                        leading: const Icon(
-                          cup.CupertinoIcons.rectangle_stack_fill,
-                        ),
-                        title: const SelectableText(
-                          "Papeterie",
-                          style: TextStyle(
-                            fontSize: 18.0,
-                          ),
-                        ),
-                        trailing: const Icon(cup.CupertinoIcons.chevron_right_2),
-                        onPressed: () {},
-                      ),
-                      const SizedBox(
-                        height: 8.0,
-                      ),
-                      ListTile(
-                        //visualDensity: const VisualDensity(vertical: VisualDensity.minimumDensity),
-                        //horizontalTitleGap: 32.0,
-                        leading: const Icon(
-                          cup.CupertinoIcons.car_detailed,
-                          //size: 42,
-                        ),
-                        title: const SelectableText(
-                          "Quaincaillerie",
-                          style: TextStyle(
-                            fontSize: 18.0,
-                          ),
-                        ),
-                        trailing: const Icon(cup.CupertinoIcons.chevron_right_2),
-                        onPressed: () {},
-                      ),
-                      ListTile(
-                        //visualDensity: const VisualDensity(vertical: VisualDensity.minimumDensity),
-                        //horizontalTitleGap: 32.0,
-                        leading: const Icon(
-                          FontAwesomeIcons.kitMedical,
-                          //size: 42,
-                        ),
-                        title: const SelectableText(
-                          "Medical Equipment",
-                          style: TextStyle(
-                            fontSize: 18.0,
-                          ),
-                        ),
 
-                        trailing: const Icon(cup.CupertinoIcons.chevron_right_2),
-                        onPressed: () {},
-                      ),
-                    ],
+                child: Card(
+                  borderColor: Colors.white,
+                  borderRadius: BorderRadius.circular(20.0),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Column(
+                      children: [
+                        ListTile(
+                          //visualDensity: const VisualDensity(vertical: VisualDensity.minimumDensity),
+                          //titleAlignment: ListTileTitleAlignment.center,
+                          //horizontalTitleGap: 32.0,
+                          leading: const Icon(
+                            cup.CupertinoIcons.home,
+                          ),
+                          title: const SelectableText(
+                            "Mobiler",
+                            style: TextStyle(
+                              fontSize: 18.0,
+                            ),
+                          ),
+                          trailing: const Icon(cup.CupertinoIcons.chevron_right_2),
+                          onPressed: () {},
+                        ),
+                        const SizedBox(
+                          height: 8.0,
+                        ),
+                        ListTile(
+                          //visualDensity: const VisualDensity(vertical: VisualDensity.minimumDensity),
+                          //horizontalTitleGap: 32.0,
+                          leading: const Icon(
+                            cup.CupertinoIcons.rectangle_stack_fill,
+                          ),
+                          title: const SelectableText(
+                            "Papeterie",
+                            style: TextStyle(
+                              fontSize: 18.0,
+                            ),
+                          ),
+                          trailing: const Icon(cup.CupertinoIcons.chevron_right_2),
+                          onPressed: () {},
+                        ),
+                        const SizedBox(
+                          height: 8.0,
+                        ),
+                        ListTile(
+                          //visualDensity: const VisualDensity(vertical: VisualDensity.minimumDensity),
+                          //horizontalTitleGap: 32.0,
+                          leading: const Icon(
+                            cup.CupertinoIcons.car_detailed,
+                            //size: 42,
+                          ),
+                          title: const SelectableText(
+                            "Quaincaillerie",
+                            style: TextStyle(
+                              fontSize: 18.0,
+                            ),
+                          ),
+                          trailing: const Icon(cup.CupertinoIcons.chevron_right_2),
+                          onPressed: () {},
+                        ),
+                        ListTile(
+                          //visualDensity: const VisualDensity(vertical: VisualDensity.minimumDensity),
+                          //horizontalTitleGap: 32.0,
+                          leading: const Icon(
+                            FontAwesomeIcons.kitMedical,
+                            //size: 42,
+                          ),
+                          title: const SelectableText(
+                            "Medical Equipment",
+                            style: TextStyle(
+                              fontSize: 18.0,
+                            ),
+                          ),
+                          trailing: const Icon(cup.CupertinoIcons.chevron_right_2),
+                          onPressed: () {},
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
