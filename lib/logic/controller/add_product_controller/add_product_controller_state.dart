@@ -2,14 +2,14 @@ part of 'add_product_controller_bloc.dart';
 
 enum RentalControllerStatus{initial, addingInfo, addingImages, checkingAll}
 
-class RentalControllerState extends Equatable {
+class ProductControllerState extends Equatable {
   //final RentalSpace _space;
   final Product _product;
   final RentalControllerStatus status;
   final bool isCompleted;
   final bool _isMovable;
 
-  const RentalControllerState._({
+  const ProductControllerState._({
     //RentalSpace space =  RentalSpace.empty,
     Product product = Product.empty,
     this.status = RentalControllerStatus.initial,
@@ -17,14 +17,14 @@ class RentalControllerState extends Equatable {
     bool isMovable = false,
   }) :  _isMovable = isMovable,
         _product = product;
-  const RentalControllerState.initial() : this._();
+  const ProductControllerState.initial() : this._();
 
-  const RentalControllerState.product(
+  const ProductControllerState.product(
       Product vehicleRental,{
         RentalControllerStatus status = RentalControllerStatus.addingInfo,
       }) : this._(product: vehicleRental, status: status, isMovable: true);
 
-  const RentalControllerState.complete(rental, {
+  const ProductControllerState.complete(rental, {
         RentalControllerStatus status = RentalControllerStatus.checkingAll,
       }) : this._(
       product: rental is Product ? rental : Product.empty,

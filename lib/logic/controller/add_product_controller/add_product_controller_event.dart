@@ -9,12 +9,12 @@ abstract class ProductControllerEvent extends Equatable {
 
 
 class ProductPassed extends ProductControllerEvent {
-  final Product rental;
+  final Product product;
 
-  const ProductPassed(this.rental);
+  const ProductPassed(this.product);
 
   @override
-  List<Object> get props => [rental];
+  List<Object> get props => [product];
 }
 
 class ProductImaged extends ProductControllerEvent {
