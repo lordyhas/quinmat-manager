@@ -29,15 +29,7 @@ class _SettingScreenState extends State<SettingScreen> {
   bool notification = false;
   bool mail = false;
 
-  bool simpleDisabled = false;
-  bool filledDisabled = false;
-  bool iconDisabled = false;
-  bool iconSmall = false;
-  bool toggleDisabled = false;
-  bool toggleState = false;
   bool splitButtonDisabled = false;
-  bool radioButtonDisabled = false;
-  int radioButtonSelected = -1;
 
   AccentColor splitButtonColor = Colors.red;
   final splitButtonFlyout = FlyoutController();
@@ -84,9 +76,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                   title: const Text("Modifier le profile"),
                                   trailing: chevronRight,
                                   onPressed: () {
-
                                     Go.to(context, routeName: ProfilePage.routeName);
-
 
                                     /*showDialog(
                                       barrierDismissible: false,
@@ -129,7 +119,6 @@ class _SettingScreenState extends State<SettingScreen> {
                                   title: const Text("Accéder à Mon Compte"),
                                   trailing: chevronRight,
                                   onPressed: () =>  Go.of(context).to(routeName: MySpaceScreen.routeName),
-
                                 ),
                                 ListTile(
                                   leading: const Icon(FluentIcons.skype_message),
