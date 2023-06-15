@@ -36,13 +36,12 @@ class Product {
     this.pricePer = PriceCurrency.CDF,
   });
 
-  static const Map<ProductType, String> departments = {
-    ProductType.QCL: "QUINCAILLERIE",
-    ProductType.MOB: "MOBILIER",
-    ProductType.MED: "MEDICAL",
-    ProductType.PAP: "PAPETERIE",
-
-  };
+  static const List<ProductType> departments = [
+    ProductType.QCL,
+    ProductType.MOB,
+    ProductType.MED,
+    ProductType.PAP,
+  ];
 
   static const empty = Product(
       id: '',
