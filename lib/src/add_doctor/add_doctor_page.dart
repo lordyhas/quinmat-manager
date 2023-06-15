@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qmt_manager/logic/values.dart';
 
-import 'doctor_data_tab.dart';
+import '../dashboard/doctors/doctor_data_tab.dart';
 
 class AddDoctorPage extends StatefulWidget {
   static const routeName = "add-doctor";

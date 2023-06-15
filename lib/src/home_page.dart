@@ -24,10 +24,10 @@ import 'package:qmt_manager/logic/data_test.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 //import 'package:qmt_manager/src/maps_test.dart';
 import 'package:qmt_manager/src/preference_page/about_page.dart';
-import 'package:qmt_manager/src/home_page/products/product.dart';
-import 'package:qmt_manager/src/home_page/products/filters_screen.dart';
-import 'package:qmt_manager/src/home_page/products/model/view_model.dart';
-import 'package:qmt_manager/src/home_page/single_item_screen.dart';
+import 'package:qmt_manager/src/dashboard/products/product.dart';
+import 'package:qmt_manager/src/dashboard/products/filters_screen.dart';
+import 'package:qmt_manager/src/dashboard/products/model/view_model.dart';
+import 'package:qmt_manager/src/dashboard/single_item_screen.dart';
 import 'package:qmt_manager/src/myspace_page.dart';
 
 import 'package:http/http.dart' as http;
@@ -39,7 +39,7 @@ import '../logic/transfer_protocol/http_protocol.dart';
 
 
 
-part 'home_page/product_screen.dart';
+part 'dashboard/product_screen.dart';
 
 //part 'setting_profile_screen.dart';
 
@@ -47,7 +47,7 @@ part 'home_page/product_screen.dart';
 
 //part 'home_page/nested_web_view.dart';
 
-part 'home_page/app_bar_view.dart';
+part 'dashboard/app_bar_view.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/home';

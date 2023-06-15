@@ -2,7 +2,7 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:qmt_manager/src/setting_profile_screen.dart';
 import '../logic/values.dart';
-import 'add_doctor/doctor_data_tab.dart';
+import 'dashboard/doctors/doctor_data_tab.dart';
 import 'home_page.dart';
 import 'myspace_page.dart';
 

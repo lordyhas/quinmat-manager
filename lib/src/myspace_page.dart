@@ -7,7 +7,7 @@ import 'package:qmt_manager/logic/values.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'add_doctor/doctor_data_tab.dart';
+import 'dashboard/doctors/doctor_data_tab.dart';
 import 'add_product/add_product_page.dart';
 
 class MySpaceScreen extends StatefulWidget {

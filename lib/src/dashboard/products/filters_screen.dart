@@ -4,8 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' show RangeValues, AppBar;
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:qmt_manager/src/home_page/products/model/view_model.dart';
-import 'package:qmt_manager/src/home_page/products/product.dart';
+import 'package:qmt_manager/src/dashboard/products/model/view_model.dart';
+import 'package:qmt_manager/src/dashboard/products/product.dart';
 
 class FiltersScreen extends StatefulWidget {
   static const routeName = "filter";

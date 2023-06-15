@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' show DateFormat;
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:qmt_manager/src/home_page/products/model/view_model.dart';
 
 import '../../../logic/model/data_model.dart';
 
