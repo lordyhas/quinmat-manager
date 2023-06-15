@@ -1,12 +1,14 @@
+import 'package:fluent_ui/fluent_ui.dart';
 import 'package:qmt_manager/logic/values.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' show RangeValues, AppBar;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qmt_manager/src/home_page/products/model/view_model.dart';
 import 'package:qmt_manager/src/home_page/products/product.dart';
 
 class FiltersScreen extends StatefulWidget {
+  static const routeName = "filter";
   const FiltersScreen({super.key});
 
   @override
@@ -59,21 +61,21 @@ class _FiltersScreenState extends State<FiltersScreen> {
   }
 
   Color colorTitle() {
-    return isDarkMode ? Colors.black54 : Colors.grey.shade700;
+    return isDarkMode ? Colors.black : Colors.grey[120];
   }
 
   @override
   Widget build(BuildContext context) {
     final shopAppTheme = BlocProvider.of<StyleAppTheme>(context);
-    isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    isDarkMode = FluentTheme.of(context).brightness == Brightness.dark;
 
-    return Scaffold(
+    return ScaffoldPage(
       //appBar: AppBar(),
       //backgroundColor: Colors.transparent,
-      body: Column(
+      content: Column(
         children: <Widget>[
           getAppBarUI(),
-          const Divider(height: 1),
+          const Divider(size: 1),
           Expanded(
             child: SingleChildScrollView(
               child: Container(
@@ -82,11 +84,11 @@ class _FiltersScreenState extends State<FiltersScreen> {
                   child: Column(
                     children: <Widget>[
                       priceBarFilter(),
-                      const Divider(height: 1),
+                      const Divider(size: 1),
                       popularFilter(),
                       //const Divider(height: 1),
                       //distanceViewUI(),
-                      const Divider(height: 1),
+                      const Divider(size: 1),
                       shopFilterUI()
                     ],
                   ),
@@ -95,7 +97,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
             ),
           ),
           const Divider(
-            height: 1,
+            size: 1,
           ),
           Padding(
             padding:
@@ -107,12 +109,12 @@ class _FiltersScreenState extends State<FiltersScreen> {
                 color: shopAppTheme.primary,
                 borderRadius: const BorderRadius.all(Radius.circular(24.0)),
               ),
-              child: Material(
+              child: Container(
                 color: Colors.transparent,
-                child: InkWell(
-                  borderRadius: const BorderRadius.all(Radius.circular(24.0)),
-                  highlightColor: Colors.transparent,
-                  onTap: () {
+                child: Button(
+                  //borderRadius: const BorderRadius.all(Radius.circular(24.0)),
+                  //highlightColor: Colors.transparent,
+                  onPressed: () {
                     Navigator.pop(context);
                   },
                   child: const Center(
@@ -170,10 +172,10 @@ class _FiltersScreenState extends State<FiltersScreen> {
     for (int i = 0; i < storeListData.length; i++) {
       final PopularFilterListData date = storeListData[i];
       noList.add(
-        Material(
+        Container(
           color: Colors.transparent,
-          child: InkWell(
-            borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+          child: GestureDetector(
+            //borderRadius: const BorderRadius.all(Radius.circular(4.0)),
             onTap: () {
               setState(() {
                 checkAppPosition(i);
@@ -210,7 +212,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
       );
       if (i == 0) {
         noList.add(const Divider(
-          height: 1,
+          size: 1,
         ));
       }
     }
@@ -326,10 +328,10 @@ class _FiltersScreenState extends State<FiltersScreen> {
           listUI.add(Expanded(
             child: Row(
               children: <Widget>[
-                Material(
+                Container(
                   color: Colors.transparent,
-                  child: InkWell(
-                    borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+                  child: GestureDetector(
+                    //borderRadius: const BorderRadius.all(Radius.circular(4.0)),
                     onTap: () {
                       setState(() {
                         data.isSelected = !data.isSelected;
@@ -341,11 +343,11 @@ class _FiltersScreenState extends State<FiltersScreen> {
                         children: <Widget>[
                           Icon(
                             data.isSelected
-                                ? Icons.check_box
-                                : Icons.check_box_outline_blank,
+                                ? FluentIcons.box_checkmark_solid
+                                : FluentIcons.checkbox,
                             color: data.isSelected
                                 ? shopAppTheme.primary
-                                : Colors.grey.shade400,
+                                : Colors.grey[110],
                           ),
                           const SizedBox(
                             width: 4,
@@ -424,7 +426,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
   Widget getAppBarUI() {
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).scaffoldBackgroundColor,
+        color: FluentTheme.of(context).scaffoldBackgroundColor,
         //color: shopAppTheme.buildLightShopTheme.backgroundColor,
         /*boxShadow: <BoxShadow>[
           BoxShadow(
@@ -442,18 +444,18 @@ class _FiltersScreenState extends State<FiltersScreen> {
               alignment: Alignment.centerLeft,
               width: AppBar().preferredSize.height + 40,
               height: AppBar().preferredSize.height,
-              child: Material(
+              child: Container(
                 color: Colors.transparent,
-                child: InkWell(
-                  borderRadius: const BorderRadius.all(
+                child: GestureDetector(
+                  /*borderRadius: const BorderRadius.all(
                     Radius.circular(32.0),
-                  ),
+                  ),*/
                   onTap: () {
                     Navigator.pop(context);
                   },
                   child: const Padding(
                     padding: EdgeInsets.all(8.0),
-                    child: Icon(Icons.close),
+                    child: Icon(FluentIcons.cancel, size: 18,),
                   ),
                 ),
               ),
