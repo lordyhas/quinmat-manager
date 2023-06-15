@@ -117,7 +117,7 @@ class _AboutState extends State<AboutPage>{
                             }
                           ),
                           ListTile(
-                            leading: const Icon(FluentIcons.update_restore),
+                            leading: const Icon(FluentIcons.history),
                             title: Text('Update', style: primaryTextStyle20,),
                             subtitle: Text("${timeUpdate.subtract(const Duration(days: 35, hours: 1))}",
                             ),
