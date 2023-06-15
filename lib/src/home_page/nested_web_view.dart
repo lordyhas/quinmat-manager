@@ -292,6 +292,7 @@ import 'dart:math';
 
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart%20';
+import 'package:qmt_manager/src/home_page/products/filters_screen.dart';
 
 import '../../logic/values.dart';
 
@@ -460,9 +461,9 @@ class SliverBottomTabHeader extends SliverPersistentHeaderDelegate {
                     child: Button(
 
                       onPressed: () {
-                        //FocusScope.of(context).requestFocus(FocusNode());
-                        /*
-                        Go.of(context).push(FiltersScreen.routeName)*/
+                        FocusScope.of(context).requestFocus(FocusNode());
+
+                        Go.of(context).to(routeName: FiltersScreen.routeName, );
 
                       },
                       child: Padding(
