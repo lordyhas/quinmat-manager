@@ -463,7 +463,7 @@ class SliverBottomTabHeader extends SliverPersistentHeaderDelegate {
                       onPressed: () {
                         FocusScope.of(context).requestFocus(FocusNode());
 
-                        Go.of(context).to(routeName: FiltersScreen.routeName, );
+                        //Go.of(context).to(routeName: FiltersScreen.routeName, );
 
                       },
                       child: Padding(
