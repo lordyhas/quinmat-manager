@@ -7,7 +7,7 @@ import 'package:qmt_manager/logic/values.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'add_doctor/data_tab.dart';
+import 'add_doctor/doctor_data_tab.dart';
 import 'add_product/add_product_page.dart';
 
 class MySpaceScreen extends StatefulWidget {
@@ -236,7 +236,7 @@ class _MySpaceScreenState extends State<MySpaceScreen> {
                                   hoverColor:  Colors.teal,
                                   borderRadius: BorderRadius.circular(20),
                                   onTap: Go.params(context,
-                                    routeName: DataTableDemo.routeName,
+                                    routeName: DoctorDataTableScreen.routeName,
                                   ).push,
                                   child: Container(
                                     margin: const EdgeInsets.all(4.0),

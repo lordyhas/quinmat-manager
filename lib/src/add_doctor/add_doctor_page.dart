@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qmt_manager/logic/values.dart';
-import 'package:qmt_manager/src/add_doctor/data_tab.dart';
+
+import 'doctor_data_tab.dart';
 
 class AddDoctorPage extends StatefulWidget {
   static const routeName = "add-doctor";
@@ -43,6 +44,15 @@ class _AddDoctorPageState extends State<AddDoctorPage> {
     bool isWrapped = MediaQuery.of(context).size.width < 718;
 
     return Scaffold(
+      /*
+      header: PageHeader(
+        leading: const ImageIcon(
+          AssetImage("'assets/icon_app.png'"),
+          size: 32,
+        ),
+        title: const Text('Add Doctor'),
+      ),
+      */
       backgroundColor: Colors.grey.shade800,
       appBar: AppBar(
         leading: const ImageIcon(
