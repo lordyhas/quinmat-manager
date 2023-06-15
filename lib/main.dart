@@ -24,7 +24,10 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   setPathUrlStrategy();
+
+  //GoRouter.setUrlPathStrategy(UrlPathStrategy.path);
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

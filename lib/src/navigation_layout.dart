@@ -2,6 +2,9 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:qmt_manager/src/setting_profile_screen.dart';
 import '../logic/values.dart';
+import 'add_doctor/doctor_data_tab.dart';
+import 'home_page.dart';
+import 'myspace_page.dart';
 
 
 
@@ -18,6 +21,42 @@ class NavigationLayout extends StatefulWidget {
 class _NavigationLayoutState extends State<NavigationLayout> {
   int topIndex = 0;
 
+  searchMenuBar(){
+    String? selectedCat;
+    const cats = <String>[
+      'Setting',
+      'Profile',
+      'About',
+      'Product List',
+      'Doctor Database',
+      'Add Product',
+      'Add Doctor',
+    ];
+    return AutoSuggestBox<String>(
+      placeholder: 'Search Menu...',
+      trailingIcon: const Padding(
+        padding:  EdgeInsets.only(right:8.0),
+        child:  Icon(FluentIcons.search,),
+      ),
+      items: cats.map((cat) {
+        return AutoSuggestBoxItem<String>(
+            value: cat,
+            label: cat,
+            onFocusChange: (focused) {
+              if (focused) {
+                debugPrint('Focused $cat');
+              }
+            }
+        );
+      }).toList(),
+      onSelected: (item) {
+        setState(() {});
+      },
+    );
+
+
+  }
+
   @override
   Widget build(BuildContext context) {
     const double iconSize = 20;
@@ -29,24 +68,28 @@ class _NavigationLayoutState extends State<NavigationLayout> {
     // otherwise on running `setstate`, new item can not be added.
 
     List<NavigationPaneItem> items = [
-      PaneItemAction(
+      PaneItemHeader(header: searchMenuBar()),
+      PaneItemSeparator(color: Colors.transparent),
 
+      PaneItem(
+        body: const SizedBox.shrink(),
         icon: const Icon(FluentIcons.home, size: iconSize,),
         title: const Text('Home', style: textStyle,),
-        onTap: (){},
+        //onTap: (){},
+        onTap: () => Go.of(context).to(routeName: HomePage.routeName),
       ),
       PaneItemSeparator(),
-      PaneItemAction(
+      PaneItem(
+        body: const SizedBox.shrink(),
         icon: const Icon(FluentIcons.issue_tracking, size: iconSize,),
         title: const Text('Track orders', style: textStyle,),
         infoBadge: const InfoBadge(source: Text('2')),
         //body: const SizedBox.shrink(),
-        onTap: () {
-
-        },
+        onTap: () {},
       ),
 
-      PaneItemAction(
+      PaneItem(
+        body: const SizedBox.shrink(),
         icon: const Icon(FluentIcons.mail, size: iconSize,),
         title: const Text('Messages', style: textStyle,),
         infoBadge: const InfoBadge(source: Text('8')),
@@ -55,15 +98,15 @@ class _NavigationLayoutState extends State<NavigationLayout> {
 
         },
       ),
-      PaneItemAction(
+      PaneItem(
+          body: const SizedBox.shrink(),
         icon: const Icon(FluentIcons.fluid_logo, size: iconSize,),
         title: const Text('Explorer', style: textStyle,),
         //body: const _NavigationBodyItem0(),
-        onTap: () {
-
-        },
+        onTap:  () =>  Go.of(context).to(routeName: MySpaceScreen.routeName)
       ),
-      PaneItemAction(
+      PaneItem(
+        body: const SizedBox.shrink(),
         icon: const Icon(FluentIcons.product_list, size: iconSize,),
         title: const Text('Products', style: textStyle,),
         //body: const _NavigationBodyItem0(),
@@ -71,7 +114,8 @@ class _NavigationLayoutState extends State<NavigationLayout> {
 
         },
       ),
-      PaneItemAction(
+      PaneItem(
+        body: const SizedBox.shrink(),
         icon: const Icon(FluentIcons.disable_updates, size: iconSize,),
         title: const Text('Disabled Item', style: textStyle,),
         //body: const _NavigationBodyItem0(),
@@ -84,7 +128,16 @@ class _NavigationLayoutState extends State<NavigationLayout> {
         body: const SizedBox.shrink(),
         items: [
           PaneItemHeader(header: const Text('Dans mon compte')),
-          PaneItemAction(
+          PaneItem(
+            body: const SizedBox.shrink(),
+            icon: const Icon(FluentIcons.user_pause),
+            title: const Text('Acceder', style: textStyle,),
+            //body: const _NavigationBodyItem0(),
+            onTap:  () =>  Go.of(context).to(routeName: MySpaceScreen.routeName),
+
+          ),
+          PaneItem(
+            body: const SizedBox.shrink(),
             icon: const Icon(FluentIcons.mail),
             title: const Text('Notification', style: textStyle,),
             //body: const _NavigationBodyItem0(),
@@ -96,12 +149,14 @@ class _NavigationLayoutState extends State<NavigationLayout> {
             onTap: () {  },
 
           ),
-          PaneItemAction(
+          PaneItem(
+            body: const SizedBox.shrink(),
             icon: const Icon(FluentIcons.contact_list),
             title: const Text('Docteurs data', style: textStyle,),
-            onTap: (){},
+            onTap:  () =>  Go.of(context).to(routeName: DoctorDataTableScreen.routeName),
           ),
-          PaneItemAction(
+          PaneItem(
+            body: const SizedBox.shrink(),
             icon: const Icon(FluentIcons.product_release),
             title: const Text('add data', style: textStyle,),
             onTap: (){},
@@ -133,12 +188,26 @@ class _NavigationLayoutState extends State<NavigationLayout> {
 
     return NavigationView(
       appBar: const NavigationAppBar(
-        title: Text(AppConstant.shortname),
+
+        title: true ? null : Text(AppConstant.completeName,
+          style: TextStyle(
+            //color: Theme.of(context).primaryColorDark,
+            fontSize: 16,
+          ),
+        ),
       ),
+
       pane: NavigationPane(
         selected: topIndex,
         onChanged: (index) => setState(() => topIndex = index),
         //displayMode: displayMode,
+        header: Text(
+          "  ${AppConstant.shortname.toUpperCase()}",
+          style: const TextStyle(
+            //color: Theme.of(context).primaryColorDark,
+            fontWeight: FontWeight.w600,
+            fontSize: 22,
+          ),),
         items: items,
         footerItems: [
           PaneItemSeparator(),

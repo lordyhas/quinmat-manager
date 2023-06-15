@@ -3,10 +3,11 @@ import 'dart:js';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qmt_manager/src/add_doctor/add_doctor_page.dart';
-import 'package:qmt_manager/src/add_doctor/data_tab.dart';
+import 'package:qmt_manager/src/add_doctor/doctor_data_tab.dart';
 import 'package:qmt_manager/src/add_product/add_product_page.dart';
 import 'package:qmt_manager/src/home_page/home_screen.dart';
 import 'package:qmt_manager/src/home_page/nested_web_view.dart';
+import 'package:qmt_manager/src/home_page/products/filters_screen.dart';
 import 'package:qmt_manager/src/login_page.dart';
 import 'package:qmt_manager/src/maps_test.dart';
 import 'package:qmt_manager/src/home_page.dart';
@@ -105,10 +106,10 @@ class AppRouter extends GoRouter {
                 builder: (context, state) => const AddProductPage(),
               ),
               GoRoute(
-                parentNavigatorKey: parentKey,
-                name: DataTableDemo.routeName,
+                //parentNavigatorKey: parentKey,
+                name: DoctorDataTableScreen.routeName,
                 path: 'doctor-table',
-                builder: (c, s) => const DataTableDemo(),
+                builder: (c, s) => const DoctorDataTableScreen(),
               ),
               GoRoute(
                 parentNavigatorKey: parentKey,
@@ -118,7 +119,12 @@ class AppRouter extends GoRouter {
               ),
             ]
           ),
-
+          GoRoute(
+            //parentNavigatorKey: parentKey,
+            name: FiltersScreen.routeName,
+            path: "filter-item",
+            builder: (context, state) => const FiltersScreen(),
+          ),
           GoRoute(
             name: ProductScreen.routeName,
             path: "explore",
