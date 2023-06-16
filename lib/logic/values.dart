@@ -9,7 +9,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
 import 'package:url_launcher/url_launcher.dart';
 import 'package:latlong2/latlong.dart';
 
-
 export 'controller/my_bloc_controller.dart';
 export 'values/styles.dart';
 export 'values/dimens.dart';
@@ -17,7 +16,6 @@ export 'utils.dart';
 export 'extension.dart';
 export 'package:utils_component/utils_component.dart' hide Responsive, Go;
 export 'package:go_router/go_router.dart';
-
 
 part 'category.dart';
 
@@ -27,17 +25,18 @@ class Go {
   static void to(
     BuildContext context, {
     required String routeName,
-    @Deprecated("not use no more") Widget? page,
+    //@Deprecated("not use no more") Widget? page,
     String? path,
     Map<String, String> params = const <String, String>{},
     Map<String, dynamic> queryParams = const <String, dynamic>{},
     dynamic args,
   }) {
     return GoRouter.of(context).goNamed(routeName,
-        params: params, queryParams: queryParams, extra: args);
+        pathParameters: params, queryParameters: queryParams, extra: args);
   }
 
-  static _GoNavigator params(BuildContext context,{
+  static _GoNavigator params(
+    BuildContext context, {
     required String routeName,
     String? path,
     Map<String, dynamic> queryParams = const <String, dynamic>{},
@@ -48,12 +47,13 @@ class Go {
         routeName: routeName,
         path: path,
         queryParams: queryParams,
-        args: args
+        args: args,
       );
 
   static GoRouter of(BuildContext context) => GoRouter.of(context);
 }
 
+@protected
 class _GoNavigator {
   final BuildContext context;
   final String routeName;
@@ -71,12 +71,12 @@ class _GoNavigator {
 
   void show() {
     GoRouter.of(context)
-        .goNamed(routeName, queryParams: queryParams, extra: args);
+        .goNamed(routeName, queryParameters: queryParams, extra: args);
   }
 
   void push() {
     GoRouter.of(context)
-        .goNamed(routeName, queryParams: queryParams, extra: args);
+        .goNamed(routeName, queryParameters: queryParams, extra: args);
   }
 }
 
@@ -88,7 +88,7 @@ extension GoRouterHelper on GoRouter {
     Object? extra,
   }) =>
       goNamed(routeName,
-          params: params, queryParams: queryParams, extra: extra);
+          pathParameters: params, queryParameters: queryParams, extra: extra);
 }
 
 class Responsive {
@@ -100,8 +100,7 @@ class Responsive {
 
   Size get size => MediaQuery.of(context).size;
 
-  bool get isPhone =>
-      size.width <= kPhoneDimens; // || Platform.isAndroid;
+  bool get isPhone => size.width <= kPhoneDimens; // || Platform.isAndroid;
   bool get isWeb => size.width > kPhoneDimens || kIsWeb;
 
   bool get isOnlyWeb => kIsWeb;
