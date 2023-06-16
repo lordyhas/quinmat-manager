@@ -108,12 +108,12 @@ class AppRouter extends GoRouter {
                 path: 'doctor-table',
                 builder: (c, s) => const DoctorDataTableScreen(),
               ),
-              GoRoute(
-                parentNavigatorKey: parentKey,
+              /*GoRoute(
+                //parentNavigatorKey: parentKey,
                 name: AddDoctorPage.routeName,
                 path: 'add-doctor',
                 builder: (c, s) => const AddDoctorPage(),
-              ),
+              ),*/
             ]
           ),
           GoRoute(
