@@ -1,3 +1,4 @@
+/*
 import 'dart:convert';
 import 'dart:io';
 
@@ -13,7 +14,6 @@ import 'package:intl/date_symbol_data_local.dart';
 //import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
-
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
@@ -223,4 +223,4 @@ class _ChatPageState extends State<ChatPage> {
       user: _user,
     ),
   );
-}
+}*/
