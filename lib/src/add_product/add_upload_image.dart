@@ -20,6 +20,7 @@ class _UploadImageState extends State<UploadImage> {
     enableZoom: true,
     showZoomer: true,
   );
+
   Future<void> _uploadImage() async {
     final XFile? pickedFile = await ImagePicker().pickImage(
         source: ImageSource.gallery

@@ -5,7 +5,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter/cupertino.dart';
+//import 'package:flutter/cupertino.dart';
 import 'package:qmt_manager/logic/model/data_model.dart';
 import 'package:qmt_manager/logic/values.dart';
 import 'package:flutter/material.dart' show Material, Stepper, Step, ControlsDetails, ButtonBar, Radio;
@@ -57,7 +57,6 @@ class _TabViewPageState extends State<TabViewPage> {
 
   Tab generateTab(int index) {
     late Tab tab;
-
     tab = Tab(
       text: Text('Add product sheet  $index'),
       semanticLabel: 'Add product page #$index',
@@ -142,7 +141,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
   @override
   void initState() {
-    //RentalSpace space = RentalSpace.empty;
     Product vehicle = Product.empty;
     super.initState();
     _index = StepperStep.zero;
@@ -264,9 +262,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     content: Container(
                       alignment: Alignment.centerLeft,
                       child: SizedBox(
-                        child: RentForm(
-                          controllers: controllers,
-                          //spaceController: spaceCtrl,
+                        child: ProductForm(
                           productController: vehicleCtrl,
                           validator: validator,
                           onComplete: (_) {},

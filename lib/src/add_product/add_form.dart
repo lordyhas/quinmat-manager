@@ -1,18 +1,18 @@
 part of products.adder;
 
-class RentForm extends StatelessWidget {
+class ProductForm extends StatelessWidget {
 
   final void Function(bool)? onValidForm;
   final void Function(Product)? onComplete;
   final GlobalKey<FormState> validator;
-  final List<TextEditingController> controllers;
+  //final List<TextEditingController> controllers;
 
   //final Map<String,TextEditingController> spaceController;
   final Map<String,TextEditingController> productController;
 
-  const RentForm({
+  const ProductForm({
     required this.validator,
-    required this.controllers,
+    //required this.controllers,
     //required this.spaceController,
     required this.productController,
     this.onValidForm,
@@ -35,7 +35,6 @@ class RentForm extends StatelessWidget {
       constraints: const BoxConstraints(maxWidth: 520),
       child: Column(
         children: [
-          //const SizedBox(height: 72.0,),
           //const SizedBox(height: 16.0,),
           const SizedBox(
             height: 8.0,
@@ -63,18 +62,7 @@ class RentForm extends StatelessWidget {
                         label: 'Nom *',
                         child: TextFormBox(
                           cursorColor: FluentTheme.of(context).accentColor,
-                          controller: productController['name'],
-                          textCapitalization: TextCapitalization.words,
-                          //textCapitalization: TextCapitalization.words,
                           placeholder:"Entrez le nom du produit",
-                          decoration: BoxDecoration(
-                            //focusColor: Theme.of(context).primaryColor,
-                            //border: const UnderlineInputBorder(),
-                            //filled: true,
-                            //icon: const Icon(Icons.bookmark_border),
-                            //hintText: 'Entrez le nom du produit',
-                            //labelText: 'Nom *',
-                          ),
                           onEditingComplete: (){
                             //print("onEditingComplete: Mark[${controllers[0].text}]");
                           },
@@ -96,21 +84,9 @@ class RentForm extends StatelessWidget {
                       child: InfoLabel(
                         label:"Modèle *",
                         child: TextFormBox(
-                          //cursorColor: Theme.of(context).primaryColor,
-                          controller: productController['mark'],
-                          textCapitalization: TextCapitalization.words,
+                          //controller: TextEditingController(text:"Hassan"), //productController['mark'],
                           placeholder:"Entrez le modèle",
-                          /*decoration: InputDecoration(
-                            focusColor: Theme.of(context).primaryColor,
-                            border: const UnderlineInputBorder(),
-                            filled: true,
-                            //icon: const Icon(Icons.bookmark_border),
-                            hintText: '',
-                            labelText: '',
-                          ),*/
-                          onEditingComplete: (){
-                            //print("onEditingComplete: Mark[${controllers[0].text}]");
-                          },
+                          onEditingComplete: (){},
                           onChanged: (str) {},
                           onSaved: (String? value) {
                             product = product.copyWith(model: value);
@@ -129,20 +105,9 @@ class RentForm extends StatelessWidget {
                         label: "Description *",
                         child: TextFormBox(
                           controller: productController['description'],
-                          textCapitalization: TextCapitalization.sentences,
                           maxLines: 4,
                           placeholder:"Décriver le produit?",
-                          /*decoration: InputDecoration(
-                            focusColor: Theme.of(context).primaryColor,
-                            border: const UnderlineInputBorder(),
-                            filled: true,
-                            //icon: const Icon(Icons.bookmark_border),
-                            hintText: '',
-                            labelText: '',
-                          ),*/
-                          onEditingComplete: (){
-                            //print("onEditingComplete: Description[${controllers[1].text}}]");
-                          },
+                          onEditingComplete: (){},
                           onSaved: (String? value) {
                             product = product.copyWith(description: value);
                           },
@@ -153,7 +118,6 @@ class RentForm extends StatelessWidget {
                         ),
                       ),
                     ),
-
                     Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8.0, vertical: 8.0),
@@ -161,17 +125,9 @@ class RentForm extends StatelessWidget {
                         label: "Prix (en ${state.product.pricePer.name}) *",
                         child: TextFormBox(
                           controller: productController['price'],
-                          textCapitalization: TextCapitalization.words,
+                          //textCapitalization: TextCapitalization.words,
                           keyboardType: TextInputType.number,
                           placeholder:"prix en dollar américain ?",
-                          /*decoration: InputDecoration(
-                            focusColor: Theme.of(context).primaryColor,
-                            border: const UnderlineInputBorder(),
-                            filled: true,
-                            //icon: const Icon(Icons.bookmark_border),
-                            hintText: '',
-                            labelText: 'Prix (en ${state..product.pricePer.name}) *',
-                          ),*/
                           onEditingComplete: (){},
                           onSaved: (value) {
                             int v = value!.toInt().abs();
@@ -199,18 +155,10 @@ class RentForm extends StatelessWidget {
                       child: InfoLabel(
                         label:"Stock",
                         child: TextFormBox(
-                          controller: productController['seat'],
-                          textCapitalization: TextCapitalization.none,
+                          //controller: productController['seat'],
+                          //textCapitalization: TextCapitalization.none,
                           keyboardType: TextInputType.number,
                           placeholder:"Combien des produits en stock ?",
-                          /*decoration: InputDecoration(
-                            focusColor: Theme.of(context).primaryColor,
-                            border: const UnderlineInputBorder(),
-                            filled: true,
-                            //icon: const Icon(Icons.bookmark_border),
-                            hintText: '',
-                            labelText: '',
-                          ),*/
                           onSaved: (String? value) {
                             int v = value!.toInt().abs();
                             if(v == 0) v = 1;
@@ -230,22 +178,12 @@ class RentForm extends StatelessWidget {
                       child: InfoLabel(
                         label : "Catégorie",
                         child: TextFormBox(
-                          controller: productController['cat'],
-                          textCapitalization: TextCapitalization.none,
+                          //controller: productController['cat'],
+                          //textCapitalization: TextCapitalization.none,
                           keyboardType: TextInputType.text,
                           placeholder: "Catégorie du produit ?",
-                          /*decoration: InputDecoration(
-                            focusColor: Theme.of(context).primaryColor,
-                            border: const UnderlineInputBorder(),
-                            filled: true,
-                            //icon: const Icon(Icons.bookmark_border),
-                            hintText: 'Catégorie du produit ?',
-                            labelText: '',
-                          ),*/
                           onSaved: (String? value) {},
                           validator: (v) {
-                            // if (v!.isEmpty) return
-                            // 'Nombre de siege est requis.';
                             if (v!.isEmpty) return 'Catégorie est requis.';
                             return null;
                           },
@@ -261,8 +199,8 @@ class RentForm extends StatelessWidget {
                         children: [
                           InfoLabel(
                             label: "Departement *",
-                            child: ComboBox<ProductType>(
-                              placeholder: Text("Spécifier le departement"),
+                            child: ComboboxFormField<ProductType>(
+                              placeholder: const Text("Spécifier le departement"),
                               value: context.read<ProductControllerBloc>().state.product.productType,
                               //controller: controllers[5],
                               items: Product.departments.map((v) {
@@ -281,22 +219,15 @@ class RentForm extends StatelessWidget {
                                     product.copyWith(productType: v)
                                 );
                               },
-                              /*onSaved: (value) {
-                                vehicle = vehicle.copyWith(productType: value);
-                                context.read<RentalControllerBloc>().addVehicleRentalPassed(vehicle);
+                              onSaved: (value) {
+                                product = product.copyWith(productType: value);
+                                context.read<ProductControllerBloc>().addProductPassed(product);
                               },
-                              decoration: InputDecoration(
-                                focusColor: Theme.of(context).primaryColor,
-                                border: const UnderlineInputBorder(),
-                                filled: true,
-                                //icon: const Icon(Icons.bookmark_border),
-                                hintText: 'Spécifier le departement?',
-                                labelText: '',
-                              ),
+
                               validator: (v) {
                                 if(v == null) return "Chosir un departement (obligatoire)";
                                 return null;
-                              },*/
+                              },
                             ),
                           ),
                         ],
@@ -344,6 +275,7 @@ class _RadioButtonGroupState extends State<_RadioButtonGroup> {
           for (PriceCurrency currency in _RadioButtonGroup.labels)
           _RadioItem(
             title: Text(currency.name),
+            //todo : Radio to fluent
             leading: Radio<PriceCurrency>(
               value: currency,
               groupValue: _character,

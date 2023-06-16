@@ -329,11 +329,76 @@ class _DoctorDataTableScreenState extends State<DoctorDataTableScreen> {
     });
   }
 
+
+  void showContentDialog(BuildContext context) async {
+    final result = await showDialog<String>(
+      context: context,
+      builder: (context) => ContentDialog(
+        title: const Text('Delete file permanently?'),
+        //content: const AddDoctorPage(),
+        actions: [
+          Button(
+            child: const Text('Delete'),
+            onPressed: () {
+              Navigator.pop(context, 'User deleted file');
+              // Delete file here
+            },
+          ),
+          FilledButton(
+            child: const Text('Cancel'),
+            onPressed: () => Navigator.pop(context, 'User canceled dialog'),
+          ),
+        ],
+      ),
+    );
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     final ScrollController scrollController = ScrollController(
       debugLabel: 'scrollDoctors',
     );
+
+    final simpleCommandBarItems = <CommandBarItem>[
+      CommandBarBuilderItem(
+        builder: (context, mode, w) => Tooltip(
+          message: "Create something new!",
+          child: w,
+        ),
+        wrappedItem: CommandBarButton(
+          icon: const Icon(FluentIcons.add),
+          label: const Text('New'),
+          onPressed: () {},
+        ),
+      ),
+      CommandBarBuilderItem(
+        builder: (context, mode, w) => Tooltip(
+          message: "Delete what is currently selected!",
+          child: w,
+        ),
+        wrappedItem: CommandBarButton(
+          icon: const Icon(FluentIcons.delete),
+          label: const Text('Delete'),
+          onPressed: () {},
+        ),
+      ),
+      CommandBarButton(
+        icon: const Icon(FluentIcons.archive),
+        label: const Text('Archive'),
+        onPressed: () {},
+      ),
+      CommandBarButton(
+        icon: const Icon(FluentIcons.move),
+        label: const Text('Move'),
+        onPressed: () {},
+      ),
+      const CommandBarButton(
+        icon: Icon(FluentIcons.cancel),
+        label: Text('Disabled'),
+        onPressed: null,
+      ),
+    ];
     return ScaffoldPage(
       /*header: PageHeader(
         leading:  Padding(
@@ -352,6 +417,22 @@ class _DoctorDataTableScreenState extends State<DoctorDataTableScreen> {
         child:  PaginatedDataTable(
           header: const Text('Doctors'),
           actions: [
+
+            /*ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 230),
+              child: CommandBarCard(
+                child: CommandBar(
+                  overflowBehavior: CommandBarOverflowBehavior.clip,
+                  isCompact: true,
+                  primaryItems: [
+                    ...simpleCommandBarItems,
+                    const CommandBarSeparator(),
+
+                  ],
+                ),
+              ),
+            ),*/
+
             IconButton(onPressed: () {}, icon: const Icon(FluentIcons.delete)),
             IconButton(
               onPressed: () {},
@@ -359,10 +440,15 @@ class _DoctorDataTableScreenState extends State<DoctorDataTableScreen> {
             ),
             IconButton(
                 icon: const Icon(FluentIcons.add),
-                onPressed: () {
-                  Go.of(context).to(
-                    routeName: AddDoctorPage.routeName,
+                onPressed: () async {
+                  //showContentDialog(context);
+                  final result = await showDialog<String>(
+                    context: context,
+                    builder: (context) => const AddDoctorDialog(),
                   );
+                  /*Go.of(context).to(
+                    routeName: AddDoctorPage.routeName,
+                  );*/
                 }
             ),
           ],
