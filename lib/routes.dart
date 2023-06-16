@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qmt_manager/src/add_doctor/add_doctor_page.dart';
@@ -26,7 +24,6 @@ import 'on_error_page.dart';
 
 class AppRouter extends GoRouter {
   final GlobalKey<NavigatorState> key;
-
   AppRouter({
     required this.key,
   }) : super(

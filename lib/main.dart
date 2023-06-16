@@ -26,7 +26,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   setPathUrlStrategy();
-
   //GoRouter.setUrlPathStrategy(UrlPathStrategy.path);
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -145,8 +144,8 @@ class QuinmatApp extends StatelessWidget {
         BlocProvider<NavigationController>(
           create: (context) => NavigationController(),
         ),
-        BlocProvider<RentalControllerBloc>(
-          create: (context) => RentalControllerBloc(),
+        BlocProvider<ProductControllerBloc>(
+          create: (context) => ProductControllerBloc(),
         ),
         BlocProvider<FilterCubit>(
           create: (context) => FilterCubit(),

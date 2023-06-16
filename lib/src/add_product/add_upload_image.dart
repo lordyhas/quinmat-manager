@@ -21,7 +21,7 @@ class _UploadImageState extends State<UploadImage> {
     showZoomer: true,
   );
   Future<void> _uploadImage() async {
-    final pickedFile = await ImagePicker().pickImage(
+    final XFile? pickedFile = await ImagePicker().pickImage(
         source: ImageSource.gallery
     );
 
@@ -37,7 +37,7 @@ class _UploadImageState extends State<UploadImage> {
         uiSettings: [
           AndroidUiSettings(
               toolbarTitle: 'Recadrage Image',
-              toolbarColor: Colors.deepPurple,
+              toolbarColor: Colors.purple,
               toolbarWidgetColor: Colors.white,
               initAspectRatio: CropAspectRatioPreset.square,
               lockAspectRatio: true,
@@ -73,10 +73,7 @@ class _UploadImageState extends State<UploadImage> {
     final screenHeight = MediaQuery.of(context).size.height;
     return SizedBox(
       child: Card(
-        elevation: 4.0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16.0),
-        ),
+        borderRadius: BorderRadius.circular(16.0),
         child: SizedBox(
           width: !Responsive.of(context).isPhone ? 380.0 : 320.0,
           height: !Responsive.of(context).isPhone ? 420.0 : 380.0,
@@ -108,33 +105,21 @@ class _UploadImageState extends State<UploadImage> {
                       radius: const Radius.circular(4.0),
                       borderType: BorderType.RRect,
                       dashPattern: const [8, 4],
-                      color: Theme.of(context).highlightColor.withOpacity(0.4),
-                      child: Center(
+                      color: Colors.white, //FluentTheme.of(context).highlightColor.withOpacity(0.4),
+                      child: const Center(
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Icon(
-                              Icons.image,
-                              color: Theme.of(context).highlightColor,
+                              FluentIcons.photo2_add,
+                              //color: Theme.of(context).highlightColor,
                               size: 80.0,
                             ),
-                            const SizedBox(height: 24.0),
+                            SizedBox(height: 24.0),
                             Text(
                               'Upload an image to start',
-                              style: Responsive.of(context).isOnlyWeb
-                                  ? Theme.of(context)
-                                      .textTheme
-                                      .headlineSmall!
-                                      .copyWith(
-                                          color:
-                                              Theme.of(context).highlightColor)
-                                  : Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .copyWith(
-                                          color:
-                                              Theme.of(context).highlightColor),
+                              //style: Responsive.of(context).isOnlyWeb,
                             )
                           ],
                         ),
@@ -147,9 +132,9 @@ class _UploadImageState extends State<UploadImage> {
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: ButtonBar(
                     children: [
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green
+                      Button(
+                        style: ButtonStyle(
+                          backgroundColor: ButtonState.all(Colors.green),
                         ),
                         onPressed: () => _uploadImage(),
                         child: const Text('Télécharger'),

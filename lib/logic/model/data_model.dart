@@ -13,7 +13,7 @@ enum RentalSpaceType{apartment, house, bureau, reception, hall, unknown}
 
 // ignore: constant_identifier_names
 enum ProductType{QCL,MOB,MED,PAP, unknown}
-extension on ProductType {
+extension ProductTypeHelper on ProductType {
   String get name {
     switch(this){
       case ProductType.QCL: return "Quincaillerie";

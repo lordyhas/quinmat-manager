@@ -16,7 +16,7 @@ class AddDoctorPage extends StatefulWidget {
 class _AddDoctorPageState extends State<AddDoctorPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final List<ContactLabel> departments = [
+  final List<ContactLabel> contacts = [
     ContactLabel.mobile,
     ContactLabel.work
   ];
@@ -195,7 +195,7 @@ class _AddDoctorPageState extends State<AddDoctorPage> {
                     constraints: isWrapped ? null : const BoxConstraints(maxWidth: kTabDimens*.45),
                     child: DropdownButtonFormField<ContactLabel>(
                       key: const Key("LabelEmail"),
-                      items: departments.map((v) {
+                      items: contacts.map((v) {
                         return DropdownMenuItem(
                           value: v,
                           child: Row(
@@ -244,7 +244,7 @@ class _AddDoctorPageState extends State<AddDoctorPage> {
                     constraints: isWrapped ? null : const BoxConstraints(maxWidth: kTabDimens*.45),
                     child: DropdownButtonFormField(
                       key: const Key("LabelNumero"),
-                      items: departments.map((v) {
+                      items: contacts.map((v) {
                         return DropdownMenuItem(
                           value: v,
                           child: Row(

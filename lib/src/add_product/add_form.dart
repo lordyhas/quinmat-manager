@@ -23,7 +23,12 @@ class RentForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //RentalSpace space = context.read<RentalControllerBloc>().state.space;
-    Product vehicle = context.read<RentalControllerBloc>().state.product;
+    var bloc = BlocProvider.of<ProductControllerBloc>(context);
+    Product product = bloc.state.product;
+
+    //context.read<RentalControllerBloc>().
+
+    product.copyWith(productType: ProductType.QCL);
 
 
     return Container(
@@ -36,7 +41,7 @@ class RentForm extends StatelessWidget {
             height: 8.0,
           ),
 
-          BlocBuilder<RentalControllerBloc, RentalControllerState>(
+          BlocBuilder<ProductControllerBloc, ProductControllerState>(
             builder: (_, state) {
               return Form(
                 key: validator,
@@ -54,207 +59,247 @@ class RentForm extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8.0, vertical: 8.0),
-                      child: TextFormField(
-                        cursorColor: Theme.of(context).primaryColor,
-                        controller: productController['name'],
-                        textCapitalization: TextCapitalization.words,
-                        decoration: InputDecoration(
-                          focusColor: Theme.of(context).primaryColor,
-                          border: const UnderlineInputBorder(),
-                          filled: true,
-                          //icon: const Icon(Icons.bookmark_border),
-                          hintText: 'Entrez le nom du produit',
-                          labelText: 'Nom *',
+                      child: InfoLabel(
+                        label: 'Nom *',
+                        child: TextFormBox(
+                          cursorColor: FluentTheme.of(context).accentColor,
+                          controller: productController['name'],
+                          textCapitalization: TextCapitalization.words,
+                          //textCapitalization: TextCapitalization.words,
+                          placeholder:"Entrez le nom du produit",
+                          decoration: BoxDecoration(
+                            //focusColor: Theme.of(context).primaryColor,
+                            //border: const UnderlineInputBorder(),
+                            //filled: true,
+                            //icon: const Icon(Icons.bookmark_border),
+                            //hintText: 'Entrez le nom du produit',
+                            //labelText: 'Nom *',
+                          ),
+                          onEditingComplete: (){
+                            //print("onEditingComplete: Mark[${controllers[0].text}]");
+                          },
+                          onChanged: (str) {},
+                          onSaved: (String? value) {
+                            product = product.copyWith(model: value);
+                          },
+                          validator: (v) {
+                            if (v!.length < 3) return 'Modèle est requis.';
+                            return null;
+                          },
                         ),
-                        onEditingComplete: (){
-                          //print("onEditingComplete: Mark[${controllers[0].text}]");
-                        },
-                        onChanged: (str) {},
-                        onSaved: (String? value) {
-                          vehicle = vehicle.copyWith(model: value);
-                        },
-                        validator: (v) {
-                          if (v!.length < 3) return 'Modèle est requis.';
-                          return null;
-                        },
                       ),
                     ),
 
                     Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8.0, vertical: 8.0),
-                      child: TextFormField(
-                        cursorColor: Theme.of(context).primaryColor,
-                        controller: productController['mark'],
-                        textCapitalization: TextCapitalization.words,
-                        decoration: InputDecoration(
-                          focusColor: Theme.of(context).primaryColor,
-                          border: const UnderlineInputBorder(),
-                          filled: true,
-                          //icon: const Icon(Icons.bookmark_border),
-                          hintText: 'Entrez le modèle',
-                          labelText: 'Modèle *',
+                      child: InfoLabel(
+                        label:"Modèle *",
+                        child: TextFormBox(
+                          //cursorColor: Theme.of(context).primaryColor,
+                          controller: productController['mark'],
+                          textCapitalization: TextCapitalization.words,
+                          placeholder:"Entrez le modèle",
+                          /*decoration: InputDecoration(
+                            focusColor: Theme.of(context).primaryColor,
+                            border: const UnderlineInputBorder(),
+                            filled: true,
+                            //icon: const Icon(Icons.bookmark_border),
+                            hintText: '',
+                            labelText: '',
+                          ),*/
+                          onEditingComplete: (){
+                            //print("onEditingComplete: Mark[${controllers[0].text}]");
+                          },
+                          onChanged: (str) {},
+                          onSaved: (String? value) {
+                            product = product.copyWith(model: value);
+                          },
+                          validator: (v) {
+                            if (v!.length < 3) return 'Modèle est requis.';
+                            return null;
+                          },
                         ),
-                        onEditingComplete: (){
-                          //print("onEditingComplete: Mark[${controllers[0].text}]");
-                        },
-                        onChanged: (str) {},
-                        onSaved: (String? value) {
-                          vehicle = vehicle.copyWith(model: value);
-                        },
-                        validator: (v) {
-                          if (v!.length < 3) return 'Modèle est requis.';
-                          return null;
-                        },
                       ),
                     ),
                     Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8.0, vertical: 8.0),
-                      child: TextFormField(
-                        controller: productController['description'],
-                        textCapitalization: TextCapitalization.sentences,
-                        maxLines: 4,
-                        decoration: InputDecoration(
-                          focusColor: Theme.of(context).primaryColor,
-                          border: const UnderlineInputBorder(),
-                          filled: true,
-                          //icon: const Icon(Icons.bookmark_border),
-                          hintText: 'Décriver le produit?',
-                          labelText: 'Description *',
+                      child: InfoLabel(
+                        label: "Description *",
+                        child: TextFormBox(
+                          controller: productController['description'],
+                          textCapitalization: TextCapitalization.sentences,
+                          maxLines: 4,
+                          placeholder:"Décriver le produit?",
+                          /*decoration: InputDecoration(
+                            focusColor: Theme.of(context).primaryColor,
+                            border: const UnderlineInputBorder(),
+                            filled: true,
+                            //icon: const Icon(Icons.bookmark_border),
+                            hintText: '',
+                            labelText: '',
+                          ),*/
+                          onEditingComplete: (){
+                            //print("onEditingComplete: Description[${controllers[1].text}}]");
+                          },
+                          onSaved: (String? value) {
+                            product = product.copyWith(description: value);
+                          },
+                          validator: (v) {
+                            if (v!.isEmpty) return 'Détails est requis.';
+                            return null;
+                          },
                         ),
-                        onEditingComplete: (){
-                          //print("onEditingComplete: Description[${controllers[1].text}}]");
-                        },
-                        onSaved: (String? value) {
-                          vehicle = vehicle.copyWith(description: value);
-                        },
-                        validator: (v) {
-                          if (v!.isEmpty) return 'Détails est requis.';
-                          return null;
-                        },
                       ),
                     ),
 
                     Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8.0, vertical: 8.0),
-                      child: TextFormField(
-                        controller: productController['price'],
-                        textCapitalization: TextCapitalization.words,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          focusColor: Theme.of(context).primaryColor,
-                          border: const UnderlineInputBorder(),
-                          filled: true,
-                          //icon: const Icon(Icons.bookmark_border),
-                          hintText: 'prix en dollar américain ?',
-                          labelText: 'Prix (en ${state..product.pricePer.name}) *',
+                      child: InfoLabel(
+                        label: "Prix (en ${state.product.pricePer.name}) *",
+                        child: TextFormBox(
+                          controller: productController['price'],
+                          textCapitalization: TextCapitalization.words,
+                          keyboardType: TextInputType.number,
+                          placeholder:"prix en dollar américain ?",
+                          /*decoration: InputDecoration(
+                            focusColor: Theme.of(context).primaryColor,
+                            border: const UnderlineInputBorder(),
+                            filled: true,
+                            //icon: const Icon(Icons.bookmark_border),
+                            hintText: '',
+                            labelText: 'Prix (en ${state..product.pricePer.name}) *',
+                          ),*/
+                          onEditingComplete: (){},
+                          onSaved: (value) {
+                            int v = value!.toInt().abs();
+                            if(v == 0) v = 1;
+                            product = product.copyWith(price: v);
+                          },
+                          validator: (v) {
+                            if (v!.isEmpty) return 'Prix est requis.';
+                            if(v.isNumeric) return 'Prix doit être un nombre.';
+                            return null;
+                          },
                         ),
-                        onEditingComplete: (){},
-                        onSaved: (value) {
-                          int v = value!.toInt().abs();
-                          if(v == 0) v = 1;
-                          vehicle = vehicle.copyWith(price: v);
-                        },
-                        validator: (v) {
-                          if (v!.isEmpty) return 'Prix est requis.';
-                          if(v.isNumeric) return 'Prix doit être un nombre.';
-                          return null;
-                        },
                       ),
                     ),
                     _RadioButtonGroup(
                       onSelected: (PriceCurrency value) {
-                        vehicle = vehicle.copyWith(pricePer: value);
-                        context.read<RentalControllerBloc>().addVehicleRentalPassed(vehicle);
+                        product = product.copyWith(pricePer: value);
+                        context.read<ProductControllerBloc>().addProductPassed(product);
                       },
                     ),
 
                     Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8.0, vertical: 8.0),
-                      child: TextFormField(
-                        controller: productController['seat'],
-                        textCapitalization: TextCapitalization.none,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          focusColor: Theme.of(context).primaryColor,
-                          border: const UnderlineInputBorder(),
-                          filled: true,
-                          //icon: const Icon(Icons.bookmark_border),
-                          hintText: 'Combien des produits en stock ?',
-                          labelText: 'Stock',
+                      child: InfoLabel(
+                        label:"Stock",
+                        child: TextFormBox(
+                          controller: productController['seat'],
+                          textCapitalization: TextCapitalization.none,
+                          keyboardType: TextInputType.number,
+                          placeholder:"Combien des produits en stock ?",
+                          /*decoration: InputDecoration(
+                            focusColor: Theme.of(context).primaryColor,
+                            border: const UnderlineInputBorder(),
+                            filled: true,
+                            //icon: const Icon(Icons.bookmark_border),
+                            hintText: '',
+                            labelText: '',
+                          ),*/
+                          onSaved: (String? value) {
+                            int v = value!.toInt().abs();
+                            if(v == 0) v = 1;
+                            product = product.copyWith(stockNumber: v);
+                          },
+                          validator: (v) {
+                            if (v!.isEmpty) return 'Nombre des produits en stock est requis.';
+                            return null;
+                          },
                         ),
-                        onSaved: (String? value) {
-                          int v = value!.toInt().abs();
-                          if(v == 0) v = 1;
-                          vehicle = vehicle.copyWith(stockNumber: v);
-                        },
-                        validator: (v) {
-                          if (v!.isEmpty) return 'Nombre des produits en stock est requis.';
-                          return null;
-                        },
                       ),
                     ),
 
                     Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8.0, vertical: 8.0),
-                      child: TextFormField(
-                        controller: productController['cat'],
-                        textCapitalization: TextCapitalization.none,
-                        keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
-                          focusColor: Theme.of(context).primaryColor,
-                          border: const UnderlineInputBorder(),
-                          filled: true,
-                          //icon: const Icon(Icons.bookmark_border),
-                          hintText: 'Catégorie du produit ?',
-                          labelText: 'Catégorie',
+                      child: InfoLabel(
+                        label : "Catégorie",
+                        child: TextFormBox(
+                          controller: productController['cat'],
+                          textCapitalization: TextCapitalization.none,
+                          keyboardType: TextInputType.text,
+                          placeholder: "Catégorie du produit ?",
+                          /*decoration: InputDecoration(
+                            focusColor: Theme.of(context).primaryColor,
+                            border: const UnderlineInputBorder(),
+                            filled: true,
+                            //icon: const Icon(Icons.bookmark_border),
+                            hintText: 'Catégorie du produit ?',
+                            labelText: '',
+                          ),*/
+                          onSaved: (String? value) {},
+                          validator: (v) {
+                            // if (v!.isEmpty) return
+                            // 'Nombre de siege est requis.';
+                            if (v!.isEmpty) return 'Catégorie est requis.';
+                            return null;
+                          },
                         ),
-                        onSaved: (String? value) {},
-                        validator: (v) {
-                          // if (v!.isEmpty) return
-                          // 'Nombre de siege est requis.';
-                          if (v!.isEmpty) return 'Catégorie est requis.';
-                          return null;
-                        },
                       ),
                     ),
+
+                    //BlocBuilder<RentalControllerBloc, RentalControllerState>(
                     Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8.0, vertical: 8.0),
-                      child: DropdownButtonFormField<ProductType>(
-                        //controller: controllers[5],
-                        items: Product.departments.map((v, k) {
-                          return MapEntry(DropdownMenuItem(
-                              value: v,
-                              child: Row(
-                                children: <Widget>[
-                                  const Icon(Icons.tag, size: 20),
-                                  const SizedBox(width: 8.0,),
-                                  Text("DEP $k"),
-                                ],
-                              )),0);
-                        }).keys.toList(),
-                        onChanged: (v){},
-                        onSaved: (value) {
-                          vehicle = vehicle.copyWith(productType: value);
-                          context.read<RentalControllerBloc>().addVehicleRentalPassed(vehicle);
-                        },
-                        decoration: InputDecoration(
-                          focusColor: Theme.of(context).primaryColor,
-                          border: const UnderlineInputBorder(),
-                          filled: true,
-                          //icon: const Icon(Icons.bookmark_border),
-                          hintText: 'Spécifier le departement?',
-                          labelText: 'Departement *',
-                        ),
-                        validator: (v) {
-                          if(v == null) return "Chosir un departement (obligatoire)";
-                          return null;
-                        },
+                      child: Row(
+                        children: [
+                          InfoLabel(
+                            label: "Departement *",
+                            child: ComboBox<ProductType>(
+                              placeholder: Text("Spécifier le departement"),
+                              value: context.read<ProductControllerBloc>().state.product.productType,
+                              //controller: controllers[5],
+                              items: Product.departments.map((v) {
+                                return ComboBoxItem(
+                                    value: v,
+                                    child: Row(
+                                      children: <Widget>[
+                                        const Icon(FluentIcons.tag, size: 20),
+                                        const SizedBox(width: 8.0,),
+                                        Text("DEP ${v.name}"),
+                                      ],
+                                    ));
+                              }).toList(),
+                              onChanged: (v){
+                                context.read<ProductControllerBloc>().refreshProduct(
+                                    product.copyWith(productType: v)
+                                );
+                              },
+                              /*onSaved: (value) {
+                                vehicle = vehicle.copyWith(productType: value);
+                                context.read<RentalControllerBloc>().addVehicleRentalPassed(vehicle);
+                              },
+                              decoration: InputDecoration(
+                                focusColor: Theme.of(context).primaryColor,
+                                border: const UnderlineInputBorder(),
+                                filled: true,
+                                //icon: const Icon(Icons.bookmark_border),
+                                hintText: 'Spécifier le departement?',
+                                labelText: '',
+                              ),
+                              validator: (v) {
+                                if(v == null) return "Chosir un departement (obligatoire)";
+                                return null;
+                              },*/
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
@@ -295,6 +340,7 @@ class _RadioButtonGroupState extends State<_RadioButtonGroup> {
       padding: const EdgeInsets.only(left: 42.0),
       child: Wrap(
         children: <Widget>[
+
           for (PriceCurrency currency in _RadioButtonGroup.labels)
           _RadioItem(
             title: Text(currency.name),
