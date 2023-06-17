@@ -1,5 +1,6 @@
 library login_page;
 
+import 'package:qmt_manager/src/dashboard/home_screen.dart';
 import 'package:qmt_manager/widgets/widgets.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -13,11 +14,10 @@ import 'package:formz/formz.dart';
 
 import 'package:qmt_manager/logic/values.dart';
 
-import 'package:qmt_manager/src/home_page.dart';
-
 part 'login_page/login_form.dart';
-
 part 'login_page/button_and_input.dart';
+
+
 
 class LoginPage extends StatefulWidget {
   static const routeName = "/login";
@@ -85,7 +85,7 @@ class _LoginPageState extends State<LoginPage>
       listener: (context, state) {
         switch (state.status) {
           case AuthenticationStatus.authenticated:
-            GoRouter.of(context).goNamed(HomePage.routeName);
+            GoRouter.of(context).goNamed(HomeScreen.routeName);
             break;
           default: break;
         }
@@ -271,7 +271,7 @@ class _LoginPageState extends State<LoginPage>
                     },
                     onLongPress: (){
                       GoRouter.of(context).goNamed(
-                          HomePage.routeName
+                          HomeScreen.routeName
                       );
                     },
 
