@@ -1,8 +1,8 @@
 part of products;
 
-class SpaceListView extends StatefulWidget {
+class ProductListView extends StatefulWidget {
   //final heroTag;
-  const SpaceListView({
+  const ProductListView({
     required this.items, //this.heroTag,
     //required this.animationController,
     //required this.animation,
@@ -16,13 +16,13 @@ class SpaceListView extends StatefulWidget {
   final Function(int index)? onHueClick;
   final Function(int index) onLikeClick;
   final List<ItemData> items;
-
   @override
-  State<SpaceListView> createState() => _SpaceListViewState();
+  State<ProductListView> createState() => _ProductListViewState();
 }
 
-class _SpaceListViewState extends State<SpaceListView> {
+class _ProductListViewState extends State<ProductListView> {
   //final AnimationController animationController;
+
 
   bool isLiked = false;
   @override
@@ -47,11 +47,10 @@ class _SpaceListViewState extends State<SpaceListView> {
 
     final textStyle = TextStyle(
         fontSize: 14,
-        color: (Theme.of(context).brightness != Brightness.dark)
-            ? Colors.grey.shade600
-            : Colors.grey.shade400);
+        //color: Colors.grey,
+    );
 
-    return Material(
+    return Container(
       color: Colors.transparent,
       child: Wrap(
           spacing: 8.0,
@@ -60,9 +59,13 @@ class _SpaceListViewState extends State<SpaceListView> {
             widget.items.length,
             (index) => Padding(
               padding: const EdgeInsets.only(
-                  left: 24, right: 24, top: 8, bottom: 16),
-              child: InkWell(
-                splashColor: Colors.transparent,
+                left: 24,
+                right: 24,
+                top: 8,
+                bottom: 16,
+              ),
+              child: GestureDetector(
+                //splashColor: Colors.transparent,
                 onTap: () => widget.onShopClick(index),
                 onLongPress: () {},
                 child: Container(
@@ -97,7 +100,7 @@ class _SpaceListViewState extends State<SpaceListView> {
 
                             /// Bottom bar of Card
                             Container(
-                              color: Colors.grey.shade800,
+                              color: Colors.grey[140], //FluentTheme.of(context).cardColor,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -137,9 +140,7 @@ class _SpaceListViewState extends State<SpaceListView> {
                                               Icon(
                                                 FontAwesomeIcons.locationDot,
                                                 size: 12,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .secondary,
+                                                color: FluentTheme.of(context).activeColor,
                                               ),
                                               Expanded(
                                                 child: Text(
@@ -182,9 +183,7 @@ class _SpaceListViewState extends State<SpaceListView> {
                                           icon: Icon(
                                             CupertinoIcons.arrow_2_circlepath,
                                             size: 32,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .secondary,
+                                            color: FluentTheme.of(context).activeColor,
                                           ),
                                         ),
                                         Text(
@@ -204,10 +203,10 @@ class _SpaceListViewState extends State<SpaceListView> {
                         Positioned(
                           top: 8,
                           right: 8,
-                          child: InkWell(
-                            borderRadius: const BorderRadius.all(
+                          child: GestureDetector(
+                            /*borderRadius: const BorderRadius.all(
                               Radius.circular(32.0),
-                            ),
+                            ),*/
                             onTap: () {
                               widget.onLikeClick(index);
                               setState(() {
@@ -217,8 +216,8 @@ class _SpaceListViewState extends State<SpaceListView> {
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Icon(
-                                (isLiked)? Icons.favorite :Icons.favorite_border,
-                                color: (isLiked)? Colors.deepOrange : Theme.of(context).colorScheme.secondary,
+                                (isLiked)? FluentIcons.heart_fill : FluentIcons.heart,
+                                color: (isLiked)? Colors.orange.dark : null,
                               ),
                             ),
                           ),

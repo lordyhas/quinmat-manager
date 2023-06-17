@@ -49,7 +49,7 @@ class _ProductScreenState extends State<ProductScreen>
         .setState(NavigationScreen.explorer);
     //var spaceList = _spaceList;//..addAll(_spaceList..shuffle());
 
-    return Material(
+    return Container(
       //backgroundColor: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.9),
       child: NestedScrollView(
         //controller: _scrollController,
@@ -92,35 +92,28 @@ class _ProductScreenState extends State<ProductScreen>
                               children: <Widget>[
                                 /// Search Entry Widget
                                 Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        right: 16, top: 8, bottom: 8),
+                                  child: Container(
+                                    //padding: const EdgeInsets.only(right: 16, top: 8, bottom: 8),
                                     child: Container(
                                       decoration: BoxDecoration(
-                                        color: Colors.grey.shade300
-                                            .withOpacity(0.70),
-                                        borderRadius: const BorderRadius.all(
-                                          Radius.circular(38.0),
-                                        ),
+                                        //color: Colors.grey.withOpacity(0.70),
+                                        //borderRadius: const BorderRadius.all(Radius.circular(38.0),),
                                       ),
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 16),
                                         //only(left: 16, right: 16, top: 4, bottom: 4),
-                                        child: TextField(
+                                        child: TextFormBox(
                                           onChanged: (String txt) {},
                                           style: const TextStyle(
                                             fontSize: 18,
-                                            color: Colors.black,
+                                            //color: Colors.black,
                                           ),
-                                          cursorColor: Theme.of(context)
-                                              .colorScheme
-                                              .secondary,
-                                          decoration: const InputDecoration(
-                                            border: InputBorder.none,
-                                            hintText: 'Lubumbashi...',
-                                            hintStyle:
-                                                TextStyle(color: Colors.black),
+                                          cursorColor: FluentTheme.of(context)
+                                              .accentColor,
+                                          placeholder: 'Lubumbashi...',
+                                          placeholderStyle: const TextStyle(
+                                            //color: Colors.black,
                                           ),
                                         ),
                                       ),
@@ -131,28 +124,16 @@ class _ProductScreenState extends State<ProductScreen>
                                 /// Search button
                                 Container(
                                   decoration: BoxDecoration(
-                                    color: Theme.of(context)
-                                        .floatingActionButtonTheme
-                                        .backgroundColor,
-                                    borderRadius: const BorderRadius.all(
-                                      Radius.circular(38.0),
-                                    ),
+                                    color: FluentTheme.of(context).accentColor,
+                                    borderRadius: BorderRadius.circular(32.0),
                                   ),
-                                  child: Material(
-                                    color: Colors.transparent,
-                                    child: InkWell(
-                                      borderRadius: const BorderRadius.all(
-                                        Radius.circular(32.0),
-                                      ),
-                                      onTap: () {
-                                        //FocusScope.of(context).requestFocus(FocusNode());
-                                      },
-                                      child: const Padding(
-                                        padding: EdgeInsets.all(16.0),
-                                        child: Icon(
-                                          FontAwesomeIcons.magnifyingGlass,
-                                          size: 20,
-                                        ),
+                                  child: IconButton(
+                                    onPressed: () {},
+                                    icon: const Padding(
+                                      padding: EdgeInsets.all(4.0),
+                                      child: Icon(
+                                        FontAwesomeIcons.magnifyingGlass,
+                                        size: 20,
                                       ),
                                     ),
                                   ),
@@ -166,8 +147,7 @@ class _ProductScreenState extends State<ProductScreen>
                             child: const Text(
                               "Trouver un produit specifique, "
                               "${AppConstant.shortname}",
-                              style: TextStyle(
-                                  fontSize: 18, color: Colors.white70),
+                              style: TextStyle(fontSize: 18, color: Colors.white),
                             )),
                       ],
                     ),
@@ -189,7 +169,7 @@ class _ProductScreenState extends State<ProductScreen>
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.only(bottom: 32.0),
-            child: SpaceListView(
+            child: ProductListView(
               //heroTag: shopData.shopCode+"$index",
               //onHueClick: (index) => onMapClickOpenPage(index),
               onLikeClick: (index) => showToastFavorite(context: context),
@@ -208,7 +188,7 @@ class _ProductScreenState extends State<ProductScreen>
       ),
     );
   }
-
+  /*
   Widget getSearchBarUI(context) {
     //final shopAppTheme = BlocProvider.of<StyleAppTheme>(context);
 
@@ -222,9 +202,9 @@ class _ProductScreenState extends State<ProductScreen>
               padding: const EdgeInsets.only(right: 16, top: 8, bottom: 8),
               child: Container(
                 decoration: BoxDecoration(
-                  color: (Theme.of(context).brightness == Brightness.dark)
-                      ? Colors.grey.shade300.withOpacity(0.70)
-                      : Colors.white70,
+                  color: (FluentTheme.of(context).brightness == Brightness.dark)
+                      ? Colors.grey.withOpacity(0.70)
+                      : Colors.white,
                   borderRadius: const BorderRadius.all(
                     Radius.circular(38.0),
                   ),
@@ -287,15 +267,15 @@ class _ProductScreenState extends State<ProductScreen>
       ),
     );
   }
-
-  void showDemoDialog({required BuildContext context}) {
+  */
+  /*void showDemoDialog({required BuildContext context}) {
     showDialog<void>(
       context: context,
-      builder: (BuildContext context) => Dialog(
+      builder: (BuildContext context) => ContentDialog(
         //constraints: const BoxConstraints(maxWidth: 720, maxHeight: 1020),
-        elevation: 0.0,
-        backgroundColor: Colors.transparent,
-        child: Container(
+        //elevation: 0.0,
+        //backgroundColor: Colors.transparent,
+        content: Container(
           constraints: const BoxConstraints(maxWidth: kMediumDimens),
           child: CalendarPopupView(
             barrierDismissible: true,
@@ -315,8 +295,9 @@ class _ProductScreenState extends State<ProductScreen>
         ),
       ),
     );
-  }
+  }*/
 
+  /*
   Widget getTimeDateUI(context) {
     return Padding(
       padding: const EdgeInsets.only(left: 18, bottom: 16),
@@ -434,6 +415,7 @@ class _ProductScreenState extends State<ProductScreen>
       ),
     );
   }
+  */
 }
 
 class RContestTabHeader extends SliverPersistentHeaderDelegate {
@@ -452,7 +434,7 @@ class RContestTabHeader extends SliverPersistentHeaderDelegate {
   @override
   Widget build(context, double shrinkOffset, bool overlapsContent) {
     //final shopAppTheme = BlocProvider.of<StyleAppTheme>(context);
-    Color? filBarColor = secondary ? Theme.of(context).primaryColorLight : null;
+    //Color? filBarColor = secondary ? FluentTheme.of(context).primaryColorLight : null;
     Widget? h3text = !secondary ? RouteNameTitle(title!.data!) : null;
     return SizedBox(
       child: Stack(
@@ -464,7 +446,7 @@ class RContestTabHeader extends SliverPersistentHeaderDelegate {
             child: Container(
               height: 24,
               decoration: BoxDecoration(
-                color: Theme.of(context).scaffoldBackgroundColor,
+                color: FluentTheme.of(context).scaffoldBackgroundColor,
                 //color: HotelAppTheme.buildLightTheme().backgroundColor,
                 boxShadow: <BoxShadow>[
                   BoxShadow(
@@ -476,7 +458,7 @@ class RContestTabHeader extends SliverPersistentHeaderDelegate {
             ),
           ),
           Container(
-            color: Theme.of(context).scaffoldBackgroundColor,
+            color: FluentTheme.of(context).scaffoldBackgroundColor,
 
             ///color: HotelAppTheme.buildLightTheme().backgroundColor,
             child: Padding(
@@ -497,32 +479,22 @@ class RContestTabHeader extends SliverPersistentHeaderDelegate {
                           ),
                     ),
                   ),
-                  Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      focusColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      splashColor: Colors.grey.withOpacity(0.2),
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(4.0),
-                      ),
+                  Container(
+                    //color: Colors.grey,
+                    child: GestureDetector(
+                      //focusColor: Colors.transparent,
+                      //highlightColor: Colors.transparent,
+                      //hoverColor: Colors.transparent,
+                      //splashColor: Colors.grey.withOpacity(0.2),
+                      //borderRadius: BorderRadius.circular(4.0),
                       onTap: () {
-                        //FocusScope.of(context).requestFocus(FocusNode());
-                        Navigator.push<dynamic>(
-                          context,
-                          MaterialPageRoute<dynamic>(
-                            builder: (BuildContext context) =>
-                                const FiltersScreen(),
-                            fullscreenDialog: true,
-                          ),
-                        );
+                        FocusScope.of(context).requestFocus(FocusNode());
                       },
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 8),
+                      child: const Padding(
+                        padding: EdgeInsets.only(left: 8),
                         child: Row(
                           children: <Widget>[
-                            const Text(
+                            Text(
                               'Filter',
                               style: TextStyle(
                                 fontWeight: FontWeight.w100,
@@ -530,13 +502,10 @@ class RContestTabHeader extends SliverPersistentHeaderDelegate {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: EdgeInsets.all(8.0),
                               child: Icon(
-                                Icons.sort,
-                                color: filBarColor ??
-                                    Theme.of(context)
-                                        .floatingActionButtonTheme
-                                        .backgroundColor,
+                                FluentIcons.sort_lines,
+                                  //color: Colors.white,
                                 //shopAppTheme.buildLightShopTheme.primaryColor
                               ),
                             ),
@@ -554,7 +523,7 @@ class RContestTabHeader extends SliverPersistentHeaderDelegate {
             left: 0,
             right: 0,
             child: Divider(
-              height: 1,
+              size: 1,
             ),
           )
         ],
