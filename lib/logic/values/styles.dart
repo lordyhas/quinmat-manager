@@ -77,7 +77,8 @@ class StyleAppTheme extends Cubit<FluentThemeData> {
     //scaffoldBackgroundColor: Colors.grey[170],
     //typography: Typography.raw(),
     brightness: Brightness.dark,
-
+    //accentColor: Colors.teal,
+    activeColor: Colors.teal.lighter,
   );
 
 
