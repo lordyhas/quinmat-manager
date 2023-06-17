@@ -4,6 +4,7 @@ import 'package:qmt_manager/src/add_product/add_product_page.dart';
 import 'package:qmt_manager/src/setting_profile_screen.dart';
 import '../logic/values.dart';
 import 'dashboard/doctors/doctor_data_tab.dart';
+import 'dashboard/home_screen.dart';
 import 'home_page.dart';
 import 'myspace_page.dart';
 
@@ -85,7 +86,7 @@ class _NavigationLayoutState extends State<NavigationLayout> {
         icon: const Icon(FluentIcons.home, size: iconSize,),
         title: const Text('Home', style: textStyle,),
         //onTap: (){},
-        onTap: () => Go.of(context).to(routeName: HomePage.routeName),
+        onTap: () => Go.of(context).to(routeName: HomeScreen.routeName),
       ),
       PaneItemSeparator(),
       PaneItem(
@@ -120,7 +121,7 @@ class _NavigationLayoutState extends State<NavigationLayout> {
         icon: const Icon(FluentIcons.fluid_logo, size: iconSize,),
         title: const Text('Previsualiser', style: textStyle,),
         //body: const _NavigationBodyItem0(),
-        onTap:  () => null,  //Go.of(context).to(routeName: MySpaceScreen.routeName)
+        onTap:  () => Go.of(context).to(routeName: ProductScreen.routeName),
       ),
       PaneItemExpander(
         body: const SizedBox.shrink(),

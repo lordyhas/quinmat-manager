@@ -29,7 +29,7 @@ class AppRouter extends GoRouter {
   }) : super(
           navigatorKey: key,
           errorBuilder: (context, state) => OnErrorPage(error: state.error),
-          initialLocation: HomePage.routeUrl, //LoginPage.routeName,
+          initialLocation: HomeScreen.routeUrl, //LoginPage.routeName,
           routes: <RouteBase>[
             GoRoute(
               parentNavigatorKey: key,
@@ -37,10 +37,10 @@ class AppRouter extends GoRouter {
               redirect: (_,state) {
                 if(BlocProvider.of<AuthenticationBloc>(_).state.
                 status == AuthenticationStatus.authenticated){
-                    return HomePage.routeUrl;
+                    return HomeScreen.routeUrl;
                 }
                 //return LoginPage.routeUrl;
-                return HomePage.routeUrl;
+                return HomeScreen.routeUrl;
               },
             ),
             /*GoRoute(
@@ -76,8 +76,8 @@ class AppRouter extends GoRouter {
 
   static _homeGoRoute({required GlobalKey<NavigatorState> parentKey}) =>
       GoRoute(
-        name: HomePage.routeName,
-        path: HomePage.routeName,
+        name: HomeScreen.routeName,
+        path: HomeScreen.routeName,
         redirect: null,
         builder: (context, state) {
           return const NestedView(child: HomeScreen());

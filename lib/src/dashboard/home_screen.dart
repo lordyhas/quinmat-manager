@@ -12,6 +12,8 @@ import 'package:qmt_manager/logic/values.dart';
 
 
 class HomeScreen extends StatefulWidget {
+  static const routeName = '/home';
+  static const routeUrl = '/home';
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
