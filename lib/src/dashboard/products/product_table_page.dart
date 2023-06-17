@@ -1,17 +1,17 @@
-import 'package:flutter/material.dart';
+import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter/material.dart' show DataTableSource, DataRow, DataCell, DataColumn, PaginatedDataTable;
 import 'package:qmt_manager/logic/data_test.dart';
 import 'package:qmt_manager/logic/model/data_model.dart';
 import 'package:qmt_manager/logic/values.dart';
 import 'package:qmt_manager/src/add_doctor/add_doctor_page.dart';
+import 'package:qmt_manager/src/add_product/add_product_page.dart';
 
-// todo ; finish the product table
-
-/*
 
 extension ProductHelper on Product {
   bool get selected => false;
   set selected(bool value){}
 }
+
 
 class ProductDataSource extends DataTableSource {
   final List<Product> _products = ItemDataTest.products;
@@ -50,27 +50,26 @@ class ProductDataSource extends DataTableSource {
       },
       cells: <DataCell>[
         DataCell(
-          Text("${product.firstName} "
-              "${product.name} ${product.lastName}"),
+          Text("${product.name} "),
           onDoubleTap: () {},
           onLongPress: () {},
           //showEditIcon: true,
 
           //placeholder: true,
         ),
-        DataCell(Text(product.sex)),
-        DataCell(Text(product.speciality.toString())),
+        DataCell(Text(product.model)),
+        DataCell(Text("\$${product.price}")),
         DataCell(
-          Text(product.hospital),
+          Text(product.productType.name),
           onDoubleTap: () {},
           onLongPress: () {},
         ),
-        DataCell(Text(product.location)),
-        DataCell(Text(product.phoneNumbers.first)),
+        DataCell(Text(product.stockNumber.toString())),
+        DataCell(Text(product.promotionPrice.toString())),
         DataCell(
-          Text(product.emails.first),
+          Text(product.description),
         ),
-        DataCell(Text(product.isDoctor ? "Yes" : "")),
+        DataCell(Text(product.isTendency ?? false ? "Oui" : "")),
       ],
     );
   }
@@ -93,16 +92,16 @@ class ProductDataSource extends DataTableSource {
   }
 }
 
-class ProDataTableDemo extends StatefulWidget {
-  const ProDataTableDemo({Key? key}) : super(key: key);
+class ProductTablePage extends StatefulWidget {
+  const ProductTablePage({Key? key}) : super(key: key);
 
-  static const String routeName = '/data-table';
+  static const String routeName = '/product-table';
 
   @override
-  State<ProDataTableDemo> createState() => _DataTableDemoState();
+  State<ProductTablePage> createState() => _DataTableDemoState();
 }
 
-class _DataTableDemoState extends State<ProDataTableDemo> {
+class _DataTableDemoState extends State<ProductTablePage> {
   int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
   int? _sortColumnIndex;
   bool _sortAscending = true;
@@ -121,20 +120,16 @@ class _DataTableDemoState extends State<ProDataTableDemo> {
   Widget build(BuildContext context) {
     final ScrollController scrollController =
     ScrollController(debugLabel: 'scrollDoctors');
-    return Scaffold(
-      appBar: AppBar(
+    return ScaffoldPage(
+      /*appBar: AppBar(
         leading:  Padding(
             padding: const EdgeInsets.only(left: 8.0),
             child: Image.asset("assets/icon_app_red.png", height: 32 ,)
-        ), */
-/*IconButton(
-          icon: const Icon(Icons.close),
-          onPressed: Go.of(context).pop,
-        ),*//*
+        ),
 
         title: const Text('Doctor data tables'),
-      ),
-      body: Scrollbar(
+      ),*/
+      content: Scrollbar(
         controller: scrollController,
         child: ListView(
           controller: scrollController,
@@ -143,18 +138,18 @@ class _DataTableDemoState extends State<ProDataTableDemo> {
 
             PaginatedDataTable(
               //
-              header: const Text('Doctors'),
+              header: const Text('Produits'),
               actions: [
-                IconButton(onPressed: () {}, icon: const Icon(Icons.delete)),
+                IconButton(onPressed: () {}, icon: const Icon(FluentIcons.delete)),
                 IconButton(
                   onPressed: () {},
-                  icon: const Icon(Icons.wifi_protected_setup,),
+                  icon: const Icon(FluentIcons.refresh,),
                 ),
                 IconButton(
-                    icon: const Icon(Icons.add),
+                    icon: const Icon(FluentIcons.add),
                     onPressed: () {
                       Go.of(context).to(
-                        routeName: AddDoctorPage.routeName,
+                        routeName: AddProductPage.routeName,
                       );
                     }
                 ),
@@ -168,55 +163,55 @@ class _DataTableDemoState extends State<ProDataTableDemo> {
               sortColumnIndex: _sortColumnIndex,
               sortAscending: _sortAscending,
               onSelectAll: _doctorsDataSource.selectAll,
-              availableRowsPerPage: const <int>[10,20,40,60],
+              availableRowsPerPage:  <int>[10, ItemDataTest.products.length],
 
               columns: <DataColumn>[
                 DataColumn(
-                  label: const Text('Nom Complet'),
+                  label: const Text('Nom'),
                   onSort: (int columnIndex, bool ascending) => _sort<String>(
                           (Product d) => d.name, columnIndex, ascending),
                 ),
                 DataColumn(
-                  label: const Text('Sex'),
+                  label: const Text('Model'),
                   //numeric: true,
                   onSort: (int columnIndex, bool ascending) => _sort<String>(
-                          (Product d) => d.sex, columnIndex, ascending),
+                          (Product prod) => prod.model, columnIndex, ascending),
                 ),
                 DataColumn(
-                  label: const Text('Speciality'),
+                  label: const Text('Prix'),
                   onSort: (int columnIndex, bool ascending) => _sort<String>(
-                          (Product d) => d.speciality, columnIndex, ascending),
+                          (Product d) => d.price.toString(), columnIndex, ascending),
                 ),
                 DataColumn(
-                  label: const Text('Hospital'),
+                  label: const Text('Departement'),
                   //tooltip: 'Each hospital.',
                   onSort: (int columnIndex, bool ascending) => _sort<String>(
-                          (Product d) => d.hospital, columnIndex, ascending),
+                          (Product d) => d.productType.name, columnIndex, ascending),
                 ),
                 DataColumn(
-                  label: const Text('Location'),
+                  label: const Text('Stock'),
                   tooltip: 'Hospital location.',
                   onSort: (int columnIndex, bool ascending) => _sort<String>(
-                          (Product d) => d.location, columnIndex, ascending),
+                          (Product d) => d.stockNumber.toString(), columnIndex, ascending),
                 ),
                 DataColumn(
-                  label: const Text('Phone'),
+                  label: const Text('Prix Promotionnel'),
                   onSort: (int columnIndex, bool ascending) => _sort<String>(
-                          (Product d) => d.phoneNumbers.first,
+                          (Product d) => d.promotionPrice.toString(),
                       columnIndex,
                       ascending),
                 ),
                 DataColumn(
-                  label: const Text('Email'),
+                  label: const Text('Description'),
                   //tooltip: '',
                   onSort: (int columnIndex, bool ascending) => _sort<String>(
-                          (Product d) => d.emails.first, columnIndex, ascending),
+                          (Product d) => d.description, columnIndex, ascending),
                 ),
                 DataColumn(
-                  label: const Text('Doctor'),
+                  label: const Text('Tendance?'),
                   numeric: true,
                   onSort: (int columnIndex, bool ascending) => _sort<String>(
-                          (Product d) => d.isDoctor.toString(),
+                          (Product d) => d.isTendency.toString(),
                       columnIndex,
                       ascending),
                 ),
@@ -228,4 +223,4 @@ class _DataTableDemoState extends State<ProDataTableDemo> {
       ),
     );
   }
-}*/
+}

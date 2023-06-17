@@ -14,6 +14,7 @@ class ItemDataTest {
       description: "",
       productType: ProductType.unknown,
       price: Random().nextInt(500) + 20,
+      stockNumber: Random().nextInt(700) + 10,
     ),
 
     Product(
@@ -24,6 +25,7 @@ class ItemDataTest {
       description: "",
       productType: ProductType.QCL,
       price: Random().nextInt(500) + 20,
+      stockNumber: Random().nextInt(1500) + 500,
     ),
 
     Product(
@@ -34,6 +36,7 @@ class ItemDataTest {
       description: "",
       productType: ProductType.QCL,
       price: Random().nextInt(500) + 20,
+      stockNumber: Random().nextInt(1000) + 10,
     ),
 
     Product(
@@ -44,6 +47,7 @@ class ItemDataTest {
       description: "",
       productType: ProductType.QCL,
       price: Random().nextInt(500) + 20,
+      stockNumber: Random().nextInt(1000) + 10,
     ),
 
     Product(
@@ -54,6 +58,7 @@ class ItemDataTest {
       description: "",
       productType: ProductType.QCL,
       price: Random().nextInt(500) + 20,
+      stockNumber: Random().nextInt(1000) + 10,
     ),
 
     Product(
@@ -64,6 +69,7 @@ class ItemDataTest {
       description: "",
       productType: ProductType.QCL,
       price: Random().nextInt(500) + 20,
+      stockNumber: Random().nextInt(1000) + 10,
     ),
 
     Product(
@@ -74,6 +80,7 @@ class ItemDataTest {
       description: "",
       productType: ProductType.QCL,
       price: Random().nextInt(500) + 20,
+      stockNumber: Random().nextInt(1000) + 10,
     ),
 
     Product(
@@ -84,6 +91,7 @@ class ItemDataTest {
       description: "",
       productType: ProductType.PAP,
       price: Random().nextInt(500) + 20,
+      stockNumber: Random().nextInt(1000) + 10,
     ),
 
     Product(
@@ -94,6 +102,7 @@ class ItemDataTest {
       description: "",
       productType: ProductType.MOB,
       price: Random().nextInt(500) + 20,
+      stockNumber: Random().nextInt(1000) + 10,
     ),
 
     Product(
@@ -104,6 +113,7 @@ class ItemDataTest {
       description: "",
       productType: ProductType.MOB,
       price: Random().nextInt(500) + 20,
+      stockNumber: Random().nextInt(1000) + 10,
     ),
 
     Product(
@@ -114,6 +124,7 @@ class ItemDataTest {
       description: "",
       productType: ProductType.MOB,
       price: Random().nextInt(500) + 20,
+      stockNumber: Random().nextInt(1000) + 10,
     ),
 
     Product(
@@ -124,6 +135,7 @@ class ItemDataTest {
       description: "",
       productType: ProductType.MED,
       price: Random().nextInt(500) + 20,
+      stockNumber: Random().nextInt(1000) + 10,
     ),
 
     Product(
@@ -134,6 +146,7 @@ class ItemDataTest {
       description: "",
       productType: ProductType.MED,
       price: Random().nextInt(500) + 20,
+      stockNumber: Random().nextInt(1000) + 10,
     ),
 
     Product(
@@ -144,6 +157,7 @@ class ItemDataTest {
       description: "",
       productType: ProductType.MED,
       price: Random().nextInt(500) + 20,
+      stockNumber: Random().nextInt(1000) + 10,
     ),
 
     Product(
@@ -154,6 +168,7 @@ class ItemDataTest {
       description: "",
       productType: ProductType.unknown,
       price: Random().nextInt(500) + 20,
+      stockNumber: Random().nextInt(1000) + 10,
     ),
 
     Product(
@@ -164,6 +179,7 @@ class ItemDataTest {
       description: "",
       productType: ProductType.unknown,
       price: Random().nextInt(500) + 20,
+      stockNumber: Random().nextInt(1000) + 10,
     ),
 
     Product(
@@ -174,6 +190,7 @@ class ItemDataTest {
       description: "",
       productType: ProductType.unknown,
       price: Random().nextInt(500) + 20,
+      stockNumber: Random().nextInt(1000) + 10,
     ),
 
 

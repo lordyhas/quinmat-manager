@@ -6,6 +6,7 @@ import 'package:qmt_manager/src/add_product/add_product_page.dart';
 import 'package:qmt_manager/src/dashboard/home_screen.dart';
 import 'package:qmt_manager/src/dashboard/nested_web_view.dart';
 import 'package:qmt_manager/src/dashboard/products/filters_screen.dart';
+import 'package:qmt_manager/src/dashboard/products/product_table_page.dart';
 import 'package:qmt_manager/src/login_page.dart';
 import 'package:qmt_manager/src/maps_test.dart';
 import 'package:qmt_manager/src/home_page.dart';
@@ -90,12 +91,12 @@ class AppRouter extends GoRouter {
               return const  NestedView(child:MySpaceScreen());
             },
             routes: [
-              /*GoRoute(
-                parentNavigatorKey: parentKey,
+              GoRoute(
+                //parentNavigatorKey: parentKey,
                 name: ProductTablePage.routeName,
                 path: "product-table",
                 builder: (context, state) => const ProductTablePage(),
-              ),*/
+              ),
               GoRoute(
                 parentNavigatorKey: parentKey,
                 name: AddProductPage.routeName,
