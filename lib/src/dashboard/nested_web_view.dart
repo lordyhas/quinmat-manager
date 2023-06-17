@@ -458,29 +458,28 @@ class SliverBottomTabHeader extends SliverPersistentHeaderDelegate {
                     ),
                   ),
                   SizedBox(
-                    child: Button(
+                    child: HyperlinkButton(
 
                       onPressed: () {
                         FocusScope.of(context).requestFocus(FocusNode());
-
                         //Go.of(context).to(routeName: FiltersScreen.routeName, );
-
                       },
                       child: Padding(
                         padding: const EdgeInsets.only(left: 8),
                         child: Row(
                           children: <Widget>[
-                            const Text(
+                            Text(
                               'Filter',
                               style: TextStyle(
                                 fontWeight: FontWeight.w100,
                                 fontSize: 16,
+                                color: FluentTheme.of(context).activeColor,
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Icon(FluentIcons.sort,
-                                color: BlocProvider.of<StyleAppTheme>(context).theme.activeColor,
+                              child: Icon(FluentIcons.sort_lines,
+                                color: FluentTheme.of(context).activeColor,
                               ),
                             ),
                           ],
