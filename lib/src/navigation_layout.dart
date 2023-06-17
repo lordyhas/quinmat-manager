@@ -184,27 +184,15 @@ class _NavigationLayoutState extends State<NavigationLayout> {
         ],
       ),
       PaneItemAction(
-        icon: const Icon(FluentIcons.add),
-        title: const Text('Add New Item', style: textStyle,),
-        onTap: () {
-          // Your Logic to Add New `NavigationPaneItem`
-          /*items.add(
-                PaneItem(
-                  icon: const Icon(FluentIcons.new_folder),
-                  title: const Text('New Item'),
-                  body: const Center(
-                    child: Text(
-                      'This is a newly added Item',
-                    ),
-                  ),
-                ),
-              );
-              setState(() {});*/
-        },
-      ),
-      PaneItemAction(
         icon: const Icon(FluentIcons.more),
         title: const Text('More', style: textStyle,),
+        onTap: () {
+        },
+      ),
+
+      PaneItemAction(
+        icon: const Icon(FluentIcons.oem), //FluentIcons.waffle
+        title: const Text('Apps', style: textStyle,),
         onTap: () {
         },
       ),
