@@ -5,6 +5,7 @@ import 'package:qmt_manager/src/setting_profile_screen.dart';
 import '../logic/values.dart';
 import 'dashboard/doctors/doctor_data_tab.dart';
 import 'dashboard/home_screen.dart';
+import 'dashboard/products/product_table_page.dart';
 import 'home_page.dart';
 import 'myspace_page.dart';
 
@@ -128,9 +129,7 @@ class _NavigationLayoutState extends State<NavigationLayout> {
         icon: const Icon(FluentIcons.product_list, size: iconSize,),
         title: const Text('Products', style: textStyle,),
         //body: const _NavigationBodyItem0(),
-        onTap: () {
-
-        },
+        onTap:() => Go.of(context).to(routeName: ProductTablePage.routeName),
         items: [
           PaneItem(
             body: const SizedBox.shrink(),
