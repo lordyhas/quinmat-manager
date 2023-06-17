@@ -2,15 +2,15 @@ library home_page;
 
 import 'dart:convert';
 import 'dart:math';
-import 'dart:ui';
 
+
+import 'package:fluent_ui/fluent_ui.dart';
 import 'package:qmt_manager/logic/model/data_model.dart';
 import 'package:qmt_manager/logic/values.dart';
 import 'package:qmt_manager/src/login_page.dart';
 import 'package:qmt_manager/src/preference_page/edit_profile_page.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+
+//import 'package:flutter/material.dart';
 
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,16 +26,10 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:qmt_manager/src/preference_page/about_page.dart';
 import 'package:qmt_manager/src/dashboard/products/product.dart';
 import 'package:qmt_manager/src/dashboard/products/filters_screen.dart';
-import 'package:qmt_manager/src/dashboard/products/model/view_model.dart';
 import 'package:qmt_manager/src/dashboard/single_item_screen.dart';
-import 'package:qmt_manager/src/myspace_page.dart';
 
 import 'package:http/http.dart' as http;
-import 'package:qmt_manager/src/setting_profile_screen.dart';
 
-import '../logic/transfer_protocol/http_protocol.dart';
-
-//import '../logic/maps_controller/maps.dart';
 
 
 
@@ -49,6 +43,7 @@ part 'dashboard/product_screen.dart';
 
 part 'dashboard/app_bar_view.dart';
 
+/*
 class HomePage extends StatefulWidget {
   static const routeName = '/home';
   static const routeUrl = '/home';
@@ -496,3 +491,6 @@ class DrawerItem {
     this.key,
   });
 }
+
+
+*/

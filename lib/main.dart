@@ -10,13 +10,9 @@ import 'package:qmt_manager/logic/access_controller/access_controller_cubit.dart
 
 import 'package:qmt_manager/logic/values.dart';
 import 'package:permission_handler/permission_handler.dart';
-
 import 'package:firebase_core/firebase_core.dart';
-
 import 'package:qmt_manager/routes.dart';
-
 import 'package:url_strategy/url_strategy.dart';
-
 import 'firebase_options.dart';
 import 'logic/maps_controller/maps.dart';
 
