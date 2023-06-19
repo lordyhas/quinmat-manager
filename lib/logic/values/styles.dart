@@ -3,18 +3,13 @@ import 'package:fluent_ui/fluent_ui.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
-
-
-
 enum StylesThemeState{light,dark}
 
 class StyleAppTheme extends Cubit<FluentThemeData> {
 
   //final DatabaseManager objectBoxManager = DatabaseManager.empty();
 
-  StyleAppTheme([StylesThemeState? stylesTheme])
-      : super(_darkTheme);
+  StyleAppTheme([StylesThemeState? stylesTheme]) : super(_darkTheme);
 
   FluentThemeData get theme => state;
 
@@ -40,14 +35,10 @@ class StyleAppTheme extends Cubit<FluentThemeData> {
       box.put(AppSetting.keyName, appSetting);
     }
 
-
     AppSetting? setting = box.get(AppSetting.keyName,)!;
 
     Log.out("HiveBox","HiveBoxManager.restoreTheme(theme: ${setting.theme}) ===  ===");
     this.setTheme(StylesThemeState.values[setting.theme ?? 0]);
-
-
-
 
   }
   */
@@ -74,14 +65,12 @@ class StyleAppTheme extends Cubit<FluentThemeData> {
   static final _darkTheme = FluentThemeData(
     fontFamily: 'Nunito',
     visualDensity: VisualDensity.standard,
-    //scaffoldBackgroundColor: Colors.grey[170],
-    //typography: Typography.raw(),
+    //
+    //
     brightness: Brightness.dark,
-    //accentColor: Colors.teal,
+    //
     activeColor: Colors.teal.lighter,
   );
-
-
 }
 
 class HexColor extends Color {
