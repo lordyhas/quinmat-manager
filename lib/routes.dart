@@ -30,7 +30,10 @@ class AppRouter extends GoRouter {
   }) : super(
           navigatorKey: key,
           errorBuilder: (context, state) => OnErrorPage(error: state.error),
-          initialLocation: HomeScreen.routeUrl, //LoginPage.routeName,
+          redirect: (context, route){
+            return HomeScreen.routeUrl;
+          },
+          initialLocation: LoginPage.routeName, //HomeScreen.routeUrl, //LoginPage.routeName,
           routes: <RouteBase>[
             GoRoute(
               parentNavigatorKey: key,
@@ -44,14 +47,7 @@ class AppRouter extends GoRouter {
                 return HomeScreen.routeUrl;
               },
             ),
-            /*GoRoute(
-              parentNavigatorKey: key,
-              path: "/layout",
-              name: NavigationLayout.routeName,
-              builder: (context, state) {
-                 return const NavigationLayout();
-              }
-            ),*/
+
             ShellRoute(
               // navigatorKey: shellNavigatorKey,
               builder: (context, state, screen) => NavigationLayout(child: screen),
