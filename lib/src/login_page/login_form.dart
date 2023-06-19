@@ -8,7 +8,7 @@ class _EmployeeInput extends StatelessWidget {
     return BlocBuilder<LoginCubit, LoginState>(
       builder: (context, state) {
         return _InputField(key: key,
-          icon: Icons.account_circle_outlined,
+          icon: FluentIcons.contact,
           hintText: 'Matricule...',
           onChanged: (id) => BlocProvider
             .of<LoginCubit>(context)
@@ -31,7 +31,7 @@ class _EmailInput extends StatelessWidget {
       builder: (context, state) {
         return _InputField(
           key: key,
-          icon: Icons.email_outlined,
+          icon: FluentIcons.mail,
           hintText: 'Email...',
           isEmail: true,
           onChanged: (email) => BlocProvider
@@ -60,7 +60,7 @@ class _PasswordInputState extends State<_PasswordInput> {
       builder: (context, state) {
         return _InputField(
           key: widget.key,
-          icon: Icons.lock_outline,
+          icon: FluentIcons.lock12,
           hintText:  'Mot de passe...',
           isPassword: showPassword,
           onChanged: (password) =>

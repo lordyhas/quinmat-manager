@@ -9,9 +9,9 @@ class ButtonLogin extends StatelessWidget {
     return BlocBuilder<LoginCubit, LoginState>(
       buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
-        return InkWell(
-          highlightColor: Colors.transparent,
-          splashColor: Colors.transparent,
+        return GestureDetector(
+          //highlightColor: Colors.transparent,
+          //splashColor: Colors.transparent,
           onTap: () {
             if(state.status.isValidated){
               context.read<LoginCubit>().logInWithCredentials();
@@ -23,7 +23,7 @@ class ButtonLogin extends StatelessWidget {
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: state.status.isValidated?
-              Theme.of(context).colorScheme.secondary
+              FluentTheme.of(context).accentColor
               :Colors.grey,
               borderRadius: BorderRadius.circular(10),
             ),
@@ -31,8 +31,8 @@ class ButtonLogin extends StatelessWidget {
             ? SizedBox(
               height: 30,
               width: 30,
-              child: CircularProgressIndicator(
-                color: Theme.of(context).primaryColor,
+              child: ProgressRing(
+                activeColor: FluentTheme.of(context).activeColor,
               ),
             )
             : Text(text,
@@ -55,23 +55,25 @@ class _GoogleLoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //double width = MediaQuery.of(context).size.width *0.75;
-    final theme = Theme.of(context);
+    final theme = FluentTheme.of(context);
     Widget googleOutlineButton = OutlinedButton(
       onPressed: () => context.read<LoginCubit>().logInWithGoogle(),
       //BlocProvider.of<LoginCubit>(context).logInWithGoogle(),
-      style: OutlinedButton.styleFrom(
-          //backgroundColor: theme.colorScheme.primary,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-          side: BorderSide(
-            color: theme.colorScheme.primary,
-          ),
+      style: ButtonStyle(
+        shape: ButtonState.all(RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        )),
+        border: ButtonState.all(BorderSide(
+          width: 2,
+          color: FluentTheme.of(context).activeColor,
+        )),
       ),
       child:  Container(
         margin: const EdgeInsets.symmetric(vertical: 8.0),
         child: Row(
           //mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Icon(FontAwesomeIcons.google),
+            const Icon(FontAwesomeIcons.google, size: 18,),
             const Spacer(),
             Text(text),
             const Spacer(),
@@ -80,36 +82,34 @@ class _GoogleLoginButton extends StatelessWidget {
         ),
       ),
     );
-    return Container(
-        //width: width,
-        child: googleOutlineButton);
+    return Container(child: googleOutlineButton);
   }
 }
 
 class _FacebookLoginButton extends StatelessWidget {
   final String text;
-  const _FacebookLoginButton({this.text= "Sign in with Facebook"});
+  const _FacebookLoginButton({this.text = "Sign in with Facebook"});
   @override
   Widget build(BuildContext context) {
     //double width = MediaQuery.of(context).size.width *0.75;
-    final theme = Theme.of(context);
+    final theme = FluentTheme.of(context);
     Widget facebookOutlineButton = OutlinedButton(
         key: const Key('loginForm_facebookLogin_outlineButton'),
-        style: OutlinedButton.styleFrom(
-          //backgroundColor: theme.colorScheme.primary,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-          side: BorderSide(
-            color: theme.colorScheme.primary,
-          ),
+        style: ButtonStyle(
+          shape: ButtonState.all(RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30.0),
+          )),
+          border: ButtonState.all(BorderSide(
+            width: 2,
+            color: FluentTheme.of(context).activeColor,
+          )),
         ),
-
         child: Container(
           margin: const EdgeInsets.symmetric(vertical: 8.0),
-
           child: Row(
             //mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Icon(FontAwesomeIcons.facebookF,),
+              const Icon(FontAwesomeIcons.facebookF, size: 18,),
               const Spacer(),
               Text(text),
               const Spacer(),
@@ -122,9 +122,7 @@ class _FacebookLoginButton extends StatelessWidget {
         onPressed: () {} //=> context.bloc<LoginCubit>().logInWithFacebook(),
     );
 
-    return Container(
-        //width: width,
-        child: facebookOutlineButton);
+    return Container(child: facebookOutlineButton);
   }
 }
 
@@ -161,31 +159,30 @@ class _InputField extends StatelessWidget {
             height: 48,
             //width: size.width / 1.22,
             alignment: Alignment.center,
-            decoration: BoxDecoration(
+            /*decoration: BoxDecoration(
               color: Colors.white.withOpacity(.15),
               borderRadius: BorderRadius.circular(10),
-            ),
+            ),*/
           ),
-          TextField(
+          TextBox(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             key: key,
             style: const TextStyle(color: Colors.white),
             obscureText: isPassword,
             keyboardType: isEmail ? TextInputType.emailAddress : TextInputType.text,
             onChanged: onChanged,
-            decoration: InputDecoration(
-              prefixIcon: Icon(icon,
-                color: Colors.white.withOpacity(.7),
-              ),
-              suffixIcon:suffixIcon,
-              border: InputBorder.none,
-              //hintMaxLines: 1,
-              hintText: hintText,
-              errorText: errorText,
-              helperText: '',
-              hintStyle: TextStyle(
-                  fontSize: 14,
-                  color: Colors.white.withOpacity(.5)
-              ),
+
+            prefix: Icon(icon,
+              color: Colors.white.withOpacity(.7),
+            ),
+            suffix: suffixIcon,
+            placeholder: hintText,
+            placeholderStyle: TextStyle(
+                fontSize: 14,
+                color: Colors.white.withOpacity(.5),
+            ),
+            decoration: BoxDecoration(
+              border: Border.all(),
             ),
           ),
         ],

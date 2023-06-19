@@ -1,12 +1,13 @@
 library login_page;
 
+import 'package:fluent_ui/fluent_ui.dart';
 import 'package:qmt_manager/src/dashboard/home_screen.dart';
 import 'package:qmt_manager/widgets/widgets.dart';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart' show CupertinoIcons;
 import 'package:flutter/foundation.dart';
 
-import 'package:flutter/material.dart';
+//import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -73,11 +74,13 @@ class _LoginPageState extends State<LoginPage>
 
   bool createAccount = false;
 
+
+
   @override
   Widget build(BuildContext context) {
     if (!kIsWeb) {
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        systemNavigationBarColor: Theme.of(context).scaffoldBackgroundColor,
+        systemNavigationBarColor: FluentTheme.of(context).scaffoldBackgroundColor,
       ));
     }
     Size size = MediaQuery.of(context).size;
@@ -95,11 +98,11 @@ class _LoginPageState extends State<LoginPage>
           context.read<AuthenticationRepository>(),
         ),
         child: BackgroundUI(
-          child: Scaffold(
-            backgroundColor: Colors.transparent,
+          child: ScaffoldPage(
+            //backgroundColor: Colors.transparent,
             resizeToAvoidBottomInset: false,
-            extendBodyBehindAppBar: true,
-            body: ScrollConfiguration(
+            //extendBodyBehindAppBar: true,
+            content: ScrollConfiguration(
               behavior: MyScrollBehaviorBehavior(),
               child: SizedBox(
                 child: Container(
@@ -110,14 +113,14 @@ class _LoginPageState extends State<LoginPage>
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                       colors: [
-                        Theme.of(context).scaffoldBackgroundColor.withOpacity(0.0),
-                        Theme.of(context).scaffoldBackgroundColor.withOpacity(0.1),
-                        Theme.of(context).scaffoldBackgroundColor.withOpacity(0.3),
-                        Theme.of(context).scaffoldBackgroundColor.withOpacity(0.5),
-                        Theme.of(context).scaffoldBackgroundColor.withOpacity(0.7),
-                        Theme.of(context).scaffoldBackgroundColor.withOpacity(0.9),
-                        Theme.of(context).scaffoldBackgroundColor.withOpacity(1),
-                        Theme.of(context).scaffoldBackgroundColor.withOpacity(1),
+                        FluentTheme.of(context).scaffoldBackgroundColor.withOpacity(0.0),
+                        FluentTheme.of(context).scaffoldBackgroundColor.withOpacity(0.1),
+                        FluentTheme.of(context).scaffoldBackgroundColor.withOpacity(0.3),
+                        FluentTheme.of(context).scaffoldBackgroundColor.withOpacity(0.5),
+                        FluentTheme.of(context).scaffoldBackgroundColor.withOpacity(0.7),
+                        FluentTheme.of(context).scaffoldBackgroundColor.withOpacity(0.9),
+                        FluentTheme.of(context).scaffoldBackgroundColor.withOpacity(1),
+                        FluentTheme.of(context).scaffoldBackgroundColor.withOpacity(1),
                       ],
                     ),
                   ),
@@ -127,14 +130,28 @@ class _LoginPageState extends State<LoginPage>
                       listener: (context, state) {
                         if (state.status.isSubmissionFailure) {
                           FocusScope.of(context).requestFocus(FocusNode());
-                          ScaffoldMessenger.of(context)
+
+                          displayInfoBar(context, builder: (context, close) {
+                            return InfoBar(
+                              title: const Text('Something goes wrong :/'),
+                              content: const Text(
+                                  'Authentication Failure :/'),
+                              action: IconButton(
+                                icon: const Icon(FluentIcons.clear),
+                                onPressed: close,
+                              ),
+                              severity: InfoBarSeverity.warning,
+                            );
+                          });
+
+                          /*ScaffoldMessenger.of(context)
                             ..hideCurrentSnackBar()
                             ..showSnackBar(
                               const SnackBar(
                                 behavior: SnackBarBehavior.floating,
                                 content: Text('Authentication Failure'),
                               ),
-                            );
+                            );*/
                         }
                       },
                       child: Opacity(
@@ -146,7 +163,7 @@ class _LoginPageState extends State<LoginPage>
                             width: size.width * .9,
                             height:kIsWeb ? size.height * 0.8 : 620,
                             decoration: BoxDecoration(
-                              color: Colors.black87,
+                              color: Colors.black.withOpacity(.8),
                               borderRadius: BorderRadius.circular(15),
                               boxShadow: [
                                 BoxShadow(
@@ -226,13 +243,13 @@ class _LoginPageState extends State<LoginPage>
                       showDialog(
                         context: context,
                         builder: (context){
-                          return AlertDialog(
+                          return ContentDialog(
                             actions: [
-                              ElevatedButton(
+                              Button(
                                 onPressed: GoRouter.of(context).pop ,
                                 child: const Text("Understand"),
                               ),
-                              TextButton(
+                              FilledButton(
                                 onPressed: GoRouter.of(context).pop ,
                                 child: const Text("Cancel"),
                               ),
@@ -255,9 +272,9 @@ class _LoginPageState extends State<LoginPage>
                                     ),
                                   ),
                                   const SizedBox(height: 4.0,),
-                                  const Text("info@exploress.space",
+                                  Text("info@exploress.space",
                                     style: TextStyle(
-                                      color: Colors.cyan,
+                                      color: Colors.teal.light,
                                     ),
                                   ),
                                   const Spacer(),
@@ -275,16 +292,16 @@ class _LoginPageState extends State<LoginPage>
                       );
                     },
 
-                    onHover: (value){
+                    /*onHover: (value){
                       setState(() {
                         underline = value;
                       });
-                    },
+                    },*/
                     child: RichText(
                       text: TextSpan(
                         text: 'Mot de passe oublié !',
                         style: TextStyle(
-                          color: Colors.blueAccent,
+                          color: Colors.blue,
                           decoration: underline
                               ? TextDecoration.underline
                               : TextDecoration.none,
@@ -329,14 +346,12 @@ class _LoginPageState extends State<LoginPage>
         alignment: Alignment.topRight,
         child: Padding(
           padding: const EdgeInsets.all(4.0),
-          child: IconButton(
-              onPressed: !kIsWeb ? (){} : null,
+          child: !kIsWeb ? IconButton(
+              onPressed: (){},
               icon: const Icon(CupertinoIcons.gear_solid,
-                color:  !kIsWeb
-                    ? Colors.white
-                    : Colors.transparent,
+                color: Colors.white,
               )
-          ),
+          ) : null,
         ),
       ),
     ],
