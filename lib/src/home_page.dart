@@ -24,11 +24,13 @@ import 'package:qmt_manager/logic/data_test.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 //import 'package:qmt_manager/src/maps_test.dart';
 import 'package:qmt_manager/src/preference_page/about_page.dart';
-import 'package:qmt_manager/src/dashboard/products/product.dart';
-import 'package:qmt_manager/src/dashboard/products/filters_screen.dart';
+import 'package:qmt_manager/src/dashboard/customers/product.dart';
+import 'package:qmt_manager/src/dashboard/customers/filters_screen.dart';
 import 'package:qmt_manager/src/dashboard/single_item_screen.dart';
 
 import 'package:http/http.dart' as http;
+
+import 'dashboard/customers/product.dart';
 
 
 

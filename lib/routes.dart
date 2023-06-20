@@ -5,15 +5,15 @@ import 'package:qmt_manager/src/dashboard/doctors/doctor_data_tab.dart';
 import 'package:qmt_manager/src/add_product/add_product_page.dart';
 import 'package:qmt_manager/src/dashboard/home_screen.dart';
 import 'package:qmt_manager/src/dashboard/nested_web_view.dart';
-import 'package:qmt_manager/src/dashboard/products/filters_screen.dart';
-import 'package:qmt_manager/src/dashboard/products/product_table_page.dart';
+import 'package:qmt_manager/src/dashboard/customers/filters_screen.dart';
+import 'package:qmt_manager/src/dashboard/customers/product_table_page.dart';
 import 'package:qmt_manager/src/login_page.dart';
 import 'package:qmt_manager/src/maps_test.dart';
 import 'package:qmt_manager/src/home_page.dart';
 import 'package:qmt_manager/src/dashboard/single_item_screen.dart';
 
 import 'package:qmt_manager/src/myspace_page.dart';
-import 'package:qmt_manager/src/navigation_layout.dart';
+import 'package:qmt_manager/src/navigation_home.dart';
 import 'package:qmt_manager/src/preference_page/about_page.dart';
 import 'package:qmt_manager/src/preference_page/edit_profile_page.dart';
 import 'package:qmt_manager/src/setting_profile_screen.dart';
@@ -30,10 +30,11 @@ class AppRouter extends GoRouter {
   }) : super(
           navigatorKey: key,
           errorBuilder: (context, state) => OnErrorPage(error: state.error),
-          redirect: (context, route){
+          /*redirect: (context, route){
+            if(route.)
             return HomeScreen.routeUrl;
-          },
-          initialLocation: LoginPage.routeName, //HomeScreen.routeUrl, //LoginPage.routeName,
+          },*/
+          initialLocation: HomeScreen.routeUrl, //LoginPage.routeName,
           routes: <RouteBase>[
             GoRoute(
               parentNavigatorKey: key,
@@ -50,7 +51,7 @@ class AppRouter extends GoRouter {
 
             ShellRoute(
               // navigatorKey: shellNavigatorKey,
-              builder: (context, state, screen) => NavigationLayout(child: screen),
+              builder: (context, state, screen) => NavigationHome(child: screen),
               routes: <RouteBase>[
                 _homeGoRoute(parentKey: key),
               ],

@@ -1,27 +1,27 @@
 
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:qmt_manager/logic/transfer_protocol/http_protocol.dart';
 import 'package:qmt_manager/src/add_product/add_product_page.dart';
 import 'package:qmt_manager/src/setting_profile_screen.dart';
 import '../logic/values.dart';
 import 'dashboard/doctors/doctor_data_tab.dart';
 import 'dashboard/home_screen.dart';
-import 'dashboard/products/product_table_page.dart';
+import 'dashboard/customers/product_table_page.dart';
 import 'home_page.dart';
 import 'myspace_page.dart';
 
 
+class NavigationHome extends StatefulWidget {
 
-class NavigationLayout extends StatefulWidget {
-
-  static const routeName = "home_layout";
+  //static const routeName = "home_layout";
   final Widget? child;
-  const NavigationLayout({required this.child, Key? key}) : super(key: key);
+  const NavigationHome({required this.child, Key? key}) : super(key: key);
 
   @override
-  State<NavigationLayout> createState() => _NavigationLayoutState();
+  State<NavigationHome> createState() => _NavigationHomeState();
 }
 
-class _NavigationLayoutState extends State<NavigationLayout> {
+class _NavigationHomeState extends State<NavigationHome> {
   int topIndex = 0;
 
   final flyoutController = FlyoutController();
@@ -68,8 +68,11 @@ class _NavigationLayoutState extends State<NavigationLayout> {
     super.dispose();
   }
 
+
+
   @override
   Widget build(BuildContext context) {
+
     const double iconSize = 20;
     const TextStyle textStyle = TextStyle(
       fontSize: 16,
