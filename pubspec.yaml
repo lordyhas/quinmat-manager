@@ -2,7 +2,7 @@ name: qmt_manager
 description: Quinmat Manager Project for internal usage (stuff only)
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 0.1.8+5beta
+version: 0.1.8+6beta
 
 
 environment:

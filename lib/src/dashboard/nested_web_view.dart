@@ -292,7 +292,6 @@ import 'dart:math';
 
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart%20';
-import 'package:qmt_manager/src/dashboard/products/filters_screen.dart';
 
 import '../../logic/values.dart';
 

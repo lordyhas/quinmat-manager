@@ -1,13 +1,13 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:qmt_manager/logic/values.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart' show CupertinoIcons, CupertinoSwitch;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' show RangeValues, AppBar;
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:qmt_manager/src/dashboard/products/model/view_model.dart';
-import 'package:qmt_manager/src/dashboard/products/product.dart';
-import 'package:qmt_manager/src/dashboard/products/range_slider_view.dart';
-import 'package:qmt_manager/src/dashboard/products/slider_view.dart';
+import 'package:qmt_manager/src/dashboard/customers/model/view_model.dart';
+import 'package:qmt_manager/src/dashboard/customers/product.dart';
+import 'package:qmt_manager/src/dashboard/customers/range_slider_view.dart';
+import 'package:qmt_manager/src/dashboard/customers/slider_view.dart';
 
 class FiltersScreen extends StatefulWidget {
   static const routeName = "filter";
