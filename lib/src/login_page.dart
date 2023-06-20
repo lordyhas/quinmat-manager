@@ -100,7 +100,7 @@ class _LoginPageState extends State<LoginPage>
         child: BackgroundUI(
           child: ScaffoldPage(
             //backgroundColor: Colors.transparent,
-            resizeToAvoidBottomInset: false,
+            //resizeToAvoidBottomInset: false,
             //extendBodyBehindAppBar: true,
             content: ScrollConfiguration(
               behavior: MyScrollBehaviorBehavior(),
@@ -113,14 +113,14 @@ class _LoginPageState extends State<LoginPage>
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                       colors: [
-                        FluentTheme.of(context).scaffoldBackgroundColor.withOpacity(0.0),
-                        FluentTheme.of(context).scaffoldBackgroundColor.withOpacity(0.1),
-                        FluentTheme.of(context).scaffoldBackgroundColor.withOpacity(0.3),
-                        FluentTheme.of(context).scaffoldBackgroundColor.withOpacity(0.5),
-                        FluentTheme.of(context).scaffoldBackgroundColor.withOpacity(0.7),
-                        FluentTheme.of(context).scaffoldBackgroundColor.withOpacity(0.9),
-                        FluentTheme.of(context).scaffoldBackgroundColor.withOpacity(1),
-                        FluentTheme.of(context).scaffoldBackgroundColor.withOpacity(1),
+                        Colors.grey[170].withOpacity(0.0),
+                        Colors.grey[170].withOpacity(0.1),
+                        Colors.grey[170].withOpacity(0.3),
+                        Colors.grey[170].withOpacity(0.5),
+                        Colors.grey[170].withOpacity(0.7),
+                        Colors.grey[170].withOpacity(0.9),
+                        Colors.grey[170].withOpacity(1),
+                        Colors.grey[170].withOpacity(1),
                       ],
                     ),
                   ),
@@ -237,7 +237,7 @@ class _LoginPageState extends State<LoginPage>
               Container(
                 //width: 150,
                   alignment: Alignment.center,
-                  child: TextButton(
+                  child: HoverButton(
                     onPressed: (){
                       Log.i('Forgotten password! button pressed',);
                       showDialog(
@@ -297,18 +297,22 @@ class _LoginPageState extends State<LoginPage>
                         underline = value;
                       });
                     },*/
-                    child: RichText(
-                      text: TextSpan(
-                        text: 'Mot de passe oublié !',
-                        style: TextStyle(
-                          color: Colors.blue,
-                          decoration: underline
-                              ? TextDecoration.underline
-                              : TextDecoration.none,
+                    builder: (BuildContext context, Set<ButtonStates> state) {
+                      return RichText(
+                        text: TextSpan(
+                          text: 'Mot de passe oublié !',
+                          style: TextStyle(
+                            color: Colors.blue,
+                            decoration: underline
+                                ? TextDecoration.underline
+                                : TextDecoration.none,
+                          ),
+                          //mouseCursor: SystemMouseCursors.
+                          //recognizer: TapGestureRecognizer()..onTap = ,
                         ),
-                        //recognizer: TapGestureRecognizer()..onTap = ,
-                      ),
-                    ),
+                      );
+                    },
+
                   )
               )
             ],

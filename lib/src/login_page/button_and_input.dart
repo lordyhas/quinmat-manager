@@ -150,7 +150,7 @@ class _InputField extends StatelessWidget {
   Widget build(BuildContext context) {
     //Size size = MediaQuery.of(context).size;
     return Container(
-      height: 70,
+      height: 50,
       margin: const EdgeInsets.symmetric(horizontal: 16.0),
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Stack(
@@ -165,14 +165,14 @@ class _InputField extends StatelessWidget {
             ),*/
           ),
           TextBox(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
             key: key,
             style: const TextStyle(color: Colors.white),
             obscureText: isPassword,
             keyboardType: isEmail ? TextInputType.emailAddress : TextInputType.text,
             onChanged: onChanged,
 
-            prefix: Icon(icon,
+            prefix: Icon(icon,size: 18,
               color: Colors.white.withOpacity(.7),
             ),
             suffix: suffixIcon,

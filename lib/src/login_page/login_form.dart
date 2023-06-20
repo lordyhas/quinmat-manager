@@ -67,7 +67,7 @@ class _PasswordInputState extends State<_PasswordInput> {
               BlocProvider.of<LoginCubit>(context).passwordChanged(password),
           errorText: state.password.invalid ? 'mot de passe invalid' : null,
           suffixIcon: IconButton(
-            icon: Icon(showPassword? CupertinoIcons.eye_slash : CupertinoIcons.eye),
+            icon: Icon(showPassword? CupertinoIcons.eye_slash : CupertinoIcons.eye, size: 18,),
             onPressed: (){
               setState(() {
                 showPassword = !showPassword;

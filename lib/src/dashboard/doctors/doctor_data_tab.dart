@@ -3,6 +3,7 @@ import 'package:flutter/material.dart' show DataTableSource, DataRow, DataCell, 
 import 'package:qmt_manager/src/add_doctor/add_doctor_page.dart';
 import 'package:qmt_manager/logic/data.csv.dart';
 
+import '../../../logic/transfer_protocol/http_protocol.dart';
 import '../../../logic/values.dart';
 
 /*
@@ -222,11 +223,13 @@ class Doctor {
 }
 
 class DoctorDataSource extends DataTableSource {
-  final List<Doctor> _doctors = doctorData
-      .map((final Map<String, dynamic> data) {
 
-    return  Doctor.fromJsonApi(data);
-  }).toList();
+  final List<Map<String, String>> data;
+
+
+  DoctorDataSource({required this.data});
+
+  List<Doctor> get _doctors => data.map((final Map<String, dynamic> data) =>  Doctor.fromJsonApi(data)).toList();
 
   void _sort<T>(Comparable<T> Function(Doctor d) getField, bool ascending) {
     _doctors.sort((Doctor a, Doctor b) {
@@ -318,7 +321,18 @@ class _DoctorDataTableScreenState extends State<DoctorDataTableScreen> {
   int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
   int? _sortColumnIndex;
   bool _sortAscending = true;
-  final DoctorDataSource _doctorsDataSource = DoctorDataSource();
+  late final DoctorDataSource _doctorsDataSource;// = DoctorDataSource();
+
+  void getCSV() async {
+
+  }
+
+  @override
+  void initState() async {
+    super.initState();
+    TransferProtocol http = const TransferProtocol("https://exploress.space/api/doctor-sample/csv");
+    DoctorDataSource(data: await http.get() as List<Map<String, String>> );
+  }
 
   void _sort<T>(Comparable<T> Function(Doctor d) getField, int columnIndex,
       bool ascending) {
@@ -328,6 +342,8 @@ class _DoctorDataTableScreenState extends State<DoctorDataTableScreen> {
       _sortAscending = ascending;
     });
   }
+
+
 
 
   void showContentDialog(BuildContext context) async {
@@ -356,9 +372,9 @@ class _DoctorDataTableScreenState extends State<DoctorDataTableScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final ScrollController scrollController = ScrollController(
+    /*final ScrollController scrollController = ScrollController(
       debugLabel: 'scrollDoctors',
-    );
+    );*/
 
     final simpleCommandBarItems = <CommandBarItem>[
       CommandBarBuilderItem(
