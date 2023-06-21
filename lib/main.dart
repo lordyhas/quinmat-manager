@@ -27,11 +27,11 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  HydratedBloc.storage = await HydratedStorage.build(
+  /*HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: kIsWeb
         ? HydratedStorage.webStorageDirectory
         : await getTemporaryDirectory(),
-  );
+  );*/
 
   Bloc.observer = AppBlocObserver();
   //Hive.initFlutter();
@@ -125,7 +125,7 @@ class QuinmatApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (!kIsWeb) _checkSomePermissions();
-    checkConnect();
+    //checkConnect();
     return MultiBlocProvider(
       providers: [
         BlocProvider<StyleAppTheme>(
