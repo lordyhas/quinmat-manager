@@ -166,23 +166,3 @@ class AppRouter extends GoRouter {
       );
 }
 
-/*
-public static void main(String[] args) {
-        try{
-            String url = "rmi://localhost:5097/Bank";
-
-            OperationBancaire op  = (OperationBancaire) Naming.lookup(url);
-
-            System.out.println("balance:"+ op.balance());
-            op.depot(150);
-            System.out.println("balance:"+ op.balance());
-            op.retrait(300);
-            System.out.println("balance:"+ op.balance());
-
-        }catch(RemoteException | MalformedURLException e){
-            System.out.println("Failed to open the server");
-        } catch (NotBoundException ex) {
-            Logger.getLogger(RMIClient.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-*/

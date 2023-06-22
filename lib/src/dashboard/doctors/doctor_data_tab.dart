@@ -200,23 +200,23 @@ class Doctor {
 
   factory Doctor.fromJsonApi(Map<String, dynamic> data) {
     return Doctor(
-      title: data['title'] as String,
-      name: data['name'] as String,
-      firstName: data['firstName'] as String,
-      lastName: data['lastName'] as String,
-      sex: data['sex'] as String,
-      hospital: data['hospital'] as String,
-      speciality: data['speciality'] as String,
-      location: data['location'] as String,
+      title: (data['title'] ?? "Unknown") as String,
+      name: (data['name'] ?? "") as String,
+      firstName: (data['firstName'] ?? "") as String,
+      lastName: (data['lastName'] ?? "") as String,
+      sex: (data['sex'] ?? "S.O") as String,
+      hospital: (data['hospital'] ?? "S.O") as String,
+      speciality: (data['speciality'] ?? "S.O") as String,
+      location: (data['location'] ?? "") as String,
       lastUpdate: DateTime.now(),
-      isDoctor : data["is_doctor"].toString().toLowerCase() == 'yes',
+      isDoctor : (data["is_doctor"] ?? "no").toString().toLowerCase() == 'yes',
       phoneNumbers: [
-        data['mob_number1'] as String,
-        data['mob_number1'] as String,
+        (data['mob_number1'] ?? "") as String,
+        (data['mob_number2'] ?? "") as String,
       ],
       emails : [
-        data['email1'] as String,
-        data['email1'] as String,
+        (data['email1'] ?? "") as String,
+        (data['email2'] ?? "") as String,
       ],
     );
   }
@@ -224,7 +224,7 @@ class Doctor {
 
 class DoctorDataSource extends DataTableSource {
 
-  final List<Map<String, String>> data;
+  final List<Map<String, dynamic>> data;
 
 
   DoctorDataSource({required this.data});
@@ -323,15 +323,20 @@ class _DoctorDataTableScreenState extends State<DoctorDataTableScreen> {
   bool _sortAscending = true;
   late final DoctorDataSource _doctorsDataSource;// = DoctorDataSource();
 
-  void getCSV() async {
+  TransferProtocol http = const TransferProtocol("https://exploress.space/api/doctor-sample/csv");
 
+
+  void loadData() async {
+    _doctorsDataSource = DoctorDataSource(
+      data: doctorData,
+      //data: await http.get(),
+    );
   }
 
   @override
-  void initState() async {
+  void initState() {
     super.initState();
-    TransferProtocol http = const TransferProtocol("https://exploress.space/api/doctor-sample/csv");
-    DoctorDataSource(data: await http.get() as List<Map<String, String>> );
+    loadData();
   }
 
   void _sort<T>(Comparable<T> Function(Doctor d) getField, int columnIndex,
@@ -342,9 +347,6 @@ class _DoctorDataTableScreenState extends State<DoctorDataTableScreen> {
       _sortAscending = ascending;
     });
   }
-
-
-
 
   void showContentDialog(BuildContext context) async {
     final result = await showDialog<String>(
@@ -376,162 +378,232 @@ class _DoctorDataTableScreenState extends State<DoctorDataTableScreen> {
       debugLabel: 'scrollDoctors',
     );*/
 
-    final simpleCommandBarItems = <CommandBarItem>[
-      CommandBarBuilderItem(
-        builder: (context, mode, w) => Tooltip(
-          message: "Create something new!",
-          child: w,
-        ),
-        wrappedItem: CommandBarButton(
-          icon: const Icon(FluentIcons.add),
-          label: const Text('New'),
-          onPressed: () {},
-        ),
-      ),
-      CommandBarBuilderItem(
-        builder: (context, mode, w) => Tooltip(
-          message: "Delete what is currently selected!",
-          child: w,
-        ),
-        wrappedItem: CommandBarButton(
-          icon: const Icon(FluentIcons.delete),
-          label: const Text('Delete'),
-          onPressed: () {},
-        ),
-      ),
-      CommandBarButton(
-        icon: const Icon(FluentIcons.archive),
-        label: const Text('Archive'),
-        onPressed: () {},
-      ),
-      CommandBarButton(
-        icon: const Icon(FluentIcons.move),
-        label: const Text('Move'),
-        onPressed: () {},
-      ),
-      const CommandBarButton(
-        icon: Icon(FluentIcons.cancel),
-        label: Text('Disabled'),
-        onPressed: null,
-      ),
-    ];
     return ScaffoldPage(
-      /*header: PageHeader(
-        leading:  Padding(
-            padding: const EdgeInsets.only(left: 8.0),
-            child: Image.asset("assets/icon_app_red.png", height: 32 ,)
-        ), /*IconButton(
-          icon: const Icon(Icons.close),
-          onPressed: Go.of(context).pop,
-        ),*/
+      header:  PageHeader(
         title: const Text('Doctor data tables'),
-      ),*/
-
-      content: SingleChildScrollView(
-        //controller: scrollController,
-        padding: const EdgeInsets.all(20.0),
-        child:  PaginatedDataTable(
-          header: const Text('Doctors'),
-          actions: [
-
-            /*ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 230),
-              child: CommandBarCard(
-                child: CommandBar(
-                  overflowBehavior: CommandBarOverflowBehavior.clip,
-                  isCompact: true,
-                  primaryItems: [
-                    ...simpleCommandBarItems,
-                    const CommandBarSeparator(),
-
-                  ],
+        commandBar: Container(
+          constraints: const BoxConstraints(maxWidth: 450),
+          child: CommandBarCard(
+            child: CommandBar(
+              //overflowBehavior: CommandBarOverflowBehavior.,
+              isCompact: true,
+              primaryItems: [
+                CommandBarBuilderItem(
+                  builder: (context, mode, child) => Tooltip(
+                    message: "Refresh data, to get last update",
+                    child: child,
+                  ),
+                  wrappedItem: CommandBarButton(
+                    icon: const Icon(FluentIcons.refresh),
+                    label: const Text('Refresh'),
+                    onPressed: () {
+                      setState(() {});
+                    },
+                  ),
                 ),
-              ),
-            ),*/
 
-            IconButton(onPressed: () {}, icon: const Icon(FluentIcons.delete)),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(FluentIcons.o_d_link,),
-            ),
-            IconButton(
-                icon: const Icon(FluentIcons.add),
-                onPressed: () async {
-                  //showContentDialog(context);
-                  final result = await showDialog<String>(
-                    context: context,
-                    builder: (context) => const AddDoctorDialog(),
-                  );
-                  /*Go.of(context).to(
-                    routeName: AddDoctorPage.routeName,
-                  );*/
-                }
-            ),
-          ],
-          rowsPerPage: _rowsPerPage,
-          onRowsPerPageChanged: (int? value) {
-            setState(() {
-              _rowsPerPage = value!;
-            });
-          },
-          sortColumnIndex: _sortColumnIndex,
-          sortAscending: _sortAscending,
-          onSelectAll: _doctorsDataSource.selectAll,
-          availableRowsPerPage: const <int>[10,20,40,60],
+                CommandBarButton(
+                  icon: const Icon(FluentIcons.archive),
+                  label: const Text('Archive'),
+                  onPressed: () {},
+                ),
+                CommandBarButton(
+                  icon: const Icon(FluentIcons.move),
+                  label: const Text('Move'),
+                  onPressed: () {},
+                ),
+                const CommandBarSeparator(),
+                CommandBarButton(
+                  icon: const Icon(FluentIcons.search),
+                  label: const Text('Search'),
+                  onPressed: () {},
+                ),
+                CommandBarButton(
+                  icon: const Icon(FluentIcons.reply),
+                  label: const Text('Go back'),
+                  onPressed: () {},
+                ),
+                CommandBarBuilderItem(
+                  builder: (context, mode, child) => Tooltip(
+                    message: "Bloqué tous modif sur cette instance",
+                    child: child,
+                  ),
+                  wrappedItem: CommandBarButton(
+                    icon: const Icon(FluentIcons.blocked12),
+                    label: const Text('Blocked'),
+                    onPressed: () {},
+                  ),
+                ),
+                CommandBarBuilderItem(
+                  builder: (context, mode, child) => Tooltip(
+                    message: "Signaler un problème dans les données",
+                    child: child,
+                  ),
+                  wrappedItem: CommandBarButton(
+                    icon: const Icon(FluentIcons.report_warning),
+                    label: const Text('Signaler'),
+                    onPressed: () {},
+                  ),
+                ),
+                CommandBarBuilderItem(
+                  builder: (context, mode, child) => Tooltip(
+                    message: "Ajouter à la liste signet",
+                    child: child,
+                  ),
+                  wrappedItem: CommandBarButton(
+                    icon: const Icon(FluentIcons.single_bookmark),
+                    label: const Text('Bookmark'),
+                    onPressed: () {},
+                  ),
+                ),
+                CommandBarBuilderItem(
+                  builder: (context, mode, child) => Tooltip(
+                    message: "Marker à faire plus tart",
+                    child: child,
+                  ),
+                  wrappedItem: CommandBarButton(
+                    icon: const Icon(FluentIcons.add_event),
+                    label: const Text('À faire'),
+                    onPressed: () {},
+                  ),
+                ),
 
-          columns: <DataColumn>[
-            DataColumn(
-              label: const Text('Nom Complet'),
-              onSort: (int columnIndex, bool ascending) => _sort<String>(
-                      (Doctor d) => d.name, columnIndex, ascending),
+                const CommandBarSeparator(),
+
+                CommandBarBuilderItem(
+                  builder: (context, mode, child) => Tooltip(
+                    message: "Assigner une tache a un collègue",
+                    child: child,
+                  ),
+                  wrappedItem: CommandBarButton(
+                    icon: const Icon(FluentIcons.add_event),
+                    label: const Text('Assignee'),
+                    onPressed: () {},
+                  ),
+                ),
+                CommandBarButton(
+                  icon: const Icon(FluentIcons.hide3),
+                  label: const Text('Cacher'),
+                  onPressed: (){
+
+                  },
+                ),
+                const CommandBarButton(
+                  icon: Icon(FluentIcons.cancel),
+                  label: Text('Disabled'),
+                  onPressed: null,
+                ),
+
+
+
+              ],
+              secondaryItems: const [],
             ),
-            DataColumn(
-              label: const Text('Sex'),
-              //numeric: true,
-              onSort: (int columnIndex, bool ascending) => _sort<String>(
-                      (Doctor d) => d.sex, columnIndex, ascending),
-            ),
-            DataColumn(
-              label: const Text('Speciality'),
-              onSort: (int columnIndex, bool ascending) => _sort<String>(
-                      (Doctor d) => d.speciality, columnIndex, ascending),
-            ),
-            DataColumn(
-              label: const Text('Hospital'),
-              //tooltip: 'Each hospital.',
-              onSort: (int columnIndex, bool ascending) => _sort<String>(
-                      (Doctor d) => d.hospital, columnIndex, ascending),
-            ),
-            DataColumn(
-              label: const Text('Location'),
-              tooltip: 'Hospital location.',
-              onSort: (int columnIndex, bool ascending) => _sort<String>(
-                      (Doctor d) => d.location, columnIndex, ascending),
-            ),
-            DataColumn(
-              label: const Text('Phone'),
-              onSort: (int columnIndex, bool ascending) => _sort<String>(
-                      (Doctor d) => d.phoneNumbers.first,
-                  columnIndex,
-                  ascending),
-            ),
-            DataColumn(
-              label: const Text('Email'),
-              //tooltip: '',
-              onSort: (int columnIndex, bool ascending) => _sort<String>(
-                      (Doctor d) => d.emails.first, columnIndex, ascending),
-            ),
-            DataColumn(
-              label: const Text('Doctor'),
-              numeric: true,
-              onSort: (int columnIndex, bool ascending) => _sort<String>(
-                      (Doctor d) => d.isDoctor.toString(),
-                  columnIndex,
-                  ascending),
-            ),
-          ],
-          source: _doctorsDataSource,
+          ),
         ),
+      ),
+
+      content: FutureBuilder<List<Map<String, dynamic>>>(
+        future: http.get(), //as List<Map<String, String>>,
+        builder: (context, snapshot) {
+          if(!snapshot.hasData) {
+            return const Center(child:  ProgressRing());
+          }
+
+
+
+          return SingleChildScrollView(
+
+            //controller: scrollController,
+            padding: const EdgeInsets.all(20.0),
+            child:  PaginatedDataTable(
+              header: const Text('Doctors'),
+              actions: [
+                IconButton(onPressed: () {}, icon: const Icon(FluentIcons.delete)),
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(FluentIcons.o_d_link,),
+                ),
+                IconButton(
+                    icon: const Icon(FluentIcons.add),
+                    onPressed: () async {
+                      //showContentDialog(context);
+                      final result = await showDialog<String>(
+                        context: context,
+                        builder: (context) => const AddDoctorDialog(),
+                      );
+                      /*Go.of(context).to(
+                        routeName: AddDoctorPage.routeName,
+                      );*/
+                    }
+                ),
+              ],
+              rowsPerPage: _rowsPerPage,
+              onRowsPerPageChanged: (int? value) {
+                setState(() {
+                  _rowsPerPage = value!;
+                });
+              },
+              sortColumnIndex: _sortColumnIndex,
+              sortAscending: _sortAscending,
+              onSelectAll: _doctorsDataSource.selectAll,
+              availableRowsPerPage: const <int>[10,20,40,60],
+
+              columns: <DataColumn>[
+                DataColumn(
+                  label: const Text('Nom Complet'),
+                  onSort: (int columnIndex, bool ascending) => _sort<String>(
+                          (Doctor d) => d.name, columnIndex, ascending),
+                ),
+                DataColumn(
+                  label: const Text('Sex'),
+                  //numeric: true,
+                  onSort: (int columnIndex, bool ascending) => _sort<String>(
+                          (Doctor d) => d.sex, columnIndex, ascending),
+                ),
+                DataColumn(
+                  label: const Text('Speciality'),
+                  onSort: (int columnIndex, bool ascending) => _sort<String>(
+                          (Doctor d) => d.speciality, columnIndex, ascending),
+                ),
+                DataColumn(
+                  label: const Text('Hospital'),
+                  //tooltip: 'Each hospital.',
+                  onSort: (int columnIndex, bool ascending) => _sort<String>(
+                          (Doctor d) => d.hospital, columnIndex, ascending),
+                ),
+                DataColumn(
+                  label: const Text('Location'),
+                  tooltip: 'Hospital location.',
+                  onSort: (int columnIndex, bool ascending) => _sort<String>(
+                          (Doctor d) => d.location, columnIndex, ascending),
+                ),
+                DataColumn(
+                  label: const Text('Phone'),
+                  onSort: (int columnIndex, bool ascending) => _sort<String>(
+                          (Doctor d) => d.phoneNumbers.first,
+                      columnIndex,
+                      ascending),
+                ),
+                DataColumn(
+                  label: const Text('Email'),
+                  //tooltip: '',
+                  onSort: (int columnIndex, bool ascending) => _sort<String>(
+                          (Doctor d) => d.emails.first, columnIndex, ascending),
+                ),
+                DataColumn(
+                  label: const Text('Doctor'),
+                  numeric: true,
+                  onSort: (int columnIndex, bool ascending) => _sort<String>(
+                          (Doctor d) => d.isDoctor.toString(),
+                      columnIndex,
+                      ascending),
+                ),
+              ],
+              source: _doctorsDataSource,
+            ),
+          );
+        }
       ),
     );
   }
