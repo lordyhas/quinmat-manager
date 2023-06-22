@@ -1,6 +1,6 @@
 
 
-import 'package:flutter/material.dart';
+import 'package:fluent_ui/fluent_ui.dart';
 
 class NoData extends StatelessWidget {
   final String data;
@@ -9,7 +9,7 @@ class NoData extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Icon(Icons.not_interested, size: 62,),
+        const Icon(FluentIcons.blocked, size: 62,),
         Text(data),
       ],
     );
