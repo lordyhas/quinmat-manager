@@ -263,31 +263,48 @@ class _RadioButtonGroup extends StatefulWidget {
 }
 
 class _RadioButtonGroupState extends State<_RadioButtonGroup> {
-  PriceCurrency? _character = PriceCurrency.CDF;
+  PriceCurrency _character = PriceCurrency.CDF;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 42.0),
-      child: Wrap(
-        children: <Widget>[
-
-          for (PriceCurrency currency in _RadioButtonGroup.labels)
-          _RadioItem(
-            title: Text(currency.name),
-            //todo : Radio to fluent
-            leading: Radio<PriceCurrency>(
+    return Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 16.0),
+          child: RadioGroup<PriceCurrency>(
+            direction: Axis.horizontal,
+            spacing: 16.0,
+            groupValue: _character,
+            onChanged: (PriceCurrency value) {
+              setState(() {_character = value;});
+              widget.onSelected(value ??  PriceCurrency.CDF);
+            },
+            radios: _RadioButtonGroup.labels.map((currency) => RadioItem(
+              label: Text(currency.name),
               value: currency,
-              groupValue: _character,
-              onChanged: (PriceCurrency? value) {
-                setState(() {_character = value;});
-                widget.onSelected(value ??  PriceCurrency.CDF);
-              },
-            ),
+            )).toList(),
           ),
 
-        ],
-      ),
+          /*Wrap(
+            children: <Widget>[
+              for (PriceCurrency currency in _RadioButtonGroup.labels)
+              _RadioItem(
+                title: Text(currency.name),
+                //todo : Radio to fluent
+                leading: Radio<PriceCurrency>(
+                  value: currency,
+                  groupValue: _character,
+                  onChanged: (PriceCurrency? value) {
+                    setState(() {_character = value;});
+                    widget.onSelected(value ??  PriceCurrency.CDF);
+                  },
+                ),
+              ),
+
+            ],
+          ),*/
+        ),
+      ],
     );
   }
 }
