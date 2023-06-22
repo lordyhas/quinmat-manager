@@ -68,35 +68,6 @@ class Protocol {
 
 }
 
-mixin TransactionHttp {
-
-  Future<void> send(Protocol protocol) async {
-    //http://127.0.0.1:8000/api/test_post
-
-    final response = await http.post(Uri.parse(protocol.url), body: {
-      'data': protocol.data,
-      'message': protocol.message,
-      'mode': protocol.mode?.name,
-    });
-    debugPrint('Response status: ${response.statusCode}');
-    debugPrint('Response body: ${response.body}');
-
-    //return response.statusCode;
-  }
-
-
-  Future<Map<String, dynamic>> get(String url) async {
-    //http://127.0.0.1:8000/api/csv
-    final response = await http.post(Uri.parse(url));
-
-    if (response.statusCode == 200) {
-      var value = jsonDecode(response.body) as Map;
-      return value['data'];
-    } else {
-      throw Exception('Failed to load');
-    }
-  }
-}
 
 class TransferProtocol {
   final String url;
@@ -112,30 +83,41 @@ class TransferProtocol {
     this.method = MethodProtocol.GET,
   });
 
-  Uri get _uri => Uri.parse('http://127.0.0.1:8000/api/test_post');
+  Uri get _uri => Uri.parse(url);
+  //Uri get _uri => Uri.parse('http://127.0.0.1:8000/api/test_post');
 
   //Uri? get _uriFromUrl => (url != null) ? Uri.parse(url!) : null;
 
   Future<void> send() async {
     //http://127.0.0.1:8000/api/test_post
 
+
+  }
+
+  Future<void> post() async {
+
     final response = await http.post(_uri, body: {
       'data': data,
       'message': message,
       'mode': mode?.name,
     });
-    debugPrint('Response status: ${response.statusCode}');
-    debugPrint('Response body: ${response.body}');
+
+    debugPrint('post() => response.statusCode : ${response.statusCode} \n'
+        'post() => response.body: ${response.body}');
+
     //return response.statusCode;
   }
 
-  Future<Map<String, dynamic>> get() async {
-    //http://127.0.0.1:8000/api/csv
-    final response = await http.post(_uri);
-
+  Future<List<Map<String, dynamic>>> get() async {
+    final response = await http.get(_uri);
+    List<Map<String, dynamic>> dataList = [];
     if (response.statusCode == 200) {
       var value = jsonDecode(response.body) as Map;
-      return value['data'];
+      for (var element in value['data']){
+        dataList.add(Map.from(element));
+      }
+      debugPrint("get() => response.statusCode : ${response.statusCode} \n ");
+      return dataList;
     } else {
       throw Exception('Failed to load');
     }
@@ -144,38 +126,6 @@ class TransferProtocol {
 
 }
 
-/// [GetProtocol] is equivalent to  the query below
-/// SELECT * FROM [table] WHERE ???
-//todo : how to represent query for http
-class GetProtocol {
-  final String query;
-  final String where;
-  final String table;
-  final String? url;
-  final Map<String, dynamic> tag;
-
-  GetProtocol({
-    required this.query,
-    required this.where,
-    required this.table,
-    this.url,
-    this.tag = const <String,dynamic>{},
-  });
-}
-
-class SendProtocol {
-  final String query;
-  final String where;
-  final String table;
-  final Map<String, dynamic> tag;
-
-  SendProtocol({
-    required this.query,
-    required this.where,
-    required this.table,
-    this.tag = const <String,dynamic>{},
-  });
-}
 
 enum MethodProtocol {
   /// Most commonly "GET" or "POST", less commonly "HEAD", "PUT", or "DELETE".
@@ -218,10 +168,43 @@ enum CRUD {
 extension CRUDHelper on CRUD {
   String get name {
     switch(this){
-      case CRUD.create : return "create";
-      case CRUD.read : return "read";
-      case CRUD.delete : return "delete";
-      case CRUD.update : return "update";
+      case CRUD.create  : return "create";
+      case CRUD.read    : return "read";
+      case CRUD.delete  : return "delete";
+      case CRUD.update  : return "update";
     }
   }
 }
+
+
+/*
+mixin TransactionHttp {
+
+  Future<void> send(Protocol protocol) async {
+    //http://127.0.0.1:8000/api/test_post
+
+    final response = await http.post(Uri.parse(protocol.url), body: {
+      'data': protocol.data,
+      'message': protocol.message,
+      'mode': protocol.mode?.name,
+    });
+    debugPrint('Response status: ${response.statusCode}');
+    debugPrint('Response body: ${response.body}');
+
+    //return response.statusCode;
+  }
+
+
+  Future<Map<String, dynamic>> get(String url) async {
+    //http://127.0.0.1:8000/api/csv
+    final response = await http.post(Uri.parse(url));
+
+    if (response.statusCode == 200) {
+      var value = jsonDecode(response.body) as Map;
+      return value['data'];
+    } else {
+      throw Exception('Failed to load');
+    }
+  }
+}
+*/
