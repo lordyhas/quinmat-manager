@@ -1,6 +1,7 @@
 library values;
 
 import 'package:achievement_view/achievement_view.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:qmt_manager/logic/values.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -16,69 +17,44 @@ export 'utils.dart';
 export 'extension.dart';
 export 'package:utils_component/utils_component.dart' hide Responsive, Go;
 export 'package:go_router/go_router.dart';
+export 'go_utils.dart';
 
 part 'category.dart';
 
 part 'distance.dart';
 
-class Go {
-  static void to(
-    BuildContext context, {
-    required String routeName,
-    //@Deprecated("not use no more") Widget? page,
-    String? path,
-    Map<String, String> params = const <String, String>{},
-    Map<String, dynamic> queryParams = const <String, dynamic>{},
-    dynamic args,
-  }) {
-    return GoRouter.of(context).goNamed(routeName,
-        pathParameters: params, queryParameters: queryParams, extra: args);
-  }
-
-  static _GoNavigator params(
-    BuildContext context, {
-    required String routeName,
-    String? path,
-    Map<String, dynamic> queryParams = const <String, dynamic>{},
-    dynamic args,
-  }) =>
-      _GoNavigator(
-        context: context,
-        routeName: routeName,
-        path: path,
-        queryParams: queryParams,
-        args: args,
-      );
-
-  static GoRouter of(BuildContext context) => GoRouter.of(context);
-}
-
-@protected
-class _GoNavigator {
-  final BuildContext context;
-  final String routeName;
-  final String? path;
-  final Map<String, dynamic> queryParams;
-  final dynamic args;
-
-  _GoNavigator({
-    required this.context,
-    required this.routeName,
-    this.path,
-    this.queryParams = const <String, dynamic>{},
-    this.args,
-  });
-
-  void show() {
-    GoRouter.of(context)
-        .goNamed(routeName, queryParameters: queryParams, extra: args);
-  }
-
-  void push() {
-    GoRouter.of(context)
-        .goNamed(routeName, queryParameters: queryParams, extra: args);
+void checkConnect() async {
+  final connectivityResult = await (Connectivity().checkConnectivity());
+  switch (connectivityResult) {
+    case ConnectivityResult.bluetooth:
+      debugPrint("I am connected to a bluetooth. ###");
+      break;
+    case ConnectivityResult.wifi:
+      debugPrint("I am connected to a wifi network. ###");
+      break;
+    case ConnectivityResult.ethernet:
+      debugPrint("I am connected to a ethernet network. ###");
+      break;
+    case ConnectivityResult.mobile:
+      debugPrint("I am connected to a mobile network. ###");
+      break;
+    case ConnectivityResult.none:
+      debugPrint("I am not connected to any network. ###");
+      break;
+    case ConnectivityResult.vpn:
+    // I am connected to a vpn network.
+    // Note for iOS and macOS:
+    // There is no separate network interface type for [vpn].
+    // It returns [other] on any device (also simulator)
+      debugPrint("I am connected to a vpn network. ###");
+      break;
+    case ConnectivityResult.other:
+      debugPrint(
+          "I am connected to a network which is not in the above mentioned networks. ###");
+      break;
   }
 }
+
 
 extension GoRouterHelper on GoRouter {
   void to({

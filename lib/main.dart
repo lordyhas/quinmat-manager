@@ -44,9 +44,9 @@ void main() async {
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
-  ]).then((value) => runApp(InitApp(
-        authRepository: AuthenticationRepository(),
-      )));
+  ]).then((value) => runApp(
+      InitApp(authRepository: AuthenticationRepository())
+  ));
 }
 
 class InitApp extends StatelessWidget {
@@ -90,37 +90,7 @@ class QuinmatApp extends StatelessWidget {
     //debugPrint("===== Permissions : ${statuses[Permission.storage]}");
   }
 
-  void checkConnect() async {
-    final connectivityResult = await (Connectivity().checkConnectivity());
-    switch (connectivityResult) {
-      case ConnectivityResult.bluetooth:
-        debugPrint("I am connected to a bluetooth. ###");
-        break;
-      case ConnectivityResult.wifi:
-        debugPrint("I am connected to a wifi network. ###");
-        break;
-      case ConnectivityResult.ethernet:
-        debugPrint("I am connected to a ethernet network. ###");
-        break;
-      case ConnectivityResult.mobile:
-        debugPrint("I am connected to a mobile network. ###");
-        break;
-      case ConnectivityResult.none:
-        debugPrint("I am not connected to any network. ###");
-        break;
-      case ConnectivityResult.vpn:
-        // I am connected to a vpn network.
-        // Note for iOS and macOS:
-        // There is no separate network interface type for [vpn].
-        // It returns [other] on any device (also simulator)
-        debugPrint("I am connected to a vpn network. ###");
-        break;
-      case ConnectivityResult.other:
-        debugPrint(
-            "I am connected to a network which is not in the above mentioned networks. ###");
-        break;
-    }
-  }
+
 
   @override
   Widget build(BuildContext context) {
