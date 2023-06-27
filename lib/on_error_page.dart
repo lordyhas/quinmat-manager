@@ -1,4 +1,6 @@
-import 'package:flutter/material.dart';
+
+
+import 'package:fluent_ui/fluent_ui.dart';
 
 enum ErrorType{unknown, e404, offline,}
 
@@ -8,7 +10,7 @@ class OnErrorPage extends StatefulWidget {
   const OnErrorPage({super.key, this.error, this.errorType = ErrorType.unknown});
 
   static Route route() {
-    return MaterialPageRoute<void>(builder: (_) => const OnErrorPage());
+    return FluentPageRoute<void>(builder: (_) => const OnErrorPage());
   }
 
   @override
@@ -39,10 +41,10 @@ class _OnErrorPageState extends State<OnErrorPage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
+    return NavigationView(
+      appBar: const NavigationAppBar(),
       //backgroundColor: const Color(0xffd8f3dc),
-      body: Builder(
+      content: Builder(
         builder: (context) {
           switch(widget.errorType){
             case ErrorType.e404:

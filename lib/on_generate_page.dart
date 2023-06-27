@@ -1,19 +1,21 @@
 
-import 'package:flutter/material.dart';
 
+
+
+import 'package:fluent_ui/fluent_ui.dart';
 
 class OnGeneratePage extends StatelessWidget {
   const OnGeneratePage({Key? key}) : super(key: key);
 
   static Route route() {
-    return MaterialPageRoute<void>(builder: (_) => const OnGeneratePage());
+    return FluentPageRoute<void>(builder: (_) => const OnGeneratePage());
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey.shade900,
-      body:  Column(
+    return NavigationView(
+      //backgroundColor: Colors.grey.shade900,
+      content:  Column(
         children: [
           Container(
             margin: const EdgeInsets.symmetric(vertical: 72),
@@ -28,8 +30,8 @@ class OnGeneratePage extends StatelessWidget {
               children: [
                 const Spacer(),
                 Center(
-                    child: CircularProgressIndicator(
-                      color: Theme.of(context).primaryColor,
+                    child: ProgressRing(
+                      activeColor: FluentTheme.of(context).activeColor,
                     )
                 ),
                 const Spacer(),
