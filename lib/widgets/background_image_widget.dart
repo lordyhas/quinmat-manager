@@ -1,8 +1,6 @@
 
-
-import 'package:flutter/cupertino.dart';
+import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/foundation.dart';
-
 
 class BackgroundCover extends StatelessWidget {
   const BackgroundCover({Key? key}) : super(key: key);
@@ -19,7 +17,6 @@ class BackgroundCover extends StatelessWidget {
     );
   }
 }
-
 
 class BackgroundUI extends StatelessWidget {
   final Widget child;
