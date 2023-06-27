@@ -1,7 +1,7 @@
 //part of products;
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart%20';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../logic/controller/filter_bloc/filter_cubit.dart';
 import '../../../logic/values/styles.dart';

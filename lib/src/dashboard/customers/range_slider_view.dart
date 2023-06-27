@@ -1,7 +1,7 @@
 //part of products;
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart%20';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../logic/values/styles.dart';
 
