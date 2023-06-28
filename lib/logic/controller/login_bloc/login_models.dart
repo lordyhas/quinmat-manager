@@ -9,9 +9,9 @@ enum EmployeeIDValidationError {
 /// {@template email}
 /// Form input for an id input.
 /// {@endtemplate}
-class EmployeeID extends FormzInput<String, EmployeeIDValidationError> {
-  const EmployeeID.pure() : super.pure('');
-  const EmployeeID.dirty([String value = '']) : super.dirty(value);
+class Username extends FormzInput<String, EmployeeIDValidationError> {
+  const Username.pure() : super.pure('');
+  const Username.dirty([String value = '']) : super.dirty(value);
 
   static final RegExp _employeeIDRegExp = RegExp(
     r'^[a-zA-Z0-9-]*$',
@@ -84,19 +84,3 @@ class Password extends FormzInput<String, PasswordValidationError> {
   }
 }
 
-
-class Password2 extends FormzInput<String, PasswordValidationError> {
-  const Password2.pure() : super.pure('');
-  const Password2.dirty([String value = '']) : super.dirty(value);
-
-  static final _passwordRegExp = RegExp(
-      r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$'
-  );
-
-  @override
-  PasswordValidationError? validator(String? value) {
-    return _passwordRegExp.hasMatch(value ?? '')
-        ? null
-        : PasswordValidationError.invalid;
-  }
-}

@@ -12,8 +12,8 @@ class _EmployeeInput extends StatelessWidget {
           hintText: 'Matricule...',
           onChanged: (id) => BlocProvider
             .of<LoginCubit>(context)
-            .employeeIDChanged(id),
-        errorText: state.employeeID.invalid ? 'matricule invalide' : null,
+            .usernameChanged(id),
+        errorText: state.username.invalid ? 'matricule invalide' : null,
           //errorText: state.email.invalid ? 'invalid email' : null,
         );
       },
