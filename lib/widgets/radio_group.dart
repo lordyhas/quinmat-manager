@@ -153,7 +153,7 @@ class RadioGroup<T> extends StatelessWidget {
   }
 }
 
-class RadioItem<T> with Diagnosticable {
+class RadioItem<T> extends DiagnosticableTree {
   /// The radio item of the [RadioGroup] widget as his children.
   const RadioItem({
     Key? key,
