@@ -60,17 +60,20 @@ class _TabViewPageState extends State<TabViewPage> {
   Tab generateTab(int index) {
     late Tab tab;
     tab = Tab(
+      key: UniqueKey(),
       text: Text('Add product sheet  $index'),
       semanticLabel: 'Add product page #$index',
       icon: const Icon(FluentIcons.product_release),
       body: Container(
         margin: null,
-        child: AddProductScreen(title: "Product Sheet $index",),
+        child: AddProductScreen(
+          key: UniqueKey(),
+          title: "Product Sheet $index",
+        ),
       ),
       onClosed: () {
         setState(() {
           tabs.remove(tab);
-
           if (currentIndex > 0) currentIndex--;
         });
       },
