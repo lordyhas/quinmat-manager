@@ -2,6 +2,7 @@ library myspace_page;
 
 import 'dart:math';
 
+import 'package:fl_chart/fl_chart.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 //import 'package:flutter/material.dart' show InkWell;
 import 'package:qmt_manager/logic/data_test.dart';
@@ -12,9 +13,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dashboard/doctors/doctor_data_tab.dart';
 import 'add_product/add_product_page.dart';
 
+part 'my_space/trimester_line_chart.dart';
+part 'my_space/monthly_line_chart.dart';
+part 'my_space/daily_line_chart.dart';
+part 'my_space/data_chart.dart';
+
 class MySpaceScreen extends StatefulWidget {
   static const routeName = "/home/user/my_space";
-  static const routeUrl = "/home/user/myspace";
+  static const routeUrl = "/home/user";
 
   const MySpaceScreen({Key? key}) : super(key: key);
 
@@ -38,6 +44,15 @@ class _MySpaceScreenState extends State<MySpaceScreen> {
     double boxWidth = 100.0;
     double boxHeight = 60.0;
     final ScrollController scrollController = ScrollController();
+
+    const titleStyle = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
+    );
+
+    const subTitleStyle = TextStyle(
+      fontSize: 14,
+    );
 
     return ScaffoldPage(
       content: BlocBuilder<AuthenticationBloc, AuthenticationState>(
@@ -461,6 +476,133 @@ class _MySpaceScreenState extends State<MySpaceScreen> {
                             ),
                           ),
                         ],
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                          vertical: 16.0,
+                          horizontal: 8.0,
+                        ),
+                        //constraints: const BoxConstraints(maxWidth: 1220),
+                        child: Column(
+                          children: [
+                            ListTile(
+                              title: const Text(
+                                "Statistiques hebdomadaire",
+                                style: titleStyle
+                              ),
+                              subtitle: const Text("sur les transactions",
+                                style: subTitleStyle,),
+                              trailing: HyperlinkButton(
+                                onPressed: (){},
+                                child: const Icon(FluentIcons.view, size: 18,),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 400,
+                              child: Card(
+                                //padding: EdgeInsets.all(0.8),
+                                borderColor: Colors.white,
+                                borderRadius: BorderRadius.circular(15.0),
+                                backgroundColor : Colors.grey[160]
+                                    .withOpacity(0.2),
+                                child: LineChart(
+                                  DataChart.lineCharData(),
+                                  duration: const Duration(milliseconds: 100), // Optional
+                                  curve: Curves.bounceIn, // Optional
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                          vertical: 16.0,
+                          horizontal: 8.0,
+                        ),
+                        child: Column(
+                          children: [
+                            ListTile(
+                              title: const Text(
+                                "Statistiques Mensuel et Jounalier",
+                                style: titleStyle,
+                              ),
+                              subtitle: const Text("sur les transactions",
+                                style: subTitleStyle,
+                              ),
+                              trailing: HyperlinkButton(
+                                onPressed: (){},
+                                child: const Icon(FluentIcons.view, size: 18,),
+                              ),
+                            ),
+                            SizedBox(
+                              //height: 300,
+                              child: Wrap(
+                                spacing: 16.0,
+                                runSpacing: 16.0,
+                                children: [
+                                  Container(
+                                    height: 270,
+                                    //width:400,
+                                    constraints: const BoxConstraints(maxWidth: 550),
+                                    child: Card(
+                                      borderColor: Colors.white,
+                                      borderRadius: BorderRadius.circular(15.0),
+                                        child: LineChartSample4(),
+                                    ),
+                                  ),
+
+                                  Container(
+                                    height: 270,
+                                    //width: 400,
+                                    constraints: const BoxConstraints(maxWidth: 680),
+                                    child: Card(
+                                      borderColor: Colors.white,
+                                      borderRadius: BorderRadius.circular(15.0),
+                                        child: LineChartSample5(
+                                          gradientColor1: Colors.blue,
+                                          gradientColor2: Colors.green,
+                                          gradientColor3: Colors.orange,
+                                          indicatorStrokeColor: Colors.orange,
+                                        ),
+                                    ),
+                                  ),
+
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                          vertical: 16.0,
+                          horizontal: 8.0,
+                        ),
+                        child: Column(
+                          children: [
+                            ListTile(
+                              title: const Text(
+                                "Statistiques trimestriel",
+                                style: titleStyle,
+                              ),
+                              subtitle: const Text("sur les transactions",
+                                style: subTitleStyle,),
+                              trailing: HyperlinkButton(
+                                onPressed: (){},
+                                child: const Icon(FluentIcons.view, size: 18,),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 300,
+                              child: Card(
+                                borderColor: Colors.white,
+                                borderRadius: BorderRadius.circular(15.0),
+                                  child: const _LineChart(isShowingMainData: false,),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       Container(
                         //constraints: const BoxConstraints(maxHeight: 200),
