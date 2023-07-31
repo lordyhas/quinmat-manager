@@ -1,10 +1,6 @@
-
-
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart%20';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:qmt_manager/logic/controller/my_bloc_controller.dart';
 import 'package:qmt_manager/logic/values.dart';
 import 'package:qmt_manager/src/preference_page/about_page.dart';
 import 'package:qmt_manager/src/preference_page/edit_profile_page.dart';
