@@ -171,8 +171,6 @@ class GPSPosition extends Position implements Equatable{
 
   static GPSPosition empty = GPSPosition(
     latLng: const LatLng(0.0,0.0),
-    //latitude: positionMap['latitude'],
-    //longitude: positionMap['longitude'],
     timestamp: null,
     altitude: 0.0,
     accuracy: 0.0,

@@ -2,7 +2,7 @@ name: qmt_manager
 description: Quinmat Manager Project for internal usage (stuff only)
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 0.1.8+15
+version: 0.1.9+0
 
 
 environment:
@@ -42,7 +42,6 @@ dependencies:
   cloud_firestore: ^4.3.0
   firebase_core: ^2.4.0
   firebase_auth: ^4.2.3
-  #firebase_ui_auth: ^1.1.6
 
   google_sign_in: ^6.1.0
 
@@ -80,7 +79,6 @@ dependencies:
   achievement_view: ^1.0.0
   pull_to_refresh: ^2.0.0
 
-  #fancy_bottom_navigation_2: ^0.3.5
   go_router: ^8.0.5
 
   http: ^1.0.0
@@ -90,9 +88,7 @@ dependencies:
   logger: ^1.4.0
   flutter_easyloading: ^3.0.5
 
-
   fl_chart: ^0.63.0
-
 
 
 dev_dependencies:
@@ -123,9 +119,6 @@ flutter:
     - assets/avatar/
     - assets/qp/
     - assets/icon_app.png
-    - assets/icon_app_red.png
-
-
 
   # To add assets to your application, add an assets section, like this:
   # assets:
