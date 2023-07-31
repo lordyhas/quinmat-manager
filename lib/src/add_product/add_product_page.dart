@@ -2,20 +2,20 @@ library products.adder;
 
 import 'dart:async';
 import 'dart:io';
-import 'dart:math';
+
 
 import 'package:fluent_ui/fluent_ui.dart';
-//import 'package:flutter/cupertino.dart';
+
 import 'package:qmt_manager/logic/model/data_model.dart';
 import 'package:qmt_manager/logic/values.dart';
-import 'package:flutter/material.dart' show Material, Stepper, Step, ControlsDetails, ButtonBar, Radio;
+import 'package:flutter/material.dart' show Material, Stepper, Step, ControlsDetails, ButtonBar;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:image_cropper/image_cropper.dart';
 
 import '../../widgets/radio_group.dart';
-//import 'package:utils_component/utils_component.dart' hide Go;
+
 
 part 'add_verification.dart';
 
@@ -123,7 +123,7 @@ class _TabViewPageState extends State<TabViewPage> {
           }
         });
       },
-    );;
+    );
   }
 }
 
@@ -173,8 +173,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   SizedBox(
                     width: 720,
                     child: Card(
-                      margin: EdgeInsets.all(16.0).copyWith(left: 32.0),
-                      padding: EdgeInsets.all(16.0),
+                      margin: const EdgeInsets.all(16.0).copyWith(left: 32.0),
+                      padding: const EdgeInsets.all(16.0),
                       borderColor: Colors.white,
                         child: Text(widget.title, style: const TextStyle(fontSize: 20),),
                     ),
@@ -251,7 +251,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                             onPressed: controls.onStepContinue,
                             child: const Text('Suivant')),
                         const SizedBox(width: 8.0,),
-                        TextButton(
+                        HyperlinkButton(
                           onPressed: controls.onStepCancel,
                           child:
                               Text(controls.currentStep == 0 ? 'Annulé' : 'Précédant'),
@@ -286,7 +286,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
                               setState(() {
                                 croppedFile = file;
                               });
-                              //print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
                               //print(croppedFile!.path);
                             },
                           ),
