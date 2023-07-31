@@ -24,7 +24,6 @@ class OnGeneratePage extends StatelessWidget {
               child:Image.asset("assets/icon_app.png"),
             ),
           ),
-          //Text("XXXXXX", style: TextStyle(color: Colors.black, fontSize: 42),),
           Expanded(
             child: Column(
               children: [
