@@ -55,13 +55,7 @@ class DataChart{
               return Text(text,
                 style: style,
               );
-              return SideTitleWidget(
-                axisSide: meta.axisSide,
-                //space: 10,
-                child: Text("'Last 6 days'",
-                  style: style,
-                ),
-              );
+
             },
           ),
         ),
