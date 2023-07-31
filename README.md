@@ -2,6 +2,12 @@
 
 Quinmat Manager Project for internal use
 
+Check out [Quinmat] website for more info.
+
+[Quinmat]: https://www.exploress.space  
+
+<!-- https://www.quinmat.com -->
+
 ## Getting Started
 
 <a title="Made with Fluent Design" href="https://github.com/bdlukaa/fluent_ui">
