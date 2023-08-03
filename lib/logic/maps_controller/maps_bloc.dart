@@ -10,7 +10,7 @@ class MapsBloc extends Bloc<MapsEvent, MapsState> {
     emit(MapsState.loaded(event.location));
   }
 
-  void load({required GPSPosition position}) =>
+  void load({required GPS position}) =>
       add(MapsDataLoad(MapsData(currentPosition: position,)));
 
 
