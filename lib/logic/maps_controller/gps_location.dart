@@ -10,7 +10,7 @@ class GPSLocation {
   ///
   /// When the location services are not enabled or permissions
   /// are denied the `Future` will return an error.
-  static Future<GPSPosition> myCurrentPosition() async {
+  static Future<GPS> myCurrentPosition() async {
     bool serviceEnabled;
     LocationPermission permission;
 
@@ -50,18 +50,18 @@ class GPSLocation {
 
 }
 
-class GPSPosition extends Position implements Equatable{
+class GPS extends Position implements Equatable{
 
-   GPSPosition({
+   GPS({
     required this.latLng,
-    required this.timestamp,
-    required this.accuracy,
-    required this.altitude,
-    required this.heading,
-    required this.speed,
-    required this.speedAccuracy,
-    this.floor,
-    this.isMocked = false,
+    required DateTime? timestamp,
+    required double accuracy,
+    required double altitude,
+    required heading,
+    required double speed,
+    required double speedAccuracy,
+    int? floor,
+    bool isMocked = false,
   }) : super(
     latitude: latLng.latitude,
     longitude: latLng.longitude,
@@ -71,72 +71,15 @@ class GPSPosition extends Position implements Equatable{
     heading: heading,
     speed: speed,
     speedAccuracy: speedAccuracy,
-
   );
 
   /// A pair of latitude and longitude coordinates, stored as degrees.
   final LatLng latLng;
-  /// The time at which this position was determined.
-  @override
-  final DateTime? timestamp;
-
-  /// The altitude of the device in meters.
-  ///
-  /// The altitude is not available on all devices. In these cases the returned
-  /// value is 0.0.
-  @override
-  final double altitude;
-
-  /// The estimated horizontal accuracy of the position in meters.
-  ///
-  /// The accuracy is not available on all devices. In these cases the value is
-  /// 0.0.
-  @override
-  final double accuracy;
-
-  /// The heading in which the device is traveling in degrees.
-  ///
-  /// The heading is not available on all devices. In these cases the value is
-  /// 0.0.
-  @override
-  final double heading;
-
-  /// The floor specifies the floor of the building on which the device is
-  /// located.
-  ///
-  /// The floor property is only available on iOS and only when the information
-  /// is available. In all other cases this value will be null.
-  @override
-  final int? floor;
-
-  /// The speed at which the devices is traveling in meters per second over
-  /// ground.
-  ///
-  /// The speed is not available on all devices. In these cases the value is
-  /// 0.0.
-   @override
-  final double speed;
-
-
-
-   /// The estimated speed accuracy of this position, in meters per second.
-   ///
-   /// The speedAccuracy is not available on all devices. In these cases the
-   /// value is 0.0.
-   @override
-  final double speedAccuracy;
-
-   /// Will be true on Android (starting from API lvl 18) when the location came
-   /// from the mocked provider.
-   ///
-   /// On iOS this value will always be false.
-   @override
-  final bool isMocked;
 
 
 
    /// Converts the supplied [Map] to an instance of the [Position] class.
-  static GPSPosition fromMap(dynamic message) {
+  static GPS fromMap(dynamic message) {
     final Map<dynamic, dynamic> positionMap = message;
 
     if (!positionMap.containsKey('latitude')) {
@@ -149,12 +92,11 @@ class GPSPosition extends Position implements Equatable{
           'The supplied map doesn\'t contain the mandatory key `longitude`.');
     }
 
-    final timestamp = positionMap['timestamp'] != null
-        ? DateTime.fromMillisecondsSinceEpoch(positionMap['timestamp'].toInt(),
-        isUtc: true)
-        : null;
+    final DateTime timestamp = positionMap['timestamp'] ??
+        DateTime.fromMillisecondsSinceEpoch(positionMap['timestamp'].toInt(),
+        isUtc: true);
 
-    return GPSPosition(
+    return GPS(
       latLng: LatLng(positionMap['latitude'],positionMap['longitude']),
       //latitude: positionMap['latitude'],
       //longitude: positionMap['longitude'],
@@ -169,7 +111,7 @@ class GPSPosition extends Position implements Equatable{
     );
   }
 
-  static GPSPosition empty = GPSPosition(
+  static GPS empty = GPS(
     latLng: const LatLng(0.0,0.0),
     timestamp: null,
     altitude: 0.0,
@@ -193,8 +135,8 @@ class GPSPosition extends Position implements Equatable{
 }
 
 extension on Position{
-  GPSPosition toGPSPosition(){
-    return GPSPosition(
+  GPS toGPSPosition(){
+    return GPS(
       latLng: LatLng(latitude, longitude),
       timestamp: timestamp,
       accuracy: accuracy,
