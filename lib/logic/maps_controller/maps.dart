@@ -19,12 +19,12 @@ part 'maps_state.dart';
 
 class MapsData extends Equatable{
   //final Set<Marker>? shopMarkers;
-  final GPSPosition currentPosition;
+  final GPS currentPosition;
 
   const MapsData({required this.currentPosition});
 
 
-  static MapsData empty = MapsData(currentPosition: GPSPosition.empty);
+  static MapsData empty = MapsData(currentPosition: GPS.empty);
 
   CameraPosition get currentCameraPosition => CameraPosition(
       target: currentPosition.latLng,
