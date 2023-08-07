@@ -246,7 +246,7 @@ class _LoginPageState extends State<LoginPage>
                           return ContentDialog(
                             actions: [
                               Button(
-                                onPressed: GoRouter.of(context).pop ,
+                                onPressed: GoRouter.of(context).pop,
                                 child: const Text("Understand"),
                               ),
                               FilledButton(
