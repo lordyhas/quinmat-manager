@@ -1,6 +1,3 @@
-//part of home_page;
-
-
 import 'dart:ui';
 
 import 'package:fluent_ui/fluent_ui.dart';
@@ -8,7 +5,6 @@ import 'package:flutter/cupertino.dart' as cup;
 import 'package:flutter_bloc/flutter_bloc.dart%20';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:qmt_manager/logic/values.dart';
-
 
 
 class HomeScreen extends StatefulWidget {
