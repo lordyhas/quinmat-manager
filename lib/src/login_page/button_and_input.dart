@@ -55,7 +55,7 @@ class _GoogleLoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //double width = MediaQuery.of(context).size.width *0.75;
-    final theme = FluentTheme.of(context);
+    //final theme = FluentTheme.of(context);
     Widget googleOutlineButton = OutlinedButton(
       onPressed: () => context.read<LoginCubit>().logInWithGoogle(),
       //BlocProvider.of<LoginCubit>(context).logInWithGoogle(),
@@ -91,8 +91,6 @@ class _FacebookLoginButton extends StatelessWidget {
   const _FacebookLoginButton({this.text = "Sign in with Facebook"});
   @override
   Widget build(BuildContext context) {
-    //double width = MediaQuery.of(context).size.width *0.75;
-    final theme = FluentTheme.of(context);
     Widget facebookOutlineButton = OutlinedButton(
         key: const Key('loginForm_facebookLogin_outlineButton'),
         style: ButtonStyle(
