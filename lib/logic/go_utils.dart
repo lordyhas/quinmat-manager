@@ -15,7 +15,7 @@ class Go {
     return GoRouter.of(context).goNamed(routeName,
         pathParameters: params, queryParameters: queryParams, extra: args);
   }
-
+  //ignore: library_private_types_in_public_api
   static _GoNavigator params(
     BuildContext context, {
     required String routeName,
