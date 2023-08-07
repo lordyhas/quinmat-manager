@@ -1,14 +1,13 @@
 import 'dart:math';
 
+//import 'package:fluent_ui/fluent_ui.dart';
 import 'package:qmt_manager/logic/model/data_model.dart';
 import 'package:qmt_manager/logic/values.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'package:latlong2/latlong.dart' as dist;
-
-import 'package:qmt_manager/logic/maps_controller/maps.dart';
+//import 'package:latlong2/latlong.dart' as dist;
 
 class ItemIntentData {
   final int? index;
@@ -31,8 +30,6 @@ class SingleItemScreen extends StatefulWidget {
   @override
   State createState() => _SingleItemScreenState();
 
-  //ShopData get shop => placeData.shop;
-
   static Route route({
     required ItemIntentData placeData,
     Key? key,
@@ -53,7 +50,6 @@ class _SingleItemScreenState extends State<SingleItemScreen>
   double opacity1 = 0.0;
   double opacity2 = 0.0;
   double opacity3 = 0.0;
-
 
 
   @override
@@ -87,24 +83,15 @@ class _SingleItemScreenState extends State<SingleItemScreen>
   Widget build(BuildContext context) {
     final ItemData shop;
     final ItemIntentData data;
-    data = widget.placeData; //?? ModalRoute.of(context)!.settings.arguments as PlaceInfoData;
+    data = widget.placeData;
     shop = data.rent;
 
+    var primaryColorLight = Colors.purple;
 
-    var position = BlocProvider.of<MapsBloc>(context).state.maps;
+    int? phone;
 
-    var phone;
-
-    /*final double tempHeight = MediaQuery.of(context).size.height -
-        (MediaQuery.of(context).size.width / 1.2) +
-        24.0;*/
     return Scaffold(
-      /*appBar: AppBar(
-        automaticallyImplyLeading: true,
-        elevation: 0.0,
-        backgroundColor: Colors.transparent,
-      ),*/
-      //backgroundColor: Colors.transparent,
+      backgroundColor: Colors.grey.shade900,
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
@@ -112,13 +99,13 @@ class _SingleItemScreenState extends State<SingleItemScreen>
                 floating: true,
                 pinned: true,
                 snap: false,
-                backgroundColor: Colors.white38,
+                //backgroundColor: Colors.white38,
                 expandedHeight: 120.0,
                 flexibleSpace: Container(
                   decoration: BoxDecoration(
                       image: DecorationImage(
                     image: AssetImage(
-                      shop.imagePath!,
+                      shop.imagePath,
                     ),
                     fit: BoxFit.cover,
                     opacity: 0.5,
@@ -193,7 +180,7 @@ class _SingleItemScreenState extends State<SingleItemScreen>
                           ),
                           Icon(
                             Icons.star,
-                            color: Theme.of(context).primaryColorLight,
+                            color: primaryColorLight,
                             size: 24,
                           ),
                         ],
@@ -317,7 +304,7 @@ class _SingleItemScreenState extends State<SingleItemScreen>
                           padding: const EdgeInsets.all(16.0),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(20.0),
-                            child: Image.asset(shop.imagePath!),
+                            child: Image.asset(shop.imagePath),
                           ),
                         ),
                       ),
@@ -349,7 +336,7 @@ class _SingleItemScreenState extends State<SingleItemScreen>
                             ),
                             child: Icon(
                               FontAwesomeIcons.shopify,
-                              color: Theme.of(context).primaryColorLight,
+                              color: primaryColorLight,
                               size: 28,
                             ),
                           ),
@@ -364,15 +351,15 @@ class _SingleItemScreenState extends State<SingleItemScreen>
                               height: 48,
                               width: MediaQuery.of(context).size.width * 0.65,
                               decoration: BoxDecoration(
-                                color: Theme.of(context).primaryColorLight,
+                                color: primaryColorLight,
                                 borderRadius: const BorderRadius.all(
                                   Radius.circular(16.0),
                                 ),
                                 boxShadow: <BoxShadow>[
                                   BoxShadow(
-                                      color: Theme.of(context)
-                                          .primaryColorLight
-                                          .withOpacity(0.5),
+                                      color:
+                                          primaryColorLight,
+                                          //.withOpacity(0.5),
                                       offset: const Offset(1.1, 1.1),
                                       blurRadius: 10.0),
                                 ],
@@ -408,6 +395,7 @@ class _SingleItemScreenState extends State<SingleItemScreen>
   }
 
   Widget getTimeBoxUI(String text1, String txt2) {
+    //int Theme = 0;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -416,7 +404,7 @@ class _SingleItemScreenState extends State<SingleItemScreen>
           borderRadius: const BorderRadius.all(Radius.circular(16.0)),
           boxShadow: <BoxShadow>[
             BoxShadow(
-                color: Colors.grey.withOpacity(0.2),
+                color: Colors.purple.withOpacity(0.2),
                 offset: const Offset(1.1, 1.1),
                 blurRadius: 8.0),
           ],
@@ -431,11 +419,11 @@ class _SingleItemScreenState extends State<SingleItemScreen>
               Text(
                 text1,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 14,
                   letterSpacing: 0.27,
-                  color: Theme.of(context).primaryColorLight,
+                  color: Colors.purple,
                 ),
               ),
               Text(
