@@ -4,7 +4,6 @@ import 'package:qmt_manager/src/add_doctor/add_doctor_page.dart';
 import 'package:qmt_manager/logic/data.csv.dart';
 
 import '../../../logic/transfer_protocol/http_protocol.dart';
-import '../../../logic/values.dart';
 
 
 enum ContactLabel { mobile, work }
@@ -332,7 +331,7 @@ class _DoctorDataTableScreenState extends State<DoctorDataTableScreen> {
   }
 
   void showContentDialog(BuildContext context) async {
-    final result = await showDialog<String>(
+     await showDialog<String>(
       context: context,
       builder: (context) => ContentDialog(
         title: const Text('Delete file permanently?'),
@@ -511,7 +510,7 @@ class _DoctorDataTableScreenState extends State<DoctorDataTableScreen> {
                     icon: const Icon(FluentIcons.add),
                     onPressed: () async {
                       //showContentDialog(context);
-                      final result = await showDialog<String>(
+                      await showDialog<String>(
                         context: context,
                         builder: (context) => const AddDoctorDialog(),
                       );
