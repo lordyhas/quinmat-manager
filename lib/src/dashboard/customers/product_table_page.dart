@@ -3,7 +3,6 @@ import 'package:flutter/material.dart' show DataTableSource, DataRow, DataCell, 
 import 'package:qmt_manager/logic/data_test.dart';
 import 'package:qmt_manager/logic/model/data_model.dart';
 import 'package:qmt_manager/logic/values.dart';
-import 'package:qmt_manager/src/add_doctor/add_doctor_page.dart';
 import 'package:qmt_manager/src/add_product/add_product_page.dart';
 
 
