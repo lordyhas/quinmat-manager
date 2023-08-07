@@ -1,5 +1,3 @@
-import 'package:qmt_manager/logic/values.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' show DateFormat;
 
@@ -60,8 +58,6 @@ class _CalendarPopupViewState extends State<CalendarPopupView>
 
   @override
   Widget build(BuildContext context) {
-    // ignore: non_constant_identifier_names
-    final ShopAppTheme = BlocProvider.of<StyleAppTheme>(context);
     return Center(
       child: Material(
         color: Colors.transparent,
