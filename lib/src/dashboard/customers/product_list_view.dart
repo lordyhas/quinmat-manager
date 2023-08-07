@@ -45,7 +45,7 @@ class _ProductListViewState extends State<ProductListView> {
       return 700;
     }
 
-    final textStyle = TextStyle(
+    const textStyle = TextStyle(
         fontSize: 14,
         //color: Colors.grey,
     );
@@ -142,7 +142,7 @@ class _ProductListViewState extends State<ProductListView> {
                                                 size: 12,
                                                 color: FluentTheme.of(context).activeColor,
                                               ),
-                                              Expanded(
+                                              const Expanded(
                                                 child: Text(
                                                   '',
                                                   overflow: TextOverflow.ellipsis,
@@ -186,7 +186,7 @@ class _ProductListViewState extends State<ProductListView> {
                                             color: FluentTheme.of(context).activeColor,
                                           ),
                                         ),
-                                        Text(
+                                        const Text(
                                           '',
                                           style: textStyle,
                                         ),
