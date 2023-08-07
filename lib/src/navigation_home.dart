@@ -1,6 +1,5 @@
 
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:qmt_manager/logic/transfer_protocol/http_protocol.dart';
 import 'package:qmt_manager/src/add_product/add_product_page.dart';
 import 'package:qmt_manager/src/setting_profile_screen.dart';
 import '../logic/values.dart';
@@ -27,7 +26,7 @@ class _NavigationHomeState extends State<NavigationHome> {
   final flyoutController = FlyoutController();
 
   searchMenuBar(){
-    String? selectedCat;
+    //String? selectedCat;
     const cats = <String>[
       'Setting',
       'Profile',
