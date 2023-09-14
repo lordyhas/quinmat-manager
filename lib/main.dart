@@ -64,14 +64,14 @@ class InitApp extends StatelessWidget {
         create: (_) => AuthenticationBloc(
           authRepository: authRepository,
         ),
-        child: QuinmatApp(),
+        child: BusinessApp(),
       ),
     );
   }
 }
 
-class QuinmatApp extends StatelessWidget {
-  QuinmatApp({super.key});
+class BusinessApp extends StatelessWidget {
+  BusinessApp({super.key});
 
   final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: "rootKey");
 
