@@ -116,6 +116,8 @@ class _SettingScreenState extends State<SettingScreen> {
                                   trailing: chevronRight,
                                   onPressed: () =>  Go.of(context).to(routeName: MySpaceScreen.routeName),
                                 ),
+
+
                                 ListTile(
                                   leading: const Icon(FluentIcons.skype_message),
                                   title: const Text("Message et Chat"),
@@ -169,7 +171,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                   fontSize: 20.0,
                                 )),
                             const SelectableText(
-                              "guest-user@quinnmat.com",
+                              "guest-user@horizon.com",
                               style: TextStyle(color: Colors.white),
                             ),
                           ],
@@ -186,6 +188,12 @@ class _SettingScreenState extends State<SettingScreen> {
                     margin: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
+                        ListTile(
+                          leading: const Icon(FluentIcons.skype_message),
+                          title: const Text("Changer la langue"),
+                          trailing: chevronRight,
+                          onPressed: () {},
+                        ),
                         ListTile(
                           leading: const Icon(FluentIcons.clear_night),
                           title: const Text("Dark Mode"),
