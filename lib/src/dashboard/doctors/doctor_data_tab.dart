@@ -362,7 +362,7 @@ class _DoctorDataTableScreenState extends State<DoctorDataTableScreen> {
 
     return ScaffoldPage(
       header:  PageHeader(
-        title: const Text('Doctor data tables'),
+        title: const Text('Data tables'),
         commandBar: Container(
           constraints: const BoxConstraints(maxWidth: 450),
           child: CommandBarCard(
@@ -475,9 +475,6 @@ class _DoctorDataTableScreenState extends State<DoctorDataTableScreen> {
                   label: Text('Disabled'),
                   onPressed: null,
                 ),
-
-
-
               ],
               secondaryItems: const [],
             ),
@@ -492,14 +489,11 @@ class _DoctorDataTableScreenState extends State<DoctorDataTableScreen> {
             return const Center(child:  ProgressRing());
           }
 
-
-
           return SingleChildScrollView(
-
             //controller: scrollController,
             padding: const EdgeInsets.all(20.0),
             child:  PaginatedDataTable(
-              header: const Text('Doctors'),
+              header: const Text('Employés'),
               actions: [
                 IconButton(onPressed: () {}, icon: const Icon(FluentIcons.delete)),
                 IconButton(
@@ -538,12 +532,12 @@ class _DoctorDataTableScreenState extends State<DoctorDataTableScreen> {
                           (Doctor d) => d.name, columnIndex, ascending),
                 ),
                 DataColumn(
-                  label: const Text('Sex'),
+                  label: const Text('Sexe'),
                   //numeric: true,
                   onSort: (int columnIndex, bool ascending) => _sort<String>(
                           (Doctor d) => d.sex, columnIndex, ascending),
                 ),
-                DataColumn(
+                /*DataColumn(
                   label: const Text('Speciality'),
                   onSort: (int columnIndex, bool ascending) => _sort<String>(
                           (Doctor d) => d.speciality, columnIndex, ascending),
@@ -553,7 +547,7 @@ class _DoctorDataTableScreenState extends State<DoctorDataTableScreen> {
                   //tooltip: 'Each hospital.',
                   onSort: (int columnIndex, bool ascending) => _sort<String>(
                           (Doctor d) => d.hospital, columnIndex, ascending),
-                ),
+                ),*/
                 DataColumn(
                   label: const Text('Location'),
                   tooltip: 'Hospital location.',
@@ -573,14 +567,14 @@ class _DoctorDataTableScreenState extends State<DoctorDataTableScreen> {
                   onSort: (int columnIndex, bool ascending) => _sort<String>(
                           (Doctor d) => d.emails.first, columnIndex, ascending),
                 ),
-                DataColumn(
+                /*DataColumn(
                   label: const Text('Doctor'),
                   numeric: true,
                   onSort: (int columnIndex, bool ascending) => _sort<String>(
                           (Doctor d) => d.isDoctor.toString(),
                       columnIndex,
                       ascending),
-                ),
+                ),*/
               ],
               source: _doctorsDataSource,
             ),
