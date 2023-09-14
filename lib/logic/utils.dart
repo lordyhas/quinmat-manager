@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 
 class AppConstant{
   static const name = "Horizon Business";
-  static const shortname = "Horizon Business";
-  static const fullname = "Horizon Business";
+  static const shortname = "Business Manager";
+  static const fullname = "Horizon Business Manager";
   static const completeName = "Horizon Business Application";
-  static const markName = "Horizon Business";
+  static const markName = "HBM";
   static const organisationName = "Horizon Business Org";
   static const developer = "Hassan K.";
   static const developerId = "lordyhas";
