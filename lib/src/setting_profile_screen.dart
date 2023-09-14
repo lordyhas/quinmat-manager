@@ -189,7 +189,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     child: Column(
                       children: [
                         ListTile(
-                          leading: const Icon(FluentIcons.skype_message),
+                          leading: const Icon(FluentIcons.locale_language),
                           title: const Text("Changer la langue"),
                           trailing: chevronRight,
                           onPressed: () {},
