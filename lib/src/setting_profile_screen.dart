@@ -357,7 +357,6 @@ class _SettingScreenState extends State<SettingScreen> {
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
                                 return ListTile(
-
                                   leading: const Icon(FluentIcons.navigate_external_inline),
                                   title: const Text("Last Update"),
                                   subtitle: Text(
@@ -366,7 +365,6 @@ class _SettingScreenState extends State<SettingScreen> {
                                   onPressed: () {},
                                 );
                               }
-
                               return Container();
                             }),
                       ],
