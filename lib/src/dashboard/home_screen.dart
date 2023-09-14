@@ -19,25 +19,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   bool underline = false;
 
-  /*double h1Size() {
-    if (Responsive.of(context).isPhone) {
-      return 28;
-    } else if (Responsive.of(context).size.width < 720) {
-      return 28;
-    } else if (Responsive.of(context).size.width < 854) {
-      return 28;
-    } else if (Responsive.of(context).size.width < 1080) {
-      return 32;
-    } else if (Responsive.of(context).size.width < 1280) {
-      return 42;
-    } else if (Responsive.of(context).size.width < 1680) {
-      return 54;
-    } else if (Responsive.of(context).size.width < 1920) {
-      return 54;
-    }
-    return 18;
-  }*/
-
   @override
   void initState() {
     super.initState();
@@ -123,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             child: const Padding(
                                               padding: EdgeInsets.all(8.0),
                                               child: Text(
-                                                "Créér un compte",
+                                                "Ajouter un client",
                                               ),
                                             ),
                                             onPressed: () {},
@@ -318,7 +299,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               //size: 42,
                             ),
                             title: const SelectableText(
-                              "Medical Equipment",
+                              "Autres",
                               style: TextStyle(
                                 fontSize: 18.0,
                               ),
