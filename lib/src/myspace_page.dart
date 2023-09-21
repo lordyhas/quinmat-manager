@@ -55,7 +55,7 @@ class _MySpaceScreenState extends State<MySpaceScreen> {
     );
 
     return ScaffoldPage(
-      content: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+      content: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
           return Scrollbar(
             controller: scrollController,
