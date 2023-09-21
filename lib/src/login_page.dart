@@ -84,7 +84,7 @@ class _LoginPageState extends State<LoginPage>
       ));
     }
     Size size = MediaQuery.of(context).size;
-    return BlocListener<AuthenticationBloc, AuthenticationState>(
+    return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         switch (state.status) {
           case AuthenticationStatus.authenticated:
@@ -95,7 +95,7 @@ class _LoginPageState extends State<LoginPage>
       },
       child: BlocProvider(
         create: (_) => LoginCubit(
-          context.read<AuthenticationRepository>(),
+          context.read<AuthRepository>(),
         ),
         child: BackgroundUI(
           child: ScaffoldPage(
@@ -325,9 +325,9 @@ class _LoginPageState extends State<LoginPage>
             child: const Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _GoogleLoginButton(),
-                SizedBox(height: 8.0,),
-                _FacebookLoginButton(),
+                //_GoogleLoginButton(),
+                //SizedBox(height: 8.0,),
+                //_FacebookLoginButton(),
               ],
             ),
           ),
@@ -361,10 +361,7 @@ class _LoginPageState extends State<LoginPage>
     ],
   );
 
-  void testxx (){
-    const _GoogleLoginButton(text:"__");
-    const _FacebookLoginButton(text:"__");
-  }
+
 
 
 }
