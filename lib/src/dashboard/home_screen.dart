@@ -19,6 +19,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   bool underline = false;
 
+  final GlobalKey<FormState> validatorForm = GlobalKey<FormState>();
+
   @override
   void initState() {
     super.initState();
@@ -225,12 +227,56 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
+
+                Container(
+                  margin: const EdgeInsets.all(8.0),
+                  child: Card(
+                    borderColor: Colors.white,
+                    borderRadius: BorderRadius.circular(20.0),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Form(
+                        key: validatorForm,
+                        child: Column(
+                          children: [
+                            ConstrainedBox(
+                                constraints: const BoxConstraints(maxWidth: 300),
+                                child:  Wrap(
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8.0, vertical: 8.0),
+                                      child: InfoLabel(
+                                        label:"Modèle *",
+                                        child: TextFormBox(
+                                          placeholder:"Entrez le modèle",
+                                          onEditingComplete: (){},
+                                          onChanged: (str) {},
+                                          onSaved: (String? value) {
+
+                                          },
+                                          validator: (v) {
+                                            if (v!.length < 3) return 'Modèle est requis.';
+                                            return null;
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                            ),
+
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 const SizedBox(
                   height: 16.0,
                 ),
                 Container(
                   margin: const EdgeInsets.all(8.0),
-
                   child: Card(
                     borderColor: Colors.white,
                     borderRadius: BorderRadius.circular(20.0),
