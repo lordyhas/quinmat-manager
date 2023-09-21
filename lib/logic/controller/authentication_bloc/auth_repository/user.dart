@@ -15,17 +15,20 @@ class User extends Equatable {
     required this.email,
     required this.id,
     required this.name,
-    required this.photoMail,
-    this.photoCloud,
+    required this.phoneNumber,
+    required this.access,
+    this.registrationNumber,
+    this.photoMail,
+
     this.creationDate,
     this.lastDate,
-    this.phoneNumber,
     this.isAnonymous,
     this.isCheckMail,
     this.location,
     this.lastConnection,
     this.verifiedAccount = false,
     this.isDataCloud = false,
+    this.isBlocked = false,
   })  : assert(email != null,"User must have a mail"),
         assert(id != null,"User must have an id");
 
@@ -43,7 +46,7 @@ class User extends Equatable {
 
   /// Url for the current user's photo.
   final String? photoMail;
-  final Blob? photoCloud;
+  //final Blob? photoCloud;
 
   ///
   final DateTime? creationDate;
@@ -52,6 +55,10 @@ class User extends Equatable {
 
   /// The phone number of user
   final String? phoneNumber;
+
+  final String? registrationNumber;
+  final int access;
+
 
 
 
@@ -70,13 +77,15 @@ class User extends Equatable {
   /// It will be true if data from cloud else false
   final bool isDataCloud;
 
+  final bool isBlocked;
+
   ///
 
   // The fix location like the home address
  // final homeLocation;
 
   /// Empty user which represents an unauthenticated user.
-  static const empty = User(email: '', id: '', name: null, photoMail: null);
+  static const empty = User(email: '', id: '', name: null, phoneNumber: null, access: 1,);
 
   /// copyWith method, will help to get [UserData] saved in FireCloud
   User copyWith({
@@ -86,6 +95,7 @@ class User extends Equatable {
     String? photoMail,
     photoCloud,
     String? phoneNumber,
+    String? registrationNumber,
     bool? isAnonymous,
     bool? isEmail,
     DateTime? creationTime,
@@ -94,14 +104,18 @@ class User extends Equatable {
     location,
     bool? verifiedAccount,
     bool? isDataCloud,
+    bool? isBlocked,
+    int? access,
 
   }) => User(
     id: id ?? this.id,
     email: email ?? this.email,
     name: name ?? this.name,
+    access: access ?? this.access,
     photoMail: photoMail ?? this.photoMail,
-    photoCloud: photoCloud ?? this.photoCloud,
+    //photoCloud: photoCloud ?? this.photoCloud,
     phoneNumber: phoneNumber ?? this.phoneNumber,
+    registrationNumber: registrationNumber ?? this.registrationNumber,
     lastDate: lastDate ?? this.lastDate,
     creationDate: creationTime ?? creationDate,
     isAnonymous: isAnonymous ?? this.isAnonymous,
@@ -110,6 +124,7 @@ class User extends Equatable {
     verifiedAccount: verifiedAccount ?? this.verifiedAccount,
     location: location ?? this.location,
     isDataCloud: isDataCloud ?? this.isDataCloud,
+    isBlocked: isBlocked ?? this.isBlocked,
 
   );
 
@@ -118,9 +133,11 @@ class User extends Equatable {
     'id':id,
     'name':name,
     'email':email,
-    'photo_profile':photoCloud,
+    'reg_no': registrationNumber,
+    'access': access,
+    //'photo_profile':photoCloud,
     'photo_mail':photoMail,
-    'phone_number': phoneNumber,
+    'phone': phoneNumber,
     'last_login':lastDate,
     'creation_time':creationDate,
     'last_connection': lastConnection ?? DateTime.now() ,
@@ -128,6 +145,7 @@ class User extends Equatable {
     'verified_account':verifiedAccount,
     'location':location,
     'is_data_cloud': isDataCloud,
+    'is_blocked': isBlocked,
     //'':this,
 
   };
@@ -136,13 +154,16 @@ class User extends Equatable {
     id: data['id'],
     name: data['name'],
     email: data['email'],
-    photoCloud: data['photo_profile'],
+    access: data['access'],
+    registrationNumber: data['reg_no'],
+    //photoCloud: data['photo_profile'],
     photoMail: data['photo_mail'],
     creationDate: data['creation_time'].toDate(),
     lastDate: data['last_login'].toDate(),
     lastConnection: data['last_connection'].toDate(),
-    phoneNumber: data['phone_number'],
+    phoneNumber: data['phone'],
     isCheckMail: data['is_check_mail'],
+    isBlocked: data['is_blocked'],
     verifiedAccount: data['verified_account'],
     location: data['location'],
     //photo: value.data()![''],

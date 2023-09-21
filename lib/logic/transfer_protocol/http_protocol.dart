@@ -6,53 +6,18 @@ import 'dart:core';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
+import '../controller/authentication_bloc/auth_repository/setup.dart';
+
 abstract class HttpProtocol<T> {
-  Future<T> getData();
-
-  Future<void> sendData(Object? data);
-}
-
-
-class UserAgentClient extends http.BaseClient {
-  final String userAgent;
-  final http.Client _inner;
-
-  UserAgentClient(this.userAgent, this._inner);
-
-  @override
-  Future<http.StreamedResponse> send(http.BaseRequest request) {
-    request.headers['user-agent'] = userAgent;
-    return _inner.send(request);
-  }
-}
-class TransferProtocolTransaction{
-
-  final String url;
-  final http.Client client;
-
-
-  TransferProtocolTransaction(this.url): client = http.Client();
-
-  Future<void> _clientTest() async {
-     //client = http.Client();
-    try {
-      var response = await client.get(
-        Uri.parse('http://127.0.0.1:8000/api/csv'),);
-      var decodedResponse = jsonDecode(utf8.decode(response.bodyBytes));
-      if (kDebugMode) {
-        print(decodedResponse.runtimeType);
-      }
-      //var uri = Uri.parse(decodedResponse['uri'] as String);
-      //print(await client.get(uri));
-
-    } finally {
-      client.close();
-    }
-  }
-
-  void close() => client.close();
+  const HttpProtocol();
+  Future<List<T>> get();
+  Future<void> post();
+  Future<void> put();
+  Future<void> delete();
 
 }
+
+
 class Protocol {
   final String url;
   final CRUD? mode;
@@ -70,7 +35,7 @@ class Protocol {
 }
 
 
-class TransferProtocol {
+class TransferProtocol extends HttpProtocol<Map<String, dynamic>> {
   final String url;
   final CRUD? mode;
   final MethodProtocol method;
@@ -89,26 +54,23 @@ class TransferProtocol {
 
   //Uri? get _uriFromUrl => (url != null) ? Uri.parse(url!) : null;
 
-  Future<void> send() async {
-    //http://127.0.0.1:8000/api/test_post
-
-
-  }
-
+  @override
   Future<void> post() async {
 
     final response = await http.post(_uri, body: {
+      'id':"lordyhas",
       'data': data,
       'message': message,
       'mode': mode?.name,
     });
 
-    debugPrint('post() => response.statusCode : ${response.statusCode} \n'
-        'post() => response.body: ${response.body}');
+    debugPrint('### post() => response.statusCode : ${response.statusCode} \n'
+        '### post() => response.body: ${response.body}');
 
     //return response.statusCode;
   }
 
+  @override
   Future<List<Map<String, dynamic>>> get() async {
     final response = await http.get(_uri);
     List<Map<String, dynamic>> dataList = [];
@@ -117,12 +79,63 @@ class TransferProtocol {
       for (var element in value['data']){
         dataList.add(Map.from(element));
       }
-      debugPrint("get() => response.statusCode : ${response.statusCode} \n ");
+      debugPrint("### get() => response.statusCode : ${response.statusCode} \n ");
       return dataList;
     } else {
+      debugPrint("### get() => response.message : Failed to load  \n ");
       throw Exception('Failed to load');
     }
   }
+
+  @override
+  Future<void> put() async {
+    final response = await http.put(_uri, body: {
+      'id':"lordyhas",
+      'data': data,
+      'message': message,
+      'mode': mode?.name,
+    });
+    debugPrint('### put() => response.statusCode : ${response.statusCode} \n'
+        '### put() => response.body: ${response.body}');
+
+  }
+
+  @override
+  Future<void> delete() async {
+    final response = await http.delete(_uri, body: {
+      'id':"lordyhas",
+      'data': data,
+      'message': message,
+      'mode': mode?.name,
+    });
+    debugPrint('### delete() => response.statusCode : ${response.statusCode} \n'
+        '### delete() => response.body: ${response.body}');
+  }
+
+  Future<User> login() async {
+    //final response = await http.get(_uri);
+    final response = await http.post(_uri, body: {
+      'id':"lordyhas",
+      'data': data,
+      'message': message,
+      'mode': mode?.name,
+    });
+    List<Map<String, dynamic>> dataList = [];
+    if (response.statusCode == 200) {
+      var value = jsonDecode(response.body) as Map;
+      for (var element in value['data']){
+        dataList.add(Map.from(element));
+      }
+      debugPrint("### login() => response.statusCode : ${response.statusCode} \n "
+          "### login() => response.body : ${response.body}");
+      return User.fromMap(dataList.first);
+    } else {
+      debugPrint("### login() => response.message : Failed to load  \n ");
+      throw Exception('Failed to load');
+    }
+  }
+
+
 
 
 }
