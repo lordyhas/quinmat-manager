@@ -20,6 +20,9 @@ class ProductForm extends StatelessWidget {
     super.key,
   });
 
+  
+
+
   @override
   Widget build(BuildContext context) {
     //RentalSpace space = context.read<RentalControllerBloc>().state.space;
@@ -29,7 +32,7 @@ class ProductForm extends StatelessWidget {
     //context.read<RentalControllerBloc>().
 
     product.copyWith(productType: ProductType.QCL);
-
+    final RegExp numberRegex = RegExp(r'^-?\d+(\.\d+)?$');
 
     return Container(
       constraints: const BoxConstraints(maxWidth: 520),
@@ -136,7 +139,7 @@ class ProductForm extends StatelessWidget {
                           },
                           validator: (v) {
                             if (v!.isEmpty) return 'Prix est requis.';
-                            if(v.isNumeric) return 'Prix doit être un nombre.';
+                            if(v.isNotNumeric) return 'Prix doit être un nombre.';
                             return null;
                           },
                         ),
@@ -166,6 +169,7 @@ class ProductForm extends StatelessWidget {
                           },
                           validator: (v) {
                             if (v!.isEmpty) return 'Nombre des produits en stock est requis.';
+                            if(v.isNotNumeric) return 'Stock doit être un nombre.';
                             return null;
                           },
                         ),
