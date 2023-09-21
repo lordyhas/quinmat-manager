@@ -4,13 +4,17 @@ import 'package:flutter/foundation.dart';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 
 
 import 'package:qmt_manager/logic/access_controller/access_controller_cubit.dart';
 
 import 'package:qmt_manager/logic/values.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:firebase_core/firebase_core.dart';
+//import 'package:firebase_core/firebase_core.dart';
 import 'package:qmt_manager/routes.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'firebase_options.dart';
@@ -22,18 +26,19 @@ void main() async {
 
   setPathUrlStrategy();
   //GoRouter.setUrlPathStrategy(UrlPathStrategy.path);
-  await Firebase.initializeApp(
+  /*await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-  );
+  );*/
 
-  /*HydratedBloc.storage = await HydratedStorage.build(
+  HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: kIsWeb
         ? HydratedStorage.webStorageDirectory
         : await getTemporaryDirectory(),
-  );*/
+  );
 
   Bloc.observer = AppBlocObserver();
-  //Hive.initFlutter();
+
+  Hive.initFlutter();
 
   await SystemChrome.setEnabledSystemUIMode(
     SystemUiMode.edgeToEdge,
@@ -44,7 +49,7 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]).then((value) => runApp(
-      InitApp(authRepository: AuthenticationRepository())
+      InitApp(authRepository: AuthRepository())
   ));
 }
 
@@ -54,14 +59,14 @@ class InitApp extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final AuthenticationRepository authRepository;
+  final AuthRepository authRepository;
 
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider.value(
       value: authRepository,
       child: BlocProvider(
-        create: (_) => AuthenticationBloc(
+        create: (_) => AuthBloc(
           authRepository: authRepository,
         ),
         child: BusinessApp(),

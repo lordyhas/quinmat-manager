@@ -2,7 +2,7 @@ name: qmt_manager
 description: Quinmat Manager Project for internal usage (stuff only)
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 0.1.9+2
+version: 0.1.10+1
 
 
 environment:
@@ -39,9 +39,9 @@ dependencies:
   permission_handler: ^10.2.0
   photo_view: ^0.14.0
 
-  cloud_firestore: ^4.3.0
-  firebase_core: ^2.4.0
-  firebase_auth: ^4.2.3
+  #cloud_firestore: ^4.3.0
+  #firebase_core: ^2.4.0
+  #firebase_auth: ^4.2.3
 
   google_sign_in: ^6.1.0
 
