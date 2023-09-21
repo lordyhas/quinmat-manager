@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:pedantic/pedantic.dart';
 
 import 'package:qmt_manager/logic/controller/authentication_bloc/auth_repository/setup.dart';
@@ -11,50 +12,52 @@ part 'authentication_event.dart';
 
 part 'authentication_state.dart';
 
-class AuthenticationBloc
-    extends Bloc<AuthenticationEvent, AuthenticationState> {
-  AuthenticationBloc(
-      {required AuthenticationRepository authRepository})
+class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
+  AuthBloc(
+      {required AuthRepository authRepository})
       : _authenticationRepository = authRepository,
         super(
           authRepository.currentUser.isNotEmpty
-              ? AuthenticationState.authenticated(authRepository.currentUser)
-              : const AuthenticationState.unauthenticated(),
+              ? AuthState.authenticated(authRepository.currentUser)
+              : const AuthState.unauthenticated(),
         ) {
-    on<AuthenticationUserChanged>(_onUserChanged);
-    on<AuthenticationLogoutRequested>(_onLogoutRequested);
+    on<AuthUserChanged>(_onUserChanged);
+    on<AuthLogoutRequested>(_onLogoutRequested);
     _userSubscription = _authenticationRepository.user.listen(
-      (user) => add(AuthenticationUserChanged(user)),
+      (user) => add(AuthUserChanged(user)),
     );
   }
 
-  final AuthenticationRepository _authenticationRepository;
+  final AuthRepository _authenticationRepository;
   late final StreamSubscription<User> _userSubscription;
 
 
   bool get isSignedIn => state.status == AuthenticationStatus.authenticated;
   bool get isNotSignedIn => !isSignedIn;
 
+  bool get isLogged => isSignedIn;
+  bool get isNotLogged => !isLogged;
+
   void _onUserChanged(
-      AuthenticationUserChanged event, Emitter<AuthenticationState> emit) {
+      AuthUserChanged event, Emitter<AuthState> emit) {
     emit(
       event.user.isNotEmpty
-          ? AuthenticationState.authenticated(event.user)
-          : const AuthenticationState.unauthenticated(),
+          ? AuthState.authenticated(event.user)
+          : const AuthState.unauthenticated(),
     );
   }
 
   void updateUser(User user) {
-    add(AuthenticationUserChanged(user));
+    add(AuthUserChanged(user));
   }
 
   void _onLogoutRequested(
-      AuthenticationLogoutRequested event, Emitter<AuthenticationState> emit) {
+      AuthLogoutRequested event, Emitter<AuthState> emit) {
     unawaited(_authenticationRepository.logOut());
   }
 
   void logout(){
-    add(AuthenticationLogoutRequested());
+    add(AuthLogoutRequested());
   }
 
   @override
@@ -62,4 +65,12 @@ class AuthenticationBloc
     _userSubscription.cancel();
     return super.close();
   }
+
+  @override
+  AuthState? fromJson(Map<String, dynamic> json)
+    => AuthState.authenticated(User.fromMap(json));
+
+
+  @override
+  Map<String, dynamic>? toJson(AuthState state) => state.user.toMap();
 }
