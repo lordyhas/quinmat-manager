@@ -1,3 +1,4 @@
+/*
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:qmt_manager/logic/controller/authentication_bloc/auth_repository/setup.dart';
 import 'package:qmt_manager/logic/model/data_model.dart';
@@ -94,6 +95,7 @@ class FirebaseManager {
     return;
   }
 
+*/
 /*
   Future<void> addRentalSpace({required RentalSpace productData}) {
     return collectProduct
@@ -131,7 +133,8 @@ class FirebaseManager {
     return list;
   }
 
-*/
+*//*
+
   Future<void> addRentalVehicle({required Product productData}) {
     return collectProduct
         .add(productData.toMap())
@@ -173,3 +176,4 @@ class FirebaseManager {
 
 
 }
+*/
