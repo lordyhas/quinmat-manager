@@ -39,7 +39,7 @@ class AppRouter extends GoRouter {
               parentNavigatorKey: key,
               path: "/index",
               redirect: (_,state) {
-                if(BlocProvider.of<AuthenticationBloc>(_).state.
+                if(BlocProvider.of<AuthBloc>(_).state.
                 status == AuthenticationStatus.authenticated){
                     return HomeScreen.routeUrl;
                 }
