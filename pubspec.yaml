@@ -1,5 +1,5 @@
 name: qmt_manager
-description: Quinmat Manager Project for internal usage (stuff only)
+description: Business Manager Project for internal usage (stuff only)
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 version: 0.1.11+1
