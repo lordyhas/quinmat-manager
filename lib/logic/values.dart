@@ -109,7 +109,7 @@ class MyScrollBehaviorBehavior extends ScrollBehavior {
 
 void showToastFavorite({required BuildContext context, String? message}) =>
     AchievementView(
-      context,
+      //context,
       title: "Added to favorite",
       subTitle: message ?? "Place added to your favorite list",
       isCircle: true,
@@ -124,4 +124,4 @@ void showToastFavorite({required BuildContext context, String? message}) =>
       //textStyleTitle: TextStyle(),
       //textStyleSubTitle: TextStyle(),
       //alignment: Alignment.topCenter,
-    ).show();
+    ).show(context);
