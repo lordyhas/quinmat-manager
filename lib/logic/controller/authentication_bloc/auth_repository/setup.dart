@@ -1,6 +1,8 @@
 
 //import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:hive/hive.dart';
+
 import 'package:meta/meta.dart';
 import 'dart:async';
 

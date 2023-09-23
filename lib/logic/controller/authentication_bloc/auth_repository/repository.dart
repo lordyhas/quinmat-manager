@@ -155,9 +155,34 @@ class CacheClient {
 
   final Map<String, Object> _cache;
 
+  Future<void> _save(User user) async {
+    // Create a box collection
+    final collection = await BoxCollection.open(
+      'LoggedUserBox', // Name of your database
+      {'users', 'credentials'}, // Names of your boxes
+    );
+
+    // Open your boxes. Optional: Give it a type.
+    final catsBox = await collection.openBox<Map<String, dynamic>>('users');
+
+    // Put something in
+
+    await catsBox.put(user.email, user.toMap());
+    //await catsBox.put('loki', {'name': 'Loki', 'age': 2});
+
+    // Get values of type (immutable) Map?
+    final loki = await catsBox.get(user.email);
+    //print('Loki is ${loki?['age']} years old.');
+
+    // Returns a List of values
+    final cats = await catsBox.getAll(['loki', 'fluffy']);
+    //print(cats);
+  }
+
   /// Writes the provide [key], [value] pair to the in-memory cache.
   void write<T extends Object>({required String key, required T value}) {
     // todo : listen to my hive database
+
     _cache[key] = value;
   }
 
@@ -190,7 +215,7 @@ class AuthRepository {
 
 
   // Create a stream controller for connectivity status
-  final StreamController<User> _userLoginController = StreamController<User>();
+  final StreamController<User> _userLoginController = StreamController.broadcast();
 
 
 

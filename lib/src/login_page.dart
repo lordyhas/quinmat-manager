@@ -325,9 +325,9 @@ class _LoginPageState extends State<LoginPage>
             child: const Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                //_GoogleLoginButton(),
-                //SizedBox(height: 8.0,),
-                //_FacebookLoginButton(),
+                _GoogleLoginButton(),
+                SizedBox(height: 8.0,),
+                _FacebookLoginButton(),
               ],
             ),
           ),
@@ -354,6 +354,7 @@ class _LoginPageState extends State<LoginPage>
               onPressed: (){},
               icon: const Icon(CupertinoIcons.gear_solid,
                 color: Colors.white,
+                size: 24,
               )
           ) : null,
         ),

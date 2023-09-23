@@ -29,14 +29,14 @@ class User extends Equatable {
     this.verifiedAccount = false,
     this.isDataCloud = false,
     this.isBlocked = false,
-  })  : assert(email != null,"User must have a mail"),
+  })  : //assert(email != null,"User must have a mail"),
         assert(id != null,"User must have an id");
 
 
 
 
   /// The current user's email address.
-  final String? email;
+  final String email;
 
   /// The current user's id.
   final String? id;
