@@ -16,9 +16,9 @@ enum ProductType{QCL,MOB,MED,PAP, unknown}
 extension ProductTypeHelper on ProductType {
   String get name {
     switch(this){
-      case ProductType.QCL: return "Quincaillerie";
-      case ProductType.MOB: return "Mobilier";
-      case ProductType.MED: return "Medical Equipment";
+      case ProductType.QCL: return "Electronique";
+      case ProductType.MOB: return "Alimentaire";
+      case ProductType.MED: return "Cosmetique";
       case ProductType.PAP: return "Papeterie";
       case ProductType.unknown: return "";
 
@@ -83,6 +83,8 @@ class AddressData {
   Map<String, dynamic> toMap() {
     return asMap();
   }
+  @override
+  String toString() => "$number, $avenue,${town ?? commune}";
 
 }
 
