@@ -2,7 +2,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:qmt_manager/logic/values.dart';
 import 'package:flutter/cupertino.dart' show CupertinoSwitch;
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart' show RangeValues, AppBar;
+import 'package:flutter/material.dart' show RangeValues, AppBar, MaterialPageRoute;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qmt_manager/src/dashboard/customers/model/view_model.dart';
 import 'package:qmt_manager/src/dashboard/customers/range_slider_view.dart';
@@ -11,6 +11,10 @@ import 'package:qmt_manager/src/dashboard/customers/slider_view.dart';
 class FiltersScreen extends StatefulWidget {
   static const routeName = "filter";
   const FiltersScreen({super.key});
+
+  static MaterialPageRoute route() => MaterialPageRoute(
+    builder:(context) => const FiltersScreen(),
+  );
 
   @override
   State<FiltersScreen> createState() => _FiltersScreenState();
@@ -64,11 +68,14 @@ class _FiltersScreenState extends State<FiltersScreen> {
   Color colorTitle() {
     return isDarkMode ? Colors.black : Colors.grey[120];
   }
+  double? usdValue;
+  double? cdfValue;
 
   @override
   Widget build(BuildContext context) {
     final shopAppTheme = BlocProvider.of<StyleAppTheme>(context);
     isDarkMode = FluentTheme.of(context).brightness == Brightness.dark;
+    final GlobalKey<FormState> validatorKey = GlobalKey<FormState>();
 
     return ScaffoldPage(
       //appBar: AppBar(),
@@ -84,6 +91,79 @@ class _FiltersScreenState extends State<FiltersScreen> {
                 child: Center(
                   child: Column(
                     children: <Widget>[
+                      Container(
+                        child: Form(
+                          key: validatorKey,
+                          child: Column(
+                            children: [
+                              ConstrainedBox(
+                                constraints: const BoxConstraints(maxWidth: 300),
+                                child:  Wrap(
+                                  children: [
+                                    Container(
+                                      width: 100,
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8.0, vertical: 8.0),
+                                      child: InfoLabel(
+                                        label:"USD",
+                                        child: TextFormBox(
+                                          initialValue: "1",
+                                          placeholder:"Entrez la valeur (USD)",
+                                          onChanged: (str) {},
+                                          onSaved: (String? value) {
+                                              setState(() {
+                                                usdValue = value!.toDouble();
+                                              });
+                                          },
+                                          validator: (v) {
+                                            if (v!.isEmpty) return 'USD est requis.';
+                                            if(v.isNotNumeric) return 'USD doit être un nombre.';
+                                            return null;
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      width: 100,
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8.0, vertical: 8.0),
+                                      child: InfoLabel(
+                                        label:"CDF",
+                                        child: TextFormBox(
+                                          initialValue: "2475.60",
+                                          placeholder:"Entrez la valeur (CDF)",
+                                          onSaved: (value) {
+                                            setState(() {
+                                              cdfValue = value!.toDouble();
+                                            });
+                                          },
+                                          validator: (v) {
+                                            if (v!.isEmpty) return 'CDF est requis.';
+                                            if(v.isNotNumeric) return 'CDF doit être un nombre.';
+                                            return null;
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              FilledButton(
+                                  child: Text("Enregistrer"),
+                                  onPressed: (){
+                                    if (validatorKey.currentState!.validate()) {
+                                      validatorKey.currentState!.save();
+                                      BlocProvider.of<FilterCubit>(context).change(
+                                        exchangeRate: usdValue!/cdfValue!,
+                                      );
+                                    }
+                                    //validatorKey.currentState;
+                                  }
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
                       priceBarFilter(),
                       const Divider(size: 1),
                       popularFilter(),
