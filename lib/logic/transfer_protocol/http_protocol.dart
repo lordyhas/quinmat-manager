@@ -9,7 +9,9 @@ import 'package:http/http.dart' as http;
 import '../controller/authentication_bloc/auth_repository/setup.dart';
 
 abstract class HttpProtocol<T> {
-  const HttpProtocol();
+  final String url;
+  final T data;
+  const HttpProtocol(this.url, this.data);
   Future<List<T>> get();
   Future<void> post();
   Future<void> put();
@@ -35,21 +37,26 @@ class Protocol {
 }
 
 
-class TransferProtocol extends HttpProtocol<Map<String, dynamic>> {
-  final String url;
+class BackendServer extends HttpProtocol<Map<String, dynamic>> {
+  final String endUrl;
   final CRUD? mode;
   final MethodProtocol method;
   final Map<String, dynamic> data;
   final String? message;
 
-  const TransferProtocol( this.url,{
+  const BackendServer( String url,{
     this.data = const <String,dynamic>{},
     this.message,
     this.mode,
     this.method = MethodProtocol.GET,
-  });
+  }): endUrl = url, super(url, data);
 
-  Uri get _uri => Uri.parse(url);
+  static String weburl = "https://exploress.org";
+
+ // Uri get _uri => Uri.parse("http://127.0.0.1:8000/$url");
+  Uri get _uri => Uri.parse("$weburl/$endUrl");
+
+
   //Uri get _uri => Uri.parse('http://127.0.0.1:8000/api/test_post');
 
   //Uri? get _uriFromUrl => (url != null) ? Uri.parse(url!) : null;
@@ -95,7 +102,8 @@ class TransferProtocol extends HttpProtocol<Map<String, dynamic>> {
       'message': message,
       'mode': mode?.name,
     });
-    debugPrint('### put() => response.statusCode : ${response.statusCode} \n'
+    debugPrint(''
+        '### put() => response.statusCode : ${response.statusCode} \n'
         '### put() => response.body: ${response.body}');
 
   }
@@ -114,12 +122,12 @@ class TransferProtocol extends HttpProtocol<Map<String, dynamic>> {
 
   Future<User> login() async {
     //final response = await http.get(_uri);
-    final response = await http.post(_uri, body: {
+    final response = await http.post(_uri, body: data); /*({
       'id':"lordyhas",
       'data': data,
       'message': message,
       'mode': mode?.name,
-    });
+    });*/
     List<Map<String, dynamic>> dataList = [];
     if (response.statusCode == 200) {
       var value = jsonDecode(response.body) as Map;
@@ -130,7 +138,9 @@ class TransferProtocol extends HttpProtocol<Map<String, dynamic>> {
           "### login() => response.body : ${response.body}");
       return User.fromMap(dataList.first);
     } else {
-      debugPrint("### login() => response.message : Failed to load  \n ");
+      debugPrint("### login() => response.message : Failed to load  \n"
+          //"### login() => response.body : ${response.body}"
+      );
       throw Exception('Failed to load');
     }
   }
