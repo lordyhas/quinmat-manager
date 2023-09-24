@@ -13,8 +13,7 @@ part 'authentication_event.dart';
 part 'authentication_state.dart';
 
 class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
-  AuthBloc(
-      {required AuthRepository authRepository})
+  AuthBloc({required AuthRepository authRepository})
       : _authenticationRepository = authRepository,
         super(
           authRepository.currentUser.isNotEmpty
@@ -23,8 +22,8 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
         ) {
     on<AuthUserChanged>(_onUserChanged);
     on<AuthLogoutRequested>(_onLogoutRequested);
-    _userSubscription = _authenticationRepository.user.listen(
-      (user) => add(AuthUserChanged(user)),
+    _userSubscription = _authenticationRepository.user
+        .listen((user) => add(AuthUserChanged(user)),
     );
   }
 
@@ -51,8 +50,7 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
     add(AuthUserChanged(user));
   }
 
-  void _onLogoutRequested(
-      AuthLogoutRequested event, Emitter<AuthState> emit) {
+  void _onLogoutRequested(AuthLogoutRequested event, Emitter<AuthState> emit) {
     unawaited(_authenticationRepository.logOut());
   }
 
