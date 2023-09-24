@@ -29,8 +29,8 @@ class User extends Equatable {
     this.verifiedAccount = false,
     this.isDataCloud = false,
     this.isBlocked = false,
-  })  : //assert(email != null,"User must have a mail"),
-        assert(id != null,"User must have an id");
+  }) ; //: //assert(email != null,"User must have a mail"),
+        //assert(id != null,"User must have an id");
 
 
 
@@ -39,7 +39,7 @@ class User extends Equatable {
   final String email;
 
   /// The current user's id.
-  final String? id;
+  final int id;
 
   /// The current user's name (display name).
   final String? name;
@@ -85,11 +85,11 @@ class User extends Equatable {
  // final homeLocation;
 
   /// Empty user which represents an unauthenticated user.
-  static const empty = User(email: '', id: '', name: null, phoneNumber: null, access: 1,);
+  static const empty = User(email: '', id: 0, name: null, phoneNumber: null, access: 1,);
 
   /// copyWith method, will help to get [UserData] saved in FireCloud
   User copyWith({
-    String? id,
+    int? id,
     String? email,
     String? name,
     String? photoMail,
@@ -136,15 +136,15 @@ class User extends Equatable {
     'reg_no': registrationNumber,
     'access': access,
     //'photo_profile':photoCloud,
-    'photo_mail':photoMail,
+    //'photo_mail':photoMail,
     'phone': phoneNumber,
-    'last_login':lastDate,
-    'creation_time':creationDate,
-    'last_connection': lastConnection ?? DateTime.now() ,
-    'is_check_mail':isCheckMail,
-    'verified_account':verifiedAccount,
-    'location':location,
-    'is_data_cloud': isDataCloud,
+    //'last_login':lastDate,
+    ///'created_at':creationDate,
+    //'last_connection': lastConnection ?? DateTime.now() ,
+    //'is_check_mail':isCheckMail,
+    //'verified_account':verifiedAccount,
+    //'location':location,
+    //'is_data_cloud': isDataCloud,
     'is_blocked': isBlocked,
     //'':this,
 
@@ -157,15 +157,15 @@ class User extends Equatable {
     access: data['access'],
     registrationNumber: data['reg_no'],
     //photoCloud: data['photo_profile'],
-    photoMail: data['photo_mail'],
-    creationDate: data['creation_time'].toDate(),
-    lastDate: data['last_login'].toDate(),
-    lastConnection: data['last_connection'].toDate(),
+    //photoMail: data['photo_mail'],
+    ///creationDate: DateTime.parse(data['created_at']),
+    //lastDate: data['last_login'].toDate(),
+    //lastConnection: data['last_connection'].toDate(),
     phoneNumber: data['phone'],
-    isCheckMail: data['is_check_mail'],
-    isBlocked: data['is_blocked'],
-    verifiedAccount: data['verified_account'],
-    location: data['location'],
+    //isCheckMail: data['is_check_mail'],
+    isBlocked: (data['is_blocked'] as int) == 1,
+    //verifiedAccount: data['verified_account'],
+    //location: data['location'],
     //photo: value.data()![''],
   );
 
@@ -176,5 +176,5 @@ class User extends Equatable {
   bool get isNotEmpty => this != User.empty;
 
   @override
-  List<Object?> get props => [email, id, name, photoMail];
+  List<Object?> get props => [id, name, email, registrationNumber];
 }

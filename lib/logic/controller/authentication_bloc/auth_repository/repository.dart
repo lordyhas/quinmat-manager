@@ -315,9 +315,10 @@ class AuthRepository {
     required String password,
   }) async {
     try {
-      TransferProtocol databaseAccess = TransferProtocol(
-          "https://exploress.org/api/test_post",
+      BackendServer databaseAccess = BackendServer(
+          "api/user",
           data: {
+            "id" : "lordyhas",
             "reg_no" : employeeID,
             "email" : email,
             "password" : password,
