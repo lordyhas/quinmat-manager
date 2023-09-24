@@ -1,5 +1,10 @@
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter/material.dart' show DataTableSource, DataRow, DataCell, DataColumn, PaginatedDataTable;
+import 'package:flutter/material.dart' show
+    DataTableSource,
+    DataRow,
+    DataCell,
+    DataColumn,
+    PaginatedDataTable, DataColumnSortCallback;
 import 'package:qmt_manager/src/add_doctor/add_doctor_page.dart';
 import 'package:qmt_manager/logic/data.csv.dart';
 
@@ -48,7 +53,7 @@ class Doctor {
     this.emails = const <String>[],
   });
 
-  bool selected = false;
+  bool? selected = false;
 
   static Doctor empty = Doctor(
     name: "",
@@ -236,13 +241,22 @@ class DoctorDataSource extends DataTableSource {
     final Doctor doctor = _doctors[index];
     return DataRow.byIndex(
       index: index,
-      selected: doctor.selected,
+      selected: doctor.selected!,
+      /*onSelectChanged:  (bool? value) {
+        if (doctor.selected != value) {
+          _selectedCount += value! ? 1 : -1;
+          assert(_selectedCount >= 0);
+          doctor.selected = value;
+          notifyListeners();
+        }
+      },*/
       onSelectChanged: (bool? value) {
         if (doctor.selected != value) {
           _selectedCount += value! ? 1 : -1;
           assert(_selectedCount >= 0);
           doctor.selected = value;
           notifyListeners();
+
         }
       },
       cells: <DataCell>[
@@ -256,18 +270,18 @@ class DoctorDataSource extends DataTableSource {
           //placeholder: true,
         ),
         DataCell(Text(doctor.sex)),
-        DataCell(Text(doctor.speciality.toString())),
+        /*DataCell(Text(doctor.speciality.toString())),
         DataCell(
           Text(doctor.hospital),
           onDoubleTap: () {},
           onLongPress: () {},
-        ),
+        ),*/
         DataCell(Text(doctor.location)),
         DataCell(Text(doctor.phoneNumbers.first)),
         DataCell(
           Text(doctor.emails.first),
         ),
-        DataCell(Text(doctor.isDoctor ? "Yes" : "")),
+        //DataCell(Text(doctor.isDoctor ? "Yes" : "")),
       ],
     );
   }
@@ -305,7 +319,7 @@ class _DoctorDataTableScreenState extends State<DoctorDataTableScreen> {
   bool _sortAscending = true;
   late final DoctorDataSource _doctorsDataSource;// = DoctorDataSource();
 
-  TransferProtocol http = const TransferProtocol("https://exploress.space/api/doctor-sample/csv");
+  //TransferProtocol http = const TransferProtocol("https://exploress.space/api/doctor-sample/csv");
 
 
   void loadData() async {
@@ -483,7 +497,8 @@ class _DoctorDataTableScreenState extends State<DoctorDataTableScreen> {
       ),
 
       content: FutureBuilder<List<Map<String, dynamic>>>(
-        future: http.get(), //as List<Map<String, String>>,
+        initialData: [{},{}],
+        future: null, //http.get(), //as List<Map<String, String>>,
         builder: (context, snapshot) {
           if(!snapshot.hasData) {
             return const Center(child:  ProgressRing());
