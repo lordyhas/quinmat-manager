@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
@@ -114,9 +113,9 @@ class BusinessApp extends StatelessWidget {
         BlocProvider<NavigationController>(
           create: (context) => NavigationController(),
         ),
-        BlocProvider<ProductControllerBloc>(
+        /*BlocProvider<ProductControllerBloc>(
           create: (context) => ProductControllerBloc(),
-        ),
+        ),*/
         BlocProvider<FilterCubit>(
           create: (context) => FilterCubit(),
         ),
