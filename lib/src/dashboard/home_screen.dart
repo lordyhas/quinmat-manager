@@ -161,6 +161,188 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(
                   height: 16.0,
                 ),
+                Container(
+                  margin: const EdgeInsets.all(8.0),
+                  child: Card(
+                    borderColor: Colors.white,
+                    borderRadius: BorderRadius.circular(20.0),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Form(
+                        key: validatorForm,
+                        child: Column(
+                          children: [
+                            const ListTile(
+                              title: SelectableText(
+                                "Faire la facture",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                            Wrap(
+                              children: [
+                                ConstrainedBox(
+                                  constraints: const BoxConstraints(maxWidth: 300),
+                                  child:  Wrap(
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0, vertical: 8.0),
+                                        child: InfoLabel(
+                                          label:"Nom du client",
+                                          child: TextFormBox(
+                                            placeholder:"Entrez le nom",
+                                            onEditingComplete: (){},
+                                            onChanged: (str) {},
+                                            onSaved: (String? value) {
+
+                                            },
+                                            validator: (v) {
+                                              if (v!.length < 3) return 'Nom est requis.';
+                                              return null;
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0, vertical: 8.0),
+                                        child: InfoLabel(
+                                          label:"Numero du produits",
+                                          child: TextFormBox(
+                                            placeholder:"No produit",
+                                            onEditingComplete: (){},
+                                            onChanged: (str) {},
+                                            onSaved: (String? value) {
+
+                                            },
+                                            validator: (v) {
+                                              if (v!.length < 3) return 'No est requis.';
+                                              return null;
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                ConstrainedBox(
+                                  constraints: const BoxConstraints(maxWidth: 300),
+                                  child:  Wrap(
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0, vertical: 8.0),
+                                        child: InfoLabel(
+                                          label:"Qté d'item ",
+                                          child: TextFormBox(
+                                            placeholder:"Entrez la qté",
+                                            onEditingComplete: (){},
+                                            onChanged: (str) {},
+                                            onSaved: (String? value) {
+
+                                            },
+                                            validator: (v) {
+                                              if (v!.length < 3) return 'Qté est requis.';
+                                              return null;
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0, vertical: 8.0),
+                                        child: InfoLabel(
+                                          label:"Matricule emplyé",
+                                          child: TextFormBox(
+                                            placeholder:"Entrez le matricule",
+                                            onEditingComplete: (){},
+                                            onChanged: (str) {},
+                                            onSaved: (String? value) {
+
+                                            },
+                                            validator: (v) {
+                                              if (v!.length < 3) return 'Modèle est requis.';
+                                              return null;
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                ConstrainedBox(
+                                  constraints: const BoxConstraints(maxWidth: 300),
+                                  child:  Wrap(
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0, vertical: 8.0),
+                                        child: InfoLabel(
+                                          label:"Qté d'item ",
+                                          child: TextFormBox(
+                                            placeholder:"Entrez la qté",
+                                            onEditingComplete: (){},
+                                            onChanged: (str) {},
+                                            onSaved: (String? value) {
+
+                                            },
+                                            validator: (v) {
+                                              if (v!.length < 3) return 'Qté est requis.';
+                                              return null;
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0, vertical: 8.0),
+                                        child: InfoLabel(
+                                          label:"Matricule emplyé",
+                                          child: TextFormBox(
+                                            placeholder:"Entrez le matricule",
+                                            onEditingComplete: (){},
+                                            onChanged: (str) {},
+                                            onSaved: (String? value) {
+
+                                            },
+                                            validator: (v) {
+                                              if (v!.length < 3) return 'Modèle est requis.';
+                                              return null;
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16.0,
+                                vertical: 16.0,
+                              ),
+                              child: Row(
+                                children: [
+                                  const Spacer(),
+                                  FilledButton(
+                                    onPressed: (){},
+                                    child: const Text("Faire la facture"),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 16.0,
+                ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ClipRRect(
@@ -221,51 +403,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ],
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-
-                Container(
-                  margin: const EdgeInsets.all(8.0),
-                  child: Card(
-                    borderColor: Colors.white,
-                    borderRadius: BorderRadius.circular(20.0),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Form(
-                        key: validatorForm,
-                        child: Column(
-                          children: [
-                            ConstrainedBox(
-                                constraints: const BoxConstraints(maxWidth: 300),
-                                child:  Wrap(
-                                  children: [
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8.0, vertical: 8.0),
-                                      child: InfoLabel(
-                                        label:"Modèle *",
-                                        child: TextFormBox(
-                                          placeholder:"Entrez le modèle",
-                                          onEditingComplete: (){},
-                                          onChanged: (str) {},
-                                          onSaved: (String? value) {
-
-                                          },
-                                          validator: (v) {
-                                            if (v!.length < 3) return 'Modèle est requis.';
-                                            return null;
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                            ),
-
                           ],
                         ),
                       ),
