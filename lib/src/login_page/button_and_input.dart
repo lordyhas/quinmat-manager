@@ -28,9 +28,9 @@ class ButtonLogin extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
             ),
             child: state.status.isSubmissionInProgress
-            ? SizedBox(
-              height: 30,
-              width: 30,
+            ? SizedBox.square(
+              dimension: 30,
+              //width: 30,
               child: ProgressRing(
                 activeColor: FluentTheme.of(context).activeColor,
               ),
@@ -132,6 +132,7 @@ class _InputField extends StatelessWidget {
   final bool isPassword;
   final bool isEmail;
   final void Function(String)? onChanged;
+  final String? Function(String?)? validator;
   final String? errorText;
   const _InputField({
     required this.icon,
@@ -139,50 +140,66 @@ class _InputField extends StatelessWidget {
     this.isPassword = false,
     this.isEmail = false,
     this.onChanged,
+    this.validator,
     this.errorText,
     this.suffixIcon,
     Key? key,
-  }) : super(key: key);
+  }) : asContainer = false, textBox = const SizedBox.shrink(), super(key: key);
+
+  final bool asContainer;
+  final Widget textBox;
+
+  const _InputField.container({
+    required TextFormBox child,
+
+    Key? key,
+  }) : icon = FluentIcons.admin,
+        hintText = '',
+        isPassword = false,
+        isEmail = false,
+        onChanged = null,
+        validator = null,
+        errorText = null,
+        suffixIcon = null,
+        asContainer = true,
+        textBox = child,
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
     //Size size = MediaQuery.of(context).size;
     return Container(
-      height: 50,
+      //height: 50,
       margin: const EdgeInsets.symmetric(horizontal: 16.0),
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Stack(
         children: [
-          Container(
-            height: 48,
-            //width: size.width / 1.22,
-            alignment: Alignment.center,
-            /*decoration: BoxDecoration(
-              color: Colors.white.withOpacity(.15),
-              borderRadius: BorderRadius.circular(10),
-            ),*/
-          ),
-          TextBox(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
-            key: key,
-            style: const TextStyle(color: Colors.white),
-            obscureText: isPassword,
-            keyboardType: isEmail ? TextInputType.emailAddress : TextInputType.text,
-            onChanged: onChanged,
+          if(asContainer)
+            textBox
+          else
+            TextFormBox(
+              autovalidateMode: AutovalidateMode.always,
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+              key: key,
+              validator: validator,
+              style: const TextStyle(color: Colors.white),
+              obscureText: isPassword,
+              keyboardType: isEmail ? TextInputType.emailAddress : TextInputType.text,
+              onChanged: onChanged,
 
-            prefix: Icon(icon,size: 18,
-              color: Colors.white.withOpacity(.7),
-            ),
-            suffix: suffixIcon,
-            placeholder: hintText,
-            placeholderStyle: TextStyle(
+              prefix: Icon(icon,size: 18,
+                color: Colors.white.withOpacity(.7),
+              ),
+              suffix: suffixIcon,
+              placeholder: hintText,
+              placeholderStyle: TextStyle(
                 fontSize: 14,
                 color: Colors.white.withOpacity(.5),
+              ),
+              decoration: BoxDecoration(
+                border: Border.all(),
+              ),
             ),
-            decoration: BoxDecoration(
-              border: Border.all(),
-            ),
-          ),
         ],
       ),
     );

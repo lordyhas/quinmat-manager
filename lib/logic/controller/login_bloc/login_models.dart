@@ -17,11 +17,6 @@ class Username extends FormzInput<String, EmployeeIDValidationError> {
     r'^[a-zA-Z0-9-]*$',
   );
 
-  /*@override
-  EmailValidationError? validator(String? value) {
-    return _emailRegExp.hasMatch(value!) ? null : EmailValidationError.invalid;
-  }*/
-
   @override
   EmployeeIDValidationError? validator(String? value) {
     return _employeeIDRegExp.hasMatch(value ?? '')
@@ -73,7 +68,9 @@ class Password extends FormzInput<String, PasswordValidationError> {
   const Password.dirty([String value = '']) : super.dirty(value);
 
   static final _passwordRegExp = RegExp(
-      r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$'
+      //r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$'
+      r'(?=.*[a-zA-Z])(?=.*\d)'
+
   );
 
   @override
