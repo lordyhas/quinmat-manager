@@ -8,13 +8,13 @@ class ProductForm extends StatelessWidget {
   //final List<TextEditingController> controllers;
 
   //final Map<String,TextEditingController> spaceController;
-  final Map<String,TextEditingController> productController;
+  //final Map<String,TextEditingController> productController;
 
   const ProductForm({
     required this.validator,
     //required this.controllers,
     //required this.spaceController,
-    required this.productController,
+    //required this.productController,
     this.onValidForm,
     this.onComplete,
     super.key,
@@ -26,13 +26,13 @@ class ProductForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //RentalSpace space = context.read<RentalControllerBloc>().state.space;
-    var bloc = BlocProvider.of<ProductControllerBloc>(context);
+    var bloc = BlocProvider.of<AddProductControllerBloc>(context);
     Product product = bloc.state.product;
 
     //context.read<RentalControllerBloc>().
 
     product.copyWith(productType: ProductType.QCL);
-    final RegExp numberRegex = RegExp(r'^-?\d+(\.\d+)?$');
+
 
     return Container(
       constraints: const BoxConstraints(maxWidth: 520),
@@ -43,7 +43,7 @@ class ProductForm extends StatelessWidget {
             height: 8.0,
           ),
 
-          BlocBuilder<ProductControllerBloc, ProductControllerState>(
+          BlocBuilder<AddProductControllerBloc, ProductControllerState>(
             builder: (_, state) {
               return Form(
                 key: validator,
@@ -107,7 +107,7 @@ class ProductForm extends StatelessWidget {
                       child: InfoLabel(
                         label: "Description *",
                         child: TextFormBox(
-                          controller: productController['description'],
+                          //controller: productController['description'],
                           maxLines: 4,
                           placeholder:"Décriver le produit?",
                           onEditingComplete: (){},
@@ -127,14 +127,17 @@ class ProductForm extends StatelessWidget {
                       child: InfoLabel(
                         label: "Prix (en ${state.product.pricePer.name}) *",
                         child: TextFormBox(
-                          controller: productController['price'],
+                          //controller: productController['price'],
                           //textCapitalization: TextCapitalization.words,
                           keyboardType: TextInputType.number,
                           placeholder:"prix en dollar américain ?",
                           onEditingComplete: (){},
                           onSaved: (value) {
-                            int v = value!.toInt().abs();
+                            double v = value!.toDouble().abs();
                             if(v == 0) v = 1;
+                            if(state.product.pricePer == PriceCurrency.CDF){
+                              v = BlocProvider.of<FilterCubit>(context).cdfToUsd(v);
+                            }
                             product = product.copyWith(price: v);
                           },
                           validator: (v) {
@@ -148,7 +151,8 @@ class ProductForm extends StatelessWidget {
                     _RadioButtonGroup(
                       onSelected: (PriceCurrency value) {
                         product = product.copyWith(pricePer: value);
-                        context.read<ProductControllerBloc>().addProductPassed(product);
+                        context.read<AddProductControllerBloc>().addProductPassed(product);
+
                       },
                     ),
 
@@ -176,7 +180,7 @@ class ProductForm extends StatelessWidget {
                       ),
                     ),
 
-                    Container(
+                    /*Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8.0, vertical: 8.0),
                       child: InfoLabel(
@@ -193,7 +197,7 @@ class ProductForm extends StatelessWidget {
                           },
                         ),
                       ),
-                    ),
+                    ),*/
 
                     //BlocBuilder<RentalControllerBloc, RentalControllerState>(
                     Container(
@@ -202,10 +206,10 @@ class ProductForm extends StatelessWidget {
                       child: Row(
                         children: [
                           InfoLabel(
-                            label: "Departement *",
+                            label: "Catégorie *",
                             child: ComboboxFormField<ProductType>(
-                              placeholder: const Text("Spécifier le departement"),
-                              value: context.read<ProductControllerBloc>().state.product.productType,
+                              placeholder: const Text("Spécifier la catégorie du produit"),
+                              value: context.read<AddProductControllerBloc>().product.productType,
                               //controller: controllers[5],
                               items: Product.departments.map((v) {
                                 return ComboBoxItem(
@@ -214,22 +218,23 @@ class ProductForm extends StatelessWidget {
                                       children: <Widget>[
                                         const Icon(FluentIcons.tag, size: 20),
                                         const SizedBox(width: 8.0,),
-                                        Text("DEP ${v.name}"),
+                                        Text("CAT ${v.name}"),
                                       ],
                                     ));
                               }).toList(),
                               onChanged: (v){
-                                context.read<ProductControllerBloc>().refreshProduct(
+                                context.read<AddProductControllerBloc>().refreshProduct(
                                     product.copyWith(productType: v)
                                 );
                               },
                               onSaved: (value) {
                                 product = product.copyWith(productType: value);
-                                context.read<ProductControllerBloc>().addProductPassed(product);
+                                //context.read<AddProductControllerBloc>().addProductPassed(product);
+                                BlocProvider.of<AddProductControllerBloc>(context)
+                                    .addProductPassed(product);
                               },
-
                               validator: (v) {
-                                if(v == null) return "Chosir un departement (obligatoire)";
+                                if(v == null) return "Chosir une catégorie (obligatoire)";
                                 return null;
                               },
                             ),
