@@ -47,6 +47,90 @@ extension PriceCurrencyHelper on PriceCurrency {
   }
 }
 
+class Bill{
+  final int productId;
+  final int customerId;
+  final int quantity;
+  final String? phone;
+  final String? regno;
+
+
+  const Bill({
+    required this.productId,
+    this.customerId = 1,
+    this.quantity = 0,
+    this.phone = "",
+    this.regno = "",
+  });
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Bill &&
+          runtimeType == other.runtimeType &&
+          productId == other.productId &&
+          customerId == other.customerId &&
+          quantity == other.quantity &&
+          phone == other.phone &&
+          regno == other.regno);
+
+  @override
+  int get hashCode =>
+      productId.hashCode ^
+      customerId.hashCode ^
+      quantity.hashCode ^
+      phone.hashCode ^
+      regno.hashCode;
+
+  @override
+  String toString() {
+    return 'Sale{ '
+        'productId: $productId, '
+        'customerId: $customerId, '
+        'quantity: $quantity, '
+        'phone: $phone, '
+        'regno: $regno,}';
+  }
+
+  Bill copyWith({
+    int? productId,
+    int? customerId,
+    int? quantity,
+    String? phone,
+    String? regno,
+  }) {
+    return Bill(
+      productId: productId ?? this.productId,
+      customerId: customerId ?? this.customerId,
+      quantity: quantity ?? this.quantity,
+      phone: phone ?? this.phone,
+      regno: regno ?? this.regno,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'product_id': productId.toString(),
+      'customer_id': customerId.toString(),
+      'quantity': quantity.toString(),
+      'phone': phone ?? "",
+      'reg_no': regno ?? "",
+    };
+  }
+
+  factory Bill.fromMap(Map<String, dynamic> map) {
+    return Bill(
+      productId: map['product_id'] as int,
+      customerId: map['customer_id'] as int,
+      quantity: map['quantity'] as int,
+      phone: map['phone'] as String,
+      regno: map['reg_no'] as String,
+    );
+  }
+
+
+}
+
 
 class AddressData {
   final String avenue;
@@ -84,7 +168,7 @@ class AddressData {
     return asMap();
   }
   @override
-  String toString() => "$number, $avenue,${town ?? commune}";
+  String toString() => "$number, $avenue, ${town ?? commune}";
 
 }
 
