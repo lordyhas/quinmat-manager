@@ -316,7 +316,7 @@ class AuthRepository {
   }) async {
     try {
       BackendServer databaseAccess = BackendServer(
-          "api/user",
+          "/user",
           data: {
             "id" : "lordyhas",
             "reg_no" : employeeID,

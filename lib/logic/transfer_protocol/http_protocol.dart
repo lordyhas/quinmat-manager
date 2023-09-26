@@ -13,9 +13,9 @@ abstract class HttpProtocol<T> {
   final T data;
   const HttpProtocol(this.url, this.data);
   Future<List<T>> get();
-  Future<void> post();
-  Future<void> put();
-  Future<void> delete();
+  Future<bool> post();
+  Future<bool> put();
+  Future<bool> delete();
 
 }
 
@@ -51,29 +51,48 @@ class BackendServer extends HttpProtocol<Map<String, dynamic>> {
     this.method = MethodProtocol.GET,
   }): endUrl = url, super(url, data);
 
-  static String weburl = "https://exploress.org";
+  static String weburl = "http://127.0.0.1:8000";
+  //static String weburl = "https://exploress.org";
 
  // Uri get _uri => Uri.parse("http://127.0.0.1:8000/$url");
-  Uri get _uri => Uri.parse("$weburl/$endUrl");
+  Uri get _uri => Uri.parse("$weburl/api$endUrl");
 
 
-  //Uri get _uri => Uri.parse('http://127.0.0.1:8000/api/test_post');
 
-  //Uri? get _uriFromUrl => (url != null) ? Uri.parse(url!) : null;
+  Future<bool> connection() async {
+
+    final response = await http.post(
+        Uri.parse("$weburl/api/connect"),
+        body: {
+          'id':"lordyhas",
+          'data': "null",
+          'message': message,
+        }
+    );
+
+    debugPrint('### connection() => response.statusCode : ${response.statusCode} \n'
+        '### connection() => response.body: ${response.body}');
+
+    if (response.statusCode != 200) return false;
+    return true;
+  }
 
   @override
-  Future<void> post() async {
-
-    final response = await http.post(_uri, body: {
+  Future<bool> post() async {
+    var json = data;
+    json['id'] = "lordyhas";
+    final response = await http.post(_uri, body: json);/*(_uri, body: {
       'id':"lordyhas",
       'data': data,
       'message': message,
       'mode': mode?.name,
-    });
+    });*/
 
+    debugPrint('### send => post($json)');
     debugPrint('### post() => response.statusCode : ${response.statusCode} \n'
         '### post() => response.body: ${response.body}');
 
+    return response.statusCode == 200;
     //return response.statusCode;
   }
 
@@ -95,7 +114,7 @@ class BackendServer extends HttpProtocol<Map<String, dynamic>> {
   }
 
   @override
-  Future<void> put() async {
+  Future<bool> put() async {
     final response = await http.put(_uri, body: {
       'id':"lordyhas",
       'data': data,
@@ -106,10 +125,11 @@ class BackendServer extends HttpProtocol<Map<String, dynamic>> {
         '### put() => response.statusCode : ${response.statusCode} \n'
         '### put() => response.body: ${response.body}');
 
+    return response.statusCode == 200;
   }
 
   @override
-  Future<void> delete() async {
+  Future<bool> delete() async {
     final response = await http.delete(_uri, body: {
       'id':"lordyhas",
       'data': data,
@@ -118,11 +138,16 @@ class BackendServer extends HttpProtocol<Map<String, dynamic>> {
     });
     debugPrint('### delete() => response.statusCode : ${response.statusCode} \n'
         '### delete() => response.body: ${response.body}');
+
+    return response.statusCode == 200;
   }
 
   Future<User> login() async {
     //final response = await http.get(_uri);
-    final response = await http.post(_uri, body: data); /*({
+    final response = await http.post(
+      Uri.parse("$weburl/api/user"),
+      body: data,
+    ); /*({
       'id':"lordyhas",
       'data': data,
       'message': message,
@@ -134,14 +159,16 @@ class BackendServer extends HttpProtocol<Map<String, dynamic>> {
       for (var element in value['data']){
         dataList.add(Map.from(element));
       }
-      debugPrint("### login() => response.statusCode : ${response.statusCode} \n "
+      debugPrint("### login() => response.statusCode : ${response.statusCode}\n"
           "### login() => response.body : ${response.body}");
       return User.fromMap(dataList.first);
     } else {
-      debugPrint("### login() => response.message : Failed to load  \n"
+
+      debugPrint("### login() => response.statusCode : ${response.statusCode}\n"
+          "### login() => message : Failed "
           //"### login() => response.body : ${response.body}"
       );
-      throw Exception('Failed to load');
+      throw Exception('Login failed');
     }
   }
 
