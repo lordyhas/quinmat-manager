@@ -77,23 +77,8 @@ class _LoginPageState extends State<LoginPage>
 
   bool createAccount = false;
 
-  void testApi(){
-    //https://exploress.org/api/products
-    BackendServer http = const BackendServer("api/user",
-      data: {
-        'id': "lordyhas",
-        'email': "jean.jacques@exploress.org",
-        'password': "jjacques00",
-      }
-    );
-    http.login();
-  }
-
-
-
   @override
   Widget build(BuildContext context) {
-    //testApi();
     if (!kIsWeb) {
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         systemNavigationBarColor: FluentTheme.of(context).scaffoldBackgroundColor,
@@ -146,7 +131,6 @@ class _LoginPageState extends State<LoginPage>
                       listener: (context, state) {
                         if (state.status.isSubmissionFailure) {
                           FocusScope.of(context).requestFocus(FocusNode());
-
                           displayInfoBar(context, builder: (context, close) {
                             return InfoBar(
                               title: const Text('Something goes wrong :/'),
