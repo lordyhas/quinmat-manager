@@ -95,14 +95,14 @@ class _MySpaceScreenState extends State<MySpaceScreen> {
                                   ifTrue: ListTile(
                                     leading: ClipRRect(
                                       borderRadius: BorderRadius.circular(50),
-                                      child: Image.network(
-                                        "${state.user.photoMail}",
+                                      child: Image.asset(
+                                        "assets/img/profile3.jpg",
                                         height: 75,
                                         fit: BoxFit.cover,
                                       ),
                                     ),
                                     title: Text("${state.user.name}"),
-                                    subtitle: Text("${state.user.email}"),
+                                    subtitle: Text(state.user.email),
                                   ),
                                   ifFalse: ListTile(
                                     leading: ClipRRect(
@@ -115,7 +115,7 @@ class _MySpaceScreenState extends State<MySpaceScreen> {
                                     ),
                                     title: const Text("Unknown Name"),
                                     subtitle:
-                                        const Text("guest-user@exploress.space"),
+                                        const Text("guest@exploress.org"),
                                   ),
                                 ),
                                 const SizedBox(
@@ -124,13 +124,10 @@ class _MySpaceScreenState extends State<MySpaceScreen> {
                                 Wrap(
                                   spacing: 8.0,
                                   runSpacing: 8.0,
-                                  //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Button(
-                                      //borderRadius: BorderRadius.circular(20),
                                       onPressed: () {},
                                       child: Container(
-                                        //margin: const EdgeInsets.all(4.0),
                                         height: 50,
                                         alignment: Alignment.center,
                                         constraints: const BoxConstraints(
@@ -142,13 +139,17 @@ class _MySpaceScreenState extends State<MySpaceScreen> {
                                             Text(
                                               "À verifier",
                                               style: TextStyle(
-                                                  fontSize: 16,
-                                                  color: Colors.white.withOpacity(0.7)),
+                                                fontSize: 16,
+                                                color: Colors.white
+                                                    .withOpacity(0.7),
+                                              ),
                                             ),
                                             const Text("18",
                                                 style: TextStyle(
-                                                    fontSize: 20,
-                                                    fontWeight: FontWeight.bold)),
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold,
+                                                )
+                                            ),
                                             const Spacer(),
                                           ],
                                         ),
