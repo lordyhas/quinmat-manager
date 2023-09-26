@@ -4,7 +4,10 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/cupertino.dart' as cup;
 import 'package:flutter_bloc/flutter_bloc.dart%20';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:qmt_manager/logic/transfer_protocol/http_protocol.dart';
 import 'package:qmt_manager/logic/values.dart';
+
+import '../../logic/model/data_model.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -19,6 +22,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   bool underline = false;
 
+  Bill bill = Bill(productId: 0);
+
   final GlobalKey<FormState> validatorForm = GlobalKey<FormState>();
 
   @override
@@ -27,9 +32,15 @@ class _HomeScreenState extends State<HomeScreen> {
     BlocProvider.of<NavigationController>(context)
         .setState(NavigationScreen.home);
   }
+  int? productId;
+  int? customerId;
+  int? quantity;
+  String? phone;
+  String? regno;
 
   @override
   Widget build(BuildContext context) {
+
     BlocProvider.of<NavigationController>(context)
         .setState(NavigationScreen.home);
     return ScaffoldPage(
@@ -190,16 +201,26 @@ class _HomeScreenState extends State<HomeScreen> {
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 8.0, vertical: 8.0),
                                         child: InfoLabel(
-                                          label:"Nom du client",
+                                          label:"No du client",
                                           child: TextFormBox(
-                                            placeholder:"Entrez le nom",
+                                            placeholder:"Entrez le no",
                                             onEditingComplete: (){},
-                                            onChanged: (str) {},
+                                            onChanged: (value) {
+                                              print("XXXXXXXXXX");
+                                              setState(() {
+                                                customerId = value.toInt();
+                                                bill.copyWith(customerId: value.toInt());
+                                              });
+                                            },
                                             onSaved: (String? value) {
+
 
                                             },
                                             validator: (v) {
-                                              if (v!.length < 3) return 'Nom est requis.';
+                                              if (v!.isEmpty) return null;
+                                              if (v.isNotNumeric) {
+                                                return 'No doit être en chiffre.';
+                                              }
                                               return null;
                                             },
                                           ),
@@ -209,16 +230,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 8.0, vertical: 8.0),
                                         child: InfoLabel(
-                                          label:"Numero du produits",
+                                          label:"Numéro du produits *",
                                           child: TextFormBox(
                                             placeholder:"No produit",
                                             onEditingComplete: (){},
-                                            onChanged: (str) {},
+                                            onChanged: (value) {
+                                              print("XXXXXXXXXX");
+                                              setState(() {
+                                                productId = value.toInt();
+                                                bill.copyWith(productId: value.toInt());
+                                              });
+                                            },
                                             onSaved: (String? value) {
-
                                             },
                                             validator: (v) {
-                                              if (v!.length < 3) return 'No est requis.';
+                                              if (v!.isEmpty) return 'No est requis.';
+                                              if (v.isNotNumeric) return 'No doit être en chiffre.';
                                               return null;
                                             },
                                           ),
@@ -235,16 +262,23 @@ class _HomeScreenState extends State<HomeScreen> {
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 8.0, vertical: 8.0),
                                         child: InfoLabel(
-                                          label:"Qté d'item ",
+                                          label:"Quantité d'item *",
                                           child: TextFormBox(
                                             placeholder:"Entrez la qté",
                                             onEditingComplete: (){},
-                                            onChanged: (str) {},
+                                            onChanged: (value) {
+                                              print("XXXXXXXXXX");
+                                              setState(() {
+                                                quantity = value.toInt();
+                                                bill.copyWith(quantity: value.toInt());
+                                              });
+                                            },
                                             onSaved: (String? value) {
 
                                             },
                                             validator: (v) {
-                                              if (v!.length < 3) return 'Qté est requis.';
+                                              if (v!.isEmpty) return 'Qté est requis.';
+                                              if (v.isNotNumeric) return 'Qté doit être en chiffre.';
                                               return null;
                                             },
                                           ),
@@ -254,16 +288,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 8.0, vertical: 8.0),
                                         child: InfoLabel(
-                                          label:"Matricule emplyé",
+                                          label:"Matricule employé",
                                           child: TextFormBox(
                                             placeholder:"Entrez le matricule",
                                             onEditingComplete: (){},
-                                            onChanged: (str) {},
+                                            onChanged: (value) {
+                                              setState(() {
+                                                regno = value;
+                                                bill.copyWith(regno: value);
+                                              });
+                                            },
                                             onSaved: (String? value) {
+
 
                                             },
                                             validator: (v) {
-                                              if (v!.length < 3) return 'Modèle est requis.';
+                                              //if (v!.isEmpty) return 'Matricule est requis.';
                                               return null;
                                             },
                                           ),
@@ -280,16 +320,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 8.0, vertical: 8.0),
                                         child: InfoLabel(
-                                          label:"Qté d'item ",
+                                          label:"Numéro de telephone ",
                                           child: TextFormBox(
-                                            placeholder:"Entrez la qté",
+                                            placeholder:"Entrez le contact",
                                             onEditingComplete: (){},
-                                            onChanged: (str) {},
+                                            onChanged: (value) {
+                                              setState(() {
+                                                phone = value;
+                                                bill.copyWith(phone: value);
+                                              });
+                                            },
                                             onSaved: (String? value) {
 
                                             },
                                             validator: (v) {
-                                              if (v!.length < 3) return 'Qté est requis.';
+                                              //if (v!.isEmpty) return 'Phone est requis.';
                                               return null;
                                             },
                                           ),
@@ -299,16 +344,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 8.0, vertical: 8.0),
                                         child: InfoLabel(
-                                          label:"Matricule emplyé",
+                                          label:"Matricule employé",
                                           child: TextFormBox(
                                             placeholder:"Entrez le matricule",
                                             onEditingComplete: (){},
                                             onChanged: (str) {},
                                             onSaved: (String? value) {
-
+                                              //bill.copyWith(regno: value);
                                             },
                                             validator: (v) {
-                                              if (v!.length < 3) return 'Modèle est requis.';
+                                              //if (v!.length < 3) return 'Modèle est requis.';
                                               return null;
                                             },
                                           ),
@@ -328,7 +373,57 @@ class _HomeScreenState extends State<HomeScreen> {
                                 children: [
                                   const Spacer(),
                                   FilledButton(
-                                    onPressed: (){},
+                                    onPressed: (){
+                                      if(validatorForm.currentState!.validate()){
+                                        if(customerId == null &&
+                                            productId == null &&
+                                            quantity == null ) return;
+
+                                        final bill = Bill(
+                                          productId: productId ?? 0,
+                                          customerId: customerId ?? 1,
+                                          quantity: quantity ?? 0,
+                                          phone: phone,
+                                          regno: regno,
+                                        );
+                                        final http = BackendServer(
+                                            "/transactions",
+                                            data: bill.toMap()
+                                        );
+
+                                        print(bill.toMap());
+
+                                        http.post().then((status) {
+                                          if(status){
+                                            displayInfoBar(context, builder: (context, close) {
+                                              return InfoBar(
+                                                title: const Text('Succés :)'),
+                                                content: const Text(
+                                                    'Facture enregistré avec succés :)'),
+                                                action: IconButton(
+                                                  icon: const Icon(FluentIcons.check_mark),
+                                                  onPressed: close,
+                                                ),
+                                                severity: InfoBarSeverity.warning,
+                                              );
+                                            });
+                                          }else{
+                                            displayInfoBar(context, builder: (context, close) {
+                                              return InfoBar(
+                                                title: const Text('Echec :/'),
+                                                content: const Text(
+                                                    'Facture non enregistré :/'),
+                                                action: IconButton(
+                                                  icon: const Icon(FluentIcons.clear),
+                                                  onPressed: close,
+                                                ),
+                                                severity: InfoBarSeverity.warning,
+                                              );
+                                            });
+                                          }
+                                        });
+                                      }
+                                    },
                                     child: const Text("Faire la facture"),
                                   ),
                                 ],

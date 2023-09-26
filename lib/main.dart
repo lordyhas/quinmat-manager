@@ -113,9 +113,9 @@ class BusinessApp extends StatelessWidget {
         BlocProvider<NavigationController>(
           create: (context) => NavigationController(),
         ),
-        /*BlocProvider<ProductControllerBloc>(
-          create: (context) => ProductControllerBloc(),
-        ),*/
+        BlocProvider<AddProductControllerBloc>(
+          create: (context) => AddProductControllerBloc(),
+        ),
         BlocProvider<FilterCubit>(
           create: (context) => FilterCubit(),
         ),
