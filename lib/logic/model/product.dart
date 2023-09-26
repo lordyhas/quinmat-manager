@@ -19,7 +19,6 @@ class Product {
   final bool? isTendency;
   final PriceCurrency pricePer;
 
-
   const Product({
     required this.id,
     required this.name,
@@ -40,7 +39,7 @@ class Product {
     this.pricePer = PriceCurrency.CDF,
   });
 
-  static const List<ProductType> departments = [
+  static const List<ProductType> categories = [
     ProductType.QCL,
     ProductType.MOB,
     ProductType.MED,
@@ -187,22 +186,22 @@ class Product {
   }*/
 
   Map<String, dynamic> toPHPJson() => {
-    "id": id,
+    "id": "$id",
     "name": name,
     "model": model,
-    "purchasePrice": purchasePrice,
-    "salePrice": price,
+    "purchasePrice": "$purchasePrice",
+    "salePrice": "$price",
     "description": description,
-    "productType": productType.index,
-    "employeeId": employee,
-    "promotionalPrice": promotionPrice,
-    "promotionalOutdated": promotionOutdated,
-    "stock": stockNumber,
-    "threshold": threshold,
-    "images": null,
-    "address": null,//address.toString(),
-    "canReserve": canReserve,
-    "isTendency": isTendency,
+    "productType": "${productType.index}",
+    "employeeId": "$employee",
+    "promotionalPrice": "$promotionPrice",
+    "promotionalOutdated": "$promotionOutdated",
+    "stock": "$stockNumber",
+    "threshold": "$threshold",
+    //"images": null,
+    //"address": null,//address.toString(),
+    "canReserve": canReserve ? "1" : "0",
+    "isTendency": isTendency == true ? "1" : "0",
     //"updated_at": "2023-09-18T00:00:00.000000Z",
     //"created_at": "2023-09-18T00:00:00.000000Z"
   };
@@ -232,6 +231,7 @@ class Product {
       //pricePer: map['pricePer'] as PriceCurrency,
     );
   }
+
   /*factory Product.fromMap(Map<String, dynamic> map) {
     return Product(
       id: map['id'] as dynamic,
@@ -253,5 +253,5 @@ class Product {
     );
   }*/
 
-//</editor-fold>
+
 }
