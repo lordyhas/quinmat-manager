@@ -28,6 +28,7 @@ class _NavigationHomeState extends State<NavigationHome> {
   searchMenuBar(){
     //String? selectedCat;
     const cats = <String>[
+      'Produit',
       'Setting',
       'Profile',
       'About',
@@ -94,7 +95,7 @@ class _NavigationHomeState extends State<NavigationHome> {
       PaneItemSeparator(),
       PaneItem(
         icon: const Icon(FluentIcons.issue_tracking, size: iconSize,),
-        title: const Text('Track orders', style: textStyle,),
+        title: const Text('Tracking orders', style: textStyle,),
         infoBadge: const InfoBadge(source: Text('2')),
         body: const SizedBox.shrink(),
         onTap: () {},
@@ -141,14 +142,14 @@ class _NavigationHomeState extends State<NavigationHome> {
           ),
         ],
       ),
-      PaneItem(
+      /*PaneItem(
         body: const SizedBox.shrink(),
         icon: const Icon(FluentIcons.disable_updates, size: iconSize,),
         title: const Text('Disabled Item', style: textStyle,),
         //body: const _NavigationBodyItem0(),
         //enabled: false,
         onTap: (){},
-      ),
+      ),*/
       PaneItemExpander(
         icon: const Icon(FluentIcons.account_management, size: iconSize,),
         title: const Text('Mon Compte', style: textStyle,),
@@ -179,7 +180,7 @@ class _NavigationHomeState extends State<NavigationHome> {
           PaneItem(
             body: const SizedBox.shrink(),
             icon: const Icon(FluentIcons.contact_list),
-            title: const Text('Docteurs data', style: textStyle,),
+            title: const Text('Clients data', style: textStyle,),
             onTap:  () =>  Go.of(context).to(routeName: DoctorDataTableScreen.routeName),
           ),
 
