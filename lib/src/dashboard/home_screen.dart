@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart%20';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:qmt_manager/logic/transfer_protocol/http_protocol.dart';
 import 'package:qmt_manager/logic/values.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../logic/model/data_model.dart';
 
@@ -120,7 +121,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 "Ajouter un client",
                                               ),
                                             ),
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              launchUrl(Uri.parse("${BackendServer.weburl}/register"));
+                                            },
                                           ),
                                           const SizedBox(width: 8.0,),
                                           HyperlinkButton(
@@ -561,7 +564,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               //size: 42,
                             ),
                             title: const SelectableText(
-                              "Quaincaillerie",
+                              "Electronique",
                               style: TextStyle(
                                 fontSize: 18.0,
                               ),
