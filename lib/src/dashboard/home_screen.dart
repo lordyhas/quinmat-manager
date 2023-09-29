@@ -72,12 +72,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 0.5, sigmaY: 0.5),
+                          filter: ImageFilter.blur(sigmaX: 0.6, sigmaY: 0.6),
                           child: Stack(
                             children: [
                               Container(
                                 height: 200,
-                                color: Colors.black.withOpacity(0.6),
+                                color: Colors.black.withOpacity(0.8),
                               ),
                               Padding(
                                 padding: const EdgeInsets.symmetric(
@@ -484,7 +484,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                   ListTile(
                                     title: SelectableText(
-                                      "Tableau de bore du Gestionaire : ${AppConstant.name}",
+                                      "Tableau de bord du Gestionaire : ${AppConstant.name}",
                                       style: TextStyle(
                                         fontSize: 16,
                                         color: Colors.black
@@ -564,7 +564,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               //size: 42,
                             ),
                             title: const SelectableText(
-                              "Electronique",
+                              "Electronique ",
                               style: TextStyle(
                                 fontSize: 18.0,
                               ),
