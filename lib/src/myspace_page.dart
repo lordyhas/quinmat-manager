@@ -204,7 +204,7 @@ class _MySpaceScreenState extends State<MySpaceScreen> {
                                       ),
                                       child: Container(
                                         //margin: const EdgeInsets.all(4.0),
-                                        height: 45,
+                                        height: 30,
                                         alignment: Alignment.center,
                                         constraints: const BoxConstraints(
                                           maxWidth: 200,
@@ -225,7 +225,9 @@ class _MySpaceScreenState extends State<MySpaceScreen> {
                                       ),
                                     ),
 
-                                    Button(
+                                    //MouseRegion(),
+
+                                    FilledButton(
                                       //hoverColor:  Colors.teal,
                                       //borderRadius: BorderRadius.circular(20),
                                       onPressed: Go.params(context,
@@ -233,7 +235,7 @@ class _MySpaceScreenState extends State<MySpaceScreen> {
                                       ).push,
                                       child: Container(
                                         //margin: const EdgeInsets.all(4.0),
-                                        height: 45,
+                                        height: 30,
                                         alignment: Alignment.center,
                                         constraints: const BoxConstraints(
                                           maxWidth: 200,
@@ -242,7 +244,7 @@ class _MySpaceScreenState extends State<MySpaceScreen> {
                                           children: [
                                             Spacer(),
                                             Text(
-                                              "Database docteur",
+                                              "Nos clients",
                                               style: TextStyle(
                                                 fontSize: 20,
                                                 color: Colors.white,

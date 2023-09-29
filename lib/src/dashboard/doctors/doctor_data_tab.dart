@@ -211,12 +211,12 @@ class Doctor {
 
 class DoctorDataSource extends DataTableSource {
 
-  final List<Map<String, dynamic>> data;
+  List<Map<String, dynamic>> data;
 
 
   DoctorDataSource({required this.data});
 
-  List<Doctor> get _doctors => data.map((final Map<String, dynamic> data) =>  Doctor.fromJsonApi(data)).toList();
+  List<Doctor> _doctors = doctorData.map((final Map<String, dynamic> map) =>  Doctor.fromJsonApi(map)).toList();
 
   void _sort<T>(Comparable<T> Function(Doctor d) getField, bool ascending) {
     _doctors.sort((Doctor a, Doctor b) {
@@ -278,9 +278,9 @@ class DoctorDataSource extends DataTableSource {
         ),*/
         DataCell(Text(doctor.location)),
         DataCell(Text(doctor.phoneNumbers.first)),
-        DataCell(
+        /*DataCell(
           Text(doctor.emails.first),
-        ),
+        ),*/
         //DataCell(Text(doctor.isDoctor ? "Yes" : "")),
       ],
     );
@@ -576,12 +576,12 @@ class _DoctorDataTableScreenState extends State<DoctorDataTableScreen> {
                       columnIndex,
                       ascending),
                 ),
-                DataColumn(
+                /*DataColumn(
                   label: const Text('Email'),
                   //tooltip: '',
                   onSort: (int columnIndex, bool ascending) => _sort<String>(
                           (Doctor d) => d.emails.first, columnIndex, ascending),
-                ),
+                ),*/
                 /*DataColumn(
                   label: const Text('Doctor'),
                   numeric: true,

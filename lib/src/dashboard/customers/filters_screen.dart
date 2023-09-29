@@ -2,7 +2,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:qmt_manager/logic/values.dart';
 import 'package:flutter/cupertino.dart' show CupertinoSwitch;
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart' show RangeValues, AppBar, MaterialPageRoute;
+import 'package:flutter/material.dart' show RangeValues, AppBar, MaterialPageRoute, Material;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qmt_manager/src/dashboard/customers/model/view_model.dart';
 import 'package:qmt_manager/src/dashboard/customers/range_slider_view.dart';
@@ -88,89 +88,121 @@ class _FiltersScreenState extends State<FiltersScreen> {
             child: SingleChildScrollView(
               child: Container(
                 constraints: const BoxConstraints(maxWidth: 720),
-                child: Center(
+                child: SizedBox(
                   child: Column(
                     children: <Widget>[
                       Container(
+                        width: 400,
                         child: Form(
                           key: validatorKey,
-                          child: Column(
-                            children: [
-                              ConstrainedBox(
-                                constraints: const BoxConstraints(maxWidth: 300),
-                                child:  Wrap(
-                                  children: [
-                                    Container(
-                                      width: 100,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8.0, vertical: 8.0),
-                                      child: InfoLabel(
-                                        label:"USD",
-                                        child: TextFormBox(
-                                          initialValue: "1",
-                                          placeholder:"Entrez la valeur (USD)",
-                                          onChanged: (str) {},
-                                          onSaved: (String? value) {
-                                              setState(() {
-                                                usdValue = value!.toDouble();
-                                              });
-                                          },
-                                          validator: (v) {
-                                            if (v!.isEmpty) return 'USD est requis.';
-                                            if(v.isNotNumeric) return 'USD doit être un nombre.';
-                                            return null;
-                                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 16.0),
+                            child: Card(
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: Text(
+                                      'Taux du jours',
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                        //color: colorTitle(),
+                                          fontSize: MediaQuery.of(context).size.width > 360 ? 18 : 16,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    //constraints: const BoxConstraints(maxWidth: 500),
+                                    child:  Row(
+                                      children: [
+                                        Container(
+                                          width: 100,
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 8.0, vertical: 8.0),
+                                          child: InfoLabel(
+                                            label:"USD",
+                                            child: TextFormBox(
+                                              initialValue: "1",
+                                              placeholder:"Entrez la valeur (USD)",
+                                              onChanged: (str) {},
+                                              onSaved: (String? value) {
+                                                  setState(() {
+                                                    usdValue = value!.toDouble();
+                                                  });
+                                              },
+                                              validator: (v) {
+                                                if (v!.isEmpty) return 'USD est requis.';
+                                                if(v.isNotNumeric) return 'USD doit être un nombre.';
+                                                return null;
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          width: 100,
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 8.0, vertical: 8.0),
+                                          child: InfoLabel(
+                                            label:"CDF",
+                                            child: TextFormBox(
+                                              initialValue: "2475.60",
+                                              placeholder:"Entrez la valeur (CDF)",
+                                              onSaved: (value) {
+                                                setState(() {
+                                                  cdfValue = value!.toDouble();
+                                                });
+                                              },
+                                              validator: (v) {
+                                                if (v!.isEmpty) return 'CDF est requis.';
+                                                if(v.isNotNumeric) return 'CDF doit être un nombre.';
+                                                return null;
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0, vertical: 8.0),
+                                        child: FilledButton(
+                                            child: const Text("Enregistrer"),
+                                            onPressed: (){
+                                              if (validatorKey.currentState!.validate()) {
+                                                validatorKey.currentState!.save();
+                                                BlocProvider.of<FilterCubit>(context).change(
+                                                  exchangeRate: usdValue!/cdfValue!,
+                                                );
+                                              }
+                                              //validatorKey.currentState;
+                                            }
                                         ),
                                       ),
-                                    ),
-                                    Container(
-                                      width: 100,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8.0, vertical: 8.0),
-                                      child: InfoLabel(
-                                        label:"CDF",
-                                        child: TextFormBox(
-                                          initialValue: "2475.60",
-                                          placeholder:"Entrez la valeur (CDF)",
-                                          onSaved: (value) {
-                                            setState(() {
-                                              cdfValue = value!.toDouble();
-                                            });
-                                          },
-                                          validator: (v) {
-                                            if (v!.isEmpty) return 'CDF est requis.';
-                                            if(v.isNotNumeric) return 'CDF doit être un nombre.';
-                                            return null;
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                    ],
+                                  )
+                                ],
                               ),
-                              FilledButton(
-                                  child: Text("Enregistrer"),
-                                  onPressed: (){
-                                    if (validatorKey.currentState!.validate()) {
-                                      validatorKey.currentState!.save();
-                                      BlocProvider.of<FilterCubit>(context).change(
-                                        exchangeRate: usdValue!/cdfValue!,
-                                      );
-                                    }
-                                    //validatorKey.currentState;
-                                  }
-                              )
-                            ],
+                            ),
                           ),
                         ),
                       ),
-                      priceBarFilter(),
-                      const Divider(size: 1),
-                      popularFilter(),
-                      //const Divider(height: 1),
-                      //distanceViewUI(),
-                      const Divider(size: 1),
-                      shopFilterUI()
+                      Material(
+                        child: Column(
+                          children: [
+                            priceBarFilter(),
+                            const Divider(size: 1),
+                            popularFilter(),
+                            //const Divider(height: 1),
+                            //distanceViewUI(),
+                            const Divider(size: 1),
+                            shopFilterUI()
+                          ],
+                        ),
+                      ),
+
                     ],
                   ),
                 ),
@@ -577,7 +609,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
         isSelected: true,
       ),
       PopularFilterListData(
-        titleTxt: "Medical Equipment",
+        titleTxt: "Autres",
         isSelected: false,
       ),
     ];
