@@ -35,12 +35,12 @@ class AppRouter extends GoRouter {
               parentNavigatorKey: key,
               path: "/index",
               redirect: (_,state) {
-                if(BlocProvider.of<AuthBloc>(_).state.
+                /*if(BlocProvider.of<AuthBloc>(_).state.
                 status == AuthenticationStatus.authenticated){
                     return HomeScreen.routeUrl;
-                }
+                }*/
                 //return LoginPage.routeUrl;
-                return LoginPage.routeUrl;
+                return null;
               },
             ),
 
@@ -75,8 +75,8 @@ class AppRouter extends GoRouter {
           if(BlocProvider.of<AuthBloc>(_).isLogged){
             return null;
           }
-          //return LoginPage.routeUrl;
           return LoginPage.routeUrl;
+          //return null; // todo : remve this leine
         },
         builder: (context, state) {
           return const NestedView(child: HomeScreen());

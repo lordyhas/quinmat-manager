@@ -51,8 +51,8 @@ class BackendServer extends HttpProtocol<Map<String, dynamic>> {
     this.method = MethodProtocol.GET,
   }): endUrl = url, super(url, data);
 
-  static String weburl = "http://127.0.0.1:8000";
-  //static String weburl = "https://exploress.org";
+  //static String weburl = "http://127.0.0.1:8000";
+  static String weburl = "https://exploress.org";
 
  // Uri get _uri => Uri.parse("http://127.0.0.1:8000/$url");
   Uri get _uri => Uri.parse("$weburl/api$endUrl");
