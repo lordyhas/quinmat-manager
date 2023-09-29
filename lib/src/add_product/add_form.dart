@@ -152,7 +152,6 @@ class ProductForm extends StatelessWidget {
                       onSelected: (PriceCurrency value) {
                         product = product.copyWith(pricePer: value);
                         context.read<AddProductControllerBloc>().addProductPassed(product);
-
                       },
                     ),
 
@@ -180,25 +179,6 @@ class ProductForm extends StatelessWidget {
                       ),
                     ),
 
-                    /*Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 8.0),
-                      child: InfoLabel(
-                        label : "Catégorie",
-                        child: TextFormBox(
-                          //controller: productController['cat'],
-                          //textCapitalization: TextCapitalization.none,
-                          keyboardType: TextInputType.text,
-                          placeholder: "Catégorie du produit ?",
-                          onSaved: (String? value) {},
-                          validator: (v) {
-                            if (v!.isEmpty) return 'Catégorie est requis.';
-                            return null;
-                          },
-                        ),
-                      ),
-                    ),*/
-
                     //BlocBuilder<RentalControllerBloc, RentalControllerState>(
                     Container(
                       padding: const EdgeInsets.symmetric(
@@ -209,9 +189,10 @@ class ProductForm extends StatelessWidget {
                             label: "Catégorie *",
                             child: ComboboxFormField<ProductType>(
                               placeholder: const Text("Spécifier la catégorie du produit"),
-                              value: context.read<AddProductControllerBloc>().product.productType,
+                              value: context.read<AddProductControllerBloc>()
+                                  .product.productType,
                               //controller: controllers[5],
-                              items: Product.departments.map((v) {
+                              items: Product.categories.map((v) {
                                 return ComboBoxItem(
                                     value: v,
                                     child: Row(
@@ -230,7 +211,8 @@ class ProductForm extends StatelessWidget {
                               onSaved: (value) {
                                 product = product.copyWith(productType: value);
                                 //context.read<AddProductControllerBloc>().addProductPassed(product);
-                                BlocProvider.of<AddProductControllerBloc>(context)
+                                BlocProvider
+                                    .of<AddProductControllerBloc>(context)
                                     .addProductPassed(product);
                               },
                               validator: (v) {

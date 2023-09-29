@@ -43,7 +43,14 @@ class AddProductPage extends StatelessWidget {
         ),
         title: const Text("Ajouter un produit "),
       ),
-      content: const TabViewPage(),
+      content: const SizedBox(
+      //BlocProvider<AddProductControllerBloc>(
+        //create: (context) => AddProductControllerBloc(),
+        child: TabViewPage(),
+      ),
+
+
+
     );
   }
 }
@@ -66,15 +73,12 @@ class _TabViewPageState extends State<TabViewPage> {
       text: Text('Add product sheet  $index'),
       semanticLabel: 'Add product page #$index',
       icon: const Icon(FluentIcons.product_release),
-      body: BlocProvider<AddProductControllerBloc>(
-          create: (context) => AddProductControllerBloc(),
-          child: Container(
-            margin: null,
-            child: AddProductScreen(
-              key: UniqueKey(),
-              title: "Product Sheet $index",
-            ),
-          ),
+      body: Container(
+        margin: null,
+        child: AddProductScreen(
+          key: UniqueKey(),
+          title: "Product Sheet $index",
+        ),
       ),
       onClosed: () {
         setState(() {
@@ -393,8 +397,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                               ),
                                             ),
                                             TextSpan(
-                                                text:
-                                                    "${state.product.productType.name} \n"),
+                                                text: "${state.product.productType.name} \n"),
                                           ],
                                         ));
                                       }),
