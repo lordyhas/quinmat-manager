@@ -4,6 +4,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart%20';
 
 import '../../logic/values.dart';
+import 'customers/filters_screen.dart';
 
 class NestedView extends StatelessWidget {
   final Widget child;
@@ -172,6 +173,7 @@ class SliverBottomTabHeader extends SliverPersistentHeaderDelegate {
                       onPressed: () {
                         FocusScope.of(context).requestFocus(FocusNode());
                         //Go.of(context).to(routeName: FiltersScreen.routeName, );
+                        Navigator.of(context).push(FiltersScreen.route());
                       },
                       child: Padding(
                         padding: const EdgeInsets.only(left: 8),

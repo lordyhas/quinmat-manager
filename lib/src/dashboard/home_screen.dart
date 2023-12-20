@@ -4,7 +4,11 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/cupertino.dart' as cup;
 import 'package:flutter_bloc/flutter_bloc.dart%20';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:qmt_manager/logic/transfer_protocol/http_protocol.dart';
 import 'package:qmt_manager/logic/values.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../../logic/model/data_model.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -19,24 +23,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   bool underline = false;
 
-  /*double h1Size() {
-    if (Responsive.of(context).isPhone) {
-      return 28;
-    } else if (Responsive.of(context).size.width < 720) {
-      return 28;
-    } else if (Responsive.of(context).size.width < 854) {
-      return 28;
-    } else if (Responsive.of(context).size.width < 1080) {
-      return 32;
-    } else if (Responsive.of(context).size.width < 1280) {
-      return 42;
-    } else if (Responsive.of(context).size.width < 1680) {
-      return 54;
-    } else if (Responsive.of(context).size.width < 1920) {
-      return 54;
-    }
-    return 18;
-  }*/
+  Bill bill = Bill(productId: 0);
+
+  final GlobalKey<FormState> validatorForm = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -44,9 +33,15 @@ class _HomeScreenState extends State<HomeScreen> {
     BlocProvider.of<NavigationController>(context)
         .setState(NavigationScreen.home);
   }
+  int? productId;
+  int? customerId;
+  int? quantity;
+  String? phone;
+  String? regno;
 
   @override
   Widget build(BuildContext context) {
+
     BlocProvider.of<NavigationController>(context)
         .setState(NavigationScreen.home);
     return ScaffoldPage(
@@ -77,12 +72,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 0.5, sigmaY: 0.5),
+                          filter: ImageFilter.blur(sigmaX: 0.6, sigmaY: 0.6),
                           child: Stack(
                             children: [
                               Container(
                                 height: 200,
-                                color: Colors.black.withOpacity(0.6),
+                                color: Colors.black.withOpacity(0.8),
                               ),
                               Padding(
                                 padding: const EdgeInsets.symmetric(
@@ -123,10 +118,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                             child: const Padding(
                                               padding: EdgeInsets.all(8.0),
                                               child: Text(
-                                                "Créér un compte",
+                                                "Ajouter un client",
                                               ),
                                             ),
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              launchUrl(Uri.parse("${BackendServer.weburl}/register"));
+                                            },
                                           ),
                                           const SizedBox(width: 8.0,),
                                           HyperlinkButton(
@@ -178,6 +175,272 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(
                   height: 16.0,
                 ),
+                Container(
+                  margin: const EdgeInsets.all(8.0),
+                  child: Card(
+                    borderColor: Colors.white,
+                    borderRadius: BorderRadius.circular(20.0),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Form(
+                        key: validatorForm,
+                        child: Column(
+                          children: [
+                            const ListTile(
+                              title: SelectableText(
+                                "Faire la facture",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                            Wrap(
+                              children: [
+                                ConstrainedBox(
+                                  constraints: const BoxConstraints(maxWidth: 300),
+                                  child:  Wrap(
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0, vertical: 8.0),
+                                        child: InfoLabel(
+                                          label:"No du client",
+                                          child: TextFormBox(
+                                            placeholder:"Entrez le no",
+                                            onEditingComplete: (){},
+                                            onChanged: (value) {
+                                              print("XXXXXXXXXX");
+                                              setState(() {
+                                                customerId = value.toInt();
+                                                bill.copyWith(customerId: value.toInt());
+                                              });
+                                            },
+                                            onSaved: (String? value) {
+
+
+                                            },
+                                            validator: (v) {
+                                              if (v!.isEmpty) return null;
+                                              if (v.isNotNumeric) {
+                                                return 'No doit être en chiffre.';
+                                              }
+                                              return null;
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0, vertical: 8.0),
+                                        child: InfoLabel(
+                                          label:"Numéro du produits *",
+                                          child: TextFormBox(
+                                            placeholder:"No produit",
+                                            onEditingComplete: (){},
+                                            onChanged: (value) {
+                                              print("XXXXXXXXXX");
+                                              setState(() {
+                                                productId = value.toInt();
+                                                bill.copyWith(productId: value.toInt());
+                                              });
+                                            },
+                                            onSaved: (String? value) {
+                                            },
+                                            validator: (v) {
+                                              if (v!.isEmpty) return 'No est requis.';
+                                              if (v.isNotNumeric) return 'No doit être en chiffre.';
+                                              return null;
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                ConstrainedBox(
+                                  constraints: const BoxConstraints(maxWidth: 300),
+                                  child:  Wrap(
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0, vertical: 8.0),
+                                        child: InfoLabel(
+                                          label:"Quantité d'item *",
+                                          child: TextFormBox(
+                                            placeholder:"Entrez la qté",
+                                            onEditingComplete: (){},
+                                            onChanged: (value) {
+                                              print("XXXXXXXXXX");
+                                              setState(() {
+                                                quantity = value.toInt();
+                                                bill.copyWith(quantity: value.toInt());
+                                              });
+                                            },
+                                            onSaved: (String? value) {
+
+                                            },
+                                            validator: (v) {
+                                              if (v!.isEmpty) return 'Qté est requis.';
+                                              if (v.isNotNumeric) return 'Qté doit être en chiffre.';
+                                              return null;
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0, vertical: 8.0),
+                                        child: InfoLabel(
+                                          label:"Matricule employé",
+                                          child: TextFormBox(
+                                            placeholder:"Entrez le matricule",
+                                            onEditingComplete: (){},
+                                            onChanged: (value) {
+                                              setState(() {
+                                                regno = value;
+                                                bill.copyWith(regno: value);
+                                              });
+                                            },
+                                            onSaved: (String? value) {
+
+
+                                            },
+                                            validator: (v) {
+                                              //if (v!.isEmpty) return 'Matricule est requis.';
+                                              return null;
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                ConstrainedBox(
+                                  constraints: const BoxConstraints(maxWidth: 300),
+                                  child:  Wrap(
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0, vertical: 8.0),
+                                        child: InfoLabel(
+                                          label:"Numéro de telephone ",
+                                          child: TextFormBox(
+                                            placeholder:"Entrez le contact",
+                                            onEditingComplete: (){},
+                                            onChanged: (value) {
+                                              setState(() {
+                                                phone = value;
+                                                bill.copyWith(phone: value);
+                                              });
+                                            },
+                                            onSaved: (String? value) {
+
+                                            },
+                                            validator: (v) {
+                                              //if (v!.isEmpty) return 'Phone est requis.';
+                                              return null;
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0, vertical: 8.0),
+                                        child: InfoLabel(
+                                          label:"Matricule employé",
+                                          child: TextFormBox(
+                                            placeholder:"Entrez le matricule",
+                                            onEditingComplete: (){},
+                                            onChanged: (str) {},
+                                            onSaved: (String? value) {
+                                              //bill.copyWith(regno: value);
+                                            },
+                                            validator: (v) {
+                                              //if (v!.length < 3) return 'Modèle est requis.';
+                                              return null;
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16.0,
+                                vertical: 16.0,
+                              ),
+                              child: Row(
+                                children: [
+                                  const Spacer(),
+                                  FilledButton(
+                                    onPressed: (){
+                                      if(validatorForm.currentState!.validate()){
+                                        if(customerId == null &&
+                                            productId == null &&
+                                            quantity == null ) return;
+
+                                        final bill = Bill(
+                                          productId: productId ?? 0,
+                                          customerId: customerId ?? 1,
+                                          quantity: quantity ?? 0,
+                                          phone: phone,
+                                          regno: regno,
+                                        );
+                                        final http = BackendServer(
+                                            "/transactions",
+                                            data: bill.toMap()
+                                        );
+
+                                        print(bill.toMap());
+
+                                        http.post().then((status) {
+                                          if(status){
+                                            displayInfoBar(context, builder: (context, close) {
+                                              return InfoBar(
+                                                title: const Text('Succés :)'),
+                                                content: const Text(
+                                                    'Facture enregistré avec succés :)'),
+                                                action: IconButton(
+                                                  icon: const Icon(FluentIcons.check_mark),
+                                                  onPressed: close,
+                                                ),
+                                                severity: InfoBarSeverity.warning,
+                                              );
+                                            });
+                                          }else{
+                                            displayInfoBar(context, builder: (context, close) {
+                                              return InfoBar(
+                                                title: const Text('Echec :/'),
+                                                content: const Text(
+                                                    'Facture non enregistré :/'),
+                                                action: IconButton(
+                                                  icon: const Icon(FluentIcons.clear),
+                                                  onPressed: close,
+                                                ),
+                                                severity: InfoBarSeverity.warning,
+                                              );
+                                            });
+                                          }
+                                        });
+                                      }
+                                    },
+                                    child: const Text("Faire la facture"),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 16.0,
+                ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ClipRRect(
@@ -221,7 +484,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                   ListTile(
                                     title: SelectableText(
-                                      "Tableau de bore du Gestionaire : ${AppConstant.name}",
+                                      "Tableau de bord du Gestionaire : ${AppConstant.name}",
                                       style: TextStyle(
                                         fontSize: 16,
                                         color: Colors.black
@@ -249,7 +512,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Container(
                   margin: const EdgeInsets.all(8.0),
-
                   child: Card(
                     borderColor: Colors.white,
                     borderRadius: BorderRadius.circular(20.0),
@@ -302,7 +564,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               //size: 42,
                             ),
                             title: const SelectableText(
-                              "Quaincaillerie",
+                              "Electronique ",
                               style: TextStyle(
                                 fontSize: 18.0,
                               ),
@@ -318,7 +580,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               //size: 42,
                             ),
                             title: const SelectableText(
-                              "Medical Equipment",
+                              "Autres",
                               style: TextStyle(
                                 fontSize: 18.0,
                               ),

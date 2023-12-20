@@ -6,53 +6,20 @@ import 'dart:core';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
+import '../controller/authentication_bloc/auth_repository/setup.dart';
+
 abstract class HttpProtocol<T> {
-  Future<T> getData();
-
-  Future<void> sendData(Object? data);
-}
-
-
-class UserAgentClient extends http.BaseClient {
-  final String userAgent;
-  final http.Client _inner;
-
-  UserAgentClient(this.userAgent, this._inner);
-
-  @override
-  Future<http.StreamedResponse> send(http.BaseRequest request) {
-    request.headers['user-agent'] = userAgent;
-    return _inner.send(request);
-  }
-}
-class TransferProtocolTransaction{
-
   final String url;
-  final http.Client client;
-
-
-  TransferProtocolTransaction(this.url): client = http.Client();
-
-  Future<void> _clientTest() async {
-     //client = http.Client();
-    try {
-      var response = await client.get(
-        Uri.parse('http://127.0.0.1:8000/api/csv'),);
-      var decodedResponse = jsonDecode(utf8.decode(response.bodyBytes));
-      if (kDebugMode) {
-        print(decodedResponse.runtimeType);
-      }
-      //var uri = Uri.parse(decodedResponse['uri'] as String);
-      //print(await client.get(uri));
-
-    } finally {
-      client.close();
-    }
-  }
-
-  void close() => client.close();
+  final T data;
+  const HttpProtocol(this.url, this.data);
+  Future<List<T>> get();
+  Future<bool> post();
+  Future<bool> put();
+  Future<bool> delete();
 
 }
+
+
 class Protocol {
   final String url;
   final CRUD? mode;
@@ -70,45 +37,66 @@ class Protocol {
 }
 
 
-class TransferProtocol {
-  final String url;
+class BackendServer extends HttpProtocol<Map<String, dynamic>> {
+  final String endUrl;
   final CRUD? mode;
   final MethodProtocol method;
   final Map<String, dynamic> data;
   final String? message;
 
-  const TransferProtocol( this.url,{
+  const BackendServer( String url,{
     this.data = const <String,dynamic>{},
     this.message,
     this.mode,
     this.method = MethodProtocol.GET,
-  });
+  }): endUrl = url, super(url, data);
 
-  Uri get _uri => Uri.parse(url);
-  //Uri get _uri => Uri.parse('http://127.0.0.1:8000/api/test_post');
+  //static String weburl = "http://127.0.0.1:8000";
+  static String weburl = "https://exploress.org";
 
-  //Uri? get _uriFromUrl => (url != null) ? Uri.parse(url!) : null;
-
-  Future<void> send() async {
-    //http://127.0.0.1:8000/api/test_post
+ // Uri get _uri => Uri.parse("http://127.0.0.1:8000/$url");
+  Uri get _uri => Uri.parse("$weburl/api$endUrl");
 
 
+
+  Future<bool> connection() async {
+
+    final response = await http.post(
+        Uri.parse("$weburl/api/connect"),
+        body: {
+          'id':"lordyhas",
+          'data': "null",
+          'message': message,
+        }
+    );
+
+    debugPrint('### connection() => response.statusCode : ${response.statusCode} \n'
+        '### connection() => response.body: ${response.body}');
+
+    if (response.statusCode != 200) return false;
+    return true;
   }
 
-  Future<void> post() async {
-
-    final response = await http.post(_uri, body: {
+  @override
+  Future<bool> post() async {
+    var json = data;
+    json['id'] = "lordyhas";
+    final response = await http.post(_uri, body: json);/*(_uri, body: {
+      'id':"lordyhas",
       'data': data,
       'message': message,
       'mode': mode?.name,
-    });
+    });*/
 
-    debugPrint('post() => response.statusCode : ${response.statusCode} \n'
-        'post() => response.body: ${response.body}');
+    debugPrint('### send => post($json)');
+    debugPrint('### post() => response.statusCode : ${response.statusCode} \n'
+        '### post() => response.body: ${response.body}');
 
+    return response.statusCode == 200;
     //return response.statusCode;
   }
 
+  @override
   Future<List<Map<String, dynamic>>> get() async {
     final response = await http.get(_uri);
     List<Map<String, dynamic>> dataList = [];
@@ -117,12 +105,74 @@ class TransferProtocol {
       for (var element in value['data']){
         dataList.add(Map.from(element));
       }
-      debugPrint("get() => response.statusCode : ${response.statusCode} \n ");
+      debugPrint("### get() => response.statusCode : ${response.statusCode} \n ");
       return dataList;
     } else {
+      debugPrint("### get() => response.message : Failed to load  \n ");
       throw Exception('Failed to load');
     }
   }
+
+  @override
+  Future<bool> put() async {
+    final response = await http.put(_uri, body: {
+      'id':"lordyhas",
+      'data': data,
+      'message': message,
+      'mode': mode?.name,
+    });
+    debugPrint(''
+        '### put() => response.statusCode : ${response.statusCode} \n'
+        '### put() => response.body: ${response.body}');
+
+    return response.statusCode == 200;
+  }
+
+  @override
+  Future<bool> delete() async {
+    final response = await http.delete(_uri, body: {
+      'id':"lordyhas",
+      'data': data,
+      'message': message,
+      'mode': mode?.name,
+    });
+    debugPrint('### delete() => response.statusCode : ${response.statusCode} \n'
+        '### delete() => response.body: ${response.body}');
+
+    return response.statusCode == 200;
+  }
+
+  Future<User> login() async {
+    //final response = await http.get(_uri);
+    final response = await http.post(
+      Uri.parse("$weburl/api/user"),
+      body: data,
+    ); /*({
+      'id':"lordyhas",
+      'data': data,
+      'message': message,
+      'mode': mode?.name,
+    });*/
+    List<Map<String, dynamic>> dataList = [];
+    if (response.statusCode == 200) {
+      var value = jsonDecode(response.body) as Map;
+      for (var element in value['data']){
+        dataList.add(Map.from(element));
+      }
+      debugPrint("### login() => response.statusCode : ${response.statusCode}\n"
+          "### login() => response.body : ${response.body}");
+      return User.fromMap(dataList.first);
+    } else {
+
+      debugPrint("### login() => response.statusCode : ${response.statusCode}\n"
+          "### login() => message : Failed "
+          //"### login() => response.body : ${response.body}"
+      );
+      throw Exception('Login failed');
+    }
+  }
+
+
 
 
 }

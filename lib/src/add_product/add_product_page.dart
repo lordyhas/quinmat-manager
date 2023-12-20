@@ -3,19 +3,21 @@ library products.adder;
 import 'dart:async';
 import 'dart:io';
 
-
 import 'package:fluent_ui/fluent_ui.dart';
 
 import 'package:qmt_manager/logic/model/data_model.dart';
 import 'package:qmt_manager/logic/values.dart';
-import 'package:flutter/material.dart' show Material, Stepper, Step, ControlsDetails, ButtonBar;
+import 'package:flutter/material.dart'
+    show Material, Stepper, Step, ControlsDetails, ButtonBar;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:image_cropper/image_cropper.dart';
+import 'package:qmt_manager/src/dashboard/customers/product_table_page.dart';
+import 'package:qmt_manager/src/dashboard/home_screen.dart';
+import 'package:qmt_manager/src/home_page.dart';
 
 import '../../widgets/radio_group.dart';
-
 
 part 'add_verification.dart';
 
@@ -23,7 +25,7 @@ part 'add_upload_image.dart';
 
 part 'add_form.dart';
 
-enum StepperStep { zero, one, two}
+enum StepperStep { zero, one, two }
 
 class AddProductPage extends StatelessWidget {
   static const routeName = "form";
@@ -37,11 +39,18 @@ class AddProductPage extends StatelessWidget {
       appBar: NavigationAppBar(
         leading: IconButton(
           icon: const Icon(FluentIcons.cancel),
-          onPressed: () => Go.of(context).pop,
+          onPressed: () => Go.of(context).goNamed(ProductTablePage.routeName),
         ),
         title: const Text("Ajouter un produit "),
       ),
-      content: const TabViewPage(),
+      content: const SizedBox(
+      //BlocProvider<AddProductControllerBloc>(
+        //create: (context) => AddProductControllerBloc(),
+        child: TabViewPage(),
+      ),
+
+
+
     );
   }
 }
@@ -81,20 +90,21 @@ class _TabViewPageState extends State<TabViewPage> {
     return tab;
   }
 
-  void addTab(){
+  void addTab() {
     final index = tabs.length + 1;
     final tab = generateTab(index);
     tabs.add(tab);
     //debugPrint("tab added");
   }
+
   @override
   void initState() {
     super.initState();
     addTab();
   }
+
   @override
   Widget build(BuildContext context) {
-
     return TabView(
       tabs: tabs,
       currentIndex: currentIndex,
@@ -127,10 +137,12 @@ class _TabViewPageState extends State<TabViewPage> {
   }
 }
 
-
 class AddProductScreen extends StatefulWidget {
   final String title;
-  const AddProductScreen({required this.title, Key? key}) : super(key: key);
+  final Product? product;
+
+  const AddProductScreen({required this.title, this.product, Key? key})
+      : super(key: key);
 
   @override
   State<AddProductScreen> createState() => _AddProductScreenState();
@@ -141,21 +153,22 @@ class _AddProductScreenState extends State<AddProductScreen> {
   CroppedFile? croppedFile;
   final GlobalKey<FormState> validator = GlobalKey<FormState>();
   late final List<TextEditingController> controllers;
+
   //late final Map<String, TextEditingController> spaceCtrl;
-  late final Map<String, TextEditingController> vehicleCtrl;
+  //late final Map<String, TextEditingController> vehicleCtrl;
 
   @override
   void initState() {
-    Product vehicle = Product.empty;
+    //Product vehicle = Product.empty;
     super.initState();
     _index = StepperStep.zero;
     controllers = List<TextEditingController>.generate(
         10, (index) => TextEditingController());
     //.filled(10, TextEditingController());
 
-    vehicleCtrl = vehicle
+    /*vehicleCtrl = vehicle
         .toMap()
-        .map((key, value) => MapEntry(key, TextEditingController()));
+        .map((key, value) => MapEntry(key, TextEditingController()));*/
   }
 
   @override
@@ -176,7 +189,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       margin: const EdgeInsets.all(16.0).copyWith(left: 32.0),
                       padding: const EdgeInsets.all(16.0),
                       borderColor: Colors.white,
-                        child: Text(widget.title, style: const TextStyle(fontSize: 20),),
+                      child: Text(
+                        widget.title,
+                        style: const TextStyle(fontSize: 20),
+                      ),
                     ),
                   ),
                 ],
@@ -205,25 +221,22 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       if (validator.currentState!.validate()) {
                         validator.currentState!.save();
                         //context.watch<RentalControllerBloc>();
-
                         setState(() {
                           _index = StepperStep.one;
                         });
                       }
                       break;
                     case StepperStep.one:
-                      if (croppedFile.isNull) break;
+                      //if (croppedFile.isNull) break;
 
-                        Product vehicle = context
-                            .read<ProductControllerBloc>()
-                            .state
-                            .product
-                            .copyWith(images: [croppedFile!.path]);
-                        context
-                            .read<ProductControllerBloc>()
-                            .addProductImaged(vehicle);
-
-
+                      /* Product vehicle = BlocProvider
+                          .of<AddProductControllerBloc>(context)
+                          .product
+                          //.copyWith(images: [croppedFile!.path]);
+                          .copyWith(images: []);
+                      context
+                          .read<AddProductControllerBloc>()
+                          .addProductImaged(vehicle);*/
                       setState(() {
                         _index = StepperStep.two;
                       });
@@ -233,13 +246,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       break;
                   }
                 },
-                onStepTapped:
-                (int index) {
-                      setState(() {
-                        _index = StepperStep.values[index];
-                      });
-                    },
-                controlsBuilder: (BuildContext context, ControlsDetails controls) {
+                onStepTapped: (int index) {
+                  setState(() {
+                    _index = StepperStep.values[index];
+                  });
+                },
+                controlsBuilder: (context, controls) {
                   return SizedBox(
                     width: 520,
                     /*constraints: const BoxConstraints(
@@ -248,13 +260,17 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     child: Row(
                       children: [
                         Button(
-                            onPressed: controls.onStepContinue,
-                            child: const Text('Suivant')),
-                        const SizedBox(width: 8.0,),
+                          onPressed: controls.onStepContinue,
+                          child: const Text('Suivant'),
+                        ),
+                        const SizedBox(
+                          width: 8.0,
+                        ),
                         HyperlinkButton(
                           onPressed: controls.onStepCancel,
-                          child:
-                              Text(controls.currentStep == 0 ? 'Annulé' : 'Précédant'),
+                          child: Text(controls.currentStep == 0
+                              ? 'Annulé'
+                              : 'Précédant'),
                         ),
                         //const Spacer(),
                       ],
@@ -263,12 +279,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 },
                 steps: <Step>[
                   Step(
-                    title: const Text("Info à propos "),
+                    title: const Text("Info à propos"),
                     content: Container(
                       alignment: Alignment.centerLeft,
                       child: SizedBox(
                         child: ProductForm(
-                          productController: vehicleCtrl,
+                          //productController: vehicleCtrl,
                           validator: validator,
                           onComplete: (_) {},
                           onValidForm: (_) {},
@@ -293,99 +309,106 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   ),
                   Step(
                     title: const Text('Vérfication'),
-                    content: Container(
-                      alignment: Alignment.centerLeft,
-                      child: SizedBox(
-                        height: 540,
-                        child: BooleanBuilder(
-                          condition: () => false,
-                          ifTrue: const SizedBox.shrink(),
-                          ifFalse: Column(
-                            children: [
-                              if (context
-                                  .read<ProductControllerBloc>()
-                                  .product
-                                  .images
-                                  .isNotEmpty)
-                                SizedBox(
-                                  height: 320,
-                                  width: 320,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Card(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(8.0),
-                                        child: Responsive.of(context).isOnlyWeb
-                                            ? Image.network(context
-                                                .read<ProductControllerBloc>()
-                                                .product
-                                                .images
-                                                .first)
-                                            : Image.file(File(context
-                                                .read<ProductControllerBloc>()
-                                                .product
-                                                .images
-                                                .first)),
+                    content: BlocBuilder<AddProductControllerBloc,
+                        ProductControllerState>(
+                      builder: (context, state) {
+                        return Container(
+                          alignment: Alignment.centerLeft,
+                          child: SizedBox(
+                            height: 540,
+                            child: BooleanBuilder(
+                              condition: () => false,
+                              ifTrue: const SizedBox.shrink(),
+                              ifFalse: Column(
+                                children: [
+                                  if (state
+                                      .product
+                                      .images
+                                      .isNotEmpty)
+                                    SizedBox(
+                                      height: 320,
+                                      width: 320,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Card(
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                            child: Responsive.of(context)
+                                                    .isOnlyWeb
+                                                ? Image.network(state
+                                                    .product
+                                                    .images
+                                                    .first)
+                                                : Image.file(File(state
+                                                    .product
+                                                    .images
+                                                    .first)),
+                                          ),
+                                        ),
                                       ),
                                     ),
+                                  const SizedBox(
+                                    width: 16.0,
                                   ),
-                                ),
-                              const SizedBox(
-                                width: 16.0,
-                              ),
-                              Row(
-                                children: [
-                                  Builder(builder: (context) {
-                                    final val =
-                                        context.read<ProductControllerBloc>().product;
-                                    return Text.rich(TextSpan(
-                                      children: [
-                                        const TextSpan(
-                                          text: "Titre : ",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                        ),
-                                        TextSpan(text: "${val.name} \n"),
-                                        const TextSpan(
-                                          text: "Description : ",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                        ),
-                                        TextSpan(text: "${val.description} \n"),
-                                        const TextSpan(
-                                          text: "Pièce(s) : ",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                        ),
-                                        TextSpan(text: "${val.promotionPrice} \n"),
-                                        const TextSpan(
-                                          text: "Prix : ",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                        ),
-                                        TextSpan(text: "${val.price} \n"),
-                                        const TextSpan(
-                                          text: "Catégorie :",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                        ),
-                                        TextSpan(
-                                            text: "${val.productType.name} \n"),
-                                      ],
-                                    ));
-                                  }),
+                                  Row(
+                                    children: [
+                                      Builder(builder: (context) {
+
+                                        return Text.rich(TextSpan(
+                                          children: [
+                                            const TextSpan(
+                                              text: "Titre : ",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                            ),
+                                            TextSpan(text: "${state.product.name} \n"),
+                                            const TextSpan(
+                                              text: "Description : ",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                                text: "${state.product.description} \n"),
+                                            const TextSpan(
+                                              text: "Pièce(s) : ",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                                text:
+                                                    "${state.product.promotionPrice} \n"),
+                                            const TextSpan(
+                                              text: "Prix : ",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                            ),
+                                            TextSpan(text: "${state.product.price} \n"),
+                                            const TextSpan(
+                                              text: "Catégorie :",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                                text: "${state.product.productType.name} \n"),
+                                          ],
+                                        ));
+                                      }),
+                                    ],
+                                  ),
                                 ],
                               ),
-                            ],
+                            ),
                           ),
-                        ),
-                      ),
+                        );
+                      },
                     ),
                   ),
                 ],

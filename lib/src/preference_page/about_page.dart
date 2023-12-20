@@ -58,7 +58,7 @@ class _AboutState extends State<AboutPage>{
     final primaryTextStyle20 = const TextStyle().copyWith(fontSize: 17,);
     final textSettingsStyle = TextStyle(color: Colors.blue);
 
-    final Color backgroundColor = FluentTheme.of(context).cardColor.withOpacity(0.8); //Colors.grey[160].withOpacity(0.8);
+    final Color backgroundColor = Colors.grey[160].withOpacity(0.8); //FluentTheme.of(context).cardColor.withOpacity(0.8); //
 
 
     return WillPopScope(
@@ -95,10 +95,11 @@ class _AboutState extends State<AboutPage>{
                               const Text(
                                 AppConstant.completeName,
                                 style: TextStyle(
-                                    color: Colors.grey,
+                                    //color: Colors.grey,
                                     fontSize: 24),
                               ),
-                              Text("info@${AppConstant.shortname.toLowerCase()}.com",),
+                              Text("info@${"exploress"}.space",
+                              ),
 
                             ],),
                           ),

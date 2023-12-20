@@ -27,6 +27,9 @@ class _SettingScreenState extends State<SettingScreen> {
 
   bool splitButtonDisabled = false;
 
+  late String selectedLang;
+
+
   AccentColor splitButtonColor = Colors.red;
   final splitButtonFlyout = FlyoutController();
 
@@ -44,6 +47,14 @@ class _SettingScreenState extends State<SettingScreen> {
 
     const kSplitButtonHeight = 22.0;
     const kSplitButtonWidth = 24.0;
+
+    const List<String> langs = [
+      "Français",
+      "English",
+    ];
+
+    selectedLang = langs.first;
+
 
     return ScaffoldPage(
       content: SingleChildScrollView(
@@ -116,6 +127,8 @@ class _SettingScreenState extends State<SettingScreen> {
                                   trailing: chevronRight,
                                   onPressed: () =>  Go.of(context).to(routeName: MySpaceScreen.routeName),
                                 ),
+
+
                                 ListTile(
                                   leading: const Icon(FluentIcons.skype_message),
                                   title: const Text("Message et Chat"),
@@ -140,7 +153,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                   title: const Text("Se deconnecter"),
                                   trailing: chevronRight,
                                   onPressed: (){
-                                    BlocProvider.of<AuthenticationBloc>(context).logout();
+                                    BlocProvider.of<AuthBloc>(context).logout();
                                     Go.of(context).goNamed(LoginPage.routeName);
                                   },
                                 ),
@@ -169,7 +182,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                   fontSize: 20.0,
                                 )),
                             const SelectableText(
-                              "guest-user@quinnmat.com",
+                              "guest-user@horizon.com",
                               style: TextStyle(color: Colors.white),
                             ),
                           ],
@@ -187,6 +200,22 @@ class _SettingScreenState extends State<SettingScreen> {
                     child: Column(
                       children: [
                         ListTile(
+                          leading: const Icon(FluentIcons.locale_language),
+                          title: const Text("Changer la langue"),
+                          trailing: ComboBox<String>(
+                            value: selectedLang,
+                            items: langs.map((e) {
+                              return ComboBoxItem<String>(
+                                value: e,
+                                child: Text(e),
+                              );
+                            }).toList(),
+                            onChanged: (value) => setState(() => selectedLang = value!),
+                          ),
+                          //chevronRight,
+                          onPressed: () {},
+                        ),
+                        ListTile(
                           leading: const Icon(FluentIcons.clear_night),
                           title: const Text("Dark Mode"),
                           trailing: ToggleSwitch(
@@ -198,76 +227,82 @@ class _SettingScreenState extends State<SettingScreen> {
                         ListTile(
                           leading: const Icon(FluentIcons.boards),
                           title: const Text("Theme"),
-                          trailing: SplitButtonBar(buttons: [
-                            Button(
-                              //style: ButtonStyle(padding: ButtonState.all(EdgeInsets.zero)),
-                              onPressed: splitButtonDisabled ? null : () {},
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: splitButtonDisabled
-                                      ? splitButtonColor.secondaryBrushFor(
-                                    FluentTheme.of(context).brightness,
-                                  )
-                                      : splitButtonColor,
-                                  borderRadius: const BorderRadiusDirectional.horizontal(
-                                    start: Radius.circular(4.0),
+                          trailing: SplitButton(
+                            flyout: const SizedBox.shrink(),
+                            child: Row(
+                              children: [
+                                Button(
+                                  //style: ButtonStyle(padding: ButtonState.all(EdgeInsets.zero)),
+                                  onPressed: splitButtonDisabled ? null : () {},
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: splitButtonDisabled
+                                          ? splitButtonColor.secondaryBrushFor(
+                                        FluentTheme.of(context).brightness,
+                                      )
+                                          : splitButtonColor,
+                                      borderRadius: const BorderRadiusDirectional.horizontal(
+                                        start: Radius.circular(4.0),
+                                      ),
+                                    ),
+                                    height: kSplitButtonHeight,
+                                    width: kSplitButtonWidth,
                                   ),
                                 ),
-                                height: kSplitButtonHeight,
-                                width: kSplitButtonWidth,
-                              ),
-                            ),
-                            FlyoutTarget(
-                              controller: splitButtonFlyout,
-                              child: IconButton(
-                                icon: const SizedBox(
-                                  height: kSplitButtonHeight,
-                                  width: kSplitButtonWidth,
-                                  child: Icon(FluentIcons.chevron_down,),
-                                ),
-                                onPressed: splitButtonDisabled
-                                    ? null
-                                    : () async {
-                                  final color = await splitButtonFlyout.showFlyout<AccentColor>(
-                                    autoModeConfiguration: FlyoutAutoConfiguration(
-                                      preferredMode: FlyoutPlacementMode.bottomCenter,
+                                FlyoutTarget(
+                                  controller: splitButtonFlyout,
+                                  child: IconButton(
+                                    icon: const SizedBox(
+                                      height: kSplitButtonHeight,
+                                      width: kSplitButtonWidth,
+                                      child: Icon(FluentIcons.chevron_down,),
                                     ),
-                                    builder: (context) {
-                                      return FlyoutContent(
-                                        constraints: const BoxConstraints(maxWidth: 200.0),
-                                        child: Wrap(
-                                          runSpacing: 10.0,
-                                          spacing: 8.0,
-                                          children: Colors.accentColors.map((color) {
-                                            return Button(
-                                              autofocus: splitButtonColor == color,
-                                              style: ButtonStyle(
-                                                padding: ButtonState.all(
-                                                  const EdgeInsets.all(4.0),
-                                                ),
-                                              ),
-                                              onPressed: () {
-                                                Navigator.of(context).pop(color);
-                                              },
-                                              child: Container(
-                                                height: 40.0,
-                                                width: 40.0,
-                                                color: color,
-                                              ),
-                                            );
-                                          }).toList(),
+                                    onPressed: splitButtonDisabled
+                                        ? null
+                                        : () async {
+                                      final color = await splitButtonFlyout.showFlyout<AccentColor>(
+                                        autoModeConfiguration: FlyoutAutoConfiguration(
+                                          preferredMode: FlyoutPlacementMode.bottomCenter,
                                         ),
+                                        builder: (context) {
+                                          return FlyoutContent(
+                                            constraints: const BoxConstraints(maxWidth: 200.0),
+                                            child: Wrap(
+                                              runSpacing: 10.0,
+                                              spacing: 8.0,
+                                              children: Colors.accentColors.map((color) {
+                                                return Button(
+                                                  autofocus: splitButtonColor == color,
+                                                  style: ButtonStyle(
+                                                    padding: ButtonState.all(
+                                                      const EdgeInsets.all(4.0),
+                                                    ),
+                                                  ),
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop(color);
+                                                  },
+                                                  child: Container(
+                                                    height: 40.0,
+                                                    width: 40.0,
+                                                    color: color,
+                                                  ),
+                                                );
+                                              }).toList(),
+                                            ),
+                                          );
+                                        },
                                       );
-                                    },
-                                  );
 
-                                  if (color != null) {
-                                    setState(() => splitButtonColor = color);
-                                  }
-                                },
-                              ),
+                                      if (color != null) {
+                                        setState(() => splitButtonColor = color);
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ],
                             ),
-                          ]),
+
+                             ),
                           onPressed: () {},
                         ),
                         ListTile(
@@ -349,7 +384,6 @@ class _SettingScreenState extends State<SettingScreen> {
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
                                 return ListTile(
-
                                   leading: const Icon(FluentIcons.navigate_external_inline),
                                   title: const Text("Last Update"),
                                   subtitle: Text(
@@ -358,7 +392,6 @@ class _SettingScreenState extends State<SettingScreen> {
                                   onPressed: () {},
                                 );
                               }
-
                               return Container();
                             }),
                       ],

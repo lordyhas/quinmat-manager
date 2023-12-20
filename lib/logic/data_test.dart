@@ -15,6 +15,9 @@ class ItemDataTest {
       productType: ProductType.unknown,
       price: Random().nextInt(500) + 20,
       stockNumber: Random().nextInt(700) + 10,
+      threshold: Random().nextInt(700) + 10,
+      purchasePrice: Random().nextInt(500) + 20,
+
     ),
 
     Product(
@@ -26,6 +29,8 @@ class ItemDataTest {
       productType: ProductType.QCL,
       price: Random().nextInt(500) + 20,
       stockNumber: Random().nextInt(1500) + 500,
+      threshold: Random().nextInt(700) + 10,
+      purchasePrice: Random().nextInt(500) + 20,
     ),
 
     Product(
@@ -37,6 +42,8 @@ class ItemDataTest {
       productType: ProductType.QCL,
       price: Random().nextInt(500) + 20,
       stockNumber: Random().nextInt(1000) + 10,
+      threshold: Random().nextInt(700) + 10,
+      purchasePrice: Random().nextInt(500) + 20,
     ),
 
     Product(
@@ -48,6 +55,8 @@ class ItemDataTest {
       productType: ProductType.QCL,
       price: Random().nextInt(500) + 20,
       stockNumber: Random().nextInt(1000) + 10,
+      threshold: Random().nextInt(500) + 10,
+      purchasePrice: Random().nextInt(500) + 20,
     ),
 
     Product(
@@ -59,6 +68,8 @@ class ItemDataTest {
       productType: ProductType.QCL,
       price: Random().nextInt(500) + 20,
       stockNumber: Random().nextInt(1000) + 10,
+      threshold: Random().nextInt(700) + 10,
+      purchasePrice: Random().nextInt(500) + 20,
     ),
 
     Product(
@@ -70,6 +81,8 @@ class ItemDataTest {
       productType: ProductType.QCL,
       price: Random().nextInt(500) + 20,
       stockNumber: Random().nextInt(1000) + 10,
+      threshold: Random().nextInt(700) + 10,
+      purchasePrice: Random().nextInt(500) + 20,
     ),
 
     Product(
@@ -81,6 +94,8 @@ class ItemDataTest {
       productType: ProductType.QCL,
       price: Random().nextInt(500) + 20,
       stockNumber: Random().nextInt(1000) + 10,
+      threshold: Random().nextInt(700) + 10,
+      purchasePrice: Random().nextInt(500) + 20,
     ),
 
     Product(
@@ -92,6 +107,8 @@ class ItemDataTest {
       productType: ProductType.PAP,
       price: Random().nextInt(500) + 20,
       stockNumber: Random().nextInt(1000) + 10,
+      threshold: Random().nextInt(700) + 10,
+      purchasePrice: Random().nextInt(500) + 20,
     ),
 
     Product(
@@ -103,6 +120,8 @@ class ItemDataTest {
       productType: ProductType.MOB,
       price: Random().nextInt(500) + 20,
       stockNumber: Random().nextInt(1000) + 10,
+      threshold: Random().nextInt(700) + 10,
+      purchasePrice: Random().nextInt(500) + 20,
     ),
 
     Product(
@@ -114,6 +133,8 @@ class ItemDataTest {
       productType: ProductType.MOB,
       price: Random().nextInt(500) + 20,
       stockNumber: Random().nextInt(1000) + 10,
+      threshold: Random().nextInt(700) + 10,
+      purchasePrice: Random().nextInt(500) + 20,
     ),
 
     Product(
@@ -125,6 +146,8 @@ class ItemDataTest {
       productType: ProductType.MOB,
       price: Random().nextInt(500) + 20,
       stockNumber: Random().nextInt(1000) + 10,
+      threshold: Random().nextInt(700) + 10,
+      purchasePrice: Random().nextInt(500) + 20,
     ),
 
     Product(
@@ -136,6 +159,8 @@ class ItemDataTest {
       productType: ProductType.MED,
       price: Random().nextInt(500) + 20,
       stockNumber: Random().nextInt(1000) + 10,
+      threshold: Random().nextInt(700) + 10,
+      purchasePrice: Random().nextInt(500) + 20,
     ),
 
     Product(
@@ -147,6 +172,8 @@ class ItemDataTest {
       productType: ProductType.MED,
       price: Random().nextInt(500) + 20,
       stockNumber: Random().nextInt(1000) + 10,
+      threshold: Random().nextInt(700) + 10,
+      purchasePrice: Random().nextInt(500) + 20,
     ),
 
     Product(
@@ -158,6 +185,8 @@ class ItemDataTest {
       productType: ProductType.MED,
       price: Random().nextInt(500) + 20,
       stockNumber: Random().nextInt(1000) + 10,
+      threshold: Random().nextInt(700) + 10,
+      purchasePrice: Random().nextInt(500) + 20,
     ),
 
     Product(
@@ -169,6 +198,8 @@ class ItemDataTest {
       productType: ProductType.unknown,
       price: Random().nextInt(500) + 20,
       stockNumber: Random().nextInt(1000) + 10,
+      threshold: Random().nextInt(700) + 10,
+      purchasePrice: Random().nextInt(500) + 20,
     ),
 
     Product(
@@ -180,6 +211,8 @@ class ItemDataTest {
       productType: ProductType.unknown,
       price: Random().nextInt(500) + 20,
       stockNumber: Random().nextInt(1000) + 10,
+      threshold: Random().nextInt(700) + 10,
+      purchasePrice: Random().nextInt(500) + 20,
     ),
 
     Product(
@@ -191,6 +224,8 @@ class ItemDataTest {
       productType: ProductType.unknown,
       price: Random().nextInt(500) + 20,
       stockNumber: Random().nextInt(1000) + 10,
+      threshold: Random().nextInt(700) + 10,
+      purchasePrice: Random().nextInt(500) + 20,
     ),
 
 

@@ -14,6 +14,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:formz/formz.dart';
 
 import 'package:qmt_manager/logic/values.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../logic/transfer_protocol/http_protocol.dart';
 
 part 'login_page/login_form.dart';
 part 'login_page/button_and_input.dart';
@@ -74,8 +77,6 @@ class _LoginPageState extends State<LoginPage>
 
   bool createAccount = false;
 
-
-
   @override
   Widget build(BuildContext context) {
     if (!kIsWeb) {
@@ -84,7 +85,7 @@ class _LoginPageState extends State<LoginPage>
       ));
     }
     Size size = MediaQuery.of(context).size;
-    return BlocListener<AuthenticationBloc, AuthenticationState>(
+    return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         switch (state.status) {
           case AuthenticationStatus.authenticated:
@@ -95,7 +96,7 @@ class _LoginPageState extends State<LoginPage>
       },
       child: BlocProvider(
         create: (_) => LoginCubit(
-          context.read<AuthenticationRepository>(),
+          context.read<AuthRepository>(),
         ),
         child: BackgroundUI(
           child: ScaffoldPage(
@@ -130,7 +131,6 @@ class _LoginPageState extends State<LoginPage>
                       listener: (context, state) {
                         if (state.status.isSubmissionFailure) {
                           FocusScope.of(context).requestFocus(FocusNode());
-
                           displayInfoBar(context, builder: (context, close) {
                             return InfoBar(
                               title: const Text('Something goes wrong :/'),
@@ -250,8 +250,10 @@ class _LoginPageState extends State<LoginPage>
                                 child: const Text("Understand"),
                               ),
                               FilledButton(
-                                onPressed: GoRouter.of(context).pop ,
-                                child: const Text("Cancel"),
+                                onPressed: () {
+                                  launchUrl(Uri.parse("${BackendServer.weburl}/forgot-password"));
+                                },
+                                child: const Text("Go online"),
                               ),
                             ],
                             content: SizedBox(
@@ -332,9 +334,12 @@ class _LoginPageState extends State<LoginPage>
             ),
           ),
           // const SizedBox(),
-          RichText(
-            text: const TextSpan(
-              text: 'S\'enregistrer',
+          HyperlinkButton(
+            onPressed: () {
+              launchUrl(Uri.parse("${BackendServer.weburl}/login"));
+            },
+            child: const Text(
+              'S\'enregistrer',
               style: TextStyle(
                 //color: Colors.white70, //Theme.of(context).primaryColor.withOpacity(.8),
                 fontSize: 15,
@@ -354,6 +359,7 @@ class _LoginPageState extends State<LoginPage>
               onPressed: (){},
               icon: const Icon(CupertinoIcons.gear_solid,
                 color: Colors.white,
+                size: 24,
               )
           ) : null,
         ),
@@ -361,10 +367,7 @@ class _LoginPageState extends State<LoginPage>
     ],
   );
 
-  void testxx (){
-    const _GoogleLoginButton(text:"__");
-    const _FacebookLoginButton(text:"__");
-  }
+
 
 
 }

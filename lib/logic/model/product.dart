@@ -7,28 +7,31 @@ class Product {
   final String description;
   final ProductType productType;
   final dynamic employee;
-  final int? promotionPrice;
+  final double? promotionPrice;
   final DateTime? promotionOutdated;
   final int stockNumber;
+  final int threshold;
   final List<String> images;
   final AddressData? address;
   final bool canReserve;
-  final int? price;
+  final double? price;
+  final double? purchasePrice;
   final bool? isTendency;
   final PriceCurrency pricePer;
 
-
   const Product({
+    required this.id,
     required this.name,
     required this.model,
-    required this.id,
     required this.description,
     required this.productType,
     required this.price,
+    required this.purchasePrice,
     this.promotionPrice,
     this.promotionOutdated,
     this.employee,
     this.stockNumber = 1,
+    this.threshold = -1,
     this.images = const [],
     this.address,
     this.canReserve = false,
@@ -36,7 +39,7 @@ class Product {
     this.pricePer = PriceCurrency.CDF,
   });
 
-  static const List<ProductType> departments = [
+  static const List<ProductType> categories = [
     ProductType.QCL,
     ProductType.MOB,
     ProductType.MED,
@@ -48,6 +51,7 @@ class Product {
       name: '',
       description: '',
       price: null,
+      purchasePrice: null,
       productType: ProductType.unknown,
       model: ''
   );
@@ -61,7 +65,6 @@ class Product {
   bool get isNotEmpty => this != Product.empty;
 
   bool get isComplete => isNotEmpty && images.isNotEmpty;
-
 
 
   @override
@@ -129,14 +132,16 @@ class Product {
     String? model,
     String? description,
     ProductType? productType,
-    dynamic employee,
-    int? promotionPrice,
+    int? employee,
+    double? promotionPrice,
     DateTime? promotionOutdated,
     int? stockNumber,
+    int? threshold,
     List<String>? images,
     AddressData? address,
     bool? canReserve,
-    int? price,
+    double? price,
+    double? purchasePrice,
     bool? isTendency,
     PriceCurrency? pricePer,
   }) {
@@ -150,16 +155,18 @@ class Product {
       promotionPrice: promotionPrice ?? this.promotionPrice,
       promotionOutdated: promotionOutdated ?? this.promotionOutdated,
       stockNumber: stockNumber ?? this.stockNumber,
+      threshold: threshold ?? this.threshold,
       images: images ?? this.images,
       address: address ?? this.address,
       canReserve: canReserve ?? this.canReserve,
       price: price ?? this.price,
+      purchasePrice: purchasePrice ?? this.purchasePrice,
       isTendency: isTendency ?? this.isTendency,
       pricePer: pricePer ?? this.pricePer,
     );
   }
 
-  Map<String, dynamic> toMap() {
+  /*Map<String, dynamic> toMap() {
     return {
       'id': id,
       'name': name,
@@ -176,9 +183,56 @@ class Product {
       'isTendency': isTendency,
       'pricePer': pricePer,
     };
+  }*/
+
+  Map<String, dynamic> toPHPJson() => {
+    "id": "$id",
+    "name": name,
+    "model": model,
+    "purchasePrice": "$purchasePrice",
+    "salePrice": "$price",
+    "description": description,
+    "productType": "${productType.index}",
+    "employeeId": "$employee",
+    "promotionalPrice": "$promotionPrice",
+    "promotionalOutdated": "$promotionOutdated",
+    "stock": "$stockNumber",
+    "threshold": "$threshold",
+    //"images": null,
+    //"address": null,//address.toString(),
+    "canReserve": canReserve ? "1" : "0",
+    "isTendency": isTendency == true ? "1" : "0",
+    //"updated_at": "2023-09-18T00:00:00.000000Z",
+    //"created_at": "2023-09-18T00:00:00.000000Z"
+  };
+
+  factory Product.fromPHPJson(Map<String, dynamic> map) {
+    return Product(
+      id: map['id'] as dynamic,
+      name: map['name'] as String,
+      model: map['model'] as String,
+      price: double.parse(map['salePrice'] as String),
+      purchasePrice: double.parse(map['purchasePrice'] as String),
+      description: map['description'] as String? ?? "Aucune description" ,
+      productType: ProductType.values[int.parse(map['productType'] as String)],
+      employee: map['employeeId'] as int,
+      promotionPrice: map['promotionalPrice'] != null
+          ? double.parse(map['promotionalPrice'] as String)
+          : null,
+      promotionOutdated: map['promotionalOutdated'] != null
+          ? DateTime.parse(map['promotionalOutdated'] as String)
+          : null,
+      stockNumber: map['stock'] as int,
+      threshold: map['threshold'] as int,
+      //images: [], //map['images'] as List<String>,
+      //address: AddressData.fromMap(map['address']),
+      canReserve: map['canReserve'] as int == 1,
+      isTendency: map['isTendency'] as int == 1,
+      //pricePer: map['pricePer'] as PriceCurrency,
+    );
   }
 
-  factory Product.fromMap(Map<String, dynamic> map) {
+  /*factory Product.fromMap(Map<String, dynamic> map) {
     return Product(
       id: map['id'] as dynamic,
       name: map['name'] as String,
@@ -193,10 +247,11 @@ class Product {
       address: AddressData.fromMap(map['address']),
       canReserve: map['canReserve'] as bool,
       price: map['price'] as int,
+      purchasePrice: map['price'] as int,
       isTendency: map['isTendency'] as bool,
       pricePer: map['pricePer'] as PriceCurrency,
     );
-  }
+  }*/
 
-//</editor-fold>
+
 }

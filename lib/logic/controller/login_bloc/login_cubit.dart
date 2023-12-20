@@ -16,8 +16,8 @@ class LoginCubit extends Cubit<LoginState> {
       : /*assert(_authenticationRepository != null),*/
         super(const LoginState());
 
-  /// [AuthenticationRepository]
-  final AuthenticationRepository _authenticationRepository;
+  /// [AuthRepository]
+  final AuthRepository _authenticationRepository;
 
   /// [usernameChanged]
   void usernameChanged(String value) {

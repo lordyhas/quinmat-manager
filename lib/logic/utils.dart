@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 
 
 class AppConstant{
-  static const name = "Quinmat Management";
-  static const shortname = "Quinmat";
-  static const fullname = "Quinmat Management";
-  static const completeName = "Quinmat Management Application";
-  static const markName = "Quinmat";
-  static const organisationName = "Quinmat S.A.R.L";
+  static const name = "Horizon Business";
+  static const shortname = "Business Manager";
+  static const fullname = "Horizon Business Manager";
+  static const completeName = "Horizon Business Application";
+  static const markName = "HBM";
+  static const organisationName = "Horizon Business Org";
   static const developer = "Hassan K.";
   static const developerId = "lordyhas";
   static const developerOrg = "KDynamic Lab";

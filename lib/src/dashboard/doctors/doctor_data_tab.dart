@@ -1,5 +1,10 @@
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter/material.dart' show DataTableSource, DataRow, DataCell, DataColumn, PaginatedDataTable;
+import 'package:flutter/material.dart' show
+    DataTableSource,
+    DataRow,
+    DataCell,
+    DataColumn,
+    PaginatedDataTable, DataColumnSortCallback;
 import 'package:qmt_manager/src/add_doctor/add_doctor_page.dart';
 import 'package:qmt_manager/logic/data.csv.dart';
 
@@ -48,7 +53,7 @@ class Doctor {
     this.emails = const <String>[],
   });
 
-  bool selected = false;
+  bool? selected = false;
 
   static Doctor empty = Doctor(
     name: "",
@@ -206,12 +211,12 @@ class Doctor {
 
 class DoctorDataSource extends DataTableSource {
 
-  final List<Map<String, dynamic>> data;
+  List<Map<String, dynamic>> data;
 
 
   DoctorDataSource({required this.data});
 
-  List<Doctor> get _doctors => data.map((final Map<String, dynamic> data) =>  Doctor.fromJsonApi(data)).toList();
+  List<Doctor> _doctors = doctorData.map((final Map<String, dynamic> map) =>  Doctor.fromJsonApi(map)).toList();
 
   void _sort<T>(Comparable<T> Function(Doctor d) getField, bool ascending) {
     _doctors.sort((Doctor a, Doctor b) {
@@ -236,13 +241,22 @@ class DoctorDataSource extends DataTableSource {
     final Doctor doctor = _doctors[index];
     return DataRow.byIndex(
       index: index,
-      selected: doctor.selected,
+      selected: doctor.selected!,
+      /*onSelectChanged:  (bool? value) {
+        if (doctor.selected != value) {
+          _selectedCount += value! ? 1 : -1;
+          assert(_selectedCount >= 0);
+          doctor.selected = value;
+          notifyListeners();
+        }
+      },*/
       onSelectChanged: (bool? value) {
         if (doctor.selected != value) {
           _selectedCount += value! ? 1 : -1;
           assert(_selectedCount >= 0);
           doctor.selected = value;
           notifyListeners();
+
         }
       },
       cells: <DataCell>[
@@ -256,18 +270,18 @@ class DoctorDataSource extends DataTableSource {
           //placeholder: true,
         ),
         DataCell(Text(doctor.sex)),
-        DataCell(Text(doctor.speciality.toString())),
+        /*DataCell(Text(doctor.speciality.toString())),
         DataCell(
           Text(doctor.hospital),
           onDoubleTap: () {},
           onLongPress: () {},
-        ),
+        ),*/
         DataCell(Text(doctor.location)),
         DataCell(Text(doctor.phoneNumbers.first)),
-        DataCell(
+        /*DataCell(
           Text(doctor.emails.first),
-        ),
-        DataCell(Text(doctor.isDoctor ? "Yes" : "")),
+        ),*/
+        //DataCell(Text(doctor.isDoctor ? "Yes" : "")),
       ],
     );
   }
@@ -305,7 +319,7 @@ class _DoctorDataTableScreenState extends State<DoctorDataTableScreen> {
   bool _sortAscending = true;
   late final DoctorDataSource _doctorsDataSource;// = DoctorDataSource();
 
-  TransferProtocol http = const TransferProtocol("https://exploress.space/api/doctor-sample/csv");
+  //TransferProtocol http = const TransferProtocol("https://exploress.space/api/doctor-sample/csv");
 
 
   void loadData() async {
@@ -362,7 +376,7 @@ class _DoctorDataTableScreenState extends State<DoctorDataTableScreen> {
 
     return ScaffoldPage(
       header:  PageHeader(
-        title: const Text('Doctor data tables'),
+        title: const Text('Data tables'),
         commandBar: Container(
           constraints: const BoxConstraints(maxWidth: 450),
           child: CommandBarCard(
@@ -475,9 +489,6 @@ class _DoctorDataTableScreenState extends State<DoctorDataTableScreen> {
                   label: Text('Disabled'),
                   onPressed: null,
                 ),
-
-
-
               ],
               secondaryItems: const [],
             ),
@@ -486,20 +497,18 @@ class _DoctorDataTableScreenState extends State<DoctorDataTableScreen> {
       ),
 
       content: FutureBuilder<List<Map<String, dynamic>>>(
-        future: http.get(), //as List<Map<String, String>>,
+        initialData: [{},{}],
+        future: null, //http.get(), //as List<Map<String, String>>,
         builder: (context, snapshot) {
           if(!snapshot.hasData) {
             return const Center(child:  ProgressRing());
           }
 
-
-
           return SingleChildScrollView(
-
             //controller: scrollController,
             padding: const EdgeInsets.all(20.0),
             child:  PaginatedDataTable(
-              header: const Text('Doctors'),
+              header: const Text('Employés'),
               actions: [
                 IconButton(onPressed: () {}, icon: const Icon(FluentIcons.delete)),
                 IconButton(
@@ -538,12 +547,12 @@ class _DoctorDataTableScreenState extends State<DoctorDataTableScreen> {
                           (Doctor d) => d.name, columnIndex, ascending),
                 ),
                 DataColumn(
-                  label: const Text('Sex'),
+                  label: const Text('Sexe'),
                   //numeric: true,
                   onSort: (int columnIndex, bool ascending) => _sort<String>(
                           (Doctor d) => d.sex, columnIndex, ascending),
                 ),
-                DataColumn(
+                /*DataColumn(
                   label: const Text('Speciality'),
                   onSort: (int columnIndex, bool ascending) => _sort<String>(
                           (Doctor d) => d.speciality, columnIndex, ascending),
@@ -553,7 +562,7 @@ class _DoctorDataTableScreenState extends State<DoctorDataTableScreen> {
                   //tooltip: 'Each hospital.',
                   onSort: (int columnIndex, bool ascending) => _sort<String>(
                           (Doctor d) => d.hospital, columnIndex, ascending),
-                ),
+                ),*/
                 DataColumn(
                   label: const Text('Location'),
                   tooltip: 'Hospital location.',
@@ -567,20 +576,20 @@ class _DoctorDataTableScreenState extends State<DoctorDataTableScreen> {
                       columnIndex,
                       ascending),
                 ),
-                DataColumn(
+                /*DataColumn(
                   label: const Text('Email'),
                   //tooltip: '',
                   onSort: (int columnIndex, bool ascending) => _sort<String>(
                           (Doctor d) => d.emails.first, columnIndex, ascending),
-                ),
-                DataColumn(
+                ),*/
+                /*DataColumn(
                   label: const Text('Doctor'),
                   numeric: true,
                   onSort: (int columnIndex, bool ascending) => _sort<String>(
                           (Doctor d) => d.isDoctor.toString(),
                       columnIndex,
                       ascending),
-                ),
+                ),*/
               ],
               source: _doctorsDataSource,
             ),

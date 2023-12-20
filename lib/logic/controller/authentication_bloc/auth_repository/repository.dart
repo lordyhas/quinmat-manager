@@ -155,8 +155,34 @@ class CacheClient {
 
   final Map<String, Object> _cache;
 
+  Future<void> _save(User user) async {
+    // Create a box collection
+    final collection = await BoxCollection.open(
+      'LoggedUserBox', // Name of your database
+      {'users', 'credentials'}, // Names of your boxes
+    );
+
+    // Open your boxes. Optional: Give it a type.
+    final catsBox = await collection.openBox<Map<String, dynamic>>('users');
+
+    // Put something in
+
+    await catsBox.put(user.email, user.toMap());
+    //await catsBox.put('loki', {'name': 'Loki', 'age': 2});
+
+    // Get values of type (immutable) Map?
+    final loki = await catsBox.get(user.email);
+    //print('Loki is ${loki?['age']} years old.');
+
+    // Returns a List of values
+    final cats = await catsBox.getAll(['loki', 'fluffy']);
+    //print(cats);
+  }
+
   /// Writes the provide [key], [value] pair to the in-memory cache.
   void write<T extends Object>({required String key, required T value}) {
+    // todo : listen to my hive database
+
     _cache[key] = value;
   }
 
@@ -173,19 +199,25 @@ class CacheClient {
 /// Repository which manages user authentication_bloc.
 /// {@endtemplate}
 ///
-class AuthenticationRepository {
+class AuthRepository {
   /// {@macro authentication_repository}
-  AuthenticationRepository({
+  AuthRepository({
     CacheClient? cache,
-    firebase_auth.FirebaseAuth? firebaseAuth,
+    firebaseAuth,
     GoogleSignIn? googleSignIn,
   })  : _cache = cache ?? CacheClient(),
-        _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance,
+        //_firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance,
         _googleSignIn = googleSignIn ?? GoogleSignIn.standard();
 
   final CacheClient _cache;
-  final firebase_auth.FirebaseAuth _firebaseAuth;
+  //final firebase_auth.FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
+
+
+  // Create a stream controller for connectivity status
+  final StreamController<User> _userLoginController = StreamController.broadcast();
+
+
 
   /// Whether or not the current environment is web
   /// Should only be overriden for testing purposes. Otherwise,
@@ -203,11 +235,18 @@ class AuthenticationRepository {
   ///
   /// Emits [User.empty] if the user is not authenticated.
   Stream<User> get user {
-    return _firebaseAuth.authStateChanges().map((firebaseUser) {
+
+    return _userLoginController.stream..listen((User user) {
+       _cache.write(key: userCacheKey, value: user);
+    });
+
+    /*return _firebaseAuth.authStateChanges().map((firebaseUser) {
       final user = firebaseUser == null ? User.empty : firebaseUser.toUser;
       _cache.write(key: userCacheKey, value: user);
       return user;
-    });
+    });*/
+
+
   }
 
   /// Returns the current cached user.
@@ -219,14 +258,16 @@ class AuthenticationRepository {
   /// Creates a new user with the provided [email] and [password].
   ///
   /// Throws a [SignUpWithEmailAndPasswordFailure] if an exception occurs.
-  Future<void> signUp({required String email, required String password}) async {
+  Future<void> _signUp({required String email, required String password}) async {
     try {
-      await _firebaseAuth.createUserWithEmailAndPassword(
+
+      //http.post();
+      /*await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
-      );
-    } on firebase_auth.FirebaseAuthException catch (e) {
-      throw SignUpWithEmailAndPasswordFailure.fromCode(e.code);
+      );*/
+    } on Exception catch (e) {
+      throw SignUpWithEmailAndPasswordFailure(e.toString());
     } catch (_) {
       throw const SignUpWithEmailAndPasswordFailure();
     }
@@ -237,26 +278,27 @@ class AuthenticationRepository {
   /// Throws a [LogInWithGoogleFailure] if an exception occurs.
   Future<void> logInWithGoogle() async {
     try {
-      late final firebase_auth.AuthCredential credential;
+      //late final firebase_auth.AuthCredential credential;
       if (isWeb) {
-        final googleProvider = firebase_auth.GoogleAuthProvider();
+        //final googleProvider = firebase_auth.GoogleAuthProvider();
         //_firebaseAuth.signInWithProvider(provider)
-        final userCredential = await _firebaseAuth.signInWithPopup(googleProvider);
-        credential = userCredential.credential!;
+        //final userCredential = await _firebaseAuth.signInWithPopup(googleProvider);
+        //credential = userCredential.credential!;
       } else {
         final googleUser = await _googleSignIn.signIn();
         final googleAuth = await googleUser!.authentication;
-        credential = firebase_auth.GoogleAuthProvider.credential(
+
+        /*credential = firebase_auth.GoogleAuthProvider.credential(
           accessToken: googleAuth.accessToken,
           idToken: googleAuth.idToken,
-        );
+        );*/
       }
 
-      await _firebaseAuth.signInWithCredential(credential);
-    } on firebase_auth.FirebaseAuthException catch (e) {
-      debugPrint("FirebaseAuthException : LogInWithGoogleFailure.fromCode(${e.code})");
+      //await _firebaseAuth.signInWithCredential(credential);
+    } on Exception catch (e) {
+      debugPrint("FirebaseAuthException : LogInWithGoogleFailure.fromCode($e)");
 
-      throw LogInWithGoogleFailure.fromCode(e.code);
+      throw LogInWithGoogleFailure(e.toString());
     } catch (_) {
       debugPrint("### ### LogInWithGoogleFailure() => Error: $_ ");
       throw const LogInWithGoogleFailure();
@@ -273,14 +315,25 @@ class AuthenticationRepository {
     required String password,
   }) async {
     try {
-      //todo: employeeID
-      await _firebaseAuth.signInWithEmailAndPassword(
+      BackendServer databaseAccess = BackendServer(
+          "/user",
+          data: {
+            "id" : "lordyhas",
+            "reg_no" : employeeID,
+            "email" : email,
+            "password" : password,
+          }
+      );
+
+      /*await _firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
-      );
-    } on firebase_auth.FirebaseAuthException catch (e) {
-      debugPrint("FirebaseAuthException : LogInWithEmailAndPasswordFailure.fromCode(${e.code})");
-      throw LogInWithEmailAndPasswordFailure.fromCode(e.code);
+      );*/
+      databaseAccess.login().then((user) => _userLoginController.add(user));
+
+    } on Exception catch (e) {
+      debugPrint("FirebaseAuthException : LogInWithEmailAndPasswordFailure.fromCode($e)");
+      throw LogInWithEmailAndPasswordFailure(e.toString());
     } catch (_) {
       debugPrint("### ### LogInWithEmailAndPasswordFailure() => Error: $_ ");
       throw const LogInWithEmailAndPasswordFailure();
@@ -294,7 +347,7 @@ class AuthenticationRepository {
   Future<void> logOut() async {
     try {
       await Future.wait([
-        _firebaseAuth.signOut(),
+        //_firebaseAuth.signOut(),
         _googleSignIn.signOut(),
       ]);
     } catch (_) {
@@ -303,7 +356,7 @@ class AuthenticationRepository {
   }
 }
 
-
+/*
 extension on firebase_auth.User {
   //bool get emailNotVerified => !emailVerified;
   User get toUser {
@@ -320,4 +373,4 @@ extension on firebase_auth.User {
 
     );
   }
-}
+}*/

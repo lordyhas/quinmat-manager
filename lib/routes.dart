@@ -29,22 +29,18 @@ class AppRouter extends GoRouter {
   }) : super(
           navigatorKey: key,
           errorBuilder: (context, state) => OnErrorPage(error: state.error),
-          /*redirect: (context, route){
-            if(route.)
-            return HomeScreen.routeUrl;
-          },*/
-          initialLocation: LoginPage.routeName, //HomeScreen.routeUrl, //LoginPage.routeName,
+          initialLocation: HomeScreen.routeUrl, //LoginPage.routeName,
           routes: <RouteBase>[
             GoRoute(
               parentNavigatorKey: key,
               path: "/index",
               redirect: (_,state) {
-                if(BlocProvider.of<AuthenticationBloc>(_).state.
+                /*if(BlocProvider.of<AuthBloc>(_).state.
                 status == AuthenticationStatus.authenticated){
                     return HomeScreen.routeUrl;
-                }
+                }*/
                 //return LoginPage.routeUrl;
-                return HomeScreen.routeUrl;
+                return null;
               },
             ),
 
@@ -75,12 +71,24 @@ class AppRouter extends GoRouter {
       GoRoute(
         name: HomeScreen.routeName,
         path: HomeScreen.routeName,
-        redirect: null,
+        redirect: (_,state) {
+          if(BlocProvider.of<AuthBloc>(_).isLogged){
+            return null;
+          }
+          return LoginPage.routeUrl;
+          //return null; // todo : remve this leine
+        },
         builder: (context, state) {
           return const NestedView(child: HomeScreen());
         },
         routes: <RouteBase>[
           GoRoute(
+            /*redirect: (_,state){
+              if(BlocProvider.of<AuthBloc>(_).isNotLogged){
+                return LoginPage.routeUrl;
+              }
+              return null;
+            },*/
             name: MySpaceScreen.routeName,
             path: 'user',
             builder: (context, state) {

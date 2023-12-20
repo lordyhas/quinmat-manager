@@ -7,22 +7,20 @@ class ProductControllerState extends Equatable {
   final Product _product;
   final RentalControllerStatus status;
   final bool isCompleted;
-  final bool _isMovable;
+
 
   const ProductControllerState._({
-    //RentalSpace space =  RentalSpace.empty,
     Product product = Product.empty,
     this.status = RentalControllerStatus.initial,
     this.isCompleted = false,
-    bool isMovable = false,
-  }) :  _isMovable = isMovable,
+  }) :
         _product = product;
   const ProductControllerState.initial() : this._();
 
   const ProductControllerState.product(
-      Product vehicleRental,{
+      Product product,{
         RentalControllerStatus status = RentalControllerStatus.addingInfo,
-      }) : this._(product: vehicleRental, status: status, isMovable: true);
+      }) : this._(product: product, status: status);
 
   const ProductControllerState.complete(rental, {
         RentalControllerStatus status = RentalControllerStatus.checkingAll,
@@ -30,10 +28,9 @@ class ProductControllerState extends Equatable {
       product: rental is Product ? rental : Product.empty,
       status: status,
       isCompleted: true,
-      isMovable: rental is Product);
+  );
 
-  bool get isMovable => _isMovable;
-  bool get isImmovable => !_isMovable;
+
 
   Product get product =>  _product;
 

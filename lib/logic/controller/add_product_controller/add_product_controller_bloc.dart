@@ -10,13 +10,14 @@ part 'add_product_controller_state.dart';
 /// goal to save the state [AddRentPage] form while editing till end send it to
 /// a database
 ///
-/// [ProductControllerBloc] is a form state saver
-class ProductControllerBloc
+/// [AddProductControllerBloc] is a form state saver
+class AddProductControllerBloc
     extends Bloc<ProductControllerEvent, ProductControllerState> {
-  ProductControllerBloc() : super(const ProductControllerState.initial()) {
-    //on<SpaceRentalPassed>(_onSpaceRentalPassed);
-    //on<SpaceRentalImaged>(_onSpaceRentalImaged);
-    //on<SpaceRentalCompleted>(_onSpaceRentalCompleted);
+  AddProductControllerBloc({Product? product}) : super(
+      product == null
+          ?  const ProductControllerState.initial()
+          :  ProductControllerState.product(product)
+  ) {
     on<ProductPassed>(_onPassed);
     on<ProductImaged>(_onImaged);
     on<ProductCompleted>(_onCompleted);
